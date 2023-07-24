@@ -199,7 +199,7 @@ end
 
 ------------------------------------------------------HOTWIRING CONFIG--------------------------------------------------------
 Config.EnableHotwiring = true --TRUE = HOTWIRING ENABLED / FALSE = HOTWIRING DISABLED
-Config.HotwireFailChance = 50 --Number 0-100. Lower the number less chance to fail. 0 = will never fail. 100 = will always fail. [DOES NOT APPLY IF USING MINIGAME BELOW]
+Config.HotwireFailChance = 30 --Number 0-100. Lower the number less chance to fail. 0 = will never fail. 100 = will always fail. [DOES NOT APPLY IF USING MINIGAME BELOW]
 
 Config.HotwireTime = { --DOES NOT APPLY IF USING MINIGAME BELOW
     Min = 20, --Minimum time to attempt a hotwire (Seconds)
