@@ -1,3 +1,4 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 function alert(msg) 
     -- SetNotificationTextEntry("STRING")
     -- AddTextComponentString(msg)
