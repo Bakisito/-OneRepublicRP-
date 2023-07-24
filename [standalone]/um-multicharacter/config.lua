@@ -75,7 +75,7 @@ Config.StarterItems = {
         item = 'driver_license',
     },
     ['cash'] = {
-        amount = 5000,
+        amount = 1000,
         item = 'cash',
     },
 }
