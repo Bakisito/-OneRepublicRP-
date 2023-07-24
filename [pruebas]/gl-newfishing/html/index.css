@@ -1,0 +1,47 @@
+body {
+    background: none !important;
+}
+
+#container {
+    font-size: 20px;
+    padding: 25px;
+    color: black;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+		background: transparent;
+    height: 500px;
+    width: 700px;
+    border: 0px solid #081f15;
+    border-radius: 0px;
+}
+
+.vl {
+  border-left: 6px solid black;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  margin-left: -3px;
+  top: 30%;
+}
+
+button {
+    background-color: #426b59;
+    padding: 12px;
+    color: #FFFFFF;
+    border: none ! important;
+    box-shadow: none ! important;
+    outline: none ! important;
+}
+
+input {
+    margin-bottom: 5px;
+    width: 100%;
+    font-size: 15px;
+    padding: 12px;
+    border: none ! important;
+    box-shadow: none ! important;
+    outline: none ! important;
+    color: #000000;
+}

@@ -1,0 +1,26 @@
+-- Useable Items
+
+['fishingrod'] = {['name'] = 'fishingrod', ['label'] = 'Fishing Rod', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'fishingrod.png', ['unique'] = true, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'A fishing rod for adventures with friends!!'},
+['baitfish'] = {['name'] = 'baitfish', ['label'] = 'Fish Bait', ['weight'] = 200, ['type'] = 'item', ['image'] = 'baitfish.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'Fishing bait'},
+['squid'] = {['name'] = 'squid', ['label'] = 'Squid', ['weight'] = 200, ['type'] = 'item', ['image'] = 'squid.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'Looks like some kinda octopus? Might have other uses to!'},
+['mib'] = {['name'] = 'mib', ['label'] = 'Message In A Bottle', ['weight'] = 200, ['type'] = 'item', ['image'] = 'mib.png', ['unique'] = true, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'A very old bottle with a message in it'},
+
+-- Common Fish
+['yellowtail'] = {['name'] = 'yellowtail', ['label'] = 'Yellow Tail', ['weight'] = 200, ['type'] = 'item', ['image'] = 'yellowtail.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Yellow Tail'},
+['tuna'] = {['name'] = 'tuna', ['label'] = 'Tuna', ['weight'] = 200, ['type'] = 'item', ['image'] = 'tuna.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Tuna'},
+['sea_bass'] = {['name'] = 'sea_bass', ['label'] = 'Sea Bass', ['weight'] = 200, ['type'] = 'item', ['image'] = 'sea_bass.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Sea Bass'},
+['grupper'] = {['name'] = 'grupper', ['label'] = 'Grupper', ['weight'] = 200, ['type'] = 'item', ['image'] = 'grupper.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Grupper'},
+['salmon'] = {['name'] = 'salmon', ['label'] = 'Salmon', ['weight'] = 200, ['type'] = 'item', ['image'] = 'salmon.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Salmon'},
+['mahi_mahi'] = {['name'] = 'mahi_mahi', ['label'] = 'Mahi Mahi', ['weight'] = 200, ['type'] = 'item', ['image'] = 'mahi_mahi.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Mahi Mahi'},
+
+-- Medium Fish
+['flounder'] = {['name'] = 'flounder', ['label'] = 'Flounder', ['weight'] = 200, ['type'] = 'item', ['image'] = 'flounder.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Flounder'},
+['cod'] = {['name'] = 'cod', ['label'] = 'Cod', ['weight'] = 200, ['type'] = 'item', ['image'] = 'cod.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Cod'},
+
+-- Rare Fish
+['orange_roughy'] = {['name'] = 'orange_roughy', ['label'] = 'Orange Roughy', ['weight'] = 200, ['type'] = 'item', ['image'] = 'orange_roughy.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Orange Roughy'},
+['blowfish'] = {['name'] = 'blowfish', ['label'] = 'Blow Fish', ['weight'] = 200, ['type'] = 'item', ['image'] = 'blowfish.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Blow Fish'},
+
+-- Deep Sea Fish
+['turtle'] = {['name'] = 'turtle', ['label'] = 'Turtle', ['weight'] = 200, ['type'] = 'item', ['image'] = 'turtle.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Turtle'},
+['shark'] = {['name'] = 'shark', ['label'] = 'Shark', ['weight'] = 200, ['type'] = 'item', ['image'] = 'shark.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Shark'},

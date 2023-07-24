@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<CWeaponModelInfo__InitDataList>
+	<InitDatas>
+		<Item>
+		  <modelName>markomods-nsr9</modelName>
+		  <txdName>markomods-nsr9</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-base1</modelName>
+		  <txdName>markomods-nsr9</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-base3</modelName>
+		  <txdName>markomods-nsr9</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-base2</modelName>
+		  <txdName>markomods-nsr9-tan</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-base4</modelName>
+		  <txdName>markomods-nsr9-tan</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-accs1</modelName>
+		  <txdName>markomods-nsr9-accs</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-accs2</modelName>
+		  <txdName>markomods-nsr9-accs</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-accs3</modelName>
+		  <txdName>markomods-nsr9-accs</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-accs4</modelName>
+		  <txdName>markomods-nsr9-accs2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-accs5</modelName>
+		  <txdName>markomods-nsr9-accs2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-grip1</modelName>
+		  <txdName>markomods-nsr9-grips</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-grip2</modelName>
+		  <txdName>markomods-nsr9-grips</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-grip3</modelName>
+		  <txdName>markomods-nsr9-grips</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-grip4</modelName>
+		  <txdName>markomods-nsr9-grips</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-grip5</modelName>
+		  <txdName>markomods-nsr9-grips</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-grip6</modelName>
+		  <txdName>markomods-nsr9-grips2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-grip7</modelName>
+		  <txdName>markomods-nsr9-grips2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-grip8</modelName>
+		  <txdName>markomods-nsr9-grips2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-grip9</modelName>
+		  <txdName>markomods-nsr9-grips2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-mag1</modelName>
+		  <txdName>markomods-nsr9-mags</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-mag2</modelName>
+		  <txdName>markomods-nsr9-mags</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-mag3</modelName>
+		  <txdName>markomods-nsr9-mags2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-mag4</modelName>
+		  <txdName>markomods-nsr9-mags2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-mag5</modelName>
+		  <txdName>markomods-nsr9-mags2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-mag6</modelName>
+		  <txdName>markomods-nsr9-mags3</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-mag7</modelName>
+		  <txdName>markomods-nsr9-mags3</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-mag8</modelName>
+		  <txdName>markomods-nsr9-mags4</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-mag9</modelName>
+		  <txdName>markomods-nsr9-mags4</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-mag10</modelName>
+		  <txdName>markomods-nsr9-mags4</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-scope1</modelName>
+		  <txdName>markomods-nsr9-scopes</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-scope2</modelName>
+		  <txdName>markomods-nsr9-scopes</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-scope3</modelName>
+		  <txdName>markomods-nsr9-scopes</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-scope4</modelName>
+		  <txdName>markomods-nsr9-scopes2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-scope5</modelName>
+		  <txdName>markomods-nsr9-scopes2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-scope6</modelName>
+		  <txdName>markomods-nsr9-scopes2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-scope7</modelName>
+		  <txdName>markomods-nsr9-scopes3</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-scope8</modelName>
+		  <txdName>markomods-nsr9-scopes3</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-scope9</modelName>
+		  <txdName>markomods-nsr9-scopes4</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-scope10</modelName>
+		  <txdName>markomods-nsr9-scopes4</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-scope11</modelName>
+		  <txdName>markomods-nsr9-scopes4</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-stock1</modelName>
+		  <txdName>markomods-nsr9-stocks</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-stock2</modelName>
+		  <txdName>markomods-nsr9-stocks</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-stock3</modelName>
+		  <txdName>markomods-nsr9-stocks</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-stock4</modelName>
+		  <txdName>markomods-nsr9-stocks</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-stock5</modelName>
+		  <txdName>markomods-nsr9-stocks2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+				<Item>
+		  <modelName>markomods-nsr9-stock6</modelName>
+		  <txdName>markomods-nsr9-stocks2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+				<Item>
+		  <modelName>markomods-nsr9-stock7</modelName>
+		  <txdName>markomods-nsr9-stocks2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+				<Item>
+		  <modelName>markomods-nsr9-stock8</modelName>
+		  <txdName>markomods-nsr9-stocks2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-stock9</modelName>
+		  <txdName>markomods-nsr9-stocks2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-stock10</modelName>
+		  <txdName>markomods-nsr9-stocks2</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-supp1</modelName>
+		  <txdName>markomods-nsr9-suppressors</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-supp2</modelName>
+		  <txdName>markomods-nsr9-suppressors</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-supp3</modelName>
+		  <txdName>markomods-nsr9-suppressors</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-supp4</modelName>
+		  <txdName>markomods-nsr9-suppressors</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-supp5</modelName>
+		  <txdName>markomods-nsr9-suppressors</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-supp6</modelName>
+		  <txdName>markomods-nsr9-suppressors</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-supp7</modelName>
+		  <txdName>markomods-nsr9-suppressors</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-supp8</modelName>
+		  <txdName>markomods-nsr9-suppressors</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-supp9</modelName>
+		  <txdName>markomods-nsr9-suppressors</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+		<Item>
+		  <modelName>markomods-nsr9-supp10</modelName>
+		  <txdName>markomods-nsr9-suppressors</txdName>
+		  <ptfxAssetName>NULL</ptfxAssetName>
+		  <lodDist value="75"/>
+		</Item>
+	</InitDatas>
+</CWeaponModelInfo__InitDataList>
