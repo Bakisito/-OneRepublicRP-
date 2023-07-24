@@ -1,0 +1,146 @@
+	
+	['burger'] = {
+		label = 'Hamburger',
+		stack = false,
+		close = true,
+	},
+
+	['chaser'] = {
+		label = 'Chaser Choco Bar',
+		stack = false,
+		close = true,
+	},
+
+	['meteorite'] = {
+		label = 'Meteorite Choco Bar',
+		stack = false,
+		close = true,
+	},
+
+	['hotdog'] = {
+		label = 'Hotdog',
+		stack = false,
+		close = true,
+	},
+
+	['taco'] = {
+		label = 'Taco',
+		stack = false,
+		close = true,
+	},
+	
+	['piswasser'] = {
+		label = 'Pißwasser',
+		stack = false,
+		close = true,
+	},
+
+	['mount_whiskey'] = {
+		label = 'The Mount Whiskey',
+		stack = false,
+		close = true,
+	},
+
+	['tequila'] = {
+		label = 'Tequilya',
+		stack = false,
+		close = true,
+	},
+
+	['nogo_vodka'] = {
+		label = 'Nogo Vodka',
+		stack = false,
+		close = true,
+	},
+
+	['raine'] = {
+		label = 'Raine Water',
+		stack = false,
+		close = true,
+	},
+
+	['energy_drink'] = {
+		label = 'Energy drink',
+		stack = false,
+		close = true,
+	},
+
+	['alcotester'] = {
+		label = 'Alcohol Tester',
+		stack = false,
+		close = true,
+	},
+
+	['sprunk'] = {
+		label = 'Sprunk',
+		stack = false,
+		close = true,
+	},
+
+	['coffe'] = {
+		label = 'Coffe',
+		stack = false,
+		close = true,
+	},
+
+	['cola'] = {
+		label = 'Cola',
+		stack = false,
+		close = true,
+	},
+
+
+	['costa_del_perro'] = {
+		label = 'Costa Del Perro',
+		stack = false,
+		close = true,
+	},
+
+	['rockford_hill'] = {
+		label = 'Rockford Hill Reserve',
+		stack = false,
+		close = true,
+	},
+
+	['vinewood_red'] = {
+		label = 'Vinewood Red Zinfadel',
+		stack = false,
+		close = true,
+	},
+
+	['vinewood_blanc'] = {
+		label = 'Vinewood Sauvignon Blanc',
+		stack = false,
+		close = true,
+	},
+
+	['bleuterd'] = {
+		label = 'Bleuterd Champagne',
+		stack = false,
+		close = true,
+	},
+
+	
+	['shot_glass'] = {
+		label = 'Glass for shot',
+		stack = false,
+		close = true,
+	},
+	
+	['wine_glass'] = {
+		label = 'Glass for wine',
+		stack = false,
+		close = true,
+	},
+
+	['flute_glass'] = {
+		label = 'Glass for champagne',
+		stack = false,
+		close = true,
+	},
+
+	['whiskey_glass'] = {
+		label = 'Glass for whiskey',
+		stack = false,
+		close = true,
+	},
