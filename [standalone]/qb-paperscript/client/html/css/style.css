@@ -1,0 +1,18 @@
+body {
+    background: none !important;
+}
+
+#container {
+    visibility: hidden;
+}
+
+img {
+    position: absolute;
+    max-height: 80vh;
+    max-width: 60vh;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 35%;
+    right: 0;
+}
