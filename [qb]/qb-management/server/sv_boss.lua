@@ -106,7 +106,7 @@ RegisterNetEvent("qb-bossmenu:server:withdrawMoney", function(amount)
 		TriggerEvent('qb-log:server:CreateLog', 'bossmenu', 'Withdraw Money', "blue", Player.PlayerData.name.. "Withdrawal $" .. amount .. ' (' .. job .. ')', false)
 		TriggerClientEvent('QBCore:Notify', src, "You have withdrawn: $" ..amount, "success")
 	else
-		TriggerClientEvent('QBCore:Notify', src, "You dont have enough money in the account!", "error")
+		TriggerClientEvent('QBCore:Notify', src, "¡No tienes suficiente dinero en la cuenta!", "error")
 	end
 
 	TriggerClientEvent('qb-bossmenu:client:OpenMenu', src)
@@ -124,7 +124,7 @@ RegisterNetEvent("qb-bossmenu:server:depositMoney", function(amount)
 		TriggerEvent('qb-log:server:CreateLog', 'bossmenu', 'Deposit Money', "blue", Player.PlayerData.name.. "Deposit $" .. amount .. ' (' .. job .. ')', false)
 		TriggerClientEvent('QBCore:Notify', src, "You have deposited: $" ..amount, "success")
 	else
-		TriggerClientEvent('QBCore:Notify', src, "You dont have enough money to add!", "error")
+		TriggerClientEvent('QBCore:Notify', src, "¡No tienes suficiente dinero para añadir!", "error")
 	end
 
 	TriggerClientEvent('qb-bossmenu:client:OpenMenu', src)
@@ -182,8 +182,8 @@ RegisterNetEvent('qb-bossmenu:server:GradeUpdate', function(data)
 	
 	if Employee then
 		if Employee.Functions.SetJob(Player.PlayerData.job.name, data.grade) then
-			TriggerClientEvent('QBCore:Notify', src, "Sucessfulluy promoted!", "success")
-			TriggerClientEvent('QBCore:Notify', Employee.PlayerData.source, "You have been promoted to" ..data.gradename..".", "success")
+			TriggerClientEvent('QBCore:Notify', src, "¡Empleado despedido!", "success")
+			TriggerClientEvent('QBCore:Notify', Employee.PlayerData.source, "Ha sido ascendido a" ..data.gradename..".", "success")
 		else
 			TriggerClientEvent('QBCore:Notify', src, "Promotion grade does not exist.", "error")
 		end
@@ -206,13 +206,14 @@ RegisterNetEvent('qb-bossmenu:server:FireEmployee', function(target)
 			if Employee.PlayerData.job.grade.level > Player.PlayerData.job.grade.level then TriggerClientEvent('QBCore:Notify', src, "You cannot fire this citizen!", "error") return end
 			if Employee.Functions.SetJob("unemployed", '0') then
 				TriggerEvent("qb-log:server:CreateLog", "bossmenu", "Job Fire", "red", Player.PlayerData.charinfo.firstname .. " " .. Player.PlayerData.charinfo.lastname .. ' successfully fired ' .. Employee.PlayerData.charinfo.firstname .. " " .. Employee.PlayerData.charinfo.lastname .. " (" .. Player.PlayerData.job.name .. ")", false)
-				TriggerClientEvent('QBCore:Notify', src, "Employee fired!", "success")
-				TriggerClientEvent('QBCore:Notify', Employee.PlayerData.source , "You have been fired! Good luck.", "error")
+				TriggerClientEvent('QBCore:Notify', src, "¡Empleado despedido!", "success")
+				TriggerEvent('ps-multijob:server:removeJob', target)
+				TriggerClientEvent('QBCore:Notify', Employee.PlayerData.source , "¡Has sido despedido! Buena suerte.", "error")
 			else
 				TriggerClientEvent('QBCore:Notify', src, "Error..", "error")
 			end
 		else
-			TriggerClientEvent('QBCore:Notify', src, "You can\'t fire yourself", "error")
+			TriggerClientEvent('QBCore:Notify', src, "No puedes despedirte a ti mismo", "error")
 		end
 	else
 		local player = MySQL.query.await('SELECT * FROM players WHERE citizenid = ? LIMIT 1', { target })
@@ -231,6 +232,7 @@ RegisterNetEvent('qb-bossmenu:server:FireEmployee', function(target)
 			job.grade.level = 0
 			MySQL.update('UPDATE players SET job = ? WHERE citizenid = ?', { json.encode(job), target })
 			TriggerClientEvent('QBCore:Notify', src, "Employee fired!", "success")
+			TriggerEvent('ps-multijob:server:removeJob', target)
 			TriggerEvent("qb-log:server:CreateLog", "bossmenu", "Job Fire", "red", Player.PlayerData.charinfo.firstname .. " " .. Player.PlayerData.charinfo.lastname .. ' successfully fired ' .. Employee.PlayerData.charinfo.firstname .. " " .. Employee.PlayerData.charinfo.lastname .. " (" .. Player.PlayerData.job.name .. ")", false)
 		else
 			TriggerClientEvent('QBCore:Notify', src, "Civilian not in city.", "error")
