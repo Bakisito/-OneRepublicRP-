@@ -300,7 +300,7 @@ function CreateTaxi(x, y, z)
                 end
 			end
 		end
-	end	
+	end
 end
 
 
