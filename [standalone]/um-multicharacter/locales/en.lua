@@ -8,7 +8,7 @@ Lang["en"] = {
         lastname = "Apellido",
         gender = {
             type = "Género",
-            male = "Masculino",
+            male = "Hombre",
             female = "Mujer"
         },
         dob = "Fecha de nacimiento",
@@ -16,7 +16,7 @@ Lang["en"] = {
         button = "Crear personaje"
     },
     Menu = {
-        playgame = "Jugar Juego",
+        playgame = "Entrar a la Ciudad",
         photomode = "Modo Foto",
         store = "Tienda",
         credits = "Créditos",
