@@ -256,4 +256,29 @@ Config.Elevators = {
 		},
 	},
 
+	
+	PoliceDpt = {
+		
+		{
+			coords = vector3(466.11, -983.04, 43.69), heading = 181.63, level = "Piso 2", label = "MRPD - Helipad",
+			 jobs = {
+			 	["police"] = 0,
+			 },
+		},
+		{
+			coords = vector3(467.54, -983.15, 35.86), heading = 177.88, level = "Piso 1", label = "MRPD - Oficinas",
+			-- jobs = {
+			-- 	["police"] = 0,
+			-- 	["ambulance"] = 0,
+			-- },
+		},
+		{
+			coords = vector3(469.83, -961.97, 23.93), heading = 183.98, level = "Piso P", label = "MRPD - Parqueos",
+			-- jobs = {
+			-- 	["police"] = 0,
+			-- 	["ambulance"] = 0,
+			-- },
+		},
+	},
+
 }
