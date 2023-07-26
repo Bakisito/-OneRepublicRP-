@@ -50,29 +50,30 @@ PUNISH_PLAYERS_TRYING_TO_ESCAPE_ANIMATION = true
 ]]
 DEFAULT_PROGRESSBAR_COLOR = "#47ff33"
 
---  RegisterNetEvent("drugs_creator:framework:ready", function() 
---     -- Disables the default script notification (otherwise there would be 2 notifications)
---     exports["drugs_creator"]:disableScriptEvent("drugs_creator:notify")
--- end)
+ RegisterNetEvent("drugs_creator:framework:ready", function() 
+    -- Disables the default script notification (otherwise there would be 2 notifications)
+    exports["drugs_creator"]:disableScriptEvent("drugs_creator:notify")
+end)
 
--- RegisterNetEvent("drugs_creator:notify", function(message, uncoloredMessage)
---     exports['okokNotify']:Alert('Title', uncoloredMessage, 5, 'info', playSound)
--- end)
+RegisterNetEvent("drugs_creator:notify", function(message, uncoloredMessage)
+    exports['okokNotify']:Alert('Title', uncoloredMessage, 5, 'info', playSound)
+end)
 
--- -- In drugs_creator/integrations/cl_integrations.lua
--- RegisterNetEvent("drugs_creator:framework:ready", function() 
---     -- Disables the default script progress bar (otherwise there would be 2 progress bars)
---     exports["drugs_creator"]:disableScriptEvent("drugs_creator:internalProgressBar")
--- end)
+-- In drugs_creator/integrations/cl_integrations.lua
+RegisterNetEvent("drugs_creator:framework:ready", function() 
+    -- Disables the default script progress bar (otherwise there would be 2 progress bars)
+    exports["drugs_creator"]:disableScriptEvent("drugs_creator:internalProgressBar")
+end)
 
--- -- Example to replace the script progress bar with an external one
--- RegisterNetEvent("drugs_creator:internalProgressBar", function(time, text)
---     -- The event to activate your external progress bar
---     TriggerEvent("external_progressbar:start", time, text)
---     QBCore.Functions.Progressbar("external_progressbar:start", time, text, false, false, {
---         disableMovement = true,
---         disableCarMovement = true,
---         disableMouse = false,
---         disableCombat = true,
---     })
--- end)
+-- Example to replace the script progress bar with an external one
+RegisterNetEvent("drugs_creator:internalProgressBar", function(time, text)
+    -- The event to activate your external progress bar
+    TriggerEvent("external_progressbar:start", time, text)
+    local QBCore = exports['qb-core']:GetCoreObject()
+    QBCore.Functions.Progressbar("external_progressbar:start", time, text, false, false, {
+        disableMovement = true,
+        disableCarMovement = true,
+        disableMouse = false,
+        disableCombat = true,
+    })
+end)
