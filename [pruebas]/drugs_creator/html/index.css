@@ -1,0 +1,16 @@
+.swal-overlay--show-modal .swal-modal {
+    will-change: unset !important;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+#advanced-drugs-creator-version {
+    line-height: 10vh;
+
+    width: max-content;
+
+    font-size: 1.5vw;
+    font-family: 'Roboto', sans-serif;
+}
