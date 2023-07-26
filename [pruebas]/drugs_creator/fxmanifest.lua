@@ -1,6 +1,6 @@
 author 'jaksam1074'
 
-version '4.33' -- SCRIPT VERSION
+version '4.34' -- SCRIPT VERSION
 
 client_scripts {
     -- Callbacks
@@ -50,6 +50,9 @@ client_scripts {
 }
 
 server_scripts{
+    -- Warnings
+    "utils/warnings/sv_*.lua",
+
     -- Callbacks
     "utils/callbacks/sv_callbacks.lua",
     
