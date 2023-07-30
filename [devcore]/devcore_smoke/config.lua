@@ -71,10 +71,15 @@ Config.Smoke = { -- Item =
     {Item = "marlborocig",  Prop = 'ng_proc_cigarette01a', Armor = 5, Stress = 5, Size = 20, Type = 'cigarette', Time = 120},
     {Item = "vape",  Prop = 'ba_prop_battle_vape_01', Armor = 5, Stress = 5, Size = 0, Type = 'vape', Time = 0},
     {Item = "bong",  Prop = 'prop_bong_01', Armor = 5, Stress = 5, Size = 0, Type = 'bong', Time = 0},
+
+
     {Item = "og_kush_joint",  Prop = 'prop_sh_joint_01', Armor = 5, Stress = 5, Size = 20, Type = 'joint', Time = 120},
     {Item = "blue_dream_joint",  Prop = 'prop_sh_joint_01', Armor = 5, Stress = 5, Size = 20, Type = 'joint', Time = 120},
     {Item = "purple_haze_joint",  Prop = 'prop_sh_joint_01', Armor = 5, Stress = 5,Size = 20, Type = 'joint', Time = 120},
     {Item = "banana_kush_joint",  Prop = 'prop_sh_joint_01', Armor = 5, Stress = 5, Size = 20, Type = 'joint', Time = 120},
+    {Item = "white_widow_joint",  Prop = 'prop_sh_joint_01', Armor = 5, Stress = 5, Size = 20, Type = 'joint', Time = 120},
+    {Item = "sour_diesel_joint",  Prop = 'prop_sh_joint_01', Armor = 5, Stress = 5, Size = 20, Type = 'joint', Time = 120},
+
 }
 
 Config.BongReloadItems = {
@@ -82,6 +87,10 @@ Config.BongReloadItems = {
     {Items = "blue_dream_weed"},
     {Items = "banana_kush_weed"},
     {Items = "purple_haze_weed"},
+    {Items = "white_widow_weed"},
+    {Items = "sour_diesel_weed"},
+
+
 }
 
 --Rollings joints
@@ -94,6 +103,8 @@ Config.RollingJoints = {  -- Weed bag -- amount = How many joints you get
     {Item = "blue_dream_bag",  GiveJoint = 'blue_dream_joint', Amount = 1},
     {Item = "og_kush_bag",  GiveJoint = 'og_kush_joint', Amount = 1},
     {Item = "purple_haze_bag",  GiveJoint = 'purple_haze_joint', Amount = 1},
+    {Item = "white_widow_bag",  GiveJoint = 'white_widow_joint', Amount = 1},
+    {Item = "sour_diesel_bag",  GiveJoint = 'sour_diesel_joint', Amount = 1},
 }
 
 -------------------------
