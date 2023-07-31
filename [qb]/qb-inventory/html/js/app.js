@@ -2238,7 +2238,7 @@ var requiredItemOpen = false;
 
     Inventory.dropslots = 40;
     Inventory.droplabel = "Drop";
-    Inventory.dropmaxweight = 100000;
+    Inventory.dropmaxweight = 1000000;
 
     Inventory.Error = function () {
         $.post("https://qb-inventory/PlayDropFail", JSON.stringify({}));
@@ -2623,7 +2623,7 @@ var requiredItemOpen = false;
 
         var per = (totalWeight / 1000) / (data.maxweight / 100000)
         $(".pro").css("width", per + "%");
-        $("#player-inv-weight").html('<i class="fas fa-dumbbell"></i> ' + (totalWeight / 1000).toFixed(2) + " / " + (data.maxweight / 1000).toFixed(2) + " lbs");
+        $("#player-inv-weight").html('<i class="fas fa-dumbbell"></i> ' + (totalWeight / 1000).toFixed(2) + " / " + (data.maxweight / 1000).toFixed(2) + " KG");
         playerMaxWeight = data.maxweight;
         if (data.other != null) {
             var name = data.other.name.toString()
@@ -2631,7 +2631,7 @@ var requiredItemOpen = false;
                 $("#other-inv-label").html(data.other.label);
             } else {
                 $("#other-inv-label").html(data.other.label)
-                $("#other-inv-weight").html("Weight: " + (totalWeightOther / 1000).toFixed(2) + " / " + (data.other.maxweight / 1000).toFixed(2) + " lbs")
+                $("#other-inv-weight").html("Weight: " + (totalWeightOther / 1000).toFixed(2) + " / " + (data.other.maxweight / 1000).toFixed(2) + " KG")
                 var per12 = (totalWeightOther / 1000) / (data.other.maxweight / 100000)
                 $(".pro1").css("width", per12 + "%");
             }
@@ -2639,7 +2639,7 @@ var requiredItemOpen = false;
             otherLabel = data.other.label;
         } else {
             $("#other-inv-label").html(Inventory.droplabel)
-            $("#other-inv-weight").html('<i class="fas fa-dumbbell"></i> ' + (totalWeightOther / 1000).toFixed(2) + " / " + (Inventory.dropmaxweight / 1000).toFixed(2) + " lbs")
+            $("#other-inv-weight").html('<i class="fas fa-dumbbell"></i> ' + (totalWeightOther / 1000).toFixed(2) + " / " + (Inventory.dropmaxweight / 1000).toFixed(2) + " KG")
             var per123 = (totalWeightOther / 1000) / (Inventory.dropmaxweight / 100000)
             $(".pro1").css("width", per123 + "%");
             otherMaxWeight = Inventory.dropmaxweight;
@@ -2747,24 +2747,6 @@ var requiredItemOpen = false;
                             item.label +
                             "</p></div>"
                         );
-                     if (item.name == 'cash') {
-                            $(".player-inventory")
-                            .find("[data-slot=" + item.slot + "]")
-                            .html(
-                                '<div class="item-slot-key"><p>' +
-                                item.slot +
-                                '</p></div><div class="item-slot-img"><img src="images/' +
-                                item.image +
-                                '" alt="' +
-                                item.name +
-                                '" /></div><div class="item-slot-amount"><p>' +
-                                item.amount +
-                                "$ (" +
-                                ((item.weight * item.amount) / 1000).toFixed(1) +
-                                ")</p></div>" +
-                                ItemLabel
-                            );
-                        }
                     $(".player-inventory")
                         .find("[data-slot=" + item.slot + "]")
                         .data("item", item);
@@ -2787,24 +2769,6 @@ var requiredItemOpen = false;
                             item.label +
                             "</p></div>"
                         );
-                        if (item.name == 'cash') {
-                            $(".player-inventory")
-                            .find("[data-slot=" + item.slot + "]")
-                            .html(
-                                '<div class="item-slot-key"><p>' +
-                                item.slot +
-                                '</p></div><div class="item-slot-img"><img src="images/' +
-                                item.image +
-                                '" alt="' +
-                                item.name +
-                                '" /></div><div class="item-slot-amount"><p>' +
-                                item.amount +
-                                "$ (" +
-                                ((item.weight * item.amount) / 1000).toFixed(1) +
-                                ")</p></div>" +
-                                ItemLabel
-                            );
-                        }
                     $(".player-inventory")
                         .find("[data-slot=" + item.slot + "]")
                         .data("item", item);
@@ -2827,24 +2791,6 @@ var requiredItemOpen = false;
                             item.label +
                             "</p></div>"
                         );
-                        if (item.name == 'cash') {
-                            $(".player-inventory")
-                            .find("[data-slot=" + item.slot + "]")
-                            .html(
-                                '<div class="item-slot-key"><p>' +
-                                item.slot +
-                                '</p></div><div class="item-slot-img"><img src="images/' +
-                                item.image +
-                                '" alt="' +
-                                item.name +
-                                '" /></div><div class="item-slot-amount"><p>' +
-                                item.amount +
-                                "$ (" +
-                                ((item.weight * item.amount) / 1000).toFixed(1) +
-                                ")</p></div>" +
-                                ItemLabel
-                            );
-                        }
                     $(".player-inventory")
                         .find("[data-slot=" + item.slot + "]")
                         .data("item", item);
@@ -2854,7 +2800,7 @@ var requiredItemOpen = false;
 
         var per = (totalWeight / 1000) / (data.maxweight / 100000)
         $(".pro").css("width", per + "%");
-        $("#player-inv-weight").html("Weight: " + (totalWeight / 1000).toFixed(2) + " / " + (data.maxweight / 1000).toFixed(2) + " lbs");
+        $("#player-inv-weight").html("Weight: " + (totalWeight / 1000).toFixed(2) + " / " + (data.maxweight / 1000).toFixed(2) + " KG");
         handleDragDrop();
     };
 

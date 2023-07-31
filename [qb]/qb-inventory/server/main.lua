@@ -1257,7 +1257,7 @@ local function OpenInventory(name, id, other, origin)
 				secondInv.coords = Drops[id].coords
 				secondInv.name = id
 				secondInv.label = "Dropped-"..tostring(id)
-				secondInv.maxweight = 100000
+				secondInv.maxweight = 1000000
 				secondInv.inventory = Drops[id].items
 				secondInv.slots = 30
 				Drops[id].isOpen = src
@@ -1266,7 +1266,7 @@ local function OpenInventory(name, id, other, origin)
 			else
 				secondInv.name = "none-inv"
 				secondInv.label = "Dropped-None"
-				secondInv.maxweight = 100000
+				secondInv.maxweight = 1000000
 				secondInv.inventory = {}
 				secondInv.slots = 0
 			end
@@ -1630,7 +1630,7 @@ RegisterNetEvent('inventory:server:OpenInventory', function(name, id, other)
 				secondInv.coords = Drops[id].coords
 				secondInv.name = id
 				secondInv.label = "Dropped-"..tostring(id)
-				secondInv.maxweight = 100000
+				secondInv.maxweight = 1000000
 				secondInv.inventory = Drops[id].items
 				secondInv.slots = 30
 				Drops[id].isOpen = src
@@ -1639,7 +1639,7 @@ RegisterNetEvent('inventory:server:OpenInventory', function(name, id, other)
 			else
 				secondInv.name = "none-inv"
 				secondInv.label = "Dropped-None"
-				secondInv.maxweight = 100000
+				secondInv.maxweight = 1000000
 				secondInv.inventory = {}
 				secondInv.slots = 0
 			end
