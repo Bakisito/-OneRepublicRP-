@@ -1223,20 +1223,18 @@ QBShared.Items = {
 ['sodium_hydroxide'] = {['name'] = 'sodium_hydroxide', ['label'] = 'Sodium hydroxide', ['weight'] = 500, ['type'] = 'item', ['image'] = 'your_image.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = false, ['combinable'] = nil},
 ['water'] = {['name'] = 'water', ['label'] = 'Water', ['weight'] = 500, ['type'] = 'item', ['image'] = 'your_image.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = false, ['combinable'] = nil},
 ['opium'] = {['name'] = 'opium', ['label'] = 'Opium', ['weight'] = 500, ['type'] = 'item', ['image'] = 'your_image.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = false, ['combinable'] = nil},
-['cocaine'] = {['name'] = 'cocaine', ['label'] = 'Cocaine', ['weight'] = 500, ['type'] = 'item', ['image'] = 'your_image.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = false, ['combinable'] = nil},
 
 	-- Drugs
 	-- ['joint'] 						 = {['name'] = 'joint', 			  	  		['label'] = 'Joint', 					['weight'] = 0, 		['type'] = 'item', 		['image'] = 'joint.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,    ['combinable'] = nil,   ['description'] = 'Sidney would be very proud at you'},
-	['cokebaggy'] 					 = {['name'] = 'cokebaggy', 			  	  	['label'] = 'Bolsita de Coca', 			['weight'] = 100, 		['type'] = 'item', 		['image'] = 'cocaine_baggy.png', 		['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,    ['combinable'] = nil,   ['description'] = 'Para hacerte rapidamente'},
 	['crack_baggy'] 				 = {['name'] = 'crack_baggy', 			  	  	['label'] = 'Bolsita de Crack', 		['weight'] = 100, 		['type'] = 'item', 		['image'] = 'crack_baggy.png', 			['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,    ['combinable'] = nil,   ['description'] = 'Para ser feliz más rápido'},
 	['xtcbaggy'] 					 = {['name'] = 'xtcbaggy', 			  	  		['label'] = 'Bolsita de XTC', 			['weight'] = 100, 		['type'] = 'item', 		['image'] = 'xtc_baggy.png', 			['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,    ['combinable'] = nil,   ['description'] = 'El final esas pastillas bebé'},
 	-- ['weed_brick'] 		 			 = {['name'] = 'weed_brick', 					['label'] = 'Weed Brick', 				['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'weed_brick.png', 			['unique'] = false, 	['useable'] = false, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = '1KG Weed Brick to sell to large customers.'},
-	['coke_brick'] 		 			 = {['name'] = 'coke_brick', 					['label'] = 'Ladrillo de coca', 		['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'coke_brick.png', 			['unique'] = true, 		['useable'] = false, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Paquete pesado de cocaína, se usa sobre todo para tratos y ocupa mucho espacio'},
-	['coke_small_brick'] 		 	 = {['name'] = 'coke_small_brick', 				['label'] = 'Paquete de coca', 			['weight'] = 350, 		['type'] = 'item', 		['image'] = 'coke_small_brick.png', 	['unique'] = true, 		['useable'] = false, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Pequeña bolsita de cocaína, se utiliza sobre todo para tratos y ocupa mucho espacio'},
 	['oxy'] 				 		 = {['name'] = 'oxy',				    		['label'] = 'Oxicodina',				['weight'] = 100,			['type'] = 'item',		['image'] = 'oxy.png',					['unique'] = false,		['useable'] = true,		['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'La etiqueta ha sido arrancada'},
 	['meth'] 					 	 = {['name'] = 'meth', 							['label'] = 'Meta', 					['weight'] = 100, 		['type'] = 'item', 		['image'] = 'meth_baggy.png', 			['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,    ['combinable'] = nil,   ['description'] = 'Una bolsita de metanfetamina'},
 	-- ['rolling_paper'] 			 	 = {['name'] = 'rolling_paper', 			  	['label'] = 'Rolling Paper', 			['weight'] = 0, 		['type'] = 'item', 		['image'] = 'rolling_paper.png', 		['unique'] = false, 	['useable'] = false, 	['shouldClose'] = true,	   ['combinable'] = {accept = {'weed_white-widow', 'weed_skunk', 'weed_purple-haze', 'weed_og-kush', 'weed_amnesia', 'weed_ak47'}, reward = 'joint', anim = {['dict'] = 'anim@amb@business@weed@weed_inspecting_high_dry@', ['lib'] = 'weed_inspecting_high_base_inspector', ['text'] = 'Rolling joint', ['timeOut'] = 5000,}},   ['description'] = 'Paper made specifically for encasing and smoking tobacco or.'},
 
+
+	--Weed
 ["bong"] 						 = {["name"] = "bong", 			 	  	  		["label"] = "Bong", 					["weight"] = 200, 		["type"] = "item", 		["image"] = "bong.png", 				["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    		["combinable"] = nil,   		["description"] = "Bong"},
 ["ocb_paper"] 					 = {["name"] = "ocb_paper", 			 	  		["label"] = "Ocb Paper", 				["weight"] = 200, 		["type"] = "item", 		["image"] = "ocb_paper.png", 			["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    		["combinable"] = nil,   		["description"] = "Papel Ocb para liar porros"},
 ['empty_bag'] 					 = {['name'] = 'empty_bag', 			    ['label'] = 'Bolsa Vacia', 			['weight'] = 0, 		['type'] = 'item', 		['image'] = 'empty_bag.png', 	['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'A small empty bag'},
@@ -1264,6 +1262,221 @@ QBShared.Items = {
 ["og_kush_joint"] 				= {["name"] = "og_kush_joint", 			 		["label"] = "Og Kush Joint", 			["weight"] = 250, 		["type"] = "item", 		["image"] = "og_kush_joint.png", 		["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    		["combinable"] = nil,   		["description"] = "Buen porro"},
 ["white_widow_joint"] 			= {["name"] = "white_widow_joint", 			 	["label"] = "White Widow Joint", 		["weight"] = 250, 		["type"] = "item", 		["image"] = "joint.png", 				["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    		["combinable"] = nil,   		["description"] = "Buen porro"},
 
+	-- Cocaine
+	['coca_leaf'] = {['name'] = 'coca_leaf', ['label'] = 'Hoja de Coca', ['weight'] = 500, ['type'] = 'item', ['image'] = 'cocaineleaf.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = false, ['combinable'] = nil, ["description"] = "Esa son baina rara"},
+    ["hydrochloric_acid"]  = {["name"] = "hydrochloric_acid", ["label"] = "Ácido clorhídrico",	["weight"] = 1500, 	["type"] = "item", 		["image"] = "hydrochloric_acid.png", 	["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,   ["expire"] = 90,  ["description"] = "Productos químicos, ¡manipúlelos con cuidado!"},
+
+	["base_coke"] = {["name"] = "base_coke", ["label"] = "Pasta de Coca",["weight"] = 4000,["type"] = "item", ["image"] = "base_coke.png",   ["unique"] = false, ["useable"] = false, ["shouldClose"] = true, ["combinable"] = nil,  ["description"] = ""},
+	["bakingsoda"]  = {["name"] = "Bicarbonato",   ["label"] = "Bicarbonato",  ["weight"] = 450, ["type"] = "item", ["image"] = "bakingsoda.png",  ["unique"] = false, 	["useable"] = false, 	["shouldClose"] = false,   ["combinable"] = nil,   ["expire"] = 90,  ["description"] = "Bicarbonato doméstico"},
+    ["levamisol"]  = {["name"] = "levamisol", ["label"] = "Levamisol 15%",	["weight"] = 1500, 	["type"] = "item", 		["image"] = "levamisol.png", 	["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,	   ["combinable"] = nil,   ["expire"] = 90,  ["description"] = "Antihelmíntico inyectable de amplio espectro!"},
+    
+	["cutted_coke"] = {["name"] = "cutted_coke", ["label"] = "Cocaina Cortada", ["weight"] = 6500, ["type"] = "item", ["image"] = "cutted_coke.png", ["unique"] = false, ["useable"] = false, ["shouldClose"] = true, ["combinable"] = nil, ["description"] = ""},
+    ["impotent_rage"] = {["name"] = "impotent_rage",    ["label"] = "Muñeco Impotent Rage",    ["weight"] = 500,    ["type"] = "item",    ["image"] = "packed_coke.png",    ["unique"] = false,    ["useable"] = false,    ["shouldClose"] = true,    ["combinable"] = nil,    ["description"] = ""},
+	['coke_small_brick']  = {['name'] = 'coke_small_brick', 	['label'] = 'Paquete de Coca', 			['weight'] = 15000, 		['type'] = 'item', 		['image'] = 'coke_small_brick.png', 	['unique'] = true, 		['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Pequeña bolsita de cocaína, se utiliza sobre todo para tratos y ocupa mucho espacio'},
+	['coke_brick'] 		  = {['name'] = 'coke_brick', 			['label'] = 'Ladrillo de Coca', 		['weight'] = 30000, 		['type'] = 'item', 		['image'] = 'coke_brick.png', 			['unique'] = true, 		['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Paquete pesado de cocaína, se usa sobre todo para tratos y ocupa mucho espacio'},
+	['big_coke_brick'] 	  = {['name'] = 'big_coke_brick', 		['label'] = 'Ladrillo grande de Coca', 	['weight'] = 60000, 		['type'] = 'item', 		['image'] = 'big_coke_brick.png', 			['unique'] = true, 		['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Paquete pesado de cocaína, se usa sobre todo para tratos y ocupa mucho espacio'},
+	['bigger_coke_brick'] = {['name'] = 'bigger_coke_brick', 	['label'] = 'Bloque de Coca', 			['weight'] = 80000, 		['type'] = 'item', 		['image'] = 'bigger_coke_brick.png', 			['unique'] = true, 		['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Paquete pesado de cocaína, se usa sobre todo para tratos y ocupa mucho espacio'},
+	['coke_tons'] = {['name'] = 'coke_tons', 	['label'] = 'Una Tonelada de Coca', ['weight'] = 100000, 		['type'] = 'item', 		['image'] = 'coke_tons.png', 			['unique'] = true, 		['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Paquete pesado de cocaína, se usa sobre todo para tratos y ocupa mucho espacio'},
+	['cokebaggy'] 	 = {['name'] = 'cokebaggy', ['label'] = 'Bolsita de Coca', 	['weight'] = 625, 	['type'] = 'item', 	['image'] = 'cocaine_baggy.png', 		['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,    ['combinable'] = nil,   ['description'] = 'Para hacerte rapidamente'},
+
+
+
+    ["ammonia"] = {
+        ["name"] = "ammonia",
+        ["label"] = "Ammonia",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "ammonia.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+    ["sacid"] = {
+        ["name"] = "sacid",
+        ["label"] = "Sacid",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "sacid.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+    ["breaked_meth"] = {
+        ["name"] = "breaked_meth",
+        ["label"] = "Breaked Meth",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "breaked_meth.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+    ["cooked_meth"] = {
+        ["name"] = "cooked_meth",
+        ["label"] = "Cooked Meth",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "cooked_meth.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+    ["packed_meth"] = {
+        ["name"] = "packed_meth",
+        ["label"] = "Packed Meth",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "packed_meth.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+    ["powdered_milk"] = {
+        ["name"] = "powdered_milk",
+        ["label"] = "Powdered Milk",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "powdered_milk.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+
+
+    ["plant_spray"] = {
+        ["name"] = "plant_spray",
+        ["label"] = "Plant Spray",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "plant_spray.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+    ["unpacking_weed"] = {
+        ["name"] = "unpacking_weed",
+        ["label"] = "Unpacked Weed",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "unpacking_weed.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+    ["packed_weed"] = {
+        ["name"] = "packed_weed",
+        ["label"] = "Packed Weed",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "packed_weed.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+        ["plant_spray"] = {
+        ["name"] = "plant_spray",
+        ["label"] = "Plant Spray",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "plant_spray.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+    ["unpacking_weed"] = {
+        ["name"] = "unpacking_weed",
+        ["label"] = "Unpacked Weed",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "unpacking_weed.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+    ["packed_weed"] = {
+        ["name"] = "packed_weed",
+        ["label"] = "Packed Weed",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "packed_weed.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+
+
+    ["money_sheet"] = {
+        ["name"] = "money_sheet",
+        ["label"] = "Money Paper",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "money_sheet.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+    ["uncutted_money"] = {
+        ["name"] = "uncutted_money",
+        ["label"] = "Uncutted Money",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "uncutted_money.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+    ["cutted_money"] = {
+        ["name"] = "cutted_money",
+        ["label"] = "Cutted Money",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "cutted_money.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
+    ["washed_money"] = {
+        ["name"] = "washed_money",
+        ["label"] = "Washed Money",
+        ["weight"] = 0,
+        ["type"] = "item",
+        ["image"] = "washed_money.png",
+        ["unique"] = false,
+        ["useable"] = false,
+        ["shouldClose"] = true,
+        ["combinable"] = nil,
+        ["description"] = ""
+    },
 
 
 }
