@@ -343,3 +343,32 @@ Citizen.CreateThread(function()
         Citizen.Wait(sleep)
     end
 end)
+
+local items = {
+    'coke_small_brick',
+    'coke_brick',
+    'big_coke_brick',
+    'bigger_coke_brick',
+    'coke_tons'
+}
+
+for _, item in ipairs(items) do
+    RegisterNetEvent('drugs:client:use' .. item, function()
+        QBCore.Functions.Progressbar("coke_unpack", "Procesando " .. item, 10000, false, true, {
+            disableMovement = true,
+            disableCarMovement = false,
+            disableMouse = false,
+            disableCombat = true,
+        }, {
+            animDict = "anim@gangops@facility@servers@",
+            anim = "hotwire",
+            flags = 16,
+        }, {}, {}, function() -- Done
+            StopAnimTask(PlayerPedId(), "anim@gangops@facility@servers@", "hotwire", 1.0)
+            TriggerServerEvent('drugs:server:process' .. item)
+        end, function() -- Cancel
+            StopAnimTask(PlayerPedId(), "anim@gangops@facility@servers@", "hotwire", 1.0)
+            QBCore.Functions.Notify("Cancelado..", "error")
+        end)
+    end,"cokebaggy")
+end

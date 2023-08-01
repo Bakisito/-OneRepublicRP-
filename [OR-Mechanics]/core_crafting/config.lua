@@ -92,7 +92,7 @@ CokeCategories = {
 		Label = 'LADRILLOS DE COCAINA',
 		Image = 'cokebricks',
 	}
-
+}
 
 
 PermanentItems = { -- Items that dont get removed when crafting

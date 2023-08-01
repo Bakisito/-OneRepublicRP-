@@ -138,3 +138,40 @@ RegisterServerEvent("kaves_drugsv2:server:sellItem", function(itemName, itemCoun
     end
     Notification(source, (Strings["sold_item"]):format(itemCount, itemName))
 end)
+
+local items = {
+    {name = 'coke_small_brick', bags_needed = 50, result = 'cokebaggy', result_amount = 50},
+    {name = 'coke_brick', bags_needed = 100, result = 'cokebaggy', result_amount = 100},
+    {name = 'big_coke_brick', bags_needed = 250, result = 'cokebaggy', result_amount = 250},
+    {name = 'bigger_coke_brick', bags_needed = 0, result = 'big_coke_brick', result_amount = 2},
+    {name = 'coke_tons', bags_needed = 0, result = 'bigger_coke_brick', result_amount = 2}
+}
+
+for _, item in ipairs(items) do
+    RegisterNetEvent('drugs:server:process' .. item.name, function()
+        local src = source
+        local Player = QBCore.Functions.GetPlayer(src)
+
+        if Player.Functions.GetItemByName('empty_bag').amount >= item.bags_needed then
+            if Player.Functions.RemoveItem(item.name) then
+                if item.bags_needed > 0 then
+                    Player.Functions.RemoveItem('empty_bag', item.bags_needed)
+                    TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items['empty_bag'], 'remove', item.bags_needed)
+                end
+
+                Player.Functions.AddItem(item.result, item.result_amount)
+                TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item.result], 'add', item.result_amount)
+
+                print('El jugador ' .. GetPlayerName(src) .. ' usó ' .. item.name)
+            else
+                TriggerClientEvent('QBCore:Notify', src, 'No tienes ninguna ' .. item.name, 'error')
+            end
+        else
+            TriggerClientEvent('QBCore:Notify', src, 'No tienes suficientes bolsas vacías', 'error')
+        end
+    end)
+
+    QBCore.Functions.CreateUseableItem(item.name, function(source, item)
+        TriggerClientEvent('drugs:client:use' .. item.name, source, item)
+    end)
+end
