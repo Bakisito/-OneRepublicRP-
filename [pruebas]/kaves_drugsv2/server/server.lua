@@ -140,6 +140,7 @@ RegisterServerEvent("kaves_drugsv2:server:sellItem", function(itemName, itemCoun
 end)
 
 local items = {
+    {name = 'impotent_rage', bags_needed = 6, result = 'cokebaggy', result_amount = 6},
     {name = 'coke_small_brick', bags_needed = 50, result = 'cokebaggy', result_amount = 50},
     {name = 'coke_brick', bags_needed = 100, result = 'cokebaggy', result_amount = 100},
     {name = 'big_coke_brick', bags_needed = 250, result = 'cokebaggy', result_amount = 250},
@@ -152,22 +153,25 @@ for _, item in ipairs(items) do
         local src = source
         local Player = QBCore.Functions.GetPlayer(src)
 
-        if Player.Functions.GetItemByName('empty_bag').amount >= item.bags_needed then
-            if Player.Functions.RemoveItem(item.name) then
-                if item.bags_needed > 0 then
-                    Player.Functions.RemoveItem('empty_bag', item.bags_needed)
-                    TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items['empty_bag'], 'remove', item.bags_needed)
-                end
+        local emptyBagItem = Player.Functions.GetItemByName('empty_bag')
 
-                Player.Functions.AddItem(item.result, item.result_amount)
-                TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item.result], 'add', item.result_amount)
+        if item.bags_needed > 0 and (emptyBagItem == nil or emptyBagItem.amount < item.bags_needed) then
+            TriggerClientEvent('okokNotify:Alert', src, "Error", 'No tienes suficientes bolsas vacías', 5000, 'error')
+            return
+        end
 
-                print('El jugador ' .. GetPlayerName(src) .. ' usó ' .. item.name)
-            else
-                TriggerClientEvent('QBCore:Notify', src, 'No tienes ninguna ' .. item.name, 'error')
+        if Player.Functions.RemoveItem(item.name) then
+            if item.bags_needed > 0 then
+                Player.Functions.RemoveItem('empty_bag', item.bags_needed)
+                TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items['empty_bag'], 'remove', item.bags_needed)
             end
+
+            Player.Functions.AddItem(item.result, item.result_amount)
+            TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item.result], 'add', item.result_amount)
+
+            print('El jugador ' .. GetPlayerName(src) .. ' usó ' .. item.name)
         else
-            TriggerClientEvent('QBCore:Notify', src, 'No tienes suficientes bolsas vacías', 'error')
+            TriggerClientEvent('okokNotify:Alert', src, "Error", 'No tienes ninguna ' .. item.name, 5000, 'error')
         end
     end)
 
@@ -175,3 +179,7 @@ for _, item in ipairs(items) do
         TriggerClientEvent('drugs:client:use' .. item.name, source, item)
     end)
 end
+
+
+
+

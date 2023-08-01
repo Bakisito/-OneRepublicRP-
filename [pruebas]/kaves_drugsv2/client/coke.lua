@@ -345,6 +345,7 @@ Citizen.CreateThread(function()
 end)
 
 local items = {
+    'impotent_rage',
     'coke_small_brick',
     'coke_brick',
     'big_coke_brick',
@@ -354,7 +355,7 @@ local items = {
 
 for _, item in ipairs(items) do
     RegisterNetEvent('drugs:client:use' .. item, function()
-        QBCore.Functions.Progressbar("coke_unpack", "Procesando " .. item, 10000, false, true, {
+        QBCore.Functions.Progressbar("coke_unpack", "Abriendo Paquete", 10000, false, true, {
             disableMovement = true,
             disableCarMovement = false,
             disableMouse = false,
@@ -369,6 +370,6 @@ for _, item in ipairs(items) do
         end, function() -- Cancel
             StopAnimTask(PlayerPedId(), "anim@gangops@facility@servers@", "hotwire", 1.0)
             QBCore.Functions.Notify("Cancelado..", "error")
-        end)
-    end,"cokebaggy")
+        end,'cokebaggy')
+    end)
 end

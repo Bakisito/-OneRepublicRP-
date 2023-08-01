@@ -21,7 +21,7 @@ Config = {
     ------------------------
     -- This function will take care of your inventory weight, so if player has full inventory, this prevent to dissapear money. Disable this if your inventory doesn't have exports("GetTotalWeight", GetTotalWeight)
     Overweight = true, -- true = enabled (this prevent to dissapear money)
-    MaxInventoryWeight = 120000, -- You find that in your qb-inventory > config.lua
+    MaxInventoryWeight = 160000, -- You find that in your qb-inventory > config.lua
 
     -- In Default, this script refreshes money before payment, but some scripts ignore that, so if you have a problem with some scripts. Just enable the function below or
     -- if you want better optimization, contact me on Discord and I will fix that script to refresh that money by function.
