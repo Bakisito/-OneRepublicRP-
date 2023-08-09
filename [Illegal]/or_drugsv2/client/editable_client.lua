@@ -1,4 +1,5 @@
 Framework = nil
+QBCore = exports['qb-core']:GetCoreObject()
 
 Citizen.CreateThread(function()
     for _, data in pairs(iplList) do
@@ -63,25 +64,20 @@ requestAnim = function(animDict)
 end
 
 progressBar = function(text, time)
---[[     TriggerEvent("mythic_progbar:client:progress", {
-        name = "drugsv2",
-        duration = time,
-        label = text,
-        useWhileDead = false,
-        canCancel = true,
-        controlDisables = {
-            disableMovement = true,
-            disableCarMovement = true,
-            disableMouse = false,
-            disableCombat = true,
-        },
-    }) ]]
+    QBCore.Functions.Progressbar("drugsv2", text, time, false, true, {
+        disableMovement = true,
+        disableCarMovement = true,
+        disableMouse = false,
+        disableCombat = true,
+    }, {}, {}, function() -- Done
+        -- Do something here when the progress bar is done
+    end, function() -- Cancel
+        -- Do something here when the progress bar is cancelled
+    end)
 end
 
-showNotification = function(message, flash)
-	BeginTextCommandThefeedPost("STRING")
-    AddTextComponentSubstringPlayerName(message)
-	EndTextCommandThefeedPostTicker(flash, 1)
+showNotification = function(msg, type)
+    QBCore.Functions.Notify(msg, type or "info")
 end
 
 DrawText3D = function(x, y, z, scale, text)

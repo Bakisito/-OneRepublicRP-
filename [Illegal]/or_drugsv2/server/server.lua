@@ -35,32 +35,32 @@ Citizen.CreateThread(function()
             cb({status = true})
         end)
 
-        Framework.RegisterServerCallback("kaves_drugsv2:server:checkCopCount", function(source, cb)
-            local xPlayer = GetPlayer(source)
+        -- Framework.RegisterServerCallback("kaves_drugsv2:server:checkCopCount", function(source, cb)
+        --     local xPlayer = GetPlayer(source)
 
-            if not xPlayer then
-                return
-            end
+        --     if not xPlayer then
+        --         return
+        --     end
 
-            local players = GetPlayers()
-            local policeCount = 0
+        --     local players = GetPlayers()
+        --     local policeCount = 0
 
-            for i = 1, #players do
-                local player = GetPlayer(players[i])
-                for k,v in pairs(Config.CornerHolding.jobNames) do
-                    if player.job.name == v then
-                        policeCount = policeCount + 1
-                    end
-                end
-            end
+        --     for i = 1, #players do
+        --         local player = GetPlayer(players[i])
+        --         for k,v in pairs(Config.CornerHolding.jobNames) do
+        --             if player.job.name == v then
+        --                 policeCount = policeCount + 1
+        --             end
+        --         end
+        --     end
 
-            if policeCount < Config.CornerHolding.requiredCops then
-                Notification(source, Strings["cant_corner_not_enough_cops"])
-                return cb({status = false})
-            end
+        --     if policeCount < Config.CornerHolding.requiredCops then
+        --         Notification(source, Strings["cant_corner_not_enough_cops"])
+        --         return cb({status = false})
+        --     end
 
-            cb({status = true})
-        end)
+        --     cb({status = true})
+        -- end)
 
     elseif Config.Framework == "qbcore" then
 
@@ -88,32 +88,32 @@ Citizen.CreateThread(function()
             cb({status = true})
         end)
 
-        Framework.Functions.CreateCallback("kaves_drugsv2:server:checkCopCount", function(source, cb)
-            local xPlayer = GetPlayer(source)
+        -- Framework.Functions.CreateCallback("kaves_drugsv2:server:checkCopCount", function(source, cb)
+        --     local xPlayer = GetPlayer(source)
 
-            if not xPlayer then
-                return
-            end
+        --     if not xPlayer then
+        --         return
+        --     end
 
-            local players = GetPlayers()
-            local policeCount = 0
+        --     local players = GetPlayers()
+        --     local policeCount = 0
 
-            for i = 1, #players do
-                local player = GetPlayer(players[i])
-                for k,v in pairs(Config.CornerHolding.jobNames) do
-                    if player.PlayerData.job.name == v then
-                        policeCount = policeCount + 1
-                    end
-                end
-            end
+        --     for i = 1, #players do
+        --         local player = GetPlayer(players[i])
+        --         for k,v in pairs(Config.CornerHolding.jobNames) do
+        --             if player.PlayerData.job.name == v then
+        --                 policeCount = policeCount + 1
+        --             end
+        --         end
+        --     end
 
-            if policeCount < Config.CornerHolding.requiredCops then
-                Notification(source, Strings["cant_corner_not_enough_cops"])
-                return cb({status = false})
-            end
+        --     if policeCount < Config.CornerHolding.requiredCops then
+        --         Notification(source, Strings["cant_corner_not_enough_cops"])
+        --         return cb({status = false})
+        --     end
 
-            cb({status = true})
-        end)
+        --     cb({status = true})
+        -- end)
     end
 end)
 
@@ -130,14 +130,14 @@ RegisterServerEvent("kaves_drugsv2:server:giveItem", function(itemName, itemCoun
     Notification(source, (Strings["gave_item"]):format(itemName, itemCount))
 end)
 
-RegisterServerEvent("kaves_drugsv2:server:sellItem", function(itemName, itemCount, itemPrice)
-    if Config.CornerHolding.giveBlackMoney then
-        AddBlackMoney(source, itemPrice)
-    else
-        AddMoney(source, itemPrice)
-    end
-    Notification(source, (Strings["sold_item"]):format(itemCount, itemName))
-end)
+-- RegisterServerEvent("kaves_drugsv2:server:sellItem", function(itemName, itemCount, itemPrice)
+--     if Config.CornerHolding.giveBlackMoney then
+--         AddBlackMoney(source, itemPrice)
+--     else
+--         AddMoney(source, itemPrice)
+--     end
+--     Notification(source, (Strings["sold_item"]):format(itemCount, itemName))
+-- end)
 
 local items = {
     {name = 'impotent_rage', bags_needed = 6, result = 'cokebaggy', result_amount = 6},
@@ -180,6 +180,14 @@ for _, item in ipairs(items) do
     end)
 end
 
+RegisterServerEvent("kaves_drugsv2:server:startLaundering")
+AddEventHandler("kaves_drugsv2:server:startLaundering", function(potentialLaunderAmount, cb)
+    local xPlayer = QBCore.Functions.GetPlayer(source)
 
-
-
+    if potentialLaunderAmount <= xPlayer.Functions.GetItemByName("black").amount then
+        xPlayer.Functions.RemoveItem("black", potentialLaunderAmount) -- Retirar el dinero negro
+        cb(true)
+    else
+        cb(false)
+    end
+end)

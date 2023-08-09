@@ -3,34 +3,34 @@ Config = {}
 Config.Framework = "qbcore" -- esx or qbcore
 -- todo add remove object
 
-Config.CornerHolding = {
-    commandName = "corner",
-    useNPC = false, -- if you want to use npc make it true
-    pedSpeed = 3.0, -- moving speed
-    requiredCops = 0,
-    giveBlackMoney = false,
-    jobNames = {
-        "police"
-    },
-    alertChance = 1, -- 1 - 2 - 3 - 4 (1 = 25%, 2 = 50%, 3 = 75%, 4 = 100%)
-    failedAlert = false, -- If he doesn't have enough items on it or he fired the buyer, should report it?
-    salableItems = {
-        { name = "packed_coke", price = 1000, salableCount = 1 },
-        { name = "packed_meth", price = 1000, salableCount = 1 },
-        { name = "packed_weed", price = 1000, salableCount = 1 },
-    },
-    certainArea = false, -- set true if you want it to be able to do it only near certain areas
-    certainAreas = {
-        { coords = vector3(-293.3, -1447.92, 31.31), radius = 100 },
-    },
-    pedModels = {
-        "a_f_y_hipster_02",
-        "a_f_y_vinewood_02",
-        "a_m_m_hillbilly_02",
-        "a_m_o_soucent_02",
-        "a_m_o_tramp_01",
-    },
-}
+-- Config.CornerHolding = {
+--     commandName = "corner",
+--     useNPC = false, -- if you want to use npc make it true
+--     pedSpeed = 3.0, -- moving speed
+--     requiredCops = 0,
+--     giveBlackMoney = false,
+--     jobNames = {
+--         "police"
+--     },
+--     alertChance = 1, -- 1 - 2 - 3 - 4 (1 = 25%, 2 = 50%, 3 = 75%, 4 = 100%)
+--     failedAlert = false, -- If he doesn't have enough items on it or he fired the buyer, should report it?
+--     salableItems = {
+--         { name = "packed_cokea", price = 1, salableCount = 1 },
+--         { name = "packed_metha", price = 1, salableCount = 1 },
+--         { name = "packed_weeda", price = 1, salableCount = 1 },
+--     },
+--     certainArea = false, -- set true if you want it to be able to do it only near certain areas
+--     certainAreas = {
+--         { coords = vector3(-293.3, -1447.92, 31.31), radius = 100 },
+--     },
+--     pedModels = {
+--         "a_f_y_hipster_02",
+--         "a_f_y_vinewood_02",
+--         "a_m_m_hillbilly_02",
+--         "a_m_o_soucent_02",
+--         "a_m_o_tramp_01",
+--     },
+-- }
 
 Config.Meth = {
     labs = {
@@ -96,8 +96,8 @@ Config.Coke = {
                     ["lab_card"] = 1,
                 }, 
                 removeItem = false,
-                enterCoords = vector4(0.0, -0.0, 0.0, 0.0),
-                exitCoords = vector4(0.0, -0.0, -0.0, 0.0), 
+                enterCoords = vector4(10.0, -12.0, 15.0, 16.0),
+                exitCoords = vector4(10.0, -10.0, -10.0, 10.0), 
             },
             unpackScene = {
                 showMarker = true,
@@ -250,14 +250,14 @@ Config.Weed = {
     labs = {
         [1] = {
             enterance = {
-                showMarker = true,
+                showMarker = false,
                 bucketId = 0, 
                 requiredItems = {
-                    -- ["lab_card"] = 1,
+                     ["lab_card"] = 1,
                 }, 
                 removeItem = false,
-                enterCoords = vector4(951.24, -1711.76, 30.92, 0.0),
-                exitCoords = vector4(1066.0, -3183.48, -39.16, 0.0), 
+                enterCoords = vector4(10.0, -12.0, 15.0, 16.0),
+                exitCoords = vector4(10.0, -10.0, -10.0, 10.0), 
             },
             gatheringScene = {
                 showMarker = true,
@@ -267,25 +267,11 @@ Config.Weed = {
                 removeItem = false,
                 coords = {
                     { 
-                        coords = vector3(1057.61, -3196.85, -39.16), 
+                        coords = vector3(15.61, -15.85, -15.16), 
                         offset = vector3(-0.9, 0.1, -1.18), 
                         rotation = vector3(0.0, 0.0, 90.0) 
                     },
-                    { 
-                        coords = vector3(1060.54, -3193.35, -39.16), 
-                        offset = vector3(-0.9, 0.1, -1.18), 
-                        rotation = vector3(0.0, 0.0, 180.0) 
-                    },
-                    { 
-                        coords = vector3(1056.25, -3192.8, -39.16), 
-                        offset = vector3(-0.9, 0.1, -1.18), 
-                        rotation = vector3(0.0, 0.0, 270.0) 
-                    },
-                    { 
-                        coords = vector3(1053.94, -3195.96, -39.16), 
-                        offset = vector3(-0.9, 0.1, -1.18), 
-                        rotation = vector3(0.0, 0.0, 0.0) 
-                    },
+
                 },
                 itemName = "unpacking_weed",
                 itemCount = 1
@@ -293,38 +279,29 @@ Config.Weed = {
             packingScene = {
                 showMarker = true,
                 requiredItems = {
-                    ["unpacking_weed"] = 1
+                    ["blue_dream_weed"] = 30,
+                    ["empty_bag"] = 15
                 },
                 removeItem = true,
                 coords = {
                     { 
-                        coords = vector3(1039.2, -3205.11, -38.17), 
+                        coords = vector3(-1252.64, -1111.32, 0.79), 
                         offset = vector3(-0.76, 0.87, -0.98), 
-                        rotation = vector3(0.0, 0.0, 90.0) 
+                        rotation = vector3(0.0, 0.0, 0.0) 
                     },
                     { 
-                        coords = vector3(1037.52, -3205.37, -38.17), 
-                        offset = vector3(0.76, 0.70, -0.98), 
-                        rotation = vector3(0.0, 0.0, -90.0) 
-                    },
-                    { 
-                        coords = vector3(1034.67, -3205.44, -38.17), 
+                        coords = vector3(-1246.98, -1109.47, 0.79), 
                         offset = vector3(-0.76, 0.87, -0.98), 
-                        rotation = vector3(0.0, 0.0, 90.0) 
+                        rotation = vector3(0.0, 0.0, 0.0) 
                     },
                     { 
-                        coords = vector3(1032.95, -3205.49, -38.17), 
-                        offset = vector3(0.76, 0.70, -0.98), 
-                        rotation = vector3(0.0, 0.0, -90.0) 
-                    },
-                    { 
-                        coords = vector3(1034.15, -3203.81, -38.17), 
-                        offset = vector3(-0.65, 0.79, -0.98), 
+                        coords = vector3(-1249.49, -1110.32, 0.79), 
+                        offset = vector3(-0.76, 0.87, -0.98), 
                         rotation = vector3(0.0, 0.0, 0.0) 
                     },
                 },
-                itemName = "packed_weed",
-                itemCount = 1
+                itemName = "blue_dream_bag",
+                itemCount = 15
             },
         },
     },
@@ -337,17 +314,15 @@ Config.Laundry = {
                 showMarker = true,
                 bucketId = 0, 
                 requiredItems = {
-                    -- ["lab_card"] = 1,
+                     ["lab_card"] = 1,
                 }, 
                 removeItem = false,
-                enterCoords = vector4(84.04, -1551.96, 29.6, 0.0),
-                exitCoords = vector4(1138.0, -3198.96, -39.68, 0.0), 
+                enterCoords = vector4(15.04, -15.96, 15.6, 0.0),
+                exitCoords = vector4(15.0, -15.96, -15.68, 0.0), 
             },
             placePaperScene = {
                 showMarker = true,
-                requiredItems = {
-                    ["money_sheet"] = 1,
-                },
+                requiredItems = {"black"},
                 removeItem = true,
                 coords = {
                     { 
@@ -381,9 +356,7 @@ Config.Laundry = {
             },
             cuttingScene = {
                 showMarker = true,
-                requiredItems = {
-                    ["uncutted_money"] = 8
-                },
+                requiredItems = {},
                 removeItem = true,
                 coords = vector3(1122.41, -3197.88, -40.39),
                 offset = vector3(2.29, 0.66, -0.6),
@@ -393,9 +366,7 @@ Config.Laundry = {
             },
             dryingScene = {
                 showMarker = true,
-                requiredItems = {
-                    ["cutted_money"] = 16,
-                },
+                requiredItems = {},
                 removeItem = true,
                 coords = {
                     { 
@@ -415,9 +386,7 @@ Config.Laundry = {
             packingScene = {
                 showMarker = true,
                 giveBlackMoney = false,
-                requiredItems = {
-                    ["washed_money"] = 24,
-                },
+                requiredItems = {},
                 removeItem = true,
                 coords = {
                     { 
@@ -431,7 +400,7 @@ Config.Laundry = {
                         rotation = vector3(0.0, 0.0, 90.0) 
                     },
                 },
-                itemName = "black_money",
+                itemName = "cash",
                 itemCount = 24
             },
         },
@@ -517,7 +486,7 @@ iplList = {
 
 Strings = {
     -- General --
-    ["dont_have_item"] = "You don't have enough %s",
+    ["dont_have_item"] = "No tienes suficientes %s",
     ["gave_item"] = "You gaved %s %sx",
     ["sold_item"] = "You sold %sx %s",
 
@@ -525,45 +494,45 @@ Strings = {
     ["enter_meth_lab"] = "Press ~INPUT_CONTEXT~ to enter meth lab",
     ["exit_meth_lab"] = "Press ~INPUT_CONTEXT~ to exit meth lab",
 
-    ["start_meth_cooking"] = "Press ~INPUT_CONTEXT~ to start cooking meth",
-    ["cooking_meth"] = "You started cooking meth",
-    ["cooking_meth_text"] = "Cooking Meth...",
+    ["start_meth_cooking"] = "Pulsa ~INPUT_CONTEXT~ para empezar a cocinar metanfetamina",
+    ["cooking_meth"] = "Has empezado a cocinar metanfetamina",
+    ["cooking_meth_text"] = "Cocinando metanfetamina...",
 
-    ["start_breaking_meth"] = "Press ~INPUT_CONTEXT~ to start breaking meth",
-    ["breaking_meth"] = "You started breaking cooked meth",
-    ["breaking_meth_text"] = "Breaking Meth...",
+    ["start_breaking_meth"] = "Pulsa ~INPUT_CONTEXT~ para empezar a romper la metanfetamina",
+    ["breaking_meth"] = "Has empezado a romper metanfetamina cocinada",
+    ["breaking_meth_text"] = "Rompiendo metanfetamina...",
 
-    ["start_packing_meth"] = "Press ~INPUT_CONTEXT~ to start packing meth",
-    ["packing_meth"] = "You started packing meths",
-    ["packing_meth_text"] = "Packing Meth...",
+    ["start_packing_meth"] = "Pulsa ~INPUT_CONTEXT~ para empezar a empaquetar metanfetamina",
+    ["packing_meth"] = "Has empezado a empaquetar metanfetamina",
+    ["packing_meth_text"] = "Empaquetando metanfetamina...",
 
     -- Coke --
     ["enter_coke_lab"] = "Press ~INPUT_CONTEXT~ to enter coke lab",
     ["exit_coke_lab"] = "Press ~INPUT_CONTEXT~ to exit coke lab",
 
-    ["start_unpacking_coke"] = "Press ~INPUT_CONTEXT~ to start unpacking coke",
-    ["unpacking_coke"] = "You started unpacking coke",
-    ["unpacking_coke_text"] = "Unpacking Coke...",
+    ["start_unpacking_coke"] = "Pulse ~INPUT_CONTEXT~ para empezar a crear pasta de cocaina",
+    ["unpacking_coke"] = "Empezaste a preparar la pasta coca",
+    ["unpacking_coke_text"] = "Preparando pasta de coca",
 
-    ["start_cutting_coke"] = "Press ~INPUT_CONTEXT~ to start cutting coke",
-    ["cutting_coke"] = "You start to cutting coke",
-    ["cutting_coke_text"] = "Cutting Coke...",
+    ["start_cutting_coke"] = "Pulse ~INPUT_CONTEXT~ para empezar a cortar la cocaina",
+    ["cutting_coke"] = "Empezaste a cortar la cocaína",
+    ["cutting_coke_text"] = "Cortando Cocaina",
 
-    ["start_packing_coke"] = "Press ~INPUT_CONTEXT~ to start packing coke",
-    ["packing_coke"] = "You start to cutting coke",
-    ["packing_coke_text"] = "Cutting Coke...",
+    ["start_packing_coke"] = "Pulse ~INPUT_CONTEXT~ para empacar la cocaína",
+    ["packing_coke"] = "Empezaste a empacar la cocaína",
+    ["packing_coke_text"] = "Empacando Cocaina",
 
     -- Weed --
-    ["enter_weed_lab"] = "Press ~INPUT_CONTEXT~ to enter weed lab",
-    ["exit_weed_lab"] = "Press ~INPUT_CONTEXT~ to exit weed lab",
+    ["enter_weed_lab"] = "Pulse ~INPUT_CONTEXT~ para entrar en el laboratorio de malas hierbas",
+    ["exit_weed_lab"] = "Pulse ~INPUT_CONTEXT~ para salir del laboratorio de malas hierbas",
 
-    ["start_gather_weed"] = "Press ~INPUT_CONTEXT~ to start gather weed",
-    ["gathering_weed"] = "You started gathering weed",
-    ["gathering_weed_text"] = "Gathering Weed...",
+    ["start_gather_weed"] = "Pulsar ~INPUT_CONTEXT~ para empezar a recoger hierba",
+    ["gathering_weed"] = "Has empezado a recoger hierba",
+    ["gathering_weed_text"] = "Recogiendo hierba...",
 
-    ["start_packing_weed"] = "Press ~INPUT_CONTEXT~ to start packing weed",
-    ["packing_weed"] = "You start to packing weed",
-    ["packing_weed_text"] = "Packing Weed...",
+    ["start_packing_weed"] = "Pulsa ~INPUT_CONTEXT~ para empezar a empaquetar hierba",
+    ["packing_weed"] = "Empiezas a empaquetar hierba",
+    ["packing_weed_text"] = "Empacando hierba...",
 
     -- Laundry --
     ["enter_laundry_lab"] = "Press ~INPUT_CONTEXT~ to enter laundry lab",

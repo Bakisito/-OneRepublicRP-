@@ -110,6 +110,10 @@ Config = {
 			 { name = "mars", price = 12, amount = 50,  },
 			 { name = "chaser", price = 5, amount = 50, },
 			 { name = "meteorite", price = 5, amount = 50, },
+			 { name = "bakingsoda", price = 20, amount = 15, },
+			 { name = "empty_bag", price = 5, amount = 50, },
+			 { name = "levamisol", price = 500, amount = 10, },
+
 
 		},
 		["bar"] = {

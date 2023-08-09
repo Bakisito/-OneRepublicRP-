@@ -293,6 +293,7 @@ local playPackingScene = function(data, mainData)
 
 end
 
+local launderAmount = 0
 Citizen.CreateThread(function()
     while true do
         local sleep = 1000
@@ -357,22 +358,25 @@ Citizen.CreateThread(function()
                     if placeDst <= 1 then
                         showHelpNotification(getPhrase("start_place_paper"))
                         if IsControlJustPressed(0, 38) and not progress then
-    
-                            if next(v.placePaperScene.requiredItems) then
-                                TriggerCallback("kaves_drugsv2:server:checkItem", function(result)
-                                    if not result.status then
-                                        return
-                                    end
+                            local input = exports['qb-input']:ShowInput({
+                                header = "Cantidad de Dinero Negro a Lavar",
+                                submit = "Enviar",
+                            })
+                            local potentialLaunderAmount = tonumber(input)
+                            
+                            -- Verificar y retirar el dinero negro en el servidor
+                            TriggerServerEvent("kaves_drugsv2:server:startLaundering", potentialLaunderAmount, function(success)
+                                if success then
+                                    launderAmount = potentialLaunderAmount -- Guardar la cantidad
                                     progress = true
                                     playPlacePaperScene(data, v.placePaperScene)
-                                end, {items = v.placePaperScene.requiredItems, remove = v.placePaperScene.removeItem})
-                            else
-                                progress = true
-                                playPlacePaperScene(data, v.placePaperScene)
-                            end
+                                else
+                                    QBCore.Functions.Notify("No tienes suficiente dinero negro para lavar", "error")
+                                end
+                            end)
                         end
                     end
-                end
+                    
 
                 local cuttingDst = #(pCoords - v.cuttingScene.coords)
 
