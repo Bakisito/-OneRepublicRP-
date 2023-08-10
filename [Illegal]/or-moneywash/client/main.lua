@@ -3,8 +3,8 @@ local QBCore = exports['qb-core']:GetCoreObject()
 function openwasher()
     local input = lib.inputDialog('Lavar dinero', {'Dinero Sucio'})
 
-    if not input or not input[1] then 
-        QBCore.Functions.Notify("Es necesario un valor", "error")
+    if not input or not input[1] or input[1] == '' then
+        QBCore.Functions.Notify('Debes ingresar una cantidad válida.', 'error')
         return
     end
 
@@ -23,7 +23,7 @@ function openwasher()
     local currentLocation = nil
     for _, loc in ipairs(Config.Locations) do
         local dist = #(GetEntityCoords(PlayerPedId()) - vector3(loc.x, loc.y, loc.z))
-        if dist < 2.0 then
+        if dist < 5.0 then
             currentLocation = loc
             break
         end
@@ -95,13 +95,14 @@ RegisterNetEvent('baki:moneywash:start', function()
         disableMouse = false,
         disableCombat = true,
     }, {
-        animDict = "anim@gangops@facility@servers@",
-        anim = "hotwire",
+        animDict = "amb@world_human_stand_impatient@female@no_sign@idle_a",
+        anim = "idle_a",
         flags = 16,
     }, {}, {}, function() -- Done
-        StopAnimTask(PlayerPedId(), "anim@gangops@facility@servers@", "hotwire", 1.0)
+        StopAnimTask(PlayerPedId(), "amb@world_human_stand_impatient@female@no_sign@idle_a", "idle_a", 1.0)
     end, function() -- Cancel
-        StopAnimTask(PlayerPedId(), "anim@gangops@facility@servers@", "hotwire", 1.0)
+        StopAnimTask(PlayerPedId(), "amb@world_human_stand_impatient@female@no_sign@idle_a", "idle_a", 1.0)
         QBCore.Functions.Notify("Cancelado..", "error")
     end)
 end)
+
