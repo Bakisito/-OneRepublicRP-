@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `codem-hud-data` (
+CREATE TABLE IF NOT EXISTS `codem_hud_data` (
   `identifier` varchar(65) DEFAULT NULL,
   `data` longtext DEFAULT NULL,
   `stress` int(11) DEFAULT NULL,

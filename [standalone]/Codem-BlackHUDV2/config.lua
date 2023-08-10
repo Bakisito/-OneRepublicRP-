@@ -225,7 +225,7 @@ Config.SettingsLocale = { -- Settings texts
     ["refresh_rate"] = "Frecuencia de actualización",
     ["esc_to_exit"] = "PULSE ESC PARA SALIR DEL MODO DE EDICIÓN",
     ["toggle_minimap"] = "Alternar mapa mínimo",
-    [" currency"] = '$',
+    ["currency"] = '$',
     ["hide_id"] = 'Ocultar ID',
     ["hide_logo"] = 'Ocultar logotipo',
     ["hide_cash"] = 'Ocultar dinero en efectivo',
@@ -275,8 +275,8 @@ Config.WhitelistedWeaponStress = {
 
 Config.AddStress = {
     ["on_shoot"] = {
-        min = 1,
-        max = 3,
+        min = 0.1,
+        max = 1,
         enable = true,
     },
     ["on_fastdrive"] = {
