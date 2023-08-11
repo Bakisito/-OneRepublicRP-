@@ -313,6 +313,7 @@ iframe {
 }
 
 div.menu-content {
+    display: none;
     position: absolute;
     border-radius: 10px;
     left: 32%;
@@ -320,7 +321,6 @@ div.menu-content {
     background-color: rgba(0, 0, 0, 0.55);
     height: 30vw;
     width: 35vw;
-    display: none;
 }
 
 div.menu-content>h3 {
@@ -334,6 +334,40 @@ div.menu-content>h3 {
 }
 
 div.menu-content>p {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-size: 1.5vh;
+    padding-left: 9vh;
+    letter-spacing: 0.1vh;
+    max-width: 77vh;
+    max-height: 43vh;
+    overflow: auto;
+}
+
+
+
+div.menu-update {
+    display: none;
+    position: absolute;
+    border-radius: 10px;
+    left: 32%;
+    top: 18%;
+    background-color: rgba(0, 0, 0, 0.55);
+    height: 30vw;
+    width: 35vw;
+}
+
+div.menu-update>h3 {
+    text-align: center;
+    font-size: 2vh;
+    margin: 9vh;
+    background: var(--green);
+    border-radius: 0.6vh;
+    padding: 2vh;
+    margin-bottom: 4vh;
+}
+
+div.menu-update>p {
     word-wrap: break-word;
     white-space: pre-wrap;
     font-size: 1.5vh;
