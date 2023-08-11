@@ -9,11 +9,10 @@ function topNotification(text)
     DisplayHelpTextFromStringLabel(0, 0, 1, -1)
 end
 
-local function showNotification(message)
-    -- SetNotificationTextEntry("STRING")
-	-- AddTextComponentString(message)
-	-- DrawNotification(0,1)
-    QBCore.Functions.Notify(message, "info")
+function showNotification(message)
+    SetNotificationTextEntry("STRING")
+	AddTextComponentString(message)
+	DrawNotification(0,1)
 end
 
 RegisterNetEvent("Client:grapplerNotification")
