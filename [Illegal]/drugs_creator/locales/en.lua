@@ -83,10 +83,10 @@ locales['en'] = {
 
     --[[ Logs finsihed ]]
 
-    ["harvesting"] = "Harvesting %s",
+    ["harvesting"] = "Recogiendo %s",
     ["crafting"] = "Crafting",
-    ["selling"] = "Selling %s",
-    ["you_dont_have_item"] = "You don't have %s",
-    ["nobody_close"] = "Nobody close",
-    ["ouch"] = "~r~Ouch!~s~"
+    ["selling"] = "Vendiendo %s",
+    ["you_dont_have_item"] = "No tienes %s",
+    ["nobody_close"] = "No hay nadie cerca",
+    ["ouch"] = "~r~Eso truco me lo se mi bro!~s~"
 }

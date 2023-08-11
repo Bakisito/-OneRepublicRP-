@@ -16,12 +16,12 @@ UM.GithubUserName = "Bakisito";
 UM.Logo = "one-republic-logo-3.png";  //  ui/assets/img
 UM.About = "OR-Devs.",
 
-UM.NavUrl = {
-        store: "https://trollface.dk",
-        discord: "https://discord.gg/yjCmVvC5tE",
-}
+        UM.NavUrl = {
+                store: "https://one-republic.tebex.io/",
+                discord: "https://discord.gg/yjCmVvC5tE",
+        }
 
-UM.TemplateColor =  {
+UM.TemplateColor = {
         defaultcolor: "#2ec090",
         opacitycolor: "#203b46ba",
 };
@@ -43,23 +43,23 @@ UM.YoutubeVideo = {
 
 UM.Music = {
         musicID: "music.mp3",
-        volume: 0.7,
+        volume: 0.6,
 }
 
 UM.RandomBackground = {
         enabled: true, // If you set this to false, will get the first one.
-        img: ['bg1.jpg','bg2.png','bg3.jpg'],
+        img: ['bg1.jpg', 'bg2.png', 'bg3.jpg'],
 }
 
 UM.RandomInfo = {
         enabled: true,
         text: [
-                "🎉[1] Hablandome MUUEEEELLLLTOOOO.",
-                "🥳[2] Tu no me puede venir con normativa de otro servidore.",
-                "🥳[3] Si tu cree que la policia tiene ventaja! pue metete a policia entonce!.",
-                "🎉[4] Maldito negro verdad?!.",
-                "🥳[5] Ok una pregunta, como a que hora tu me va deja habla?.",
-                "🎉[6] me dicen que le dieron una puñalada a richard.",
-                "🥳[7] Nooo tu roles aqui se acaban!!.",
-          ]
+                "🎉[1] Hablandome MUUEEEELLLLTOOOO",
+                "🥳[2] Tu no me puede venir con normativa de otro servidore",
+                "🥳[3] Si tu cree que la policia tiene ventaja! pue metete a policia entonce!",
+                "🎉[4] Maldito negro verdad?!",
+                "🥳[5] Ok una pregunta, como a que hora tu me va deja habla?",
+                "🎉[6] me dicen que le dieron una puñalada a richard",
+                "🥳[7] Nooo tu roles aqui se acaban!!",
+        ]
 }

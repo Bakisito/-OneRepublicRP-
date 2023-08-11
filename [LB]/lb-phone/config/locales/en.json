@@ -1169,7 +1169,7 @@
             "AIRDROP_SENT": "Sent",
             "AIRDROP_ACCEPTED": "Accepted",
             "AIRDROP_DECLINED": "Declined",
-            "AIRDROP_NO_USERS": "No phone(s) nearby",
+            "AIRDROP_NO_USERS": "No phones nearby",
             "WALLPAPER_POPUP": {
                 "TITLE": "Use as Wallpaper",
                 "TEXT": "Are you sure you want to set this image as your wallpaper?",

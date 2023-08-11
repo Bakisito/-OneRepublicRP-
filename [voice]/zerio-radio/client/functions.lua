@@ -1,34 +1,44 @@
 Framework = exports["qb-core"]:GetCoreObject()
 
 Animation = {
-    Prop = GetHashKey('prop_cs_hand_radio'),
-    Bone = 28422,
-    Offset = vector3(0.0, 0.0, 0.0),
-    Rotation = vector3(0.0, 0.0, 0.0),
-    Dictionary = {
-        "cellphone@", "cellphone@in_car@ds", "cellphone@str", "random@arrests"
+    OpenProp = GetHashKey('prop_cs_hand_radio'),
+    OpenBone = 28422,
+    OpenOffset = vector3(0.0, 0.0, 0.0),
+    OpenRotation = vector3(0.0, 0.0, 0.0),
+
+    -- TalkProp = GetHashKey('prop_cs_hand_radio'),
+    -- TalkBone = 28422,
+    -- TalkOffset = vector3(0.0, 0.0, 0.0),
+    -- TalkRotation = vector3(0.0, 0.0, 0.0),
+
+    OpenDictionary = {
+        normal = "cellphone@",
+        in_car = "cellphone@in_car@ds", 
     },
-    Animation = {
-        "cellphone_text_in", "cellphone_text_out", "cellphone_call_listen_a",
-        "generic_radio_chatter"
-    }
+    OpenAnimation = {
+        open = "cellphone_text_in",
+        closed = "cellphone_text_out",
+    },
+
+    TalkDictionary = "random@arrests",
+    TalkAnimation = "generic_radio_chatter"
 }
 
 function open()
     if isOpen == false then
-        RequestModel(Animation.Prop)
+        RequestModel(Animation.OpenProp)
 
-        while not HasModelLoaded(Animation.Prop) do Wait(150) end
+        while not HasModelLoaded(Animation.OpenProp) do Wait(150) end
 
-        Handle = CreateObject(Animation.Prop, 0.0, 0.0, 0.0, true, true, false)
+        Handle = CreateObject(Animation.OpenProp, 0.0, 0.0, 0.0, true, true, false)
 
-        local bone = GetPedBoneIndex(PlayerPedId(), Animation.Bone)
+        local bone = GetPedBoneIndex(PlayerPedId(), Animation.OpenBone)
 
         SetCurrentPedWeapon(PlayerPedId(), GetHashKey('weapon_unarmed'), true)
-        AttachEntityToEntity(Handle, PlayerPedId(), bone, Animation.Offset.x,
-                             Animation.Offset.y, Animation.Offset.z,
-                             Animation.Rotation.x, Animation.Rotation.y,
-                             Animation.Rotation.z, true, false, false, false, 2,
+        AttachEntityToEntity(Handle, PlayerPedId(), bone, Animation.OpenOffset.x,
+                             Animation.OpenOffset.y, Animation.OpenOffset.z,
+                             Animation.OpenRotation.x, Animation.OpenRotation.y,
+                             Animation.OpenRotation.z, true, false, false, false, 2,
                              true)
 
         SetModelAsNoLongerNeeded(Handle)

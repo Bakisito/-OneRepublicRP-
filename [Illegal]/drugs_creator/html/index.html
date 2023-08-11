@@ -1140,6 +1140,8 @@
                 </div>
                 <div class="modal-body">
 
+                    <p class="fs-5 mb-5 text-center fst-italic fw-semibold" data-translation-id="menu:crafting_recipe:description"></p>
+
                     <div class="row g-2">
                         <div class="col-sm form-floating mb-2">
                             <input id="crafting-recipe-name" type="text" class="form-control" placeholder="Crafting name" value="Default craft" required>
@@ -1152,14 +1154,16 @@
                         </div>
                     </div>
 
-                    <p class="text-center fs-4 fw-bold translatable" data-translation-id="menu:crafting_recipe:result_items">Result items</p>
+                    <p class="text-center fs-4 fw-bold translatable mt-2" data-translation-id="menu:crafting_recipe:result_items">Result items</p>
                     <p class="text-center fs-5 fw-lighter fst-italic translatable" data-translation-id="menu:crafting_recipe:result_items_description">Result items if the recipe is correct but not all ingredients are in the perfect quantities</p>
 
                     <div id="crafting-recipe-result-items-container">
                         
                     </div>
 
-                    <button id="crafting-recipe-add-result-item-btn" type="button" class="btn btn-secondary translatable" data-translation-id="menu:crafting_recipe:add_result_item">Add result item</button>
+                    <div class="d-inline-block col-12 my-2">
+                        <button id="crafting-recipe-add-result-item-btn" type="button" class="btn btn-secondary float-end"><i class="bi bi-plus-square"></i></button>
+                    </div>
 
                     <hr>
 
@@ -1169,7 +1173,10 @@
 
                     </div>
 
-                    <button id="crafting-recipe-add-ingredient-btn" type="button" class="btn btn-secondary translatable" data-translation-id="menu:crafting_recipe:add_ingredient">Add ingredient</button>
+                    <div class="d-inline-block col-12 my-2">
+                        <button id="crafting-recipe-add-ingredient-btn" type="button" class="btn btn-secondary float-end"><i class="bi bi-plus-square"></i></button>
+
+                    </div>
 
                     <hr>
                     
@@ -1180,7 +1187,9 @@
 
                     </div>
 
-                    <button id="crafting-recipe-add-reward-item-btn" type="button" class="btn btn-secondary translatable" data-translation-id="menu:crafting_recipe:add_reward_item">Add reward item</button>
+                    <div class="d-inline-block col-12 my-2">
+                        <button id="crafting-recipe-add-reward-item-btn" type="button" class="btn btn-secondary float-end"><i class="bi bi-plus-square"></i></button>
+                    </div>
 
                 </div>
                 <div class="modal-footer">

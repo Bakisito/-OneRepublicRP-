@@ -43,20 +43,21 @@ if (UM.YoutubeVideo.enabled) {
     $(".youtube-background").html(`<div data-vbg="https://www.youtube.com/watch?v=${UM.YoutubeVideo.videoId}"></div>`)
     $('[data-vbg]').youtube_background();
 } else if (UM.DefaultVideo.enabled) {
-   if (!UM.XMAS) {
-    $(".default-video").html(`
+    if (!UM.XMAS) {
+        $(".default-video").html(`
 <video autoplay muted loop id="myVideo">
          <source src="assets/video/${UM.DefaultVideo.lightId}.mp4" type="video/mp4">
        </video>"></div>
-`)} else {
-   $(".default-video").html(`
+`)
+    } else {
+        $(".default-video").html(`
    <video autoplay muted loop id="myVideo">
             <source src="assets/video/xmas.mp4" type="video/mp4">
           </video>"></div>
    `)
 
-}
-    $(".dark").click(function() {
+    }
+    $(".dark").click(function () {
         if (video) {
             videofile = `assets/video/${UM.DefaultVideo.lightId}.mp4`
             video = false
@@ -81,9 +82,9 @@ if (UM.YoutubeVideo.enabled) {
 }
 
 if (UMLang.Menu.enabled) {
-    MenuBoxLang("new", UMLang.Menu.menu1, UMLang.Menu.menu1alt);
-    MenuBoxLang("about", UMLang.Menu.menu2, UMLang.Menu.menu2alt);
-    MenuBoxLang("effects", UMLang.Menu.menu3, UMLang.Menu.menu3alt)
+    MenuBoxLang("new", UMLang.Menu.menu1);
+    MenuBoxLang("about", UMLang.Menu.menu2);
+    MenuBoxLang("effects", UMLang.Menu.menu3)
 }
 
 if (UM.RandomInfo.enabled) {
@@ -105,22 +106,22 @@ $("a.discord").html(`<i class="fab fa-discord"></i> ${UMLang.Nav.nav3}`)
 $("span.button__text").html(`${UMLang.Loading}`)
 $('.nav ul a.store').attr('href', UM.NavUrl.store);
 $('.nav ul a.discord').attr('href', UM.NavUrl.discord);
-$.get(`https://raw.githubusercontent.com/${UM.GithubUserName}/um-loadingscreen/main/newupdates`, function(data) {
+$.get(`https://raw.githubusercontent.com/${UM.GithubUserName}/um-loadingscreen/main/newupdates`, function (data) {
     githubraw = data;
 })
 
-$("div.effects").click(function() {
+$("div.effects").click(function () {
     $("#snow").toggle();
 });
 
-$(".fa-gamepad").click(function() {
+$(".fa-gamepad").click(function () {
     $("#area").toggle();
 });
 
-$("div.new").click(function() {
+$("div.new").click(function () {
     MenuContent("pizza-slice", `${UMLang.Menu.menu1} ${UMLang.Menu.menu1alt}`, githubraw);
 });
-$("div.about").click(function() {
+$(".about").click(function () {
     MenuContent("cat", `${UMLang.Menu.menu2} ${UMLang.Menu.menu2alt}`, UM.About);
 });
 
@@ -129,7 +130,7 @@ let music = document.getElementById("music");
 music.volume = UM.Music.volume;
 music.play();
 let play = false
-$("#musicicon").click(function() {
+$("#musicicon").click(function () {
     if (!play) {
         $("#musicicon").attr("class", "fas fa-volume-mute");
         music.pause();
@@ -168,21 +169,21 @@ const handlers = {
 };
 
 if (UM.XMAS) {
-   $(".menu-item-icon img").attr('src', 'assets/img/xmas-updates.png')
-   $("hr").css('display', 'none')
-   $("#abouticon").html('<i class="fa-solid fa-sleigh"></i>')
-   $(".dark").html('<i class="fa-solid fa-candy-cane"></i>')
-   $(".lightrope").html('<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>')
+    $(".menu-item-icon img").attr('src', 'assets/img/xmas-updates.png')
+    $("hr").css('display', 'none')
+    $("#abouticon").html('<i class="fa-solid fa-sleigh"></i>')
+    $(".dark").html('<i class="fa-solid fa-candy-cane"></i>')
+    $(".lightrope").html('<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>')
 }
 
-window.addEventListener("message", function(e) {
-    (handlers[e.data.eventName] || function() {})(e.data);
+window.addEventListener("message", function (e) {
+    (handlers[e.data.eventName] || function () { })(e.data);
 });
 
 window.addEventListener('DOMContentLoaded', () => {
     if (window.nuiHandoverData.umloginscreen == "steam") {
         let getJson = JSON.parse(window.nuiHandoverData.json).response.players[0];
-        $("div.profile small").html(getJson.personaname);
+        $("div.profile span").html(getJson.personaname);
         $("div.profile img").attr("src", getJson.avatarfull);
     }
 });

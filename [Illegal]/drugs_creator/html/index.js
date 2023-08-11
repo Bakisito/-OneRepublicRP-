@@ -670,47 +670,35 @@ function addIngredientInCraftingRecipe(ingredientName = "", ingredientMinQuantit
 	let ingredientDiv = $(`
 		<div class="mb-2 ingredient">
 			<div class="row g-2 align-items-center mb-3">
-				<div class="col-sm">
-					<div class="form-floating">
-						<input type="text" class="form-control ingredient-item-name" placeholder="Item name" value="${ingredientName}" required>
-						<label>${getLocalizedText("menu:item_name")}</label>
-					</div>
+				<div class="form-floating col">
+					<input type="text" class="form-control ingredient-item-name" placeholder="Item name" value="${ingredientName}" required>
+					<label>${getLocalizedText("menu:item_name")}</label>
 				</div>
 
-				<button type="button" class="btn btn-secondary col-2 choose-item-btn">${getLocalizedText("menu:choose_item")}</button>
+				<button type="button" class="btn btn-secondary col-auto choose-item-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="${ getLocalizedText("menu:choose_item") }"><i class="bi bi-list-ul"></i></button>	
 
-				<div class="form-check fs-4 col-3 ms-5">
+				<div class="form-check fs-4 col-auto ms-2">
 					<input class="form-check-input" type="checkbox" ${loseOnUse ? "checked" : null}>
-					<label class="form-check-label">
-						${ getLocalizedText("menu:lose_on_use") }
-					</label>
+					<label class="form-check-label">${ getLocalizedText("menu:lose_on_use") }</label>
 				</div>
+
+				<div class="form-floating col">
+					<input type="number" class="form-control ingredient-min-quantity" placeholder="Item name" value="${ingredientMinQuantity}" required>
+					<label>${getLocalizedText("menu:minimum_quantity")}</label>
+				</div>
+
+				<div class="form-floating col">
+					<input type="number" class="form-control ingredient-max-quantity" placeholder="Item name" value="${ingredientMaxQuantity}" required>
+					<label>${getLocalizedText("menu:maximum_quantity")}</label>
+				</div>
+
+				<div class="form-floating col">
+					<input type="number" class="form-control ingredient-perfect-quantity" placeholder="Item name" value="${ingredientPerfectQuantity}" required>
+					<label>${getLocalizedText("menu:perfect_quantity")}</label>
+				</div>
+
+				<button type="button" class="btn-close remove-ingredient-btn"></button>
 			</div>
-
-			<div class="row g-2">
-				<div class="col-sm ms-2">
-					<div class="form-floating">
-						<input type="number" class="form-control ingredient-min-quantity" placeholder="Item name" value="${ingredientMinQuantity}" required>
-						<label>${getLocalizedText("menu:minimum_quantity")}</label>
-					</div>
-				</div>
-
-				<div class="col-sm ms-2">
-					<div class="form-floating">
-						<input type="number" class="form-control ingredient-max-quantity" placeholder="Item name" value="${ingredientMaxQuantity}" required>
-						<label>${getLocalizedText("menu:maximum_quantity")}</label>
-					</div>
-				</div>
-
-				<div class="col-sm ms-2">
-					<div class="form-floating">
-						<input type="number" class="form-control ingredient-perfect-quantity" placeholder="Item name" value="${ingredientPerfectQuantity}" required>
-						<label>${getLocalizedText("menu:perfect_quantity")}</label>
-					</div>
-				</div>
-			</div>
-
-			<button type="button" class="btn btn-warning remove-ingredient-btn mt-2">${ getLocalizedText("menu:remove") }</button>
 		</div>
 
 		<hr>
@@ -720,7 +708,7 @@ function addIngredientInCraftingRecipe(ingredientName = "", ingredientMinQuantit
 		itemsDialog(itemName => {
 			ingredientDiv.find(".ingredient-item-name").val(itemName);
 		})
-	})
+	}).tooltip();
 
 	ingredientDiv.find(".remove-ingredient-btn").click(function() {
 		ingredientDiv.remove();
@@ -1593,12 +1581,12 @@ function addNarcosDrug(drugName = "", minQuantity = 1, maxQuantity = 2, minPrice
 				<label>Max quantity</label>
 			</div>
 
-			<div class="form-floating">
+			<div class="form-floating col-2">
 				<input type="number" class="form-control drug-min-price" placeholder="Max quantity" required value=${minPrice}>
 				<label>${ getLocalizedText("menu:min_price") }</label>
 			</div>
 
-			<div class="form-floating">
+			<div class="form-floating col-2">
 				<input type="number" class="form-control drug-max-price" placeholder="Max quantity" required value=${maxPrice}>
 				<label>${ getLocalizedText("menu:max_price") }</label>
 			</div>
@@ -1728,16 +1716,19 @@ function addPusher(pusherData = {}) {
 			</div>
 			
 			<p class="text-center fs-5">${ getLocalizedText("menu:pushers:work_time") }</p>
+			<p class="text-center fs-6">${ getLocalizedText("menu:pushers:work_time:subtitle") }</p>
 
 			<div class="row g-2 row-cols-2 text-body my-2">
 				<div class="form-floating">
-					<input type="number" min=0 max=24 class="form-control start-hour" placeholder="Start hour" required>
+					<input type="number" min="0" max="23" class="form-control start-hour" placeholder="Start hour" required>
 					<label>${ getLocalizedText("menu:start_hour") }</label>
+					<p class="invalid-feedback">${getLocalizedText("menu:invalid_hours")}</p>
 				</div>
 
 				<div class="form-floating">
-					<input type="number" min=0 max=24 class="form-control finish-hour" placeholder="Finish hour" required>
+					<input type="number" min="0" max="23" class="form-control finish-hour" placeholder="Finish hour" required>
 					<label>${ getLocalizedText("menu:finish_hour") }</label>
+					<p class="invalid-feedback">${getLocalizedText("menu:invalid_hours")}</p>
 				</div>
 			</div>
 

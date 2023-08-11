@@ -8,12 +8,12 @@ UMLang.Nav = {
 
 UMLang.Menu = {
         enabled: true,
-        menu1: 'nuevo',
-        menu1alt: 'actualizaciones',
-        menu2: 'acerca de',
-        menu2alt: 'nosotros',
-        menu3: 'nieve',
-        menu3alt: 'efectos',
+        menu1: 'Actualizaciones',
+        menu1alt: '',
+        menu2: 'Nosotros',
+        menu2alt: '',
+        menu3: 'Nieve',
+        menu3alt: '',
 }
 
-UMLang.Loading = "Cargando"
+UMLang.Loading = "Cargando..."

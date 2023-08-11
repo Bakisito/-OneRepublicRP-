@@ -142,6 +142,12 @@ CreateThread(function()
             local toSend = {}
 
             for _, v in pairs(vehicles) do
+                if v.stored == nil
+                    or GetResourceState("qs-garages") == "started"
+                then
+                    v.stored = v.state
+                end
+
                 if type(v.stored) ~= "boolean" then
                     v.stored = v.stored == 1
                 end
@@ -190,7 +196,10 @@ CreateThread(function()
         local storedColumn, storedValue = "stored", 1
         if GetResourceState("cd_garage") == "started" then
             storedColumn = "in_garage"
+        elseif GetResourceState("qs-inventory") == "started" then
+            storedColumn = "state"
         end
+
         MySQL.Async.fetchAll(([[
             SELECT * FROM owned_vehicles
             WHERE owner=@owner AND plate=@plate AND `type`="car" AND `%s`=@stored
@@ -237,7 +246,7 @@ CreateThread(function()
 
             if not allowedApps[app] then
                 return showError("No such app " .. tostring(app))
-            end         
+            end
 
             if not username then
                 return showError("No username provided")
@@ -270,7 +279,7 @@ CreateThread(function()
         })
 
         ESX.RegisterCommand("changepassword", "admin", function(xPlayer, args, showError)
-            local app, username, verified = args.app:lower(), args.username, args.verified
+            local app, username, password = args.app:lower(), args.username, args.password
 
             local allowedApps = {
                 ["twitter"] = true,
@@ -283,7 +292,7 @@ CreateThread(function()
 
             if not allowedApps[app] then
                 return showError("No such app " .. tostring(app))
-            end         
+            end
 
             if not username then
                 return showError("No username provided")

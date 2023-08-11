@@ -266,5 +266,13 @@
     "menu:effects:blue_visual": "Blue visual",
     
     "menu:are_you_sure": "Are you sure?",
-    "menu:all_jobs_allowed": "All jobs allowed"
+    "menu:all_jobs_allowed": "All jobs allowed",
+    "menu:pushers": "Pushers",
+    
+    "menu:missing_menu_default": "Missing menu_default script",
+    "menu:missing_menu_default:description": "You must install menu_default script, be sure to start it without renaming",
+    "menu:download": "Download",
+    "menu:pushers:work_time:subtitle": "The time used is the VPS/Hosting one",
+    "menu:invalid_hours": "Minimum hour: 0 (midnight). Maximum hour: 23 (11:00 pm)",
+    "menu:crafting_recipe:description": "Crafting recipes can be used in laboratories to craft advanced drugs, as LSD, Meth, or anything you wish to"
 }

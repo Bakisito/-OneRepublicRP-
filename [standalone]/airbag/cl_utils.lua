@@ -1,27 +1,6 @@
-TriggerEvent('chat:addSuggestion', '/airbag', 'Activate the vehicle airbags')
-
--- This command allows you to create permanent airbags on a vehicle - for use in RP
--- If you do not want this, delete the command-
--- You must be the driver to use this command
-RegisterCommand('airbag', function(source, args, rawCommand)
-    local ped = PlayerPedId()
-    local vehicle = GetVehiclePedIsIn(ped, false)
-    if vehicle ~= 0 and GetPedInVehicleSeat(vehicle, -1) == ped then
-        if vehicle ~= 0 then createAirbags(vehicle, true) end
-    end
-end)
-
-RegisterCommand('removeairbags', function(source, args, rawCommand)
-    local ped = PlayerPedId()
-    local vehicle = GetVehiclePedIsIn(ped, false)
-    if vehicle ~= 0 and GetPedInVehicleSeat(vehicle, -1) == ped then
-        if vehicle ~= 0 then deleteAirbags(VehToNet(vehicle)) end
-    end
-end)
-
-
-
 local vehicleAirbags = {}
+local prop1 = 0
+local prop2 = 0
 Citizen.CreateThread(function()
     while true do
         local ped = PlayerPedId()
@@ -53,3 +32,10 @@ Citizen.CreateThread(function()
         Wait(1000)
     end
 end)
+
+function loadModel(modelName)
+    RequestModel(modelName)
+    while not HasModelLoaded(modelName) do
+        Wait(0)
+    end
+end

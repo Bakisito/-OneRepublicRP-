@@ -1,10 +1,7 @@
-local QBCore = exports['qb-core']:GetCoreObject()
 function alert(msg) 
-    -- SetNotificationTextEntry("STRING")
-    -- AddTextComponentString(msg)
-    -- DrawNotification(true, false)
-    QBCore.Functions.Notify(msg, "info")
-
+    SetNotificationTextEntry("STRING")
+    AddTextComponentString(msg)
+    DrawNotification(true, false)
 end
 
 function safetyToggled(newStatus)

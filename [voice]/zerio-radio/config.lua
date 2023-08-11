@@ -31,16 +31,22 @@ Config.VoiceScript = "pma-voice"
 
 -- item -> Opens through the Config.Item itemname
 -- command -> Opens through the command /radio
--- keybind -> Opens through a button press (Config.Button)
+-- keybind -> Opens through a real keymapping (Config.Keybind)
+-- control -> Opens through a button press (Config.Button)
 -- custom -> Opens through the event "zerio-radio:client:open" or via the export "Open" (exports["zerio-radio"]:Open())
 Config.OpenType = "item"
 
 -- If true, then anonymous mode will be disabled
 Config.DisableAnonymous = false
 
+-- (Only important if Config.OpenType is item)
 Config.Item = "radio"
--- Full keybind list exists here, https://docs.fivem.net/docs/game-references/controls/ 
+
 -- (Only important if Config.OpenType is keybind)
+Config.Keybind = "F5"
+
+-- Full keybind list exists here, https://docs.fivem.net/docs/game-references/controls/ 
+-- (Only important if Config.OpenType is control)
 Config.Button = 243
 
 -- The command name for changing radio channels, if you remove this line then the command will be removed

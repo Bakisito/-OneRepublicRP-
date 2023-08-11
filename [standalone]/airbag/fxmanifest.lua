@@ -13,6 +13,7 @@ files {
     'stream/prop_car_airbag.ytyp',
 	'index.html',
 	'sounds/*',
+	'stream/*.ytd',
 }
 
 data_file 'DLC_ITYP_REQUEST' 'stream/prop_car_airbag.ytyp'
@@ -32,6 +33,7 @@ escrow_ignore {
 	'config.lua',
 	'cl_utils.lua',
 	'sounds/*',
+	'stream/*.ytd',
 }
 
 ui_page 'index.html'

@@ -3,18 +3,17 @@ CreateThread(function()
         return
     end
 
-    local QS, QB
+    local ESX, QBCore
     if Config.Framework == "esx" then
-        TriggerEvent("qs-core:getSharedObject", function(library)
-            QS = library
-        end)
+        ESX = exports['es_extended']:getSharedObject()
     elseif Config.Framework == "qb" then
-        QB = exports["qb-core"]:GetCoreObject()
+        QBCore = exports["qb-core"]:GetCoreObject()
     end
 
     local function GetItemsByName(source, name)
         if Config.Framework == "esx" then
-            local inventory = QS.GetPlayerFromId(source).PlayerData.items
+            local xPlayer = ESX.GetPlayerFromId(source)
+            local inventory = xPlayer.getInventory()
             local items = {}
             for _, item in pairs(inventory) do
                 if item?.name == name then
@@ -23,7 +22,7 @@ CreateThread(function()
             end
             return items
         elseif Config.Framework == "qb" then
-            local inventory = QB.Functions.GetPlayer(source).PlayerData.items
+            local inventory = QBCore.Functions.GetPlayer(source).PlayerData.items
             local items = {}
             for _, item in pairs(inventory) do
                 if item?.name == name then
@@ -50,20 +49,20 @@ CreateThread(function()
 
     function SetPhoneNumber(source, phoneNumber)
         if Config.Framework == "esx" then
-            local qPlayer = QS.GetPlayerFromId(source)
-            local items = qPlayer.PlayerData.items
+            local xPlayer = ESX.GetPlayerFromId(source)
+            local items = xPlayer.getInventory()
             for i = 1, #items do
                 local item = items[i]
                 if item and item.name == Config.Item.Name and item.info.lbPhoneNumber == nil then
                     item.info.lbPhoneNumber = phoneNumber
                     item.info.lbFormattedNumber = FormatNumber(phoneNumber)
-                    qPlayer.SetInventory(items, true)
+                    exports['qs-inventory']:SetInventory(source, items)
                     return true
                 end
             end
             return false
         elseif Config.Framework == "qb" then
-            local qPlayer = QB.Functions.GetPlayer(source)
+            local qPlayer = QBCore.Functions.GetPlayer(source)
             local items = qPlayer.PlayerData.items
             for i = 1, #items do
                 local item = items[i]
@@ -80,19 +79,19 @@ CreateThread(function()
 
     function SetItemName(source, phoneNumber, name)
         if Config.Framework == "esx" then
-            local qPlayer = QS.GetPlayerFromId(source)
-            local items = qPlayer.PlayerData.items
+            local xPlayer = ESX.GetPlayerFromId(source)
+            local items = xPlayer.getInventory()
             for i = 1, #items do
                 local item = items[i]
                 if item and item.name == Config.Item.Name and item.info.lbPhoneNumber == phoneNumber then
                     item.info.lbPhoneName = name
                     item.info.lbFormattedNumber = FormatNumber(phoneNumber)
-                    qPlayer.SetInventory(items, true)
+                    exports['qs-inventory']:SetInventory(source, items)
                     return true
                 end
             end
         elseif Config.Framework == "qb" then
-            local qPlayer = QB.Functions.GetPlayer(source)
+            local qPlayer = QBCore.Functions.GetPlayer(source)
             local items = qPlayer.PlayerData.items
             for i = 1, #items do
                 local item = items[i]
@@ -107,13 +106,13 @@ CreateThread(function()
     end
 
     if Config.Framework == "esx" then
-        QS.RegisterUsableItem(Config.Item.Name, function(source, item)
+        exports['qs-inventory']:CreateUsableItem(Config.Item.Name, function(source, item)
             if item then
                 TriggerClientEvent("lb-phone:usePhoneItem", source, item)
             end
-        end) 
+        end)
     elseif Config.Framework == "qb" then
-        QB.Functions.CreateUseableItem(Config.Item.Name, function(source, item)
+        QBCore.Functions.CreateUseableItem(Config.Item.Name, function(source, item)
             if item then
                 TriggerClientEvent("lb-phone:usePhoneItem", source, item)
             end

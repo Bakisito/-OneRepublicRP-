@@ -1072,7 +1072,7 @@ CREATE TRIGGER IF NOT EXISTS phone_tiktok_update_last_message
 AFTER INSERT ON phone_tiktok_messages
 FOR EACH ROW
 BEGIN
-    DECLARE modified_content TEXT;
+    DECLARE modified_content TEXT CHARACTER SET utf8mb4;
     
     IF NEW.content LIKE '<!SHARED-VIDEO-URL%' THEN
         SET modified_content = 'Shared a video';

@@ -3,19 +3,17 @@ CreateThread(function()
         return
     end
 
-    local QS, QB
+    local ESX, QBCore
     if Config.Framework == "esx" then
-        TriggerEvent("qs-core:getSharedObject", function(library)
-            QS = library
-        end)
+        ESX = exports['es_extended']:getSharedObject()
     elseif Config.Framework == "qb" then
-        QB = exports["qb-core"]:GetCoreObject()
+        QBCore = exports["qb-core"]:GetCoreObject()
     end
 
     local function GetItemsByName(name)
         if Config.Framework == "esx" then
             local items = {}
-            local inventory = QS.GetPlayerData().items
+            local inventory = ESX.GetPlayerData().inventory
             for _, item in pairs(inventory) do
                 if item?.name == name then
                     items[#items+1] = item
@@ -24,13 +22,13 @@ CreateThread(function()
             return items
         elseif Config.Framework == "qb" then
             local items = {}
-            local inventory = QB.Functions.GetPlayerData().items
+            local inventory = QBCore.Functions.GetPlayerData().items
             for _, item in pairs(inventory) do
                 if item?.name == name then
                     items[#items+1] = item
                 end
             end
-            return items   
+            return items
         end
     end
 

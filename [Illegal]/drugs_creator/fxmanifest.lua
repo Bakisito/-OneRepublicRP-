@@ -1,6 +1,6 @@
 author 'jaksam1074'
 
-version '4.34' -- SCRIPT VERSION
+version '4.35' -- SCRIPT VERSION
 
 client_scripts {
     -- Callbacks

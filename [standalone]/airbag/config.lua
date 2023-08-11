@@ -3,13 +3,31 @@ main = {
     -- This is recommended to stay between 700 - 999.0
     -- Vehicles start at 1000.0 damage level - then gradually reduce
     damageLevel = 650.0,
-    -- This is the amount of seconds before the airbags automatically disappear - the /airbag command one does not disappear
-    -- If you set this to -1, all airbags will stay forever, even when the vehicle is deleted (so I recommend making these expire)
-    secondsToExpire = 50,
     modelName = `prop_car_airbag`,
     exemptVehicleClasses = {8, 16, 15, 13},
     exemptVehicleModels = {`police`, `police2`},
     airbagSoundVolume = 1.0,
+
+    removalTimer = {
+        enabled = true, -- This enables / disables the automatic removal of airbags
+        timer = 45, -- This is the number of seconds until airbags are removed automatically
+    },
+
+    warningMessage = {
+        enabled = true,  -- This enables / disables the airbag warning message
+        flash = true, -- This determines whether to flash the message
+        timer = 30, -- This is the number of seconds that the warning message is displayed for
+    },
+
+    removeCommand = { -- This allows you to enable / disable the /removeairbags command.
+        enabled = true,
+        name = "removeairbags",
+    },
+
+    airbagsCommand = { -- This allows you to enable / disable the /removeairbags command.
+        enabled = true,
+        name = "airbag",
+    },
 }
 
 -- We do not recommend editing the below section
@@ -20,4 +38,9 @@ dev = {
     rotation1 = {90.0, 0.0, 0.0},
     offSet2 = {0.0, 0.50, 0.40},
     rotation2 = {90.0, 0.0, 0.0},
+}
+
+translations = {
+    airbagSuggestion = 'Activate the vehicle airbags',
+    removeSuggestion = 'Removes the vehicle airbags',
 }

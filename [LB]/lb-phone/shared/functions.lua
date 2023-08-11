@@ -93,6 +93,12 @@ function SpamError(error)
     end)
 end
 
+function SeperateNumber(number)
+    -- https://stackoverflow.com/questions/10989788/format-integer-in-lua
+    local res = tostring(number):reverse():gsub("(%d%d%d)", "%1 "):reverse():gsub("^ ", "")
+    return res
+end
+
 function FormatNumber(number)
     if not number or type(number) ~= "string" then
         return ""

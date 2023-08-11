@@ -1,7 +1,7 @@
 main = {
     -- This section allows you to define your server framework. By default, standalone is enabled
-    framework = {
-        standalone = true,
+    framework = { -- Incorrectly named but kept for backwards compatibility
+        standalone = false,
         ESX = false,
         QBCore = true,
         alternativeQBCoreItemRemoval = {
@@ -9,6 +9,7 @@ main = {
             eventToTrigger = ""
         },
         vRP = false,
+        oxInv = false,
         cartridgeItemName = "taser_cartridge"
     },
     useUI = true, -- Use this to allow UI components to be enabled/disabled
@@ -49,7 +50,7 @@ main = {
 main.translations = {
     embedTitle = "Taser - Registro de sucesos",
     event = "Evento:",
-    dispositivo = "Dispositivo:",
+    device = "Dispositivo:",
     carrier = "Carrier:",
     cartridgesRemaining = "Cartuchos restantes:",
     cartridgeID = "ID de cartucho:",

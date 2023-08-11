@@ -1,6 +1,6 @@
 CreateThread(function()
     if not Config.Debug then
-        return 
+        return
     end
 
     RegisterCommand("center", function()
@@ -35,18 +35,18 @@ CreateThread(function()
         TriggerEvent("phone:sendNotification", {
             title = "Emergency Alert",
             content = "This is a test emergency alert. 123",
-            icon = "./assets/img/icons/warning.png"
+            icon = "./assets/img/icons/danger.png"
         })
     end, false)
 
     RegisterCommand("setbattery", function(source, args)
         battery = tonumber(args[1]) or 50
         exports["lb-phone"]:SetBattery(battery)
-    end, false) 
+    end, false)
 
     RegisterCommand("togglecharging", function(source, args)
         exports["lb-phone"]:ToggleCharging(args[1] == "true" and true or false)
-    end, false) 
+    end, false)
 
     RegisterCommand("addcontact", function(source, args)
         exports["lb-phone"]:AddContact({
@@ -55,8 +55,7 @@ CreateThread(function()
             number = args[1] or "1234567890",
             avatar = "https://i.imgur.com/2X1uYkU.png"
         })
-    end)
-
+    end, false)
 end)
 
 
