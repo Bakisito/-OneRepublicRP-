@@ -1,12 +1,18 @@
 fx_version 'cerulean'
-game 'gta5'
+games { 'gta5' }
 lua54 'yes'
+author 'mikigoalie'
+version '1.8.3'
 
+dependencies { 'ox_lib'}
 
-dependencies { 'ox_lib' }
+-- Scripts
+shared_scripts { '@ox_lib/init.lua', 'shared/*.lua' }
+client_scripts { 'client/*.lua' }
+server_scripts { 'server/*.lua' }
 
-shared_scripts { '@ox_lib/init.lua', 'config.lua' }
-client_scripts { 'client/main.lua', 'client/weaponSafety.lua' }
+-- Translations
+files { 'locales/*.json' }
 
-escrow_ignore { 'config.lua' }
+escrow_ignore { 'shared/*.lua', 'locale/*.json' }
 dependency '/assetpacks'

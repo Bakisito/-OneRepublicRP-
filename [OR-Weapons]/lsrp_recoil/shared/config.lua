@@ -1,16 +1,53 @@
 Config = {}
-Config.debug 					= false	-- Turns on debugging prints
-Config.tpModifier 				= 3.0	-- A modifier that multiplies the recoil when not using first person. EG. If a player is shooting from third person, recoil gets significantly greater so its approx equal to FP
-Config.recoilThread				= 300	-- How often should the thread update to set the recoil values? 500 is sometimes slow if view is changed too quickly
-Config.vehicleRecoil = {
-	moduleEnabled		= true,			-- Do you want anything related to vehicleRecoil enabled?
-	forceFirstPerson 	= false,			-- Enables forced first person when aiming in vehicle
-	shakeValue 			= 0.15,			-- Vehicle TP Recoil, I recommend keeping it at this value
-	driverOnly 			= false,		-- Enables forced first person when aiming in vehicle for driver only
+Config.debug = false
+
+
+
+Config.server = {}  -- It's safe even if it's in shared, they can't do shit with it anyway
+Config.server.invalidSource = function(playerid)
+    -- print(playerid)
+    -- You do not need to return, it does in the script already
+end
+Config.server.invalidSlot = function(playerid, slot)
+    -- print(('Player %s request weapon meta for slot %s'):format(playerid, slot))
+    -- You do not need to return, it does in the script already
+end
+
+
+
+Config.client = {}
+Config.client.safetyModule = {
+    enabled = false,
+    startEnabled = false,
+    safety = {
+        -- Pistol
+        ['WEAPON_PISTOL'] = true,
+        ['WEAPON_COMBATPISTOL'] = true,
+        ['WEAPON_PISTOLXM3'] = true,
+        -- SMG
+        ['WEAPON_SMG'] = true,
+        ['WEAPON_COMBATPDW'] = true,
+        -- ARs
+        ['WEAPON_HEAVYRIFLE'] = true,
+        ['WEAPON_MILITARYRIFLE'] = true,
+        ['WEAPON_ASSAULTRIFLE'] = true,
+        ['WEAPON_CARBINERIFLE'] = true,
+        ['WEAPON_TACTICALRIFLE'] = true,
+    },
+    firemodes = {
+        ['WEAPON_COMBATPDW'] = true,
+        ['WEAPON_MILITARYRIFLE'] = true,
+        ['WEAPON_ASSAULTRIFLE'] = true,
+        ['WEAPON_CARBINERIFLE'] = true,
+        ['WEAPON_TACTICALRIFLE'] = true,
+    }
+    
 }
 
-Config.groupRecoils = {					-- Weaoup groups
-	[joaat('GROUP_UNARMED')] 	= 0.0,
+Config.client.persistentFlashlight = true
+Config.client.recoils = {}
+Config.client.recoils.thirdpersonmodifier = 5.0 -- Multip. for 3RD person recoil
+Config.client.recoils.weaponGroups = {
 	[joaat('GROUP_PISTOL')] 	= 2.75,
 	[joaat('GROUP_SMG')] 		= 1.75,
 	[joaat('GROUP_SHOTGUN')] 	= 5.0,
@@ -22,7 +59,7 @@ Config.groupRecoils = {					-- Weaoup groups
 	[joaat('GROUP_PETROLCAN')] 	= 0.0,
 }
 
-Config.weaponRecoil = {					-- Specific weapon recoil. This overrides groups!
+Config.client.recoils.weapons = {
 	[joaat('WEAPON_PISTOL')] = 2.0,
 	[joaat('WEAPON_PISTOL50')] = 5.5,
 	[joaat('weapon_mpx')] = 2.5,
@@ -59,8 +96,4 @@ Config.weaponRecoil = {					-- Specific weapon recoil. This overrides groups!
 	[joaat('weapon_gusenberg')] = 3.8,
 	[joaat('weapon_miniuzi')] = 3.6,
 	[joaat('weapon_vintagepistol')] = 5.2, -- HABLANDOME MUERTO?
-}
-
-Config.safetyWeapons = {				-- Weapons that will have safety enabled
-	['weapon_glock17']
 }

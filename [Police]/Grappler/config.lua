@@ -4,6 +4,7 @@ main = {
     frameRotation = 115,
     burstTyre = true,
     burstTyreLevel = 700,
+    developerMode = false,
     rope = {
         defaultLength = 10.0,
         maxLength = 12.0,
@@ -38,6 +39,12 @@ vehicles = {
         offSet = {0.0, 0.78, -0.55},
         rotation = {0.0, 0.0, 0.0},
     },
+    [`21durangovw`] = {
+        name = "Police Van",
+        boneName = "engine",
+        offSet = {0.0, 0.78, -0.55},
+        rotation = {0.0, 0.0, 0.0},
+    },
 }
 
 -- This is the configuration section for the /grappler command
@@ -51,6 +58,7 @@ grapplerCommand = {
     reset = "reset",
     itemEnabled = false,
     itemName = "grappler",
+    oxInventory = false,
 
     acePermissions = {
         enabled = false,
@@ -87,7 +95,7 @@ grapplerCommand = {
             enabled = true, -- Enable this to use QBCore permission check
             permissions = {"god"}, -- A user can have any of the following permissions, allowing you to add multiple
         },
-    },  
+    },
 }
 
 -- https://docs.fivem.net/docs/game-references/controls/
@@ -96,7 +104,7 @@ deployGrapplerKey = {0, 246} -- By default this is set to Y
 
 grapplerSound = { -- https://pastebin.com/DCeRiaLJ
     enabled = true,
-    soundName = "Activate_Trap",    
+    soundName = "Activate_Trap",
     soundDict = "DLC_AW_Trap_Controller_Sounds",
 }
 

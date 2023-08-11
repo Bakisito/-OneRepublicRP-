@@ -1,0 +1,3 @@
+-- ---@Text array title, text
+-- function notification(text)
+-- end
