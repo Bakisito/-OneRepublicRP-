@@ -1,4 +1,5 @@
 let menutoggle = false;
+let menuUpdateToggle = false;
 let githubraw;
 let video = false;
 let videofile;
@@ -9,8 +10,12 @@ const RandomText = () => {
 }
 
 const MenuContent = (icon, title, content) => {
+    $(".menu-update").fadeOut("slow"); // Close menu-update if open
+    menuUpdateToggle = false;
+
     $(".menu-content h3").html(`<i class="fas fa-${icon}"></i> ${title}`);
     $(".menu-content p").html(content);
+
     if (!menutoggle) {
         $(".menu-content").fadeIn("slow");
         menutoggle = true;
@@ -19,6 +24,25 @@ const MenuContent = (icon, title, content) => {
         menutoggle = false;
     }
 }
+
+const MenuUpdate = (icon, title, content) => {
+    $(".menu-content").fadeOut("slow"); // Close menu-content if open
+    menutoggle = false;
+
+    $(".menu-update h3").html(`<i class="fas fa-${icon}"></i> ${title}`);
+    $(".menu-update p").html(content);
+
+    if (!menuUpdateToggle) {
+        $(".menu-update").fadeIn("slow");
+        menuUpdateToggle = true;
+    } else {
+        $(".menu-update").fadeOut("slow");
+        menuUpdateToggle = false;
+    }
+}
+
+
+
 const RandomBackground = () => {
     let images = UM.RandomBackground.img
     let randomImage = Math.floor((Math.random() * images.length));
@@ -119,9 +143,9 @@ $(".fa-gamepad").click(function () {
 });
 
 $("div.new").click(function () {
-    MenuContent("pizza-slice", `${UMLang.Menu.menu1} ${UMLang.Menu.menu1alt}`, githubraw);
+    MenuUpdate("pizza-slice", `${UMLang.Menu.menu1} ${UMLang.Menu.menu1alt}`, githubraw);
 });
-$(".about").click(function () {
+$("div.about").click(function () {
     MenuContent("cat", `${UMLang.Menu.menu2} ${UMLang.Menu.menu2alt}`, UM.About);
 });
 
