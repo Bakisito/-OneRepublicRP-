@@ -45,12 +45,6 @@ vehicles = {
         offSet = {0.0, 0.78, -0.55},
         rotation = {0.0, 0.0, 0.0},
     },
-    [`21durangovw`] = {
-        name = "Police Van",
-        boneName = "engine",
-        offSet = {0.0, 0.78, -0.55},
-        rotation = {0.0, 0.0, 0.0},
-    },
 }
 
 -- This is the configuration section for the /grappler command

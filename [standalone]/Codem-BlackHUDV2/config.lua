@@ -8,7 +8,7 @@ Config.Mysql = "oxmysql" -- mysql-async, ghmattimysql, oxmysql
 Config.MysqlTableName = "codem-hud-data" -- Don't change if you don't know what you're doing
 Config.Voice = "pma" -- mumble, saltychat, pma
 Config.DefaultHud = "radial" -- Default hud when player first login avaliable huds [radial, classic, text]
-Config.EnableDynamicStatusFirstJoin = false -- Enable dynamic status first join
+Config.EnableDynamicStatusFirstJoin = true -- Enable dynamic status first join
 Config.DefaultSpeedUnit = "kmh" -- Default speed unit when player first login avaliable speed units [kmh, mph]
 Config.HudSettingsCommand = 'hud' -- Command for open hud settings
 Config.DisplayMapOnWalk = false -- true - Show map when walking | false - Hide map when walking
@@ -16,7 +16,7 @@ Config.DisplayRealTime = false -- if you set this to true will show the real tim
 Config.EnableSpamNotification = true -- Spam preventation for seatbelt, cruise etc.
 Config.EnableDateDisplay = true -- Determines if display date or nor
 Config.DefaultMap = "rectangle" -- rectangle, radial
-Config.DefaultSpeedometerSize = 1.0 -- 0.5 - 1.3
+Config.DefaultSpeedometerSize = 0.8 -- 0.5 - 1.3
 Config.DefaultHudSize = 1.0 -- 0.5 - 1.3
 Config.EnableAmmoHud = true -- Determines if display ammo hud or nor
 Config.DefaultRefreshRate = 200 -- Refresh rate for vehicle hud
@@ -275,7 +275,7 @@ Config.WhitelistedWeaponStress = {
 
 Config.AddStress = {
     ["on_shoot"] = {
-        min = 0.1,
+        min = 0,
         max = 1,
         enable = true,
     },
