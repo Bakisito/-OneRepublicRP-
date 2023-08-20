@@ -315,6 +315,7 @@ Config.Locations = {
 			`MP_F_BennyMech_01`,
 		},
 		["logo"] = "https://static.wikia.nocookie.net/gtawiki/images/7/72/LTD-GTAO-LSTunersBanner.png",
+		["killable"] = true,
         ["coords"] = {
 			vector4(-47.42, -1758.67, 29.42, 47.26),
 			vector4(-706.17, -914.64, 19.22, 88.77),
@@ -337,6 +338,7 @@ Config.Locations = {
 			`A_F_M_TrampBeac_01`,
 			`A_M_M_Tramp_01`,
 		},
+		["killable"] = true,
 		["logo"] = "https://static.wikia.nocookie.net/gtawiki/images/d/de/RebsLiquor-GTAV.png",
         ["coords"] = {
 			vector4(-1221.38, -907.89, 12.33, 27.51),
@@ -362,6 +364,7 @@ Config.Locations = {
 			`IG_Benny_02`,
 			`MP_F_BennyMech_01`,
 		},
+		["killable"] = true,
 		["coords"] = {
 			vector4(46.52, -1749.55, 29.64, 50.82),
 			vector4(2747.76, 3472.9, 55.67, 243.88),

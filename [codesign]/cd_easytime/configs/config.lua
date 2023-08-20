@@ -26,7 +26,7 @@ Config.NotificationType = { --[ 'esx' / 'qbcore' / 'mythic_old' / 'mythic_new' /
 }
 
 Config.Command = {
-    OpenUI = 'easytime', --The command for staff to open the UI.
+    OpenUI = 'time', --The command for staff to open the UI.
 
     Perms = { --You decide which permission groups can use the staff command ^.
         ['esx'] = {'superadmin', 'admin', 'mod'},
