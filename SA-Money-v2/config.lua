@@ -46,12 +46,12 @@ Another = {
             prop = 'prop_cash_pile_02',
             --chance = 1.0, -- 0.7 = 70% chance to success / 30% to call a cops (DOESN'T WORK FOR NOW)
         },
-        [2] = {
-            currency = 'printedbills',
-            item = 'printedbills',
-            prop = 'prop_cash_pile_02',
-            --chance = 1.0, -- 0.7 = 70% chance to success / 30% to call a cops (DOESN'T WORK FOR NOW)
-        },
+        -- [2] = {
+        --     currency = 'printedbills',
+        --     item = 'printedbills',
+        --     prop = 'prop_cash_pile_02',
+        --     --chance = 1.0, -- 0.7 = 70% chance to success / 30% to call a cops (DOESN'T WORK FOR NOW)
+        -- },
     }
 }
 

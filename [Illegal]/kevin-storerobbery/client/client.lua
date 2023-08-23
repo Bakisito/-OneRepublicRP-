@@ -32,7 +32,7 @@ CreateThread(function ()
                 debug = Config.DebugPolyZones,
                 options = {
                     {
-                        icon = 'fas fa-circle',
+                        icon = 'fa-solid fa-sack-dollar',
                         name='store'..id,
                         label = data.target.label,
                         onSelect = function()
@@ -43,9 +43,9 @@ CreateThread(function ()
                         end,
                     },
                     {
-                        icon = 'fas fa-circle',
+                        icon = 'fa-solid fa-sack-dollar',
                         name='store'..id,
-                        label = 'Grab Loot',
+                        label = 'Agarrar botín',
                         onSelect = function ()
                             GrabLoot(id, data)
                         end,
@@ -65,7 +65,7 @@ CreateThread(function ()
                 }, {
                     options = {
                         {
-                            icon = 'fas fa-circle',
+                            icon = 'fa-solid fa-sack-dollar',
                             label = data.target.label,
                             action = function ()
                                 AttemptStore(id, data)
@@ -75,8 +75,8 @@ CreateThread(function ()
                             end,
                         },
                         {
-                            icon = 'fas fa-circle',
-                            label = 'Grab Loot',
+                            icon = 'fa-solid fa-sack-dollar',
+                            label = 'Agarrar botín',
                             action = function ()
                                 GrabLoot(id, data)
                             end,
@@ -156,7 +156,7 @@ function GrabLoot(id, data)
     end, function() -- Cancel
         ClearPedTasks(player)
         TriggerServerEvent('kevin-storerobbery:setstate', id, data.canloot, 'canloot')
-        QBCore.Functions.Notify('Cancelled', 'error')
+        QBCore.Functions.Notify('Cancelado', 'error')
     end)
 end
 
@@ -184,13 +184,13 @@ function AttemptStore(id, data)
                     Minigame(miniGameData, id, data)
                 end
             else
-                QBCore.Functions.Notify('Already opended..', 'error', 8000)
+                QBCore.Functions.Notify('Ya se ha abierto...', 'error', 8000)
             end
         else
-            QBCore.Functions.Notify('Try again later..', 'error', 8000)
+            QBCore.Functions.Notify('Inténtalo más tarde..', 'error', 8000)
         end
     else
-        QBCore.Functions.Notify('You don\'t have the tools for the job..', 'error', 8000)
+        QBCore.Functions.Notify('No tienes las herramientas para el trabajo...', 'error', 8000)
     end
 end
 
@@ -202,8 +202,8 @@ function Alert(camId)
         TriggerServerEvent('cd_dispatch:AddNotification', {
             job_table = {'police'},
             coords = data.coords,
-            title = '10-31 - Store Robbery', --- change to whatever 10 code your server uses here
-            message = 'Store Robbery at'..data.street,
+            title = '10-31 - Atraco a tienda', --- change to whatever 10 code your server uses here
+            message = 'Atraco a tienda at'..data.street,
             flash = 0,
             unique_id = tostring(math.random(0000000,9999999)),
             blip = {
@@ -211,7 +211,7 @@ function Alert(camId)
                 scale = 1.5,
                 colour = 2,
                 flashes = true,
-                text = '911 - Store Robbery',
+                text = '911 - Atraco a tienda',
                 time = (5*60*1000),
                 sound = 1,
             }
@@ -294,11 +294,11 @@ function StartTimer(id, data)
     local streetName = GetStreetNameFromHashKey(street)
     local waitTime = math.random(data.timer.min, data.timer.max)
     CreateThread(function ()
-        QBCore.Functions.Notify('Wait '..waitTime..' minutes till it opens....', 'primary', 8000)
+        QBCore.Functions.Notify('Espere '..waitTime..' minutos hasta que se abra....', 'info', 8000)
         TriggerServerEvent('kevin-storerobbery:sendlog', id, data, streetName, waitTime)
         Wait(waitTime * 60000)
         -- Wait(2000)
-        QBCore.Functions.Notify('Grab the loot....', 'success', 8000)
+        QBCore.Functions.Notify('Coge el botín!....', 'success', 8000)
         TriggerServerEvent('kevin-storerobbery:setstate', id, data.opended, 'openregister')
         TriggerServerEvent('kevin-storerobbery:setstate', id, data.canloot, 'canloot')
     end)

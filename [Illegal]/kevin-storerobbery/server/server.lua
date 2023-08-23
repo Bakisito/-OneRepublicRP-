@@ -44,7 +44,7 @@ RegisterNetEvent('kevin-storerobbery:giverewards', function (id, data, storeLoca
     if not data and id and dist > 10.0 then return end
     if data.type == 'safe' then
         cashreward = math.random(Config.SafeData.min, Config.SafeData.max)
-        Player.Functions.AddMoney('cash', cashreward, 'Crime')
+        Player.Functions.AddMoney('blackmoney', cashreward, 'Crime')
         
         local chance = math.random(1, 100)
         if chance < Config.SafeData.itemchance then
@@ -64,7 +64,7 @@ RegisterNetEvent('kevin-storerobbery:giverewards', function (id, data, storeLoca
         end
     else
         cashreward = math.random(Config.RegisterData.min, Config.RegisterData.max)
-        Player.Functions.AddMoney('cash', cashreward, 'Crime')
+        Player.Functions.AddMoney('blackmoney', cashreward, 'Crime')
     end
     StartResetTimer(id, data)
     TriggerClientEvent('kevin-storerobbery:updatestate', -1, id, false, 'canloot')
