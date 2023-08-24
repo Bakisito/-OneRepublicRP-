@@ -3,15 +3,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+
+:root {
+    --CMainGr: #00f5c43c;
+    --CSecondGr: #0000003a;
+    --infolineGr: #00f5c4;
+    --progressbar: #013e416d;
+    --progressbarsc: #01413f6d;
+    --pro: #00fffb6d;
+    --prosc: #00ffee6d;
+    --durability: #025c566d;
+    --durability2: #00ffee6d;
+    --durability2sc: #00ffdd6d;
+    --durabilitysc: #0141326d;
+    --pinkColor: #ff1e7d;
+}
+
+
+/* ::-webkit-scrollbar {
+    width: 7px;
+    background-color: rgba(34, 34, 34, 0.267);
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff1e7d;
+    border-radius: 1px;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+} */
+
+
 
 #Container {
-    background-color: transparent;
+    background: rgba(0, 0, 0, 0.85);
     width: 110vh;
     position: relative;
     top: 11vh;
     display: none;
     height: 77vh;
-    border-radius: .3vh;
+    border-radius: .7vh;
     margin: auto;
 }
 
@@ -29,12 +69,12 @@
     font-size: 6vh;
     text-align: center;
     position: relative;
-    top: 3vh;
+    top: 0.9vh;
     text-transform: uppercase;
 }
 
 .HeaderContainer h2 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #fff;
     font-size: 1.8vh;
     text-align: center;
@@ -56,6 +96,8 @@
     border-radius: .3vh;
 }
 
+
+
 .MotelEmptyRoomsTable {
     background-color: transparent;
     width: 100%;
@@ -69,7 +111,10 @@
 }
 
 .Room {
-    background-color: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(to bottom right, var(--CSecondGr), var(--CMainGr));
+    box-shadow: 0.05rem 0.05rem 0.05rem 0.05rem #00000084;
+    border-top: 0.1rem solid #00000084;
+    border-left: 0.1rem solid #00000084;
     width: 20.8vh;
     height: 19vh;
     margin-top: 1vh;
@@ -101,7 +146,7 @@
     color: #000;
 }
 
-.Room h1{
+.Room h1 {
     font-family: 'The Nautigal', cursive;
     color: #fff;
     font-size: 6.8vh;
@@ -111,7 +156,7 @@
     top: -2vh;
 }
 
-.RoomBig h1{
+.RoomBig h1 {
     font-family: 'The Nautigal', cursive;
     color: #fff;
     font-size: 5.5vh;
@@ -124,10 +169,10 @@
 
 
 .RentButton {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     width: 94%;
     height: 5.5vh;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     border: 1px;
     cursor: pointer;
     position: relative;
@@ -137,34 +182,36 @@
     top: -4.8vh;
     left: 0.7vh;
     border-radius: .3vh;
+    transition: 300ms;
 }
 
 .RentButton:hover {
-    transition: 0.5s;
-    text-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 6px #fff;
-    box-shadow: 0 0 0px rgba(0,0,0,0.5), 0 0 0px rgba(0,0,0,0.5), 0 0 6px rgba(0,0,0,0.5);
+    transition: 300ms;
+    background-color: rgba(255, 33, 125, 0.5);
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.5), 0 0 0px rgba(0, 0, 0, 0.5), 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 .RentButton2 {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     width: 94%;
     height: 5.5vh;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     border: 1px;
     cursor: pointer;
     position: relative;
     font-size: 1.7vh;
     color: #fff;
     margin-top: 0.5vh;
-    top: -1.8vh;
+    top: -4.8vh;
     left: 0.7vh;
     border-radius: .3vh;
+    transition: 300ms;
 }
 
 .RentButton2:hover {
-    transition: 0.5s;
-    text-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 6px #fff;
-    box-shadow: 0 0 0px rgba(0,0,0,0.5), 0 0 0px rgba(0,0,0,0.5), 0 0 6px rgba(0,0,0,0.5);
+    transition: 300ms;
+    background-color: rgba(255, 33, 125, 0.5);
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.5), 0 0 0px rgba(0, 0, 0, 0.5), 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 .ButtonGroup {
@@ -179,29 +226,54 @@
 
 .ButtonGroupElement {
     background-color: transparent;
-    width: fit-content;
+    width: auto;
     border: 1px;
-    height: 5vh;
-    font-family: 'Inter', sans-serif;
+    height: 2.5vh;
+    font-family: 'Roboto', sans-serif;
     font-weight: 700;
     position: relative;
     margin-left: 0vh;
     color: #fff;
-    padding: 9px 17px;
+    margin: 10px 10px;
     cursor: pointer;
     left: 0vh;
-    top: 1vh;
+    top: 2.05vh;
     font-size: 1.5vh;
-    border-radius: .2vh;
+    border-radius: 0vh;
+    border-bottom: 3px solid var(--pinkColor);
 }
 
 .ButtonGroupElement:hover {
-    transition: 0.5s;
-    text-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 6px #fff;
+    border-bottom: 3px solid var(--pinkColor);
 }
 
+
+.ButtonGroupElement2 {
+    background-color: transparent;
+    width: auto;
+    border: 1px;
+    height: 2.5vh;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    position: relative;
+    margin-left: 0vh;
+    color: #fff;
+    margin: 0px 10px;
+    cursor: pointer;
+    left: 0vh;
+    top: 2.05vh;
+    font-size: 1.5vh;
+    border-radius: 0vh;
+    border-bottom: 3px solid transparent;
+}
+
+.ButtonGroupElement2:hover {
+    border-bottom: 3px solid var(--pinkColor);
+}
+
+
 .CloseButton {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.18);
     width: 4vh;
     height: 4vh;
     position: relative;
@@ -211,7 +283,16 @@
     font-size: 2.5vh;
     border-radius: .2vh;
     left: 103vh;
-    top: -31vh;
+    top: -30.35vh;
+    font-weight: bold;
+    color: var(--pinkColor);
+    transition: 300ms;
+}
+
+.CloseButton:hover {
+    transition: 300ms;
+    background-color: rgba(255, 255, 255, 0.1);
+
 }
 
 .CloseButton2 {
@@ -257,27 +338,29 @@
 }
 
 .MotelBuyButtonX {
-    background-color: rgba(255, 255, 255, 0.3);
-    border: 1px;
+    background-color: rgba(255, 30, 125, 0.68);
+    color: white;
+    border: 2px;
     width: 26vh;
-    border-radius: .2vh;
+    border-radius: .3vh;
     position: relative;
-    left: 2vh;
+    left: 0vh;
     top: 5vh;
     cursor: pointer;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     height: 4vh;
-    font-size: 1.5vh;
+    font-size: 1.55vh;
+    transition: 300ms;
 }
 
 .MotelBuyButtonX:hover {
-    transition: 0.5s;
-    box-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 6px #fff;
+    transition: 300ms;
+    background-color: rgb(109, 12, 52);
 }
 
 .BuyMotelTemplate {
     position: absolute;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.8);
     width: 47vh;
     height: 18vh;
     margin: auto;
@@ -296,7 +379,7 @@
 }
 
 .BuMotelTempHeader h1 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #fff;
     font-size: 2.8vh;
     position: relative;
@@ -306,7 +389,7 @@
 }
 
 .BuyMotelTextClass {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #fff;
     font-size: 1.8vh;
     position: relative;
@@ -324,7 +407,7 @@
     border: 1px;
     cursor: pointer;
     top: 7vh;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     height: 5vh;
 }
 
@@ -336,12 +419,12 @@
     border-radius: .3vh;
     left: 1vh;
     display: none;
-    width: fit-content;
+    width: auto;
     height: 5vh;
 }
 
 #Bildirim p {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #000;
     position: relative;
     top: -0.5vh;
@@ -352,31 +435,31 @@
     width: 32vh;
     height: 16vh;
     position: relative;
-    top: -6vh;
+    top: -7.4vh;
     left: 39vh;
 }
 
 ::-webkit-scrollbar {
     width: 5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
 
 #BossMenuContainer {
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.8);
     width: 107vh;
     display: none;
     height: 69vh;
@@ -384,6 +467,7 @@
     border-radius: .8vh;
     top: 14vh;
     margin: auto;
+    overflow: hidden;
 }
 
 .BossMenuHeader {
@@ -396,19 +480,19 @@
 }
 
 .BossMenuHeader h1 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #ffffff;
     position: relative;
     text-transform: uppercase;
-    text-align: left;
-    left: 1vh;
-    font-weight: 400;
-    top: 1.5vh;
+    text-align: center;
+
+    top: 1.4vh;
     font-size: 3.5vh;
+    font-weight: bold;
 }
 
 .BossMenuHeader h2 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #fff;
     position: relative;
     text-transform: uppercase;
@@ -430,38 +514,44 @@
     border-radius: .4vh;
     position: relative;
     left: 102vh;
-    top: -9vh;
+    top: -5.6vh;
+    font-weight: bold;
+    color: var(--pinkColor);
 }
 
 .Box {
-    background-color: rgba(255, 255, 255, 0.1);
     width: 34.5vh;
     margin-left: 1vh;
     margin-top: 1vh;
     float: left;
     height: 24vh;
     border-radius: .5vh;
+    background: linear-gradient(to bottom right, var(--CSecondGr), var(--CMainGr));
+    box-shadow: 0.05rem 0.05rem 0.05rem 0.05rem #00000084;
+    border-top: 0.1rem solid #00000084;
+    border-left: 0.1rem solid #00000084;
 }
 
 #Memati {
-    -webkit-box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 3px 0px 1px -2px rgb(0 0 0 / 30%);
+    background: linear-gradient(to bottom right, var(--CSecondGr), var(--CMainGr));
+    box-shadow: 0.05rem 0.05rem 0.05rem 0.05rem #00000084;
+    border-top: 0.1rem solid #00000084;
+    border-left: 0.1rem solid #00000084;
 }
 
 .Box h1 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #fff;
     position: relative;
     text-transform: uppercase;
     text-align: center;
     font-weight: 800;
-    top: -3vh;
-    font-size: 3vh;
+    top: 0vh;
+    font-size: 2.3vh;
 }
 
 .Box h3 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #303030;
     position: relative;
     text-transform: uppercase;
@@ -471,10 +561,11 @@
     font-size: 2vh;
 }
 
+
 .MoneyIslem {
     background-color: rgb(60 60 60 / 50%);
     border: 1px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     width: 32vh;
     position: relative;
     color: #ccc;
@@ -484,8 +575,14 @@
     top: -4vh;
     border: 1px solid rgb(0 0 0 / 30%);
     padding: 11px 20px;
-    left: 1vh;
+    left: 1.3vh;
     height: 4vh;
+    margin-top: 0.7vw;
+    font-size: 1.25vh;
+}
+
+.MoneyIslem:hover {
+    cursor: text;
 }
 
 .ButtonIslem {
@@ -493,19 +590,26 @@
     position: relative;
     border-radius: .5vh;
     margin-top: 0.7vh;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     border: 1px;
     cursor: pointer;
     color: #fff;
     border: 1px;
     padding: 11px 20px;
-    left: 1vh;
+    left: 1.3vh;
     top: -4vh;
     height: 4vh;
+    font-size: 1.25vh;
+    transition: 300ms;
+}
+
+.ButtonIslem:hover {
+    transition: 300ms;
+    background-color: rgb(109, 12, 52);
 }
 
 .x1 {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 input:focus {
@@ -514,43 +618,42 @@ input:focus {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
-.ButtonIslem:hover {
-    transition: 0.5s;
-    text-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 6px #fff;
-    box-shadow: 0 0 0px rgba(0,0,0,0.5), 0 0 0px rgba(0,0,0,0.5), 0 0 6px rgba(0,0,0,0.5);
-}
 
 .Box h4 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #fff;
     position: relative;
     text-transform: uppercase;
     text-align: center;
     font-weight: 100;
-    top: -1vh;
+    top: -1.6vh;
     font-size: 2vh;
 }
 
 .MTable {
     background-color: transparent;
     width: 98%;
-    border-radius: .4vh;
+    border-radius: 0vh;
     height: 49%;
     position: relative;
     left: 1vh;
     overflow-y: auto;
     overflow-x: hidden;
-    top: 0vh;
-    float: left;
+    top: 2vh;
+    float: center;
+    background: linear-gradient(to bottom right, var(--CSecondGr), var(--CMainGr));
+    box-shadow: 0.05rem 0.05rem 0.05rem 0.05rem #00000084;
+    border-top: 0.1rem solid #00000084;
+    border-left: 0.1rem solid #00000084;
 }
 
 .Oda {
@@ -558,8 +661,8 @@ input[type=number] {
     width: 100%;
     height: 5vh;
     position: relative;
-    -webkit-box-shadow: -2px 8px 19px -6px rgba(0,0,0,0.94);
-    -moz-box-shadow: -2px 8px 19px -6px rgba(0,0,0,0.94);
+    -webkit-box-shadow: -2px 8px 19px -6px rgba(0, 0, 0, 0.94);
+    -moz-box-shadow: -2px 8px 19px -6px rgba(0, 0, 0, 0.94);
     box-shadow: -2px 8px 4px -10px rgb(255 255 255 / 94%);
     left: 0vh;
     margin-top: 1vh;
@@ -583,6 +686,7 @@ input[type=number] {
     height: 5vh;
     border-radius: .3vh;
 }
+
 .LeftPart2 {
     background-color: transparent;
     width: 100%;
@@ -592,7 +696,7 @@ input[type=number] {
 }
 
 .RoomId h1 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #c1c1c1;
     position: relative;
     text-transform: uppercase;
@@ -604,7 +708,7 @@ input[type=number] {
 }
 
 .RoomId h2 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #dadada;
     position: relative;
     text-transform: inherit;
@@ -616,7 +720,7 @@ input[type=number] {
 }
 
 .RoomId h3 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #dadada;
     position: relative;
     text-transform: inherit;
@@ -636,20 +740,21 @@ input[type=number] {
 }
 
 .BossIslemBut {
-    background-color: rgba(44, 44, 44, 0.5);
-    font-family: 'Inter', sans-serif;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-family: 'Roboto', sans-serif;
     height: 4vh;
-    width: 38.5vh;
+    width: 30vh;
     color: #fff;
     border-radius: .3vh;
     position: relative;
-    left: 1vh;
+    left: 2.3vh;
     cursor: pointer;
     border: 1px;
+    font-size: 1.25vh;
+    transition: 300ms;
 }
 
 .BossIslemBut:hover {
-    transition: 0.5s;
-    text-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 6px #fff;
-    box-shadow: 0 0 0px rgba(0,0,0,0.5), 0 0 0px rgba(0,0,0,0.5), 0 0 6px rgba(0,0,0,0.5);
+    transition: 300ms;
+    background-color: rgb(109, 12, 52);
 }

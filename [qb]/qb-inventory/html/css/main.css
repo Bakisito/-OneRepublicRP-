@@ -588,13 +588,19 @@ body::-webkit-scrollbar {
 	position: relative;
 	float: left;
 	margin: 0 auto;
-	margin-right: 1vh;
-	width: 6vw;
+	margin-right: 0.05vh;
+	width: 6.1vw;
 	height: 13.1vh;
 	background: linear-gradient(to bottom right, var(--CSecondGr), var(--CMainGr));
 	/* border: 1px solid rgba(0, 254, 4, 0); */
-	box-shadow: 0.05rem 0.05rem 0.05rem 0.05rem #00000084;
-	border-radius: 20px;
+	/* border: 1px solid rgba(221, 0, 0, 0); */
+	/* border-radius: 20px; */
+	/* border-left: 2px solid #000000; */
+	/* box-shadow: 0.0rem 0.02rem 0.02rem 0.02rem #00000084; */
+	transition: opacity 0.2s;
+	opacity: 1;
+	/* border-top-left-radius: 30px; */
+	/* transform: skew(1deg,1deg); */
 }
 
 #itembox-action {
@@ -623,7 +629,7 @@ body::-webkit-scrollbar {
 	overflow: hidden;
 	color: rgb(247, 247, 247);
 	font-size: 1vh;
-	font-weight: 800;
+	font-weight: 400;
 	line-height: 2.2vh;
 	letter-spacing: 0.5px;
 	text-align: center;
@@ -707,7 +713,7 @@ body::-webkit-scrollbar {
 .z-hotbar-inventory>.z-hotbar-item-slot>.z-hotbar-item-slot-key p {
 	position: absolute;
 	background: linear-gradient(to bottom right, var(--CSecondGr), var(--CMainGr));
-	color: #000000;
+	color: #ffffff;
 	padding: 0.3vh;
 	padding-left: 0.5vh;
 	padding-right: 0.5vh;
@@ -715,25 +721,28 @@ body::-webkit-scrollbar {
 	border-bottom-right-radius: 20px;
 	text-align: left;
 	font-size: 1.3vh;
-	font-weight: 800;
 	box-shadow: 0.05rem 0.05rem 0.05rem 0.05rem #00000084;
 	line-height: 1.8vh;
+	font-weight: 400;
 	font-family: 'Titillium Web';
 }
 
 .z-hotbar-item-slot {
 	position: relative;
-	width: 5.8vw;
-	height: 13.6vh;
+	width: 6.1vw;
+	height: 11.5vh;
 	float: left;
 	margin-left: 2px;
 	margin-bottom: 2px;
 	background: linear-gradient(to bottom right, var(--CSecondGr), var(--CMainGr));
 	/* border: 1px solid rgba(221, 0, 0, 0); */
-	box-shadow: 0.05rem 0.05rem 0.05rem 0.05rem #00000084;
-	border-radius: 20px;
+	/* border-radius: 20px; */
+	/* border-left: 2px solid #000000; */
+	box-shadow: 0.03rem 0.03rem 0.03rem 0.03rem #00000084;
 	transition: opacity 0.2s;
 	opacity: 1;
+	border-top-left-radius: 20px;
+	/* transform: skew(1deg,1deg); */
 }
 
 
