@@ -967,7 +967,7 @@ QBShared.Items = {
 
 
 ------ Mina
-["c4"] 							 = {["name"] = "c4",							["label"] = "C4",						["weight"] = 8000,		["type"] = "item",		["image"] = "weapon_stickybomb.png",	["unique"] = false,		["useable"] = true,		["shouldClose"] = false,	["combinable"] = nil,	["description"] = "C4 para la mina"},
+["c4"] 							 = {["name"] = "c4",							["label"] = "C4",						["weight"] = 1000,		["type"] = "item",		["image"] = "weapon_stickybomb.png",	["unique"] = false,		["useable"] = true,		["shouldClose"] = false,	["combinable"] = nil,	["description"] = "C4 para la mina"},
 ["copper_bar"] 					 = {["name"] = "copper_bar",					["label"] = "Barra de Cobre",			["weight"] = 400,		["type"] = "item",		["image"] = "copper_bar.png",			["unique"] = false,		["useable"] = true,		["shouldClose"] = false,	["combinable"] = nil,	["description"] = "Barra de cobre fabricada a partir de mineral de cobre fundido"},
 ["gold_bar"] 					 = {["name"] = "gold_bar",						["label"] = "Lingote de Oro",			["weight"] = 1000,		["type"] = "item",		["image"] = "gold_bar.png",				["unique"] = false,		["useable"] = true,		["shouldClose"] = false,	["combinable"] = nil,	["description"] = "Lingote de oro fabricado a partir de mineral de oro fundido"},
 ["iron_bar"] 					 = {["name"] = "iron_bar",						["label"] = "Barra de Hierro",			["weight"] = 500,		["type"] = "item",		["image"] = "iron_bar.png",				["unique"] = false,		["useable"] = true,		["shouldClose"] = false,	["combinable"] = nil,	["description"] = "Barra de hierro fabricada a partir de mineral de hierro fundido"},
