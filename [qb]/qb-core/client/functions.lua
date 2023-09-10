@@ -417,12 +417,10 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
             local r, g, b = GetVehicleCustomPrimaryColour(vehicle)
             colorPrimary = { r, g, b, colorPrimary }
         end
-
         if GetIsVehicleSecondaryColourCustom(vehicle) then
             local r, g, b = GetVehicleCustomSecondaryColour(vehicle)
             colorSecondary = { r, g, b, colorSecondary }
         end
-
         local extras = {}
         for extraId = 0, 12 do
             if DoesExtraExist(vehicle, extraId) then
@@ -430,9 +428,8 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
                 extras[tostring(extraId)] = state
             end
         end
-
         local modLivery = GetVehicleMod(vehicle, 48)
-        if GetVehicleMod(vehicle, 48) == -1 and GetVehicleLivery(vehicle) ~= 0 then modLivery = GetVehicleLivery(vehicle) end
+        modLivery = GetVehicleLivery(vehicle) ~= -1 and GetVehicleLivery(vehicle) or modLivery
         local tireHealth = {}
         local tireBurstState = {}
         local tireBurstCompletely = {}
@@ -441,7 +438,6 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
             tireBurstState[id] = IsVehicleTyreBurst(vehicle, id, false)
             tireBurstCompletely[id] = IsVehicleTyreBurst(vehicle, id, true)
         end
-
         local windowStatus = {}
         for i = 0, 7 do windowStatus[i] = IsVehicleWindowIntact(vehicle, i) == 1 end
         local doorStatus = {}
@@ -551,7 +547,6 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
                 end
             end
         end
-
         local colorPrimary, colorSecondary = GetVehicleColours(vehicle)
         local pearlescentColor, wheelColor = GetVehicleExtraColours(vehicle)
         SetVehicleModKit(vehicle, 0)

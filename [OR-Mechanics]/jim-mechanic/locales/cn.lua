@@ -6,103 +6,27 @@ Loc["cn"] = {
 		stock = "原厂", -- Default, Original, whatever word you use for this
 		current = "当前已安装",
 		noOptions = "此项目没有可用选项",
+		notinstall = "Not Installed",
 		installing = "安装",
+		installed = "Installed!",
+		instfail = " install failed!",
+		removed = "Removed!",
+		removing = "Removing ",
+		remfail = " removal failed!",
+		cant = "Can't be installed on this vehicle",
 		amountoption = "可用数量: ",
 		already = "已安装", -- eg. "Stock Bumper already Installed"
 		menuinstalled = " 个等级] 已安装: ", --eg "[4 Options] Installed: Grille 1"
 		nearwheel = "你需要靠近一个车轮",
-		nearengine = "你需要靠近引擎"
+		nearengine = "你需要靠近引擎",
+		closer = "Move closer to the headlights",
+		harness = "Attaching Racing Harness..",
 	},
-	--Performance Items
-	["armour"] = { --armour.lua
-		cant = "这辆车无法安装车辆护甲",
-		already = "车辆护甲已安装",
-		install = "安装车辆护甲中..",
-		installed = "车辆护甲已安装..",
-		failed = "车辆护甲安装失败!",
-		remove = "车辆护甲已移除",
-		removing = "移除车辆护甲..",
-		remfail = "车辆护甲移除失败!",
-	},
-	["brakes"] = { --brakes.lua
-		cant = "这辆车无法升级刹车套件",
-		already = "刹车升级已经安装过了",
-		install = "安装刹车升级套件: ",
-		installed = "刹车升级成功..",
-		failed = "刹车升级失败!",
-		remove = "刹车升级已移除",
-		removing = "移除刹车升级套件..",
-		remfail = "移除刹车升级套件失败!",
-	},
-	["engines"] = { --engines.lua
-		cant = "这辆车无法升级引擎套件",
-		already = "引擎升级已经安装过了",
-		install = "安装引擎升级套件: ",
-		installed = "引擎升级成功..",
-		failed = "引擎升级失败!",
-		remove = "引擎升级已移除",
-		removing = "移除引擎升级套件..",
-		remfail = "移除引擎升级套件失败!",
-	},
-	["suspension"] = { --suspension.lua
-		cant = "这辆车无法升级避震套件",
-		already = "避震升级已经安装过了",
-		install = "安装避震升级套件: ",
-		installed = "避震升级成功..",
-		failed = "避震升级失败!",
-		removed = "避震升级已移除",
-		removing = "移除避震升级套件..",
-		remfail = "移除避震升级套件失败!",
-	},
-	["transmission"] = { --transmission.lua
-		cant = "这辆车无法升级变速箱套件",
-		already = "变速箱升级已经安装过了",
-		install = "安装变速箱升级套件: ",
-		installed = "变速箱升级成功..",
-		failed = "变速箱升级失败!",
-		remove = "变速箱升级已移除",
-		removing = "移除变速箱升级套件..",
-		remfail = "移除变速箱升级套件失败!",
-	},
-	["tires"] = { --tires.lua
-		--Drift
-		already = "漂移轮胎已经安装过了",
-		install = "安装漂移轮胎..",
-		installed = "漂移轮胎安装成功",
-		failed = "漂移轮胎安装失败!",
-		remove = "漂移轮胎已移除",
-		removing = "移除漂移轮胎..",
-		remfail = "移除漂移轮胎失败!",
+	["tires"] = {
 		swap = "防弹轮胎已移除!",
-		--BProof
-		already2 = "防弹轮胎已经安装过了",
-		install2 = "安装防弹轮胎..",
-		installed2 = "防弹轮胎安装成功",
-		failed2 = "防弹轮胎安装失败!",
-		remove2 = "防弹轮胎已移除",
-		removing2 = "移除防弹轮胎",
-		remfail2 = "移除防弹轮胎失败!",
 		swap2 = "漂移轮胎已移除!",
 	},
-	["turbo"] = { --turbo.lua
-		already = "涡轮增压器已经安装过了",
-		install = "安装涡轮增压器..",
-		installed = "涡轮增压器安装成功..",
-		failed = "涡轮增压器安装失败!",
-		remove = "涡轮增压器已移除",
-		removing = "移除涡轮增压器..",
-		remfail = "移除涡轮增压器失败!",
-	},
-	["xenons"] = { --xenons.lua
-		already = "氙气灯已经安装过了",
-		install = "安装氙气灯..",
-		installed = "氙气灯安装成功",
-		failed = "氙气灯安装失败!",
-		remove = "氙气灯已移除",
-		removing = "移除氙气灯..",
-		remfail = "移除氙气灯失败!",
-		closer = "靠近大灯",
-
+	["xenons"] = {
 		notinstall = "未安装氙气灯",
 		--Menus
 		neonheader1 = "氙气灯控制",
@@ -121,29 +45,17 @@ Loc["cn"] = {
 		xenonheader = "氙气灯控制",
 		xenontxt = "调整车头灯颜色",
 	},
-
 	--Cosmetic Items
-	["bumpers"] = { --bumpers.lua
-		stockMod = "原厂保险杠..",
-		installed = "保险杠安装成功",
-		failed = "保险杠安装失败!",
-		menuheader = " 中网和保险杠改装", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["bumpers"] = {
 		menugrille = "中网",
 		menuFBumper = "前保险杠",
 		menuBBumper = "后保险杠",
 	},
-	["exhaust"] = { --exhaust.lua
-		stockMod = "原厂排气..",
-		already = "已安装", -- eg. "Stock Bumper already Installed"
-		installed = "排气安装成功",
-		failed = "排气安装失败!",
+	["exhaust"] = {
 		menuheader = " 排气改装", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	["exterior"] = { --exterior.lua
+	["exterior"] = {
 		stockMod = "原厂外观..",
-		installed = "外观部件安装成功",
-		failed = "外观部件安装失败!",
-		menuheader = " 外观部件改装", --eg "Sultan RS Grille and Bumper Cosmetics"
 
 		label1 = "部件A",
 		label2 = "部件B",
@@ -156,23 +68,13 @@ Loc["cn"] = {
 		label9 = "油箱",
 		label10 = "天线",
 	},
-	["hood"] = { --hood.lua
-		stockMod = "原厂引擎盖..",
-		installed = "引擎盖安装成功",
-		failed = "引擎盖安装失败!",
+	["hood"] = {
 		menuheader = " 引擎盖改装", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	["horns"] = { --horns.lua
-		installed = "喇叭安装成功",
-		failed = "喇叭安装失败!",
+	["horns"] = {
 		menuheader = " 喇叭改装", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	["interior"] = { --interior.lua
-		stockMod = "原厂内饰..",
-		installed = "内饰部件安装成功",
-		failed = "内饰部件安装失败!",
-		menuheader = " 内饰部件改装", --eg "Sultan RS Grille and Bumper Cosmetics"
-
+	["interior"] = {
 		label1 = "防滚架",
 		label2 = "装饰品",
 		label3 = "仪表台",
@@ -185,18 +87,11 @@ Loc["cn"] = {
 	},
 	["livery"] = { --exhaust.lua
 		oldMod = "旧的",
-		already = " 已安装", -- eg. "Stock Bumper already Installed"
-		installed = "涂装安装成功",
-		failed = "涂装安装失败!",
 		menuheader = " 涂装改装", --eg "Sultan RS Grille and Bumper Cosmetics"
+		menuoldheader = " Roof Livery Modification", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
 	["nos"] = { --exhaust.lua
 		notinstalled = "未安装涡轮增压器",
-		installing = "NOS安装中..",
-		installed = "NOS安装成功",
-		failed = "NOS安装失败!",
-		removing = "移除NOS罐",
-		removed = "NOS罐已移除",
 		remfail = "NOS罐移除失败!",
 		nosColour = "氮气喷射颜色",
 		boostmode = "加速模式",
@@ -218,9 +113,6 @@ Loc["cn"] = {
 		metals = "金属色",
 		chameleon = "渐变色",
 
-		installing = "更改喷漆颜色中..",
-		installed = "喷漆颜色更改成功",
-		failed = "喷漆颜色更改失败!",
 		menuheader = " 喷漆",
 	},
 	["paintrgb"] = {
@@ -229,24 +121,15 @@ Loc["cn"] = {
 		error = "Hex值最少是6个字符",
 		customheader = "自定义颜色",
 		chrome = "铬合金",
-		hex = "HEX输入",
-		rgb = "RGB输入",
+		hexP = "HEX输入",
+		rgbP = "RGB输入",
 	},
-	["plates"] = { --paints.lua
-		already = "牌照已安装!",
-		installing = "安装牌照中..",
-		installed = "牌照安装成功",
-		failed = "牌照安装失败!",
-		menuheader = " 牌照改装",
+	["plates"] = {
 		label1 = "牌照架",
 		label2 = "牌照背景",
 		label3 = "牌照DIY",
-		menuheader2 = " 牌照背景风格",
 	},
 	["rims"] = {
-		installing = "安装轮圈中..",
-		installed = "轮圈安装成功",
-		failed = "轮圈安装失败!",
 		menuheader = "轮圈改装",
 
 		label1 = "运动",
@@ -267,40 +150,26 @@ Loc["cn"] = {
 
 		labelcustom = "自定义轮圈",
 	},
-	["rollcage"] = { --rollcage.lua
-		installed = "防滚架安装成功!",
-		failed = "防滚架安装失败!",
+	["rollcage"] = {
 		menuheader = "防滚架改装",
 	},
-	["roof"] = { --roof.lua
-		installed = "车棚安装成功",
-		failed = "车棚安装失败!",
-		menuheader = " 车棚改装", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["roof"] = {
+		menuheader = " 车棚改装",
 	},
-	["seat"] = { --seat.lua
-		installed = "车座安装成功",
-		failed = "车座安装失败!",
-		menuheader = " 车座改装", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["seat"] = {
+		menuheader = " 车座改装",
 	},
-	["skirts"] = { --skirts.lua
-		installed = "侧裙安装成功",
-		failed = "侧裙安装失败!",
-		menuheader = " 侧裙和叶子板改装", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["skirts"] = {
 		menuskirt = "侧裙",
 		menuRF = "右侧叶子板",
 		menuLF = "左侧叶子板",
 	},
-	["spoilers"] = { --spoilers.lua
-		installed = "尾翼安装成功",
-		failed = "尾翼安装失败!",
-		menuheader = " 尾翼改装", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["spoilers"] = {
+		menuheader = " 尾翼改装",
 	},
 	["smoke"] = { --tiresmoke.lua
 		already = "这个颜色当前已经在使用了!",
-		installing = "更改车轮烟雾颜色..",
-		installed = "车轮烟雾更改成功",
-		failed = "车轮烟雾更改失败!",
-		menuheader = " 车轮烟雾改装", --eg "Sultan RS Grille and Bumper Cosmetics"
+		menuheader = " 车轮烟雾改装",
 
 		remove = "移除烟雾",
 		custom = "自定义RBG",
@@ -318,34 +187,26 @@ Loc["cn"] = {
 		hpink = "热粉",
 		purple = "紫色",
 		blacklight = "黑光",
-
-		submit = "提交",
 	},
-	["windows"] = { --windows.lua
-		installed = "玻璃膜安装成功",
-		failed = "玻璃膜安装失败!",
+	["windows"] = {
 		menuheader = " 玻璃膜", --eg "Sultan RS Grille and Bumper Cosmetics"
-
-		label1 = "移除",
-		label2 = "透明",
-		label3 = "绿",
-		label4 = "淡雾",
-		label5 = "黑雾",
-		label6 = "纯黑",
 	},
 	["stores"] = {
 		browse = "查看商店",
 		tools = "技工工具",
 		perform = "性能升级套件",
 		cosmetic = "改装零件",
+		repairs = "Repair Items",
+		nos = "NOS Items",
 	},
 	["crafting"] = { --crafting.lua
 		menuheader = "技工制作",
 		toolheader = "技工工具",
+		repairheader = "Repair Items",
 		performheader = "性能升级套件",
 		cosmetheader = "改装零件",
+		nosheader = "NOS Items",
 		numitems = " 个物品", --for menu. eg. "11 items"
-		ingredients = "你没有正确的原材料",
 	},
 	["payments"] = { --payments.lua
 		charge = "向客户收费",
@@ -354,10 +215,6 @@ Loc["cn"] = {
 		plate = "车牌号: [",
 		value = "]<br>价值: $",
 		unavail = "❌ 不可用",
-		notinstall = "未安装",
-		reinforced = "车身已强化",
-		xenoninst = "氙气灯已安装",
-		tireinst = "已安装",
 
 		label1 = "引擎:",
 		label2 = "刹车:",
@@ -410,14 +267,8 @@ Loc["cn"] = {
 		label47 = "是",
 		label48 = "否",
 		label49 = "你是否确认要移除刹车套件?",
-		label50 = "你是否确认要移除引擎套件?",
-		label51 = "你是否确认要移除避震套件?",
-		label52 = "你是否确认要移除变速箱套件?",
-		label53 = "你是否确认要移除护甲?",
-		label54 = "你是否确认要移除涡轮增压器?",
-		label55 = "你是否确认要移除氙气灯?",
-		label56 = "你是否确认要移除轮胎?",
-		label57 = "你是否确认要移除氮气?",
+		label50 = "Antilag:",
+		label51 = "Harness:",
 		label58 = "氮气:",
 	},
 	["repair"] = {
@@ -428,10 +279,10 @@ Loc["cn"] = {
 
 		engine = "引擎",
 		body = "车体",
-		radiator = "散热器",
+		oil = "散热器",
 		driveshaft = "传动轴",
-		brakes = "刹车",
-		clutch = "离合器",
+		spark = "刹车",
+		battery = "离合器",
 		tank = "油箱k",
 		replacetire = "更换轮胎",
 		tire = "车轮",
@@ -441,7 +292,6 @@ Loc["cn"] = {
 		repaired = "完全修复",
 		cancel = "修复取消!",
 		nomaterials = "仓库里没有足够的材料",
-		failinfo = "获取车辆信息失败, 请再次尝试使用工具箱",
 
 		cost = "<br>花费: ",
 		status = "状态: ",
@@ -452,6 +302,7 @@ Loc["cn"] = {
 		nocar = "附近没有车啊",
 	},
 	["police"] = {
+		header = "Modification Station",
 		userepair = "使用修理站",
 		repair = "修理",
 		extras = "配件",
@@ -495,6 +346,7 @@ Loc["cn"] = {
 		nearby = "附近没有车啊",
 		shop = "不能在店外工作",
 		mechanic = "只有修理技工知道该怎么做",
+		checking = "Checking Stash.."
 	},
 	["servfunction"] = {
 		checkdamage = "查看车辆受损状况",
@@ -511,17 +363,15 @@ Loc["cn"] = {
 	["previews"] = {
 		changes = "改装项目: ",
 	},
-	["garage"] = {
-		jobgarage = "公共车库",
-		vehout = "车辆已出库",
-		remveh = "移除车辆",
-		cantspawn = " 挡住了",
-		marker = "工作车辆已在地图上标记",
-		markername = "工作车辆",
-	},
 	--Below are names of items/mods that can't be reteived natively
+	vehicleWindowOptions = {
+		{ name = "Limo", id = 4 },
+		{ name = "Green", id = 5 },
+		{ name = "Light Smoke", id = 3 },
+		{ name = "Dark Smoke", id = 2 },
+		{ name = "Pure Black", id = 1 }
+	},
 	vehiclePlateOptions = {
-		{ name = "白底蓝字#1", id = 0 },
 		{ name = "白底蓝字#2", id = 3 },
 		{ name = "白底蓝字#3", id = 4 },
 		{ name = "蓝底黄字", id = 2 },
@@ -711,21 +561,87 @@ Loc["cn"] = {
 		{ name = "铬合金", id = 120 },
 	},
 	vehicleResprayOptionsChameleon = {
-		{ name = "黑白", id = 223 },
-		{ name = "色差", id = 236 },
-		{ name = "昼夜", id = 224 },
-		{ name = "维利尔", id = 225 },
-		{ name = "极度斯普朗克", id = 226 },
-		{ name = "罪恶都市", id = 227 },
-		{ name = "日落", id = 233 },
-		{ name = "温差", id = 238 },
-		{ name = "震波之夜", id = 228 },
-		{ name = "四季", id = 229 },
-		{ name = "老七", id = 234 },
-		{ name = "复古别墅", id = 230 },
-		{ name = "泡泡堂", id = 231 },
-		{ name = "彩虹", id = 232 },
-		{ name = "假面骑士", id = 235 },
-		{ name = "圣诞节", id = 237 },
+		{ name = "Anodized Red", id = 161 },
+		{ name = "Anodized Wine", id = 162 },
+		{ name = "Anodized Purple", id = 163 },
+		{ name = "Anodized Blue", id = 164 },
+		{ name = "Anodized Green", id = 165 },
+		{ name = "Anodized Lime", id = 166 },
+		{ name = "Anodized Copper", id = 167 },
+		{ name = "Anodized Bronze", id = 168 },
+		{ name = "Anodized Champagne", id = 169 },
+		{ name = "Anodized Gold", id = 170 },
+		{ name = "Green/Blue Flip", id = 171 },
+		{ name = "Green/Red Flip", id = 172 },
+		{ name = "Green/Brown Flip", id = 173 },
+		{ name = "Green/Turqoise Flip", id = 174 },
+		{ name = "Green/Purple Flip", id = 175 },
+		{ name = "Teal/Purple Flip", id = 176 },
+		{ name = "Turqoise/Red Flip", id = 177 },
+		{ name = "Turqoise/Purple Flip", id = 178 },
+		{ name = "Cyan/Purple Flip", id = 179 },
+		{ name = "Blue/Pink Flip", id = 180 },
+		{ name = "Blue/Green Flip", id = 181 },
+		{ name = "Purple/Red Flip", id = 182 },
+		{ name = "Pruple/Green Flip", id = 183 },
+		{ name = "Magenta/Green Flip", id = 184 },
+		{ name = "Magenta/Yellow Flip", id = 185 },
+		{ name = "Burgundy/Green Flip", id = 186 },
+		{ name = "Magenta/Cyan Flip", id = 187 },
+		{ name = "Copper/Purple Flip", id = 188 },
+		{ name = "Magenta/Orange Flip", id = 189 },
+		{ name = "Red/Orange Flip", id = 190 },
+		{ name = "Orange/Purple Flip", id = 191 },
+		{ name = "Orange/Blue Flip", id = 192 },
+		{ name = "White/Purple Flip", id = 193 },
+		{ name = "Red/Rainbow Flip", id = 194 },
+		{ name = "Blue/Rainbow Flip", id = 195 },
+		{ name = "Dark Green Pearl", id = 196 },
+		{ name = "Dark Teal Pearl", id = 197 },
+		{ name = "Dark Blue Pearl", id = 198 },
+		{ name = "Dark Purple Pearl", id = 199 },
+		{ name = "Oil Slick Pearl", id = 200 },
+		{ name = "Light Green Pearl", id = 201 },
+		{ name = "Light Blue Pearl", id = 202 },
+		{ name = "Light Purple Pearl", id = 203 },
+		{ name = "Light Pink Pearl", id = 204 },
+		{ name = "Off White Pearl", id = 205 },
+		{ name = "Pink Pearl", id = 206 },
+		{ name = "Yellow Pearl", id = 207 },
+		{ name = "Green Pearl", id = 208 },
+		{ name = "Blue Pearl", id = 209 },
+		{ name = "Cream Pearl", id = 210 },
+		{ name = "White Prismatic", id = 211 },
+		{ name = "Graphite Prismatic", id = 212 },
+		{ name = "Dark Blue Prismatic", id = 213 },
+		{ name = "Dark Purple Prismatic", id = 214 },
+		{ name = "Hot Pink Prismatic", id = 215 },
+		{ name = "Dark Red Prismatic", id = 216 },
+		{ name = "Dark Green Prismatic", id = 217 },
+		{ name = "Black Prismatic", id = 218 },
+		{ name = "Black Oil Spill", id = 219 },
+		{ name = "Black Rainbow", id = 220 },
+		{ name = "Black Holographic", id = 221 },
+		{ name = "White Holographic", id = 222 },
+		{ name = "Monochrome", id = 223 },
+		{ name = "Night / Day", id = 224 },
+		{ name = "Verlierer 2", id = 225 },
+		{ name = "Sprunk Extreme", id = 226 },
+		{ name = "Vice City", id = 227 },
+		{ name = "Synthwave", id = 228 },
+		{ name = "Four Seasons", id = 229 },
+		{ name = "Maisonette 9 Throwback", id = 230 },
+		{ name = "Bubblegum", id = 231 },
+		{ name = "Full Rainbow", id = 232 },
+		{ name = "Sunsets", id = 233 },
+		{ name = "The Seven", id = 234 },
+		{ name = "Kamen Rider", id = 235 },
+		{ name = "Chrome Abberation", id = 236 },
+		{ name = "Its Christmas", id = 237 },
+		{ name = "Temperature", id = 238 },
+		{ name = "Haos Special Works", id = 239 },
+		{ name = "Electro", id = 240 },
+		{ name = "Monika", id = 241 },
+		{ name = "Fubuki", id = 242 }
 	},
 }

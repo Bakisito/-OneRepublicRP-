@@ -45,7 +45,7 @@ Config.Societies = { -- Which societies have bank accounts
 	"ambulance",
 	"mechanic1",
 	"mechanic2",
-	"mechanic3",
+	"biembo",
 	"mechanic4",
 	"mechanic5"
 }

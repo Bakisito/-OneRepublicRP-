@@ -2,12 +2,12 @@ Config = {}
 
 Config.Debug = false -- If you want to see the debug messages in the console, you can make it true.
 
------------------------------------------------------------------------------------------------------------------ 
- -- UM - Multi Character | UM Settings 
+-----------------------------------------------------------------------------------------------------------------
+ -- UM - Multi Character | UM Settings
 -----------------------------------------------------------------------------------------------------------------
 
---[[  
-     This mode disables effects and synchronizes the time and weather with your server and does not allow you a custom weather and time 
+--[[
+     This mode disables effects and synchronizes the time and weather with your server and does not allow you a custom weather and time
      and removes the realistic look with blur in the background
 --]]
 
@@ -30,16 +30,11 @@ Config.HideRadar = false --  true (optional)
 ]]
 Config.QBLogs = true --  true (optional)
 
------------------------------------------------------------------------------------------------------------------ 
- -- UM - Multi Character | Main Settings 
+-----------------------------------------------------------------------------------------------------------------
+ -- UM - Multi Character | Main Settings
 -----------------------------------------------------------------------------------------------------------------
 
 Config.Lang = 'en' -- [locales/.lua]
-
-Config.Framework = function()
-    QBCore = exports['qb-core']:GetCoreObject()
-    return QBCore
-end
 
 Config.ConvertQBoxLicense = false -- If you are using QBox, make this true Qbox uses license2 and license, license2 is a only rockstar license and does not change
 
@@ -90,34 +85,40 @@ Config.UMIDCard = {
 
 
 Config.QBEvents = {
---[[ 
-      this event sends the character's data to qb-apartments and opens the spawn menu by running the qb-spawn event 
-      If you are using custom spawn, type your spawn event here, or if you continue to use qb-apartments, 
-      replace your custom spawn event with the one in qb-apartments 
+--[[
+      this event sends the character's data to qb-apartments and opens the spawn menu by running the qb-spawn event
+      If you are using custom spawn, type your spawn event here, or if you continue to use qb-apartments,
+      replace your custom spawn event with the one in qb-apartments
+      --------------------------------------------------------------
+      for ps-housing: 'ps-housing:client:setupSpawnUI'
+
 ]]    spawnEventUI = 'apartments:client:setupSpawnUI',
 
---[[ 
-     if you are not using a custom event don't change it illenium-appearance 
-     and old illenium fivem-appearance and qb-clothing support it 
+--[[
+     if you are not using a custom event don't change it illenium-appearance
+     and old illenium fivem-appearance and qb-clothing support it
 ]]   createFirstCharacter = 'qb-clothes:client:CreateFirstCharacter'
 }
 
 
------------------------------------------------------------------------------------------------------------------ 
+-----------------------------------------------------------------------------------------------------------------
  -- UM - Multi Character | New Character | UM Spawn Last Location
 -----------------------------------------------------------------------------------------------------------------
 
 Config.ApartmentStart = false -- If you make it true, the [new character] will spawn at Apartment.
 
-Config.DefaultSpawn = vector4(-1034.03, -2732.7, 20.17, 329.77) -- If ApartmentStart is false, it spawns the [new character here]
+Config.DefaultSpawn = { -- If ApartmentStart is false, it spawns the [new character here]
+    Random = false, -- If you want to spawn randomly, you can make it true. [list/defaulspawncoords.lua]
+    Single = vector4(-1034.03, -2732.7, 20.17, 329.77)
+}
 
 --[[
-    This simply means that when the character starts the game, it spawns in the last location and does not need any menu. 
-    qb-spawn only works if ApartmentStart is true 
+    This simply means that when the character starts the game, it spawns in the last location and does not need any menu.
+    qb-spawn only works if ApartmentStart is true
 --]]
 Config.UMSpawnLastLocation = true
 
------------------------------------------------------------------------------------------------------------------ 
+-----------------------------------------------------------------------------------------------------------------
  -- UM - Multi Character | Slots | Delete Button | PrivSlots
 -----------------------------------------------------------------------------------------------------------------
 
@@ -127,9 +128,17 @@ Config.DefaultSlots = 1 -- How many total character slots everyone will have by 
 
 Config.PrivSlots = Slots.List -- Set a custom total slots for the user whose license you are adding [list/slotslist.lua]
 
------------------------------------------------------------------------------------------------------------------ 
+-----------------------------------------------------------------------------------------------------------------
  -- UM - Multi Character | Customize Settings
 -----------------------------------------------------------------------------------------------------------------
+
+Config.CinematicMode = false -- If you want to use cinematic mode, you can make it true (um special?)
+
+Config.BackgroundMusic = {
+    Status = false, -- If you want to use background music, you can make it true.
+    Name = 'multisong.mp3', -- [web/build/audio/]
+    Volume = 0.3
+}
 
 Config.Pages = {
     Credits = {
@@ -138,7 +147,7 @@ Config.Pages = {
     },
     Store = {
         Status = false,
-        URL = 'https://uyuyorumstore.com'
+        URL = 'https://one-republic.tebex.io'
     }
 }
 
@@ -171,7 +180,7 @@ Config.TimeSettings = {
     Weather = 'XMAS' -- CLEAR, EXTRASUNNY, CLOUDS, OVERCAST, RAIN, CLEARING , THUNDER, SMOG, FOGGY, XMAS , SNOWLIGHT, BLIZZARD
 }
 
------------------------------------------------------------------------------------------------------------------ 
+-----------------------------------------------------------------------------------------------------------------
  -- UM - Multi Character | UM Speech
 -----------------------------------------------------------------------------------------------------------------
 

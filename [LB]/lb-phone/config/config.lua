@@ -42,6 +42,7 @@ Config.BlacklistApps = {
 
 Config.Companies = {}
 Config.Companies.Enabled = true -- allow players to call companies?
+Config.Companies.MessageOffline = true -- if true, players can message companies even if no one in the company is online
 Config.Companies.Services = {
     {
         job = "police",
@@ -56,10 +57,10 @@ Config.Companies.Services = {
                 x = 428.9,
                 y = -984.5,
             }
-        },
+        }
         -- customIcon = "IoShield", -- if you want to use a custom icon for the company, set it here: https://react-icons.github.io/react-icons/icons?name=io5
         -- onCustomIconClick = function() 
-        --     print("Clicked")
+        --    print("Clicked")
         -- end
     },
     {
@@ -72,7 +73,7 @@ Config.Companies.Services = {
         location = {
             name = "Pillbox",
             coords = {
-                x = 304.2, 
+                x = 304.2,
                 y = -587.0
             }
         }
@@ -87,7 +88,7 @@ Config.Companies.Services = {
         location = {
             name = "LS Customs",
             coords = {
-                x = -336.6, 
+                x = -336.6,
                 y = -134.3
             }
         }
@@ -102,7 +103,7 @@ Config.Companies.Services = {
         location = {
             name = "Taxi HQ",
             coords = {
-                x =984.2, 
+                x =984.2,
                 y = -219.0
             }
         }

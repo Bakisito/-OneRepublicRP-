@@ -6,103 +6,27 @@ Loc["ro"] = {
 		stock = "Stoc", -- Default, Original, whatever word you use for this
 		current = "Deja montat",
 		noOptions = "Nu exista optiuni",
+		notinstall = "Not Installed",
 		installing = "",
+		installed = "Installed!",
+		instfail = " install failed!",
+		removed = "Removed!",
+		removing = "Removing ",
+		remfail = " removal failed!",
+		cant = "Can't be installed on this vehicle",
 		amountoption = "Optiuni Valabile: ",
 		already = " Deja montat", -- eg. "Stock Bumper already Installed"
 		menuinstalled = " Optiunea a fost montata: ", --eg "[4 Options] Installed: Grille 1"
 		nearwheel = "You need to move closer to a wheel",
-		nearengine = "You need to move closer to the engine"
+		nearengine = "You need to move closer to the engine",
+		closer = "Move closer to the headlights",
+		harness = "Attaching Racing Harness..",
 	},
-	--Performance Items
-	["armour"] = { --armour.lua
-		cant = "Armura nu poate fi montata pe acest vehicul",
-		already = "Armura a fost deja montata",
-		install = "Armura se monteaza..",
-		installed = "Armura a fost montata..",
-		failed = "Montarea armurii a esuat!",
-		removed = "Armura a fost scoasa",
-		removing = "Scoatem armura..",
-		remfail = "Scoaterea armurii a esuat!",
-	},
-	["brakes"] = { --brakes.lua
-		cant = "Franele nu pot fi montate pe acest vehicul",
-		already = "Franele sunt deja montate",
-		install = "Se monteaza franele: ",
-		installed = "Franele au fost montate..",
-		failed = "Montarea franelor a esuat!",
-		remove = "Franele au fost scoase",
-		removing = "Scoatem franele..",
-		remfail = "Scoaterea franelor a esuat!",
-	},
-	["engines"] = { --engines.lua
-		cant = "Motorul nu poate fi montat pe acest  vehicul",
-		already = "Motorul a fost deja montat",
-		install = "Se monteaza motorul: ",
-		installed = " Motorul a fost montat..",
-		failed = "Montarea motorului a esuat!",
-		remove = "Motorul a fost scos",
-		removing = "Se scoate motorul..",
-		remfail = "Scoaterea motorului a esuat!",
-	},
-	["suspension"] = { --suspension.lua
-		cant = "Suspensia nu poate fi montata pe acest vehicul",
-		already = "Suspensia este deja montata",
-		install = "Se monteaza suspenia: ",
-		installed = " Suspensie montata..",
-		failed = "Montarea suspensiei a esuat!",
-		removed = "Suspensia a fost scoasa",
-		removing = "Scoatem suspensia..",
-		remfail = "Scoaterea suspensiei a esuat!",
-	},
-	["transmission"] = { --transmission.lua
-		cant = "Transmisia nu poate fi montata pe acest vehicul",
-		already = "Transmisia a fost deja montata",
-		install = "Se monteaza transmisia: ",
-		installed = "Transmisia a fost montata..",
-		failed = "Montarea transmisiei a esuat!",
-		remove = "Transmisia a fost scoasa",
-		removing = "Se scoate transmisia..",
-		remfail = "Scoaterea transmisiei a esuat!",
-	},
-	["tires"] = { --tires.lua
-		--Drift
-		already = "Cauciucurile de drift au fost deja montate",
-		install = "Se monteaza cauciucurile de drift",
-		installed = "Cauciucurile de drift au fost montate",
-		failed = "Montarea caucicurilor de drift a esuat!",
-		remove = "Cauciucurile de drift au fost scoase",
-		removing = "Se scot cauciucurile de drift..",
-		remfail = "Scoaterea cauciucurilor de drift a esuat!",
+	["tires"] = {
 		swap = "Cauciucurile anti glont au fost schimbate!",
-		--BProof
-		already2 = "Cuciucurile antiglont sunt deja montate",
-		install2 = "Se monteaza cauciucurile antiglont..",
-		installed2 = "Cauciucurile antiglont au fost montate",
-		failed2 = "Montarea cauciucurilor antiglont a esuat!",
-		remove2 = "Cauciucurile antiglont au fost scoase",
-		removing2 = "Se scot cauciucurile antiglont",
-		remfail2 = "Scoaterea cauciucurilor antiglont a esuat!",
 		swap2 = "Cauciucurile de drift au fost schimbate!",
 	},
-	["turbo"] = { --turbo.lua
-		already = "Turbo suflanta e deja montata",
-		install = "Se instaleaza turbosuflanta..",
-		installed = "Turbo suflanta a fost montata..",
-		failed = "Montarea turbo suflantei a esuat!",
-		remove = "Turbo suflanta a fost scoasa",
-		removing = "Se scoate Turbo..",
-		remfail = "Scoaterea turbo suflantei a esuat!",
-	},
-	["xenons"] = { --xenons.lua
-		already = "Xenoanele au fost deja montate",
-		install = "Xenoanele se insteaza..",
-		installed = "Xenoanele au fost montate",
-		failed = "Montarea xenoanelor a esuat",
-		remove = "Xenonul a fost scos",
-		removing = "Se scoate xenonul..",
-		remfail = "Scoaterea xenonului a esuat",
-		closer = "Trebuie sa fi langa faruri",
-
+	["xenons"] = {
 		notinstall = "Xenoanele nu sunt montate",
 		--Menus
 		neonheader1 = "Contol faruri",
@@ -121,29 +45,17 @@ Loc["ro"] = {
 		xenonheader = "Controler xenoane",
 		xenontxt = "Ajusteaza culoarea farurilor",
 	},
-
 	--Cosmetic Items
-	["bumpers"] = { --bumpers.lua
-		stockMod = "Bara stock..",
-		installed = "Bara a fost montata",
-		failed = "Instalarea barii a esuat!",
-		menuheader = "Cosmeticele grilajului si ale barii", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["bumpers"] = {
 		menugrille = "Grilaj",
 		menuFBumper = "Bara fata",
 		menuBBumper = "Bara spate",
 	},
-	["exhaust"] = { --exhaust.lua
-		stockMod = "Toba de esapament stock..",
-		already = " Deja montata", -- eg. "Stock Bumper already Installed"
-		installed = "Toba de esapament montata",
-		failed = "Montarea tobei de esapament a esuat",
-		menuheader = "Modificari ale tobei de esapament ", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["exhaust"] = {
+		menuheader = "Modificari ale tobei de esapament ",
 	},
-	["exterior"] = { --exterior.lua
+	["exterior"] = {
 		stockMod = "Exterior stock..",
-		installed = "Mod exterior instalat",
-		failed = "Montarea modului exterior a esuat",
-		menuheader = "Modificari exterior", --eg "Sultan RS Grille and Bumper Cosmetics"
 
 		label1 = "Trim A",
 		label2 = "Trim B",
@@ -156,23 +68,13 @@ Loc["ro"] = {
 		label9 = "Rezervor de benzina",
 		label10 = "Aerials",
 	},
-	["hood"] = { --hood.lua
-		stockMod = "Capota stock..",
-		installed = "Capota montata",
-		failed = "Montarea capotei a esuat",
-		menuheader = "Modificari capota", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["hood"] = {
+		menuheader = "Modificari capota",
 	},
-	["horns"] = { --horns.lua
-		installed = "Claxon montat",
-		failed = "Montarea claxonului a esuat",
-		menuheader = "Modificari claxon", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["horns"] = {
+		menuheader = "Modificari claxon",
 	},
-	["interior"] = { --interior.lua
-		stockMod = "Mod interior stock..",
-		installed = "Mod interior montat",
-		failed = "Montarea modului interior a esuat",
-		menuheader = "Modificari interior", --eg "Sultan RS Grille and Bumper Cosmetics"
-
+	["interior"] = {
 		label1 = "Bare de sustinere",
 		label2 = "Ornamente",
 		label3 = "Panou",
@@ -183,28 +85,21 @@ Loc["ro"] = {
 		label8 = "Placute",
 		label9 = "Boxe",
 	},
-	["livery"] = { --exhaust.lua
+	["livery"] = {
 		oldMod = "Vechi",
-		already = "Deja montat", -- eg. "Stock Bumper already Installed"
-		installed = "Livery a fost montat",
-		failed = "Montarea Lyvery a esuat",
-		menuheader = "Modificari livery", --eg "Sultan RS Grille and Bumper Cosmetics"
+		menuheader = "Modificari livery",
+		menuoldheader = " Roof Livery Modification",
 	},
-	["nos"] = { --exhaust.lua
+	["nos"] = {
 		notinstalled = "NOS nu este montat",
-		installing = "Se monteaza NOS",
-		installed = "NOS a fost montat",
-		failed = "Montarea NOS a esuat",
-		removing = "Scoatem butelia de NOS",
-		removed = "Butelia NOS a fost scoasa",
-		remfail = "Scoaterea buteliei NOS a esuat",
+
 		nosColour = "NOS Purge Colour",
 		boostmode = "Boost Mode",
 		purgemode = "Purge Mode",
 		boost = "Boost Power: ",
 		spray = "Spray Strength: ",
 	},
-	["paint"] = { --paints.lua
+	["paint"] = {
 		primary = "Culoare primara",
 		secondary = "Culoare secundara",
 		pearl = "Perla",
@@ -218,9 +113,6 @@ Loc["ro"] = {
 		metals = "Metalic",
 		chameleon = "Chameleon",
 
-		installing = "Se aplica culoarea",
-		installed = "Culoarea a fost aplicata",
-		failed = "Aplicarea culorii a esuat",
 		menuheader = "Revopsire",
 	},
 	["paintrgb"] = {
@@ -232,21 +124,12 @@ Loc["ro"] = {
 		hex = "HEX Picker",
 		rgb = "RGB Picker",
 	},
-	["plates"] = { --paints.lua
-		already = "Placutele sunt deja montate",
-		installing = "Se monteaza placutele..",
-		installed = "Placutele au fost instalate",
-		failed = "Instalarea placutelor a esuat",
-		menuheader = "Modificarea placutelor",
+	["plates"] = {
 		label1 = "Rama Placute",
 		label2 = "Vanity Plates",
 		label3 = "Placute custom",
-		menuheader2 = " Stil placute custom",
 	},
 	["rims"] = {
-		installing = "Montam jante..",
-		installed = "Jantele au fost instalate",
-		failed = "Instalarea jantelor a esuat",
 		menuheader = "Modificari jante",
 
 		label1 = "Sport",
@@ -267,40 +150,26 @@ Loc["ro"] = {
 
 		labelcustom = "Custom Rims",
 	},
-	["rollcage"] = { --rollcage.lua
-		installed = "Success! Roll Cage Installed",
-		failed = "Roll Cage installation failed!",
+	["rollcage"] = {
 		menuheader = " Roll Cage Modification",
 	},
-	["roof"] = { --roof.lua
-		installed = "Plafon montat",
-		failed = "Montarea plafonului a esuat",
-		menuheader = "Modificari plafon", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["roof"] = {
+		menuheader = "Modificari plafon",
 	},
-	["seat"] = { --seat.lua
-		installed = "Scaune montate",
-		failed = "Montarea scaunelor au esuat",
-		menuheader = "Modificari sacune", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["seat"] = {
+		menuheader = "Modificari sacune",
 	},
-	["skirts"] = { --skirts.lua
-		installed = "Praguri montate",
-		failed = "Montarea pragurilor au esuat",
-		menuheader = "Cosmetice praguri si fendere", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["skirts"] = {
 		menuskirt = "Praguri",
 		menuRF = "Fender drept",
 		menuLF = "Fender stang",
 	},
-	["spoilers"] = { --spoilers.lua
-		installed = "Spoiler montat",
-		failed = "Montarea spoilerului a esuat",
-		menuheader = "Modificari spoiler", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["spoilers"] = {
+		menuheader = "Modificari spoiler",
 	},
-	["smoke"] = { --tiresmoke.lua
+	["smoke"] = {
 		already = "Culoarea e deja aplicata",
-		installing = "Montam culoarea la cauciucuri..",
-		installed = "Culoare aplicata",
-		failed = "Aplicarea culorii a esuat",
-		menuheader = "Modificari culoare cauciucuri", --eg "Sultan RS Grille and Bumper Cosmetics"
+		menuheader = "Modificari culoare cauciucuri",
 
 		remove = "Remove Smoke",
 		custom = "CUSTOM RBG",
@@ -318,46 +187,34 @@ Loc["ro"] = {
 		hpink = "Hot Pink",
 		purple = "Mov",
 		blacklight = "Blacklight",
-
-		submit = "Submit",
 	},
-	["windows"] = { --windows.lua
-		installed = "Folie geamuri aplicata",
-		failed = "Aplicare folie geamuri esuata",
-		menuheader = "Modificari folie geamuri", --eg "Sultan RS Grille and Bumper Cosmetics"
-
-		label1 = "Scoatere folie geamuri",
-		label2 = "Lime",
-		label3 = "Verde",
-		label4 = "Light Smoke",
-		label5 = "Dark Smoke",
-		label6 = "Pure Black",
+	["windows"] = {
+		menuheader = "Modificari folie geamuri",
 	},
 	["stores"] = {
 		browse = "Cauta in magazin",
 		tools = "Scule mecanic",
 		perform = "Upgradeuri performanta",
 		cosmetic = "Upgradeuri Cosmetce",
+		repairs = "Repair Items",
+		nos = "NOS Items",
 	},
-	["crafting"] = { --crafting.lua
+	["crafting"] = {
 		menuheader = "Crafting mecanici",
 		toolheader = "Scule mecanici",
+		repairheader = "Repair Items",
 		performheader = "Upgradeuri performanta",
 		cosmetheader = "Upgradeuri cosmetice",
+		nosheader = "NOS Items",
 		numitems = " Obiecte", --for menu. eg. "11 items"
-		ingredients = "Nu ai materialele necesare",
 	},
-	["payments"] = { --payments.lua
+	["payments"] = {
 		charge = "Scoate factura",
 	},
-	["check"] = { --check_tunes.lua
+	["check"] = {
 		plate = "Placuta",
 		value = "Valoare",
 		unavail = "❌ Nu e valoare",
-		notinstall = "Nu e instalat",
-		reinforced = "Ranforsare ",
-		xenoninst = "Xenon Instalat",
-		tireinst = "Instalat",
 
 		label1 = "Motor",
 		label2 = "Frane:",
@@ -410,14 +267,8 @@ Loc["ro"] = {
 		label47 = "✅ Da",
 		label48 = "❌ Nu",
 		label49 = "Vrei sa scoti franele?",
-		label50 = "Vrei sa scoti motorul?",
-		label51 = "Vrei sa scoti suspensia?",
-		label52 = "Vrei sa scoti transmisia?",
-		label53 = "Vrei sa scoti armura?",
-		label54 = "vrei sa scoti Turbo?",
-		label55 = "vrei sa scoti Xenoanele?",
-		label56 = "Vrei sa scoti cauciucurile?",
-		label57 = "vrei sa golesti NOS ?",
+		label50 = "Antilag:",
+		label51 = "Harness:",
 		label58 = "NOS:",
 	},
 	["repair"] = {
@@ -428,10 +279,10 @@ Loc["ro"] = {
 
 		engine = "Motor",
 		body = "Caroserie",
-		radiator = "Radiator",
+		oil = "Radiator",
 		driveshaft = "Transmisie",
-		brakes = "Frane",
-		clutch = "Ambreiaj",
+		spark = "Frane",
+		battery = "Ambreiaj",
 		tank = "Rezervor de benzina",
 		replacetire = "Replace Tires",
 		tire = "Wheels",
@@ -441,7 +292,6 @@ Loc["ro"] = {
 		repaired = " Reparat complet",
 		cancel = " Reparatie anulata",
 		nomaterials = "Nu sunt destule materiale in seif",
-		failinfo = "Nu ai reusit sa afli informatiile vehiculului,incearca sa folosesti sculele din nou",
 
 		cost = "Pret ",
 		status = "Status: ",
@@ -452,6 +302,7 @@ Loc["ro"] = {
 		nocar = "Nu exista nici un vehicul in apropiere",
 	},
 	["police"] = {
+		header = "Modification Station",
 		userepair = "Foloseste statia de reparare",
 		repair = "Repara",
 		extras = "Extra",
@@ -495,6 +346,7 @@ Loc["ro"] = {
 		nearby = "Nu e niciun vehicul in apropiere",
 		shop = "Nu poti lucra decat in service!",
 		mechanic = "Ai nevoie de un mecanic sa te ajute cu asta",
+		checking = "Checking Stash.."
 	},
 	["servfunction"] = {
 		checkdamage = "Verifica vehicul de daune",
@@ -511,17 +363,15 @@ Loc["ro"] = {
 	["previews"] = {
 		changes = "Numar de modificari: ",
 	},
-	["garage"] = {
-		jobgarage = "Job Garage",
-		vehout = "Vehicle out of Garage",
-		remveh = "Remove Vehicle",
-		cantspawn = " in the way",
-		marker = "Job Vehicle Marked on Map",
-		markername = "Job Vehicle",
-	},
 	--Below are names of items/mods that can't be reteived natively
+	vehicleWindowOptions = {
+		{ name = "Limo", id = 4 },
+		{ name = "Green", id = 5 },
+		{ name = "Light Smoke", id = 3 },
+		{ name = "Dark Smoke", id = 2 },
+		{ name = "Pure Black", id = 1 }
+	},
 	vehiclePlateOptions = {
-		{ name = "Blue on White #1", id = 0 },
 		{ name = "Blue on White #2", id = 3 },
 		{ name = "Blue on White #3", id = 4 },
 		{ name = "Yellow on Blue", id = 2 },
@@ -711,21 +561,87 @@ Loc["ro"] = {
 		{ name = "Chrome", id = 120 },
 	},
 	vehicleResprayOptionsChameleon = {
+		{ name = "Anodized Red", id = 161 },
+		{ name = "Anodized Wine", id = 162 },
+		{ name = "Anodized Purple", id = 163 },
+		{ name = "Anodized Blue", id = 164 },
+		{ name = "Anodized Green", id = 165 },
+		{ name = "Anodized Lime", id = 166 },
+		{ name = "Anodized Copper", id = 167 },
+		{ name = "Anodized Bronze", id = 168 },
+		{ name = "Anodized Champagne", id = 169 },
+		{ name = "Anodized Gold", id = 170 },
+		{ name = "Green/Blue Flip", id = 171 },
+		{ name = "Green/Red Flip", id = 172 },
+		{ name = "Green/Brown Flip", id = 173 },
+		{ name = "Green/Turqoise Flip", id = 174 },
+		{ name = "Green/Purple Flip", id = 175 },
+		{ name = "Teal/Purple Flip", id = 176 },
+		{ name = "Turqoise/Red Flip", id = 177 },
+		{ name = "Turqoise/Purple Flip", id = 178 },
+		{ name = "Cyan/Purple Flip", id = 179 },
+		{ name = "Blue/Pink Flip", id = 180 },
+		{ name = "Blue/Green Flip", id = 181 },
+		{ name = "Purple/Red Flip", id = 182 },
+		{ name = "Pruple/Green Flip", id = 183 },
+		{ name = "Magenta/Green Flip", id = 184 },
+		{ name = "Magenta/Yellow Flip", id = 185 },
+		{ name = "Burgundy/Green Flip", id = 186 },
+		{ name = "Magenta/Cyan Flip", id = 187 },
+		{ name = "Copper/Purple Flip", id = 188 },
+		{ name = "Magenta/Orange Flip", id = 189 },
+		{ name = "Red/Orange Flip", id = 190 },
+		{ name = "Orange/Purple Flip", id = 191 },
+		{ name = "Orange/Blue Flip", id = 192 },
+		{ name = "White/Purple Flip", id = 193 },
+		{ name = "Red/Rainbow Flip", id = 194 },
+		{ name = "Blue/Rainbow Flip", id = 195 },
+		{ name = "Dark Green Pearl", id = 196 },
+		{ name = "Dark Teal Pearl", id = 197 },
+		{ name = "Dark Blue Pearl", id = 198 },
+		{ name = "Dark Purple Pearl", id = 199 },
+		{ name = "Oil Slick Pearl", id = 200 },
+		{ name = "Light Green Pearl", id = 201 },
+		{ name = "Light Blue Pearl", id = 202 },
+		{ name = "Light Purple Pearl", id = 203 },
+		{ name = "Light Pink Pearl", id = 204 },
+		{ name = "Off White Pearl", id = 205 },
+		{ name = "Pink Pearl", id = 206 },
+		{ name = "Yellow Pearl", id = 207 },
+		{ name = "Green Pearl", id = 208 },
+		{ name = "Blue Pearl", id = 209 },
+		{ name = "Cream Pearl", id = 210 },
+		{ name = "White Prismatic", id = 211 },
+		{ name = "Graphite Prismatic", id = 212 },
+		{ name = "Dark Blue Prismatic", id = 213 },
+		{ name = "Dark Purple Prismatic", id = 214 },
+		{ name = "Hot Pink Prismatic", id = 215 },
+		{ name = "Dark Red Prismatic", id = 216 },
+		{ name = "Dark Green Prismatic", id = 217 },
+		{ name = "Black Prismatic", id = 218 },
+		{ name = "Black Oil Spill", id = 219 },
+		{ name = "Black Rainbow", id = 220 },
+		{ name = "Black Holographic", id = 221 },
+		{ name = "White Holographic", id = 222 },
 		{ name = "Monochrome", id = 223 },
-		{ name = "Chromatic Aberration", id = 236 },
-		{ name = "Night & Day", id = 224 },
-		{ name = "The Verlierer", id = 225 },
+		{ name = "Night / Day", id = 224 },
+		{ name = "Verlierer 2", id = 225 },
 		{ name = "Sprunk Extreme", id = 226 },
 		{ name = "Vice City", id = 227 },
-		{ name = "Sunset", id = 233 },
-		{ name = "Temperature", id = 238 },
-		{ name = "Synthwave Nights", id = 228 },
+		{ name = "Synthwave", id = 228 },
 		{ name = "Four Seasons", id = 229 },
-		{ name = "The Seven", id = 234 },
 		{ name = "Maisonette 9 Throwback", id = 230 },
 		{ name = "Bubblegum", id = 231 },
 		{ name = "Full Rainbow", id = 232 },
+		{ name = "Sunsets", id = 233 },
+		{ name = "The Seven", id = 234 },
 		{ name = "Kamen Rider", id = 235 },
-		{ name = "It's Christmas", id = 237 },
+		{ name = "Chrome Abberation", id = 236 },
+		{ name = "Its Christmas", id = 237 },
+		{ name = "Temperature", id = 238 },
+		{ name = "Haos Special Works", id = 239 },
+		{ name = "Electro", id = 240 },
+		{ name = "Monika", id = 241 },
+		{ name = "Fubuki", id = 242 }
 	},
 }

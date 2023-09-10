@@ -184,7 +184,7 @@ Config.driftBoost = {
 Config.jobWhitelist = {
     enabled = true,
     jobs = {
-        'mechanic1','mechanic2','mechanic3','mechanic4','mechanic5',
+        'mechanic1','mechanic2','biembo','mechanic4','mechanic5',
     }
 }
 

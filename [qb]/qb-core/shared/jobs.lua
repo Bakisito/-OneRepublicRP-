@@ -226,6 +226,17 @@ QBShared.Jobs = {
     --         },
     --     },
 	-- },
+    ['biembo'] = {
+        label = 'Biembo Auto Parts',
+        defaultDuty = false,
+        offDutyPay = false,
+        grades = {
+            ['0'] = {name = 'Aprendiz', payment = 100},
+            ['1'] = {name = 'Mecánico', payment = 200},
+            ['2'] = {name = 'Mano Derecha', isboss = true, payment = 300},
+            ['3'] = {name = 'Boss', isboss = true, payment = 400},
+        },
+    },
     ['mechanic1'] = {
         label = 'Mechanic1',
         defaultDuty = false,

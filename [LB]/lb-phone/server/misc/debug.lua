@@ -3,14 +3,48 @@ CreateThread(function()
         return
     end
 
-    RegisterCommand("testmail", function() 
+    RegisterCommand("testmail", function(source)
+        local phoneNumber = exports["lb-phone"]:GetEquippedPhoneNumber(source)
+        local address = "test@lbphone.com"
+        if phoneNumber then
+            address = exports["lb-phone"]:GetEmailAddress(phoneNumber)
+        end
+
+        print("Address: ", address)
+
         exports["lb-phone"]:SendMail({
-            to = "test@lbphone.com",
+            to = address,
             sender = "Test",
             subject = "Test",
-            message = "Hello this is a test"
+            message = "Hello this is a test",
+            actions = {
+                {
+                    label = "Server event!",
+                    data = {
+                        event = "phone:debug:mail",
+                        isServer = true,
+                        data = {
+                            wow = "cool"
+                        }
+                    }
+                },
+                {
+                    label = "Client event!",
+                    data = {
+                        event = "phone:debug:mail",
+                        isServer = false,
+                        data = {
+                            wow = "cool"
+                        }
+                    }
+                }
+            }
         })
     end, false)
+
+    RegisterNetEvent("phone:debug:mail", function(id, data)
+        print(source, id, json.encode(data))
+    end)
 
     RegisterCommand("testcall", function(src, args)
         local number = args[1]
@@ -51,13 +85,9 @@ CreateThread(function()
             content = "This is a test amber alert.",
             icon = "warning"
         })
-
-        
-    end)
-
+    end, false)
 
     RegisterCommand("endcall", function(source)
         exports["lb-phone"]:EndCall(source)
     end, false)
-
 end)

@@ -1,4 +1,4 @@
-Config.Framework()
+Framework:Core()
 
 function QBLogs(data)
     if not Config.QBLogs then return end

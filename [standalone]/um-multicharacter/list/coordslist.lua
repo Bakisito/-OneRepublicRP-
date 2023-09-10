@@ -3,26 +3,26 @@ Coords = {}
 
 --[[
 
-    !! Important Note 
-    
-    Do not place your character inside an interior, 
-    i.e. an apartment or a garage or a house, as interiors are not supported in um-multicharacter 
+    !! Important Note
+
+    Do not place your character inside an interior,
+    i.e. an apartment or a garage or a house, as interiors are not supported in um-multicharacter
     and the environment may not load
 
-    Your character is spawn in a different world (bucket), 
-    but it would be better to put your character in a quiet and scenic place where cars don't pass by, 
-    so don't put your character in the middle of the road, 
-    I could delete or block cars this with a loop but I thought it was unnecessary 
+    Your character is spawn in a different world (bucket),
+    but it would be better to put your character in a quiet and scenic place where cars don't pass by,
+    so don't put your character in the middle of the road,
+    I could delete or block cars this with a loop but I thought it was unnecessary
 
 --]]
 
 Coords.List = {
-    --[[ 
-    
-        if camCoords is not specified, the camera and ped will try to be set to the same coordinates, 
+    --[[
+
+        if camCoords is not specified, the camera and ped will try to be set to the same coordinates,
         but if this is not what you want, set it manually by specifying camCoords
         like the 3rd coordinate
-    
+
     --]]
     {
         pedCoords = vector4(2934.43, 5325.41, 100.62, 128.05)
@@ -52,5 +52,9 @@ Coords.List = {
     },
     {
         pedCoords = vector4(-1387.03, 6741.98, 11.98, 67.8)
+    },
+    {
+        pedCoords = vector4(26.96, 200.78, 105.97, 334.61),
+        camCoords = vector4(27.60, 202.78, 105.97, 334.61)
     },
 }

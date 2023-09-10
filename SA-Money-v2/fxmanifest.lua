@@ -3,7 +3,7 @@ game 'gta5'
 
 description 'San Andreas - Money as Item'
 author "Dragodast"
-version "2.6.1"
+version "2.6.2"
 
 shared_scripts {
 	'config.lua',

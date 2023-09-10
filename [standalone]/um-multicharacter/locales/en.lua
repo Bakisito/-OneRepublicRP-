@@ -2,36 +2,36 @@ Lang = {}
 
 Lang["en"] = {
     CharacterInformation = {
-        title = "Crear nuevo personaje",
-        subtitle = "Información del personaje",
-        firstname = "Nombre",
-        lastname = "Apellido",
+        title = "Create New Character",
+        subtitle = "Character Information",
+        firstname = "First Name",
+        lastname = "Last Name",
         gender = {
-            type = "Género",
-            male = "Hombre",
-            female = "Mujer"
+            type = "Gender",
+            male = "Male",
+            female = "Female"
         },
-        dob = "Fecha de nacimiento",
-        country = "Nacionalidad",
-        button = "Crear personaje"
+        dob = "Date of Birth",
+        country = "Nationality",
+        button = "Create Character"
     },
     Menu = {
-        playgame = "Entrar a la Ciudad",
-        photomode = "Modo Foto",
-        store = "Tienda",
-        credits = "Créditos",
-        exit = "Salir del juego",
+        playgame = "Play Game",
+        photomode = "Photo Mode",
+        store = "Store",
+        credits = "Credits",
+        exit = "Exit Game",
         createcharacter = {
-            title = "Crear nuevo personaje",
-            subtitle = "ranuras disponibles",
+            title = "Create New Character",
+            subtitle = "avaible slots",
         }
     },
     PhotoMode = {
-        info = "Los filtros difieren según la configuración gráfica",
+        info = "Filters differ according to your graphics settings",
     },
     DeleteCharacter = {
-        title = "Borrar carácter",
-        yes = "Confirmar",
-        no = "Cancelar"
+        title = "Delete Character",
+        yes = "Confirm",
+        no = "Cancel"
     }
 }

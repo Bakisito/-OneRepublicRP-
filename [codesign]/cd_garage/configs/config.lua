@@ -125,7 +125,7 @@ Config.Impound = {
         ['police'] = true,
         ['mechanic1'] = true,
         ['mechanic2'] = true,
-        ['mechanic3'] = true,
+        ['biembo'] = true,
         ['mechanic4'] = true,
         ['mechanic5'] = true,
 

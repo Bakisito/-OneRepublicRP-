@@ -1,0 +1,3 @@
+-- Add The Following Items To qb-core/shared/items/lua
+["rope"] = {["name"] = "rope", ["label"] = "Rope", ["weight"] = 10, ["type"] = "item", ["image"] = "rope.png", ["unique"] = false, ["useable"] = true, ["shouldClose"] = true, ["combinable"] = nil, ["description"] = ""},
+["drill"] = {["name"] = "drill", ["label"] = "Drill", ["weight"] = 10, ["type"] = "item", ["image"] = "drill.png", ["unique"] = false, ["useable"] = true, ["shouldClose"] = true, ["combinable"] = nil, ["description"] = ""},

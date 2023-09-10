@@ -153,7 +153,7 @@ Config.Text2Style = {
 }
 
 -------------------------------------------- Keys --------------------------------------------
-Config.DefaultCruiseControlKey = "k" -- Default control key for cruise. Players can change the key according to their desire
+Config.DefaultCruiseControlKey = "y" -- Default control key for cruise. Players can change the key according to their desire
 Config.DefaultSeatbeltControlKey = "b" -- Default control key for seatbelt. Players can change the key according to their desire
 Config.VehicleEngineToggleKey = "G" -- Default control key for toggle engine. Players can change the key according to their desire
 Config.NitroKey = "" -- Default control key for use nitro. Players can change the key according to their desire
@@ -173,7 +173,7 @@ Config.BankCommand = "bank" -- command to see bank money
 Config.EnableEngineToggle = true -- Determines if engine toggle is enabled or not
 
 -------------------------------------------- Vehicle Functionality --------------------------------------------
-Config.EnableCruise = true -- Determines if cruise mode is active
+Config.EnableCruise = false -- Determines if cruise mode is active
 Config.EnableSeatbelt = true -- Determines if seatbelt is active
 
 -------------------------------------------- Settings text --------------------------------------------

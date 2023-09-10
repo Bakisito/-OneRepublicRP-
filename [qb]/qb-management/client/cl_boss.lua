@@ -50,9 +50,6 @@ RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
     PlayerJob = JobInfo
 end)
 
-
-
-
 RegisterNetEvent('qb-bossmenu:client:OpenMenu', function()
     if not PlayerJob.name or not PlayerJob.isboss then return end
 
@@ -299,33 +296,33 @@ RegisterNetEvent('qb-bossmenu:client:SocetyDeposit', function(money)
             {
                 type = 'number',
                 isRequired = true,
-                name = Lang:t("body.amount"),
+                name = 'amount',
                 text = Lang:t("body.amount")
             }
         }
     })
     if deposit then
-        if not deposit.Amount then return end
-        TriggerServerEvent("qb-bossmenu:server:depositMoney", tonumber(deposit.Amount))
+        if not deposit.amount then return end
+        TriggerServerEvent("qb-bossmenu:server:depositMoney", tonumber(deposit.amount))
     end
 end)
 
 RegisterNetEvent('qb-bossmenu:client:SocetyWithDraw', function(money)
     local withdraw = exports['qb-input']:ShowInput({
         header = Lang:t("body.withdrawm").. money,
-        submitText = "Confirm",
+        submitText = Lang:t("body.submit"),
         inputs = {
             {
                 type = 'number',
                 isRequired = true,
-                name = Lang:t("body.amount"),
+                name = 'amount',
                 text = Lang:t("body.amount")
             }
         }
     })
     if withdraw then
-        if not withdraw.Amount then return end
-        TriggerServerEvent("qb-bossmenu:server:withdrawMoney", tonumber(withdraw.Amount))
+        if not withdraw.amount then return end
+        TriggerServerEvent("qb-bossmenu:server:withdrawMoney", tonumber(withdraw.amount))
     end
 end)
 

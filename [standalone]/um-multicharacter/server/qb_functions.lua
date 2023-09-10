@@ -1,7 +1,7 @@
-Config.Framework()
+Framework:Core()
 
 function GiveStarterItems(src)
-    local Player = QBCore.Functions.GetPlayer(src)
+    local Player = Framework:GetPlayer(src)
     local StarterItems = Config.StarterItems
     if not Config.UMIDCard.Status then
         for _, v in pairs(StarterItems) do

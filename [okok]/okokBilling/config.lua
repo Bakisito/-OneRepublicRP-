@@ -68,7 +68,7 @@ Config.AllowedSocieties = { -- Which societies can access the Society Invoices
 	'police',
 	'mechanic1',
 	'mechanic2',
-	'mechanic3',
+	'biembo',
 	'mechanic4',
 	'mechanic5',
 	'ambulance'
@@ -101,6 +101,15 @@ Config.BillsList = {
 		{'Custom'}
 	},
 	['mechanic1'] = {
+		{'Mantenimiento'},
+		{'Reparación de Motor'},
+		{'Reparación de Carroceria'},
+		{'Lavado y Encerado'},
+		{'Auto Adorno'},
+		{'Modificaciones de Rendimiento'},
+		{'Venta'}
+	},
+	['biembo'] = {
 		{'Mantenimiento'},
 		{'Reparación de Motor'},
 		{'Reparación de Carroceria'},

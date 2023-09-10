@@ -46,7 +46,7 @@ Config.locations = {
         z = 54.4932,
         h = 278.7791,
         jobs = {
-            'mechanic3',
+            'biembo',
         },
     }, 
 

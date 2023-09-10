@@ -9,7 +9,7 @@ Config.DoorList['Exotic-1'] = {
     objYaw = 270.00003051758,
     objName = 141631573,
     pickable = true,
-    authorizedJobs = { ['mechanic3'] = 0 },
+    authorizedJobs = { ['biembo'] = 0 },
     doorType = 'door',
     doorLabel = 'Bar',
     distance = 2,
@@ -24,7 +24,7 @@ Config.DoorList['Exotic-2'] = {
     objYaw = 89.999977111816,
     objName = -1309543596,
     pickable = true,
-    authorizedJobs = { ['mechanic3'] = 0 },
+    authorizedJobs = { ['biembo'] = 0 },
     doorType = 'door',
     doorLabel = 'back door',
     distance = 2,
@@ -39,7 +39,7 @@ Config.DoorList['Exotic-3'] = {
     objYaw = 315.00003051758,
     objName = 1497823487,
     pickable = true,
-    authorizedJobs = { ['mechanic3'] = 0 },
+    authorizedJobs = { ['biembo'] = 0 },
     doorType = 'door',
     doorLabel = 'office inside',
     distance = 2,
@@ -54,7 +54,7 @@ Config.DoorList['Exotic-4'] = {
     objYaw = 270.00003051758,
     objName = -1309543596,
     pickable = true,
-    authorizedJobs = { ['mechanic3'] = 0 },
+    authorizedJobs = { ['biembo'] = 0 },
     doorType = 'door',
     doorLabel = 'office front',
     distance = 2,
@@ -63,7 +63,7 @@ Config.DoorList['Exotic-4'] = {
 -- 5 created by bakisito
 Config.DoorList['Exotic-5'] = {
     locked = true,
-    authorizedJobs = { ['mechanic3'] = 0 },
+    authorizedJobs = { ['biembo'] = 0 },
     objCoords = vec3(537.179565, -171.459930, 55.503628),
     fixText = false,
     hideLabel = true,
@@ -78,7 +78,7 @@ Config.DoorList['Exotic-5'] = {
 -- 6 created by bakisito
 Config.DoorList['Exotic-6'] = {
     locked = true,
-    authorizedJobs = { ['mechanic3'] = 0 },
+    authorizedJobs = { ['biembo'] = 0 },
     objCoords = vec3(541.335083, -179.241074, 55.506275),
     fixText = false,
     hideLabel = true,
@@ -93,7 +93,7 @@ Config.DoorList['Exotic-6'] = {
 -- 7 created by bakisito
 Config.DoorList['Exotic-7'] = {
     locked = true,
-    authorizedJobs = { ['mechanic3'] = 0 },
+    authorizedJobs = { ['biembo'] = 0 },
     objCoords = vec3(541.329651, -189.374802, 55.514400),
     fixText = false,
     hideLabel = true,
@@ -108,7 +108,7 @@ Config.DoorList['Exotic-7'] = {
 -- 8 created by bakisito
 Config.DoorList['Exotic-8'] = {
     locked = true,
-    authorizedJobs = { ['mechanic3'] = 0 },
+    authorizedJobs = { ['biembo'] = 0 },
     objCoords = vec3(548.461243, -201.960297, 55.492748),
     fixText = false,
     hideLabel = true,
@@ -123,7 +123,7 @@ Config.DoorList['Exotic-8'] = {
 -- 9 created by bakisito
 Config.DoorList['Exotic-9'] = {
     objName = -733661186,
-    authorizedJobs = { ['mechanic3'] = 0 },
+    authorizedJobs = { ['biembo'] = 0 },
     fixText = false,
     doorType = 'door',
     objCoords = vec3(551.413940, -179.619019, 54.643929),

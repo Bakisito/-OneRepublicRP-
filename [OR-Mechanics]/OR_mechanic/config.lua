@@ -5,7 +5,7 @@
 
 
 Config = {
-	Debug = true, -- allows you to restart script while in-game, otherwise u need to restart fivem.
+	Debug = false, -- allows you to restart script while in-game, otherwise u need to restart fivem.
     ProgressBars = true, -- set to false if you do not use progressBars or using your own
 	BuyWithBank = true, -- buy company with bank money, false = cash.
 	SalePercentage = 0.55, -- sell percentage when selling a mech shop.
@@ -27,8 +27,8 @@ Config = {
 
 Config.MechanicShops = {
 	[1] = {
-		society = 'mechanic3', -- this must match an identifier name inside Config.Society!
-		price = 2000000, -- price of the company.
+		society = 'biembo', -- this must match an identifier name inside Config.Society!
+		price = 20000000, -- price of the company.
 		owned = false, -- do not touch this!
 		menu = vector3(544.67, -200.11, 54.49), -- menu pos
 		storage = vector3(0.0, 0.0, 0.0), -- storage pos
@@ -157,21 +157,21 @@ Config.Society = { -- (set settings for what boss can do in each dealerships)
 		employees = true, -- boss can manage & recruit employees
 		grades    = false -- boss can adjust all salaries for each job grade
 	},
-	['mechanic3']  = {
+	['biembo']  = {
 		-- register society:
-		name = 'mechanic3', -- job name
-		label = 'Mechanic', -- job label
-		account = 'society_mechanic3', -- society account
-		datastore = 'society_mechanic3', -- society datastore
-		inventory = 'society_mechanic3', -- society inventory
-		bossGrade = 2, -- boss grade from database
+		name = 'biembo', -- job name
+		label = 'D Biembo Auto Parts', -- job label
+		account = 'society_biembo', -- society account
+		datastore = 'society_biembo', -- society datastore
+		inventory = 'society_biembo', -- society inventory
+		bossGrade = 3, -- boss grade from database
 		data = {type = 'private'},
 		-- settings:
 		withdraw  = true, -- boss can withdraw money from account
 		deposit   = true, -- boss can deposit money into account
 		wash      = false, -- boss can wash money
 		employees = true, -- boss can manage & recruit employees
-		grades    = false -- boss can adjust all salaries for each job grade
+		grades    = true -- boss can adjust all salaries for each job grade
 	},
 	['mechanic4']  = {
 		-- register society:

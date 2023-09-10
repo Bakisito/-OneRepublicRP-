@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `phone_photos` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_notes` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `phone_number` VARCHAR(15) NOT NULL,
     `title` VARCHAR(50) NOT NULL,
     `content` LONGTEXT, -- limit maybe?
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `phone_notes` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_notifications` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `phone_number` VARCHAR(15) NOT NULL,
 
     `app` VARCHAR(50) NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `phone_twitter_follows` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_twitter_tweets` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `username` VARCHAR(20) NOT NULL, -- the person who tweeted, matches to `username` in phone_twitter_accounts
 
     `content` VARCHAR(280),
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `phone_twitter_promoted` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_twitter_messages` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
 
     `sender` VARCHAR(20) NOT NULL, -- the person who sent the message, matches to `username` in phone_twitter_accounts
     `recipient` VARCHAR(20) NOT NULL, -- the person who received the message, matches to `username` in phone_twitter_accounts
@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `phone_twitter_messages` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
  
 CREATE TABLE IF NOT EXISTS `phone_twitter_notifications` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `username` VARCHAR(20) NOT NULL, -- the person who received the notification, matches to `username` in phone_twitter_accounts
     `from` VARCHAR(20) NOT NULL, -- the person who sent the notification, matches to `username` in phone_twitter_accounts
 
@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `phone_phone_contacts` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_phone_calls` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     
     `caller` VARCHAR(15) NOT NULL, -- the phone number of the person who called
     `callee` VARCHAR(15) NOT NULL, -- the phone number of the person who was called
@@ -232,6 +232,20 @@ CREATE TABLE IF NOT EXISTS `phone_phone_blocked_numbers` (
     `blocked_number` VARCHAR(15) NOT NULL, -- the phone number that was blocked
     
     PRIMARY KEY (`phone_number`, `blocked_number`)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `phone_phone_voicemail` (
+    `id` VARCHAR(10) NOT NULL,
+
+    `caller` VARCHAR(15) NOT NULL,
+    `callee` VARCHAR(15) NOT NULL,
+    
+    `url` VARCHAR(200) NOT NULL,
+    `duration` INT NOT NULL,
+    `hide_caller_id` BOOLEAN DEFAULT FALSE,
+    `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`id`)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- INSTAGRAM
@@ -272,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `phone_instagram_follows` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_instagram_posts` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
 
     `media` TEXT, -- json array of attached media
     `caption` VARCHAR(500) NOT NULL DEFAULT "",
@@ -290,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `phone_instagram_posts` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_instagram_comments` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `post_id` VARCHAR(50) NOT NULL, -- the post this comment was made on, matches to `id` in phone_instagram_posts
 
     `username` VARCHAR(20) NOT NULL, -- the person who commented, matches to `username` in phone_instagram_accounts
@@ -305,7 +319,7 @@ CREATE TABLE IF NOT EXISTS `phone_instagram_comments` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_instagram_likes` (
-    `id` VARCHAR(50) NOT NULL, -- the post / comment this like was on, matches to `id` in phone_instagram_posts / phone_instagram_comments
+    `id` VARCHAR(10) NOT NULL, -- the post / comment this like was on, matches to `id` in phone_instagram_posts / phone_instagram_comments
     `username` VARCHAR(20) NOT NULL, -- the person who liked, matches to `username` in phone_instagram_accounts
     `is_comment` BOOLEAN NOT NULL DEFAULT FALSE, -- whether this like was on a comment or a post
     
@@ -314,7 +328,7 @@ CREATE TABLE IF NOT EXISTS `phone_instagram_likes` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_instagram_messages` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
 
     `sender` VARCHAR(20) NOT NULL, -- the person who sent the message, matches to `username` in phone_instagram_accounts
     `recipient` VARCHAR(20) NOT NULL, -- the person who received the message, matches to `username` in phone_instagram_accounts
@@ -330,7 +344,7 @@ CREATE TABLE IF NOT EXISTS `phone_instagram_messages` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_instagram_notifications` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `username` VARCHAR(20) NOT NULL, 
     `from` VARCHAR(20) NOT NULL, 
 
@@ -345,7 +359,7 @@ CREATE TABLE IF NOT EXISTS `phone_instagram_notifications` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_instagram_stories` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `username` VARCHAR(20) NOT NULL, 
     `image` VARCHAR(200) NOT NULL,
 
@@ -368,7 +382,7 @@ CREATE TABLE IF NOT EXISTS `phone_instagram_stories_views` (
 
 -- CLOCK
 CREATE TABLE IF NOT EXISTS `phone_clock_alarms` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `phone_number` VARCHAR(15) NOT NULL,
 
     `hours` INT(2) NOT NULL DEFAULT 0,
@@ -422,7 +436,7 @@ CREATE TABLE IF NOT EXISTS `phone_tinder_matches` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_tinder_messages` (
-    `id` VARCHAR(50) NOT NULL, -- the message id
+    `id` VARCHAR(10) NOT NULL, -- the message id
     
     `sender` VARCHAR(15) NOT NULL, -- the phone number of the person who sent the message
     `recipient` VARCHAR(15) NOT NULL, -- the phone number of the person who received the message
@@ -452,12 +466,14 @@ CREATE TABLE IF NOT EXISTS `phone_message_members` (
     `channel_id` VARCHAR(50) NOT NULL,
     `phone_number` VARCHAR(15) NOT NULL,
     `is_owner` BOOLEAN NOT NULL DEFAULT FALSE,
+    `deleted` BOOLEAN NOT NULL DEFAULT FALSE, -- if the member has deleted the channel
+    `unread` INT NOT NULL DEFAULT 0,
 
     PRIMARY KEY (`channel_id`, `phone_number`)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_message_messages` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `channel_id` VARCHAR(50) NOT NULL,
     `sender` VARCHAR(15) NOT NULL,
     `content` VARCHAR(1000),
@@ -465,14 +481,6 @@ CREATE TABLE IF NOT EXISTS `phone_message_messages` (
     `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (`id`)
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `phone_message_unread` (
-    `channel_id` VARCHAR(50) NOT NULL,
-    `phone_number` VARCHAR(15) NOT NULL,
-    `unread` INT(11) NOT NULL DEFAULT 0,
-
-    PRIMARY KEY (`channel_id`, `phone_number`)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- DARKCHAT
@@ -526,7 +534,7 @@ CREATE TABLE IF NOT EXISTS `phone_wallet_transactions` (
 
 -- YELLOW PAGES
 CREATE TABLE IF NOT EXISTS `phone_yellow_pages_posts` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `phone_number` VARCHAR(15) NOT NULL,
     `title` VARCHAR(50) NOT NULL,
     `description` VARCHAR(1000) NOT NULL,
@@ -550,7 +558,7 @@ CREATE TABLE IF NOT EXISTS `phone_backups` (
 
 -- MARKETPLACE
 CREATE TABLE IF NOT EXISTS `phone_marketplace_posts` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `phone_number` VARCHAR(15) NOT NULL,
 
     `title` VARCHAR(50) NOT NULL,
@@ -565,7 +573,7 @@ CREATE TABLE IF NOT EXISTS `phone_marketplace_posts` (
 
 -- MUSIC
 CREATE TABLE IF NOT EXISTS `phone_music_playlists` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `phone_number` VARCHAR(15) NOT NULL,
 
     `name` VARCHAR(50) NOT NULL,
@@ -610,7 +618,7 @@ CREATE TABLE IF NOT EXISTS `phone_mail_loggedin` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_mail_messages` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
 
     `recipient` VARCHAR(100) NOT NULL,
     `sender` VARCHAR(100) NOT NULL,
@@ -629,7 +637,7 @@ CREATE TABLE IF NOT EXISTS `phone_mail_messages` (
 
 -- COMPANIES APP
 CREATE TABLE IF NOT EXISTS `phone_services_channels` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `phone_number` VARCHAR(15) NOT NULL,
     `company` VARCHAR(50) NOT NULL,
 
@@ -640,7 +648,7 @@ CREATE TABLE IF NOT EXISTS `phone_services_channels` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_services_messages` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `channel_id` VARCHAR(50) NOT NULL,
 
     `sender` VARCHAR(15) NOT NULL,
@@ -657,7 +665,7 @@ CREATE TABLE IF NOT EXISTS `phone_services_messages` (
 
 -- MAPS
 CREATE TABLE IF NOT EXISTS `phone_maps_locations` (
-    `id` VARCHAR(50) NOT NULL,
+    `id` VARCHAR(10) NOT NULL,
     `phone_number` VARCHAR(15) NOT NULL,
 
     `name` VARCHAR(50) NOT NULL,

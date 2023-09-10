@@ -1,4 +1,4 @@
-Config.Framework()
+Framework:Core()
 
 QBCore.Commands.Add("logout", 'Logout Character (Admin Only)', {}, false, function(source)
     local src = source

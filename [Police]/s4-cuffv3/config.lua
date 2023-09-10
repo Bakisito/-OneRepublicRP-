@@ -2,7 +2,7 @@ Config = {}
 
 Config.CuffItem = ''
 Config.CuffKeysItem = ''
-Config.RopeItem = 'rope'
+Config.RopeItem = 'ropee'
 Config.BagToHeadItem = 'headbag'
 Config.ElectronicCuffItem = 'electrocuff'
 Config.ElectronicCuffTrackerItem = 'electrocufftracker'

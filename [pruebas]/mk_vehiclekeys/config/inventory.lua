@@ -29,19 +29,19 @@ Config.Inventory = {
                         TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[Item.name], "remove")
                         cb(true)
                     else
-                        MK_CORE.Notify(Config.Notifications.LostItem)
+                        MK_CORE.Notify(src, {Message = locale('lost_item'), Type = 'error', Duration = 5000})
                         cb(false)
                     end
                 else
-                    MK_CORE.Notify(Config.Notifications.LostItem)
+                    MK_CORE.Notify(src, {Message = locale('lost_item'), Type = 'error', Duration = 5000})
                     cb(false)
                 end
             else
-                MK_CORE.Notify(Config.Notifications.LostItem)
+                MK_CORE.Notify(src, {Message = locale('lost_item'), Type = 'error', Duration = 5000})
                 cb(false)
             end
         else
-            MK_CORE.Notify(Config.Notifications.LostItem)
+            MK_CORE.Notify(src, {Message = locale('lost_item'), Type = 'error', Duration = 5000})
             cb(false)
         end ]]
     end,
@@ -62,7 +62,7 @@ Config.Inventory = {
                 TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[ItemName], "add")
                 cb(true)
             else
-                MK_CORE.Notify(src, Config.Notifications.CantCarryItem)
+                MK_CORE.Notify(src, {Message = locale('cant_carry_item'), Type = 'error', Duration = 5000})
                 cb(false)
             end
         else

@@ -36,7 +36,7 @@ Read this before opening a ticket.
 	- [Config.PreviewLocation](https://github.com/jimathy/jim-mechanicguide#configpreviewlocation)
 	- [Config.PhoneMail](https://github.com/jimathy/jim-mechanicguide#configphonemail)
 - Cosmetic Removal
-	- [Config.CosmeticRemoval](https://github.com/jimathy/jim-mechanicguide#configcosmeticremoval)
+	- [Config.Overrides.CosmeticItemRemoval](https://github.com/jimathy/jim-mechanicguide#configcosmeticremoval)
 - Odometer Control
 	- [Config.ShowOdo](https://github.com/jimathy/jim-mechanicguide#configshowodo)
 	- [Config.OdoLocation](https://github.com/jimathy/jim-mechanicguide#configodolocation)
@@ -72,11 +72,11 @@ Read this before opening a ticket.
 - Repairs
 	- [Repair requirements](https://github.com/jimathy/jim-mechanicguide#repairrequirements)
 	- [Duct tape](https://github.com/jimathy/jim-mechanicguide#duct-tape)
-		1. [Config.DuctSimpleMode](https://github.com/jimathy/jim-mechanicguide#configductsimplemode)
-		2. [Config.MaxDuctEngine](https://github.com/jimathy/jim-mechanicguide#configmaxductengine)
+		1. [Config.DuctTape.DuctSimpleMode](https://github.com/jimathy/jim-mechanicguide#configductsimplemode)
+		2. [Config.DuctTape.MaxDuctEngine](https://github.com/jimathy/jim-mechanicguide#configmaxductengine)
 		3. [Config.DuctAmountEngine](https://github.com/jimathy/jim-mechanicguide#configductamountengine)
-		4. [Config.DuctTapeBody](https://github.com/jimathy/jim-mechanicguide#configducttapebody)
-		5. [Config.MaxDuctBody](https://github.com/jimathy/jim-mechanicguide#configmaxductbody)
+		4. [Config.DuctTape.DuctTapeBody](https://github.com/jimathy/jim-mechanicguide#configducttapebody)
+		5. [Config.DuctTape.MaxDuctBody](https://github.com/jimathy/jim-mechanicguide#configmaxductbody)
 		6. [Config.DuctAmountBody](https://github.com/jimathy/jim-mechanicguide#configductamountbody)
 		7. [Config.RemoveDuctTape](https://github.com/jimathy/jim-mechanicguide#configremoveducttape)
 - Item Controls
@@ -377,7 +377,7 @@ There is little snippets of information on each line for these, but this is a mo
 - This is only used if `Config.PreviewPhone` is true
 - This currently as of writing this only supports `qb-phone` and `gks-phone`
 
-### Config.CosmeticRemoval
+### Config.Overrides.CosmeticItemRemoval
 - This simply, when enabled, will remove the cosmetic items (listed above) from your inventory when successfully added to the vehicle
 - Disabling make them unlimited use
 
@@ -573,12 +573,12 @@ RepairFuelCost = 8,
 - The Ducttape item is intended to be an alternative and customisable version of repairkits
 - They are customisable and let even set the max amount of how much the parts get repaired
 
-### Config.DuctSimpleMode
+### Config.DuctTape.DuctSimpleMode
 - This sets the duct tape item into simple mode, repairing to the amount every time
 - `true` makes duct tape set every use to the amount set below at `MaxDuctEngine`
 - `false` uses the `DuctAmountEngine` value to repair the by vehicle each use
 
-### Config.MaxDuctEngine
+### Config.DuctTape.MaxDuctEngine
 - This is the MAX value the engine can be repaired by, leave this below 1000(100%) so people still need to use mechanic's
 - If `DuctSimpleMode` is `true` will set it straight to this amount
 - If `DuctSimpleMode` is `false` it will be the max amount it can be repaired to
@@ -589,11 +589,11 @@ RepairFuelCost = 8,
 - This is only used if `DuctSimpleMode` is `false`
 - Default = `100.0` - (10% Health)
 
-### Config.DuctTapeBody
+### Config.DuctTape.DuctTapeBody
 - Setting this to `true` allows the body to be repaired along side the engine
 - This is also affected by `DuctSimpleMode` in the same ways
 
-### Config.MaxDuctBody
+### Config.DuctTape.MaxDuctBody
 - This is the MAX value the body can be repaired by, leave this below 1000(100%) so people still need to use mechanic's
 - If `DuctSimpleMode` is `true` will set it straight to this amount
 - If `DuctSimpleMode` is `false` it will be the max amount it can be repaired to

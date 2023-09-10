@@ -6,27 +6,53 @@
 
 Config = {
 
-    -- Discord API Permissions
-    EnableDiscordAPI = false,                    -- If false set up other permissions in s_functions.lua and c_functions.lua. Discord API is recommended for people new to coding. [https://store.ea-rp.com/package/5035729 FREE!]
-    DiscordRolesWithPermission = {
-        "Manager",
-        "Administrator",
-        "Senior_Admin",
-    },       
+    Debug = false,
 
-    -- Commands
+    --====================== Permissions ======================--
+    
+    EveryoneHasPermission = false,
+
+    Enable_Night_DiscordApi_Permissions = false,    -- server/s_functions.lua
+    Enable_Ace_Permissions = false,                 -- server/s_functions.lua
+    Enable_ESX_Permissions = false,                 -- client/c_functions.lua & server/s_functions.lua
+    Enable_QBCore_Permissions = {                   
+        Check_By_Job = true,                       -- client/c_functions.lua & server/s_functions.lua
+        Check_By_Permissions = true,               -- server/s_functions.lua
+    },
+
+    PermissionRoles = {     -- Fill in: Discord API Role Names / ESX Jobs / Ace group names / QB Jobs and/or Groups
+        -- Discord API Examples
+        "Manager",
+        "Development_Team",
+        "Senior_Admin",
+        "Admin",
+        "Essex_Police_Force",
+        "British_Transport_Police",
+        "Ambulance_Service",
+        "Fire_Service",
+        -- ESX or QB Job examples
+        "police",
+        "ambulance",
+        "fire",
+        -- Ace Permissions examples
+        "Administrator",
+        "Supporter",
+        "Tester",
+    },
+
+    --====================== Commands ======================--
     Commands = {
         ToggleSirens = "togglears",             -- Toggles the Air Raid Sirens for the client. (Disables sound)
         OpenARSMenu = "arsmenu",                -- Opens the Air Raid Siren Menu
         DrawCoverage = "drawcoverage",          -- Test the coverage of your placed siren objects' soundreach. it enables markers in-air so you can float above the city and see the coverage. 
     },
 
-    -- HotKeys
+    --====================== Hotkeys ======================--
     HotKeys = {
         OpenARSMenu = 121,                       -- INSERT by Default [https://docs.fivem.net/docs/game-references/controls/]
     },
 
-    -- Sound
+    --====================== Sound Settings ======================--
     SirenSoundFileList = { -- Add .ogg files to your NUI/sounds/ folder.
         [1] = {SoundFile = "air-raid-siren", DisplayName = "Default Air Raid Sirens"},
         [2] = {SoundFile = "luchtsirene", DisplayName = "Dutch Air Raid Sirens"},
@@ -34,17 +60,17 @@ Config = {
         -- [4] = {SoundFile = "air-raid-siren", DisplayName = "Add more siren files to your sound folder and list them here!"},
     },
     SirenSoundReach = 1250.0,                   -- Change to your liking. Default = 1250 gta meters.
-    SirenSoundVolume = 0.4,                    -- NOT RECOMMENDED above 0.5. You've only got 2 ears, if they function keep it that way :)
+    SirenSoundVolume = 0.10,                    -- NOT RECOMMENDED above 0.5. You've only got 2 ears, if they function keep it that way :)
     OutOfRangeInterval = 2.5,                   -- Seconds. Interval to check whether you are in range of an Air Raid Siren.
 
-    -- Message Settings
+    --====================== Notification settings ======================--
     NativeMessages = true,                      -- TRUE = native msg system | FALSE = Use your own created clientside function in c_functions.lua
     NativeServerMessages = true,                -- TRUE = native msg system | FALSE = Use your own created serverside function in s_functions.lua
 
-    -- Air Raid Sirens
+    --====================== ARS Control Panel settings ======================--
     ARSControlPanelTitle = "ARS Control Panel",
 
-    -- Blips
+    --====================== Blips ======================--
     AirRaidSirensBlipsEnabled = true,           -- Enable volume pulses as blips on the map when the sirens are activated for each siren object.
     AirRaidSirensBlipsData = {
         blipName = "Air Raid Sirens",
@@ -53,7 +79,7 @@ Config = {
         blipScale = 1.0,
     },
 
-    -- Markers
+    --====================== Markers ======================--
     AirRaidSirensMarkersEnabled = false,        -- Enable or disable markers for the air raid siren objects. These will appear once the siren has been triggered.
     MarkerData = {
         ID = 28,                    -- Marker ID
@@ -66,7 +92,7 @@ Config = {
         RZ = 0,                     -- Roration Z
     },
 
-    -- Siren Objects
+    --====================== Siren Objects ======================--
     EnableObjects = true,                       -- Set to false to disable the objects from spawning and just use the sirens. [if true you should not restart the script in-game, it will crash due to objects]
     SirenObjectModelName = `neko_nw_ar_siren`,  -- Change this to something you think suits best. You can even edit props and make an actual tower which suits your country.
     SirenObjectLocations = {                    -- Enter coordinates you wish your objects to spawn from which the siren will sound.
@@ -115,7 +141,7 @@ Config = {
         [35] = {x = 476.85, y = 5540.52, z = 785.40, h = 269.83},  
     },
 
-    -- Discord Webhook
+    --====================== Discord Webhook ======================--
     DiscordNotificationsEnabled = true,  -- Enable or disable discord notifications.
     DiscordWebhook = nil,                -- DO NOT CHANGE HERE!! | Set this inside s_functions.lua on top of the script!! 
     DiscordMessageTitle = "AIR RAID SIRENS",
@@ -128,6 +154,7 @@ Config = {
     DiscordNameTitle = "**TOGGLED BY:**",
     DiscordAlertTitle = "**ALERT:**",
 
+    --====================== Language Settings ======================--
     Messages = {
         ErrorSyntax = "^1ERROR ",
         StillCoolingDown = "🗙 ARS activados recientemente, inténtalo de nuevo en 2,5 segundos para apagarlos",

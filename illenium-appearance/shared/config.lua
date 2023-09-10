@@ -633,7 +633,7 @@ Config.ClothingRooms = {
         }
     },
     {
-        job = "mechanic3",
+        job = "biembo",
         targetModel = "s_m_y_xmech_01", -- overrides the target ped configured for the group
         coords = vector4(551.61, -182.54, 54.49, 99.45),
         size = vector3(4, 4, 4),

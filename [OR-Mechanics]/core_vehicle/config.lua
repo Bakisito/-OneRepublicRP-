@@ -7,7 +7,7 @@ Config = {
 -------------------------------------------------------------
 
 WhitelistedJobs = { -- Put jobs you want to use mechanic_tools
-    'mechanic1','mechanic2','mechanic3','mechanic4','mechanic5'
+    'mechanic1','mechanic2','biembo','mechanic4','mechanic5'
 },
 
 UsingCoreInventory = false, -- Enables part removal and gives back items with saved health
@@ -59,8 +59,8 @@ MechanicWorkshop = { -- Mechanic Workshops where mechanics can use MechanicWorks
 
     {coords = vector3(-289.0947265625,6372.568359375,30.578243255615), radius = 20.0},-- NoPixel Bennys
     {coords = vector3(140.03, -3025.14, 6.37), radius = 40.0}, -- Tuner Shop
-    {coords = vector3(546.24, -176.87, 54.49), radius = 40.0}, -- Tuner Shop
-    
+    {coords = vector3(546.24, -176.87, 54.49), radius = 40.0}, -- Biembo auto parts
+
     
 },
 

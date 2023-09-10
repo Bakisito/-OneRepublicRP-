@@ -2,6 +2,8 @@ Config = {}
 CustomFramework = {}
 
 Config.UseCustomFramework = false --SET TO TRUE TO LOAD CUSTOM FRAMEWORK AND FOLLOW THE SETUP GUIDE IN README OR COMMENTS INSIDE framework_cl.lua / framework_sv.lua / inventory.lua - Leave false to integrate QB/ESX automatically
+Config.ConsoleLogging = true --TRUE DISPLAYS SCRIPT LOGGING INFO IN F8 AND SERVER CONSOLE
+Config.ToggleLockSpamDelay = 1500 --DELAY IN MS THE PLAYER MUST WAIT TO TOGGLE LOCKING/UNLOCKING A VEHICLE
 
 ------------------------------------------------------DISPATCH----------------------------------------------------------------
 Config.PoliceNotify = {
@@ -10,10 +12,10 @@ Config.PoliceNotify = {
     UseCustomDispatchAlert = true, --FALSE = USE DEFAULT FRAMEWORK DISPATCH NOTIFICATIONS / TRUE = SETUP EVENT FOR CUSTOM DISPATCH SCRIPT (EXAMPLE: PS-DISPATCH) [**MUST BE SET TO TRUE FOR CUSTOM FRAMEWORK USE**]
     CustomAlertFunction = function(Vehicle, Plate, Coords, VehName) --** CLIENT ** CODE BELOW THIS LINE TO SETUP YOUR CUSTOM DISPATCH ALERT
         --Custom Code Here to setup your police alert when a vehicle is hotwired/lockpicked
-        --Vehicle = Client side vehicle Entity ID
-        --Plate = vehicles plate text
-        --Coords = vehicle coords in a vector3()
-        --VehName = model brand and name (Will not work for import vehicles. You should do a check here with your vehicles table to get the proper name)
+        ---@param Vehicle number Vehicle entity
+        ---@param Plate string Vehicle plate text
+        ---@param Coords vector3 Vehicle coordinates
+        ---@param VehName string Vehicle make/model
 
         TriggerServerEvent('police:server:policeAlert', 'Attempted Vehicle Theft') --QBCORE EXAMPLE
         --exports['ps-dispatch']:VehicleTheft(Vehicle) --PS-DISPATCH EXAMPLE
@@ -25,11 +27,14 @@ Config.PoliceNotify = {
 Config.Notify = { 
     UseCustom = false, --FALSE = DEFAULT NOTIFY WILL BE YOUR FRAMEWORKS NOTIFY SYSTEM (QBCore:Notify / esx:showNotification) / TRUE = CUSTOM NOTIFY SCRIPT (OX_LIB / T-NOTIFY / ECT) (VIEW README FILE FOR DETAILED SETUP INFO)
     CustomClientNotifyFunction = function(Data) --**CLIENT SIDE CODE**
-        --Data = TABLE FROM Config.Notifications CONTAINING OUR NOTIFY INFO. 
-        --EXAMPLE  Data.Message = 'Could not aquire the keys for this vehicle.' / Data.Type = 'primary' / Data.Duration = 5000
+        ---@param Data table: { Message string, Type string (error, success, primary), Duration number }
+        
         --TriggerEvent('QBCore:Notify', Data.Message, Data.Type, Data.Duration) --QBCORE EXAMPLE
     end,
     CustomServerNotifyFunction = function(PlayerSource, Data) --**SERVER SIDE CODE** SAME AS ABOVE EXCEPT PASSES THE SOURCE TO SEND THE NOTIFICATION TO FROM THE SERVER
+        ---@param PlayerSource number Server id of the player
+        ---@param Data table: { Message string, Type string (error, success, primary), Duration number }
+
         --TriggerClientEvent('QBCore:Notify', PlayerSource, Data.Message, Data.Type, Data.Duration) --QBCORE EXAMPLE
     end,
     NotifyOnKeyAdd = false --If set to true the client will get a Notify message when keys are given to them. Set to false if you do notifications manually to prevent duplicate keys given notifications
@@ -181,18 +186,30 @@ Config.Lockpick = {
 }
 
 Config.LockpickIgnitionEvent = function(Vehicle, Plate, Coords) --CUSTOM EVENT TO TRIGGER CLIENT SIDE AFTER A SUCCESSFULL VEHICLE ENGINE LOCKPICK
+    ---@param Vehicle number Vehicle entity
+    ---@param Plate string Vehicle plate text
+    ---@param Coords vector3 Vehicle coordinates
 
 end
 
 Config.LockpickDoorEvent = function(Vehicle, Plate, Coords) --CUSTOM EVENT TO TRIGGER CLIENT SIDE AFTER A SUCCESSFULL VEHICLE DOOR LOCKPICK
+    ---@param Vehicle number Vehicle entity
+    ---@param Plate string Vehicle plate text
+    ---@param Coords vector3 Vehicle coordinates
 
 end
 
 Config.LockpickIgnitionCustomAuth = function(Vehicle, Plate) --CUSTOM EVENT TO CHECK IF A PLAYER IS AUTHORIZED TO LOCKPICK A SPECIFIC VEHICLE. MUST RETURN TRUE OR FALSE
+    ---@param Vehicle number Vehicle entity
+    ---@param Plate string Vehicle plate text
+    
     return true
 end
 
 Config.LockpickDoorCustomAuth = function(Vehicle, Plate) --CUSTOM EVENT TO CHECK IF A PLAYER IS AUTHORIZED TO LOCKPICK A SPECIFIC VEHICLE. MUST RETURN TRUE OR FALSE
+    ---@param Vehicle number Vehicle entity
+    ---@param Plate string Vehicle plate text
+    
     return true
 end
 ------------------------------------------------------------------------------------------------------------------------------
@@ -236,10 +253,16 @@ Config.HotwireGame = {
 }
 
 Config.HotwireEvent = function(Vehicle, Plate, Coords) --CUSTOM EVENT TO TRIGGER CLIENT SIDE AFTER A SUCCESSFULL VEHICLE ENGINE HOTWIRE
-    
+    ---@param Vehicle number Vehicle entity
+    ---@param Plate string Vehicle plate text
+    ---@param Coords vector3 Vehicle coordinates
+
 end
 
 Config.HotwireCustomAuth = function(Vehicle, Plate) --CUSTOM EVENT TO CHECK IF A PLAYER IS AUTHORIZED TO HOTWIRE A SPECIFIC VEHICLE. MUST RETURN TRUE OR FALSE
+    ---@param Vehicle number Vehicle entity
+    ---@param Plate string Vehicle plate text
+
     return true
 end
 ------------------------------------------------------------------------------------------------------------------------------
@@ -260,15 +283,13 @@ Config.NoShuffle = false --TRUE = RUN CHECKS WHEN IN PASSENGER SEAT TO NOT AUTO 
 ------------------------------------------------------KEY BINDS---------------------------------------------------------------
 Config.Binds = {
     ToggleLocks = { --Cannot disable this keybind or you can't lock/unlock your vehicles
-        Label = 'Alternar cierres de vehículos', --TEXT THAT WILL DISPLAY IN THE PAUSE MENU/KEYBINDS/FIVEM
         DefaultBind = 'l', --Default keybind for toggling vehicle locks. Can be changed in keybinds/fivem by users
         BindType = 'keyboard' --DONT CHANGE THIS UNLESS YOU CHANGE THE DEFAULT KEYBIND TO A MOUSE BUTTON
     },
     EngineToggle = {
-        Enable = true, --TRUE = ENABLES A KEYBIND FOR TOGGLE VEHICLE ENGINE ON/OFF / FALSE = DISABLED
-        Label = 'Alternar motor del vehículo', --TEXT THAT WILL DISPLAY IN THE PAUSE MENU/KEYBINDS/FIVEM
-        DefaultBind = 'g', --DEFAULT KEYBIND FOR TOGGLING THE ENGINE (MOUSE WHEEL UP)
-        BindType = 'keyboard' --change to 'keyboard' if you change defaultbind to a keypress instead of mouse wheel
+        Enable = false, --TRUE = ENABLES A KEYBIND FOR TOGGLE VEHICLE ENGINE ON/OFF / FALSE = DISABLED
+        DefaultBind = 'IOM_WHEEL_UP', --DEFAULT KEYBIND FOR TOGGLING THE ENGINE (MOUSE WHEEL UP)
+        BindType = 'MOUSE_WHEEL' --change to 'keyboard' if you change defaultbind to a keypress instead of mouse wheel
     }
 }
 ------------------------------------------------------------------------------------------------------------------------------
@@ -278,25 +299,20 @@ Config.Commands = {
     GiveKey = { --GIVE KEYS TO NEAREST PLAYER OF NEAREST VEHICLE YOU HAVE KEYS FOR
         Enable = true, --TRUE = ENABLES COMMAND / FALSE = DISABLES COMMAND
         CommandName = 'givekey', --COMMAND NAME (/givekey) CAN CHANGE TO WHATEVER YOU LIKE
-        Label = 'Dar un juego de llaves', --HELP TEXT THAT SHOWS UNDER THE COMMAND IN THE CHAT WINDOW
     },
     RemoveKey = { --REMOVE KEYS FROM NEAREST PLAYER OF NEAREST VEHICLE YOU HAVE KEYS FOR
         Enable = true, --TRUE = ENABLES COMMAND / FALSE = DISABLES COMMAND
         CommandName = 'removekey', --COMMAND NAME (/removekey) CAN CHANGE TO WHATEVER YOU LIKE
-        Label = 'Eliminar un juego de llaves', --HELP TEXT THAT SHOWS UNDER THE COMMAND IN THE CHAT WINDOW
-        IdLabel = 'Player ID', --HELP TEXT THAT SHOWS UNDER THE COMMAND IN THE CHAT WINDOW
     },
     EngineToggle = { --TOGGLES ENGINE ON/OFF
         Enable = true, --TRUE = ENABLES COMMAND / FALSE = DISABLES COMMAND
         CommandName = 'engine', --COMMAND NAME (/engine) CAN CHANGE TO WHATEVER YOU LIKE
-        Label = 'Toggle Vehicle Engine', --HELP TEXT THAT SHOWS UNDER THE COMMAND IN THE CHAT WINDOW
         Notify = true, --TRUE = NOTIFICATION WHEN ENGINE IS TOGGLED ON OR OFF / FALSE = DISABLED
     }
 }
 ------------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------NPC VEHICLES------------------------------------------------------------
-
 Config.NpcVehicles = { --NONE OF THE CHECKS BELOW APPLY TO PLAYER OWNED OR STOLEN NPC VEHICLES.
     Driving = {
         CanBeLocked = true, --TRUE = NPC VEHICLE DOORS CAN BE LOCKED WHILE THEY ARE DRIVING / FALSE = ALWAYS UNLOCKED
@@ -310,242 +326,28 @@ Config.NpcVehicles = { --NONE OF THE CHECKS BELOW APPLY TO PLAYER OWNED OR STOLE
         Enabled = true, --TRUE = ALLOW CARJACKING WITH A WEAPON / FALSE = DISABLED
         VehicleBlacklist = { --ANY VEHICLE LISTED BELOW WILL NOT ALLOW CARJACKING. ADD BY SPAWN NAME OR MODEL HASH.
             'stockade'
-        }
+        },
+        SuccessFunction = function(Vehicle, Plate, Coords, VehName) --CLIENT SIDE FUNCTION THAT IS CALLED WHEN PLAYER SUCCESSFULLY CARJACKS AN NPC
+            ---@param Vehicle number Vehicle entity
+            ---@param Plate string Vehicle plate text
+            ---@param Coords vector3 Vehicle coordinates
+            ---@param VehName string Vehicle make/model
+
+        end
     },
     StealDriverKeys = {
         Enabled = true, --TRUE = ALLOW STEALING DEAD NPC DRIVER KEYS WHEN DRAGGED OUT OF THE CAR / FALSE = DISABLED
         RequireDriverDead = true, --TRUE = DRIVER MUST BE DEAD TO TAKE THEIR KEYS / FALSE = WILL TAKE THEIR KEYS EITHER WAY
         VehicleBlacklist = { --ANY VEHICLE LISTED BELOW WILL NOT ALLOW STEALING KEYS FROM THE DRIVER. ADD BY SPAWN NAME OR MODEL HASH.
             'stockade'
-        }
-    }
-}
-------------------------------------------------------------------------------------------------------------------------------
+        },
+        SuccessFunction = function(Vehicle, Plate, Coords, VehName) --CLIENT SIDE FUNCTION THAT IS CALLED WHEN PLAYER SUCCESSFULLY TAKES AN NPC DRIVERS KEYS
+            ---@param Vehicle number Vehicle entity
+            ---@param Plate string Vehicle plate text
+            ---@param Coords vector3 Vehicle coordinates
+            ---@param VehName string Vehicle make/model
 
-------------------------------------------------------NOTIFICATIONS-----------------------------------------------------------
-Config.Labels = { --LABELS USED FOR PROGRESSBARS / ACTION TEXT INSIDE THE SCRIPT. EDIT HERE FOR YOUR PREFERRED LANGUAGE
-    HotwireVeh = '[H] - Hotwire Vehicle',
-    AttemptHotwire = 'Attempting to hotwire ...',
-    AttemptLockpickDoor = 'Lockpicking Vehicle Door ...',
-    TakingKeys = 'Taking drivers keys ...',
-    DupeKey = 'Duplicate Key [$',
-    SpareKey = 'Purchase a spare set of keys.',
-    SpareKeyLabel = 'Purchase a spare keyfob to store or give to your friends.',
-    Reprogram = 'Reprogram',
-    ReprogramPrice = 'Reprogram [$',
-    ReprogramKey = 'Reprogram vehicle.',
-    ReprogramKeyLabel = 'Current keyfobs will be deactivated; You will receive a brand new reprogrammed keyfob. Useful if someone has stolen your keys. Old keyfobs will be rendered useless.',
-    ReprogramConfirmLabel = 'Confirm vehicle keyfob reprogramming. All current keyfobs will be unusable. Vehicle will be reprogrammed and you will receive 1 new keyfob.',
-    ReprogramConfirm = 'Confirm',
-    ReprogramCancel = 'Cancel',
-    KeyfobManage = 'Manage Key Fobs',
-    KeyfobVehMetaVehId = 'Vehicle ID:',
-    KeyfobMenuTitle = 'Key Fob Management',
-}
-
-Config.Notifications = { --NOTIFICATIONS USED WITHIN THE SCRIPT. DO NOT EDIT THE TABLE NAMES JUST THE VALUES INSIDE EACH TABLE TO YOUR PREFFERED LANGUAGE AND PREFERRED NOTIFICATION SYSTEM FORMAT.
-    CantFindVeh = {
-        Message = 'No se pudieron conseguir las llaves de este vehículo.',
-        Type = 'error',
-        Duration = 5000
-    },
-    --[[ CUSTOM NOTIFY EXAMPLE (ox_lib notification) 
-    CantFindVeh = { --YOU CAN EDIT THE DATA INSIDE THE TABLE TO ACCOMMODATE YOUR CUSTOM NOTIFY SYSTEM (SEE README FILE FOR SETUP)
-        description = 'Could not aquire the keys for this vehicle',
-        type = 'inform',
-        duration = 3000,
-        position = 'top-right',
-    },
-    ]]
-    HasKey = {
-        Message = 'Ya tienes las llaves de este vehículo.',
-        Type = 'info',
-        Duration = 5000
-    },
-    ReceivedKey = {
-        Message = '¡Has recibido un juego de llaves!.',
-        Type = 'success',
-        Duration = 5000
-    },
-    GaveKey = {
-        Message = 'Has dado un juego de llaves.',
-        Type = 'info',
-        Duration = 5000
-    },
-    HotwireFail = {
-        Message = 'No se ha podido conectar el vehículo.',
-        Type = 'error',
-        Duration = 5000
-    },
-    HotwireSuccess = {
-        Message = 'Vehículo Cableado.',
-        Type = 'success',
-        Duration = 5000
-    },
-    VehLocked = {
-        Message = '¡Vehículo bloqueado!',
-        Type = 'success',
-        Duration = 5000
-    },
-    VehUnlocked = {
-        Message = '¡Vehículo desbloqueado!',
-        Type = 'success',
-        Duration = 5000
-    },
-    LostItem = {
-        Message = 'No se ha encontrado el artículo.',
-        Type = 'error',
-        Duration = 5000
-    },
-    BusyHotwire = {
-        Message = 'No se puede hacer esto mientras estas punchando',
-        Type = 'error',
-        Duration = 5000
-    },
-    LockpickDoorFail = {
-        Message = 'El ganzuado ha fallado..',
-        Type = 'error',
-        Duration = 5000
-    },
-    LockBusy = {
-        Message = 'Alguien más está bregando las cerraduras.',
-        Type = 'error',
-        Duration = 5000
-    },
-    NotLocked = {
-        Message = 'El vehículo no está cerrado.',
-        Type = 'info',
-        Duration = 5000
-    },
-    FarFromDoor = {
-        Message = 'Acércate a la puerta del vehículo.',
-        Type = 'error',
-        Duration = 5000
-    },
-    BrokeLockpick = {
-        Message = 'Rompiste la ganzúa.',
-        Type = 'error',
-        Duration = 5000
-    },
-    IgnitionFail = {
-        Message = 'Fallo al ganzuar el arranque.',
-        Type = 'error',
-        Duration = 5000
-    },
-    LockpickSuccess = {
-        Message = '¡Arranque encendido!',
-        Type = 'success',
-        Duration = 5000
-    },
-    HandedKeys = {
-        Message = 'Te han dado las llaves.',
-        Type = 'success',
-        Duration = 5000
-    },
-    NobodyAround = {
-        Message = 'No hay nadie.',
-        Type = 'error',
-        Duration = 5000
-    },
-    NoKeys = {
-        Message = 'Usted no tiene las llaves de este vehículo.',
-        Type = 'error',
-        Duration = 5000
-    },
-    FarFromVeh = {
-        Message = 'No lo suficientemente cerca de un vehículo.',
-        Type = 'error',
-        Duration = 5000
-    },
-    CantCarryItem = {
-        Message = 'No puedes llevar este artículo.',
-        Type = 'error',
-        Duration = 5000
-    },
-    FobReceived = {
-        Message = 'Has recibido un nuevo llavero.',
-        Type = 'info',
-        Duration = 5000
-    },
-    OldFob = {
-        Message = 'El propietario ha desactivado el mando de este vehículo..',
-        Type = 'error',
-        Duration = 5000
-    },
-    NoFobs = {
-        Message = 'No tienes ningún llavero registrado.',
-        Type = 'error',
-        Duration = 5000
-    },
-    CantAfford = {
-        Message = 'No hay suficiente dinero.',
-        Type = 'error',
-        Duration = 5000
-    },
-    ReprogramFobReceived = {
-        Message = 'Llavero reprogramado correctamente!',
-        Type = 'success', 
-        Duration = 8000,
-    },
-    FobOutRange = {
-        Message = 'Llavero fuera del alcance del vehículo.',
-        Type = 'error',
-        Duration = 5000
-    },
-    WrongVehicle = {
-        Message = 'Llavero no registrado en este vehículo.',
-        Type = 'error',
-        Duration = 5000
-    },
-    CantGiveFob = {
-        Message = 'No se pueden dar llaves de esta manera; dales un juego de repuesto.',
-        Type = 'error',
-        Duration = 5000
-    },
-    EngineOn = {
-        Message = 'Motor arrancado.',
-        Type = 'info',
-        Duration = 5000
-    },
-    EngineOff = {
-        Message = 'Motor apagado.',
-        Type = 'info',
-        Duration = 5000
-    },
-    NoPlayerId = {
-        Message = 'Introduzca el ID del ciudadano para retirar las llaves.',
-        Type = 'error',
-        Duration = 5000
-    },
-    PlayerUnavailable = {
-        Message = 'Ciudadano no encontrado.',
-        Type = 'error',
-        Duration = 5000
-    },
-    PlayerTooFar = {
-        Message = 'Ciudadano demasiado lejos.',
-        Type = 'error',
-        Duration = 5000
-    },
-    PlayerNoKeys = {
-        Message = 'El ciudadano no tiene llaves de este vehículo.',
-        Type = 'error',
-        Duration = 5000
-    },
-    RemovedPlayerKeys = {
-        Message = 'Eliminado con éxito un juego de llaves.',
-        Type = 'success',
-        Duration = 5000
-    },
-    KeysTaken = {
-        Message = 'Te quitaron un juego de llaves.',
-        Type = 'error',
-        Duration = 5000
-    },
-    CantRemoveOwn = {
-        Message = 'No puedes quitarte tus propias llaves.',
-        Type = 'error',
-        Duration = 5000
+        end
     }
 }
 ------------------------------------------------------------------------------------------------------------------------------
@@ -575,7 +377,6 @@ Config.KeysAsItem = { --THIS FEATURE CURRENTLY ONLY SUPPORTS (QBCORE FRAMEWORK W
     Command = {
         Enable = false, --TRUE = COMMAND IS USEABLE / FALSE = COMMAND WILL NOT BE AVAILABLE
         CommandName = 'keyfobs', --COMMAND NAME (/keyfobs) CAN CHANGE TO WHATEVER YOU LIKE
-        Label = 'Manage Keyfobs', --HELP TEXT THAT SHOWS UNDER THE COMMAND IN THE CHAT WINDOW
     },
     UseTarget = true, --TRUE = LOADS NPC PEDS IN THE TABLE BELOW FOR USE WITH [QB-TARGET] OR [OX_TARGET] TO ACCESS THE KEYFOB MANAGEMENT MENU / FALSE = DISABLED. (DISABLE THIS IF YOU ONLY WANT TO USE THE COMMAND ABOVE)
     Peds = { --ADD AS MANY NPC PEDS AS YOU WOULD LIKE FOR PLAYERS TO HAVE ACCESS TO THE KEYFOB MANAGEMENT MENU. UseTarget MUST BE TRUE FOR THESE PEDS TO BE LOADED.

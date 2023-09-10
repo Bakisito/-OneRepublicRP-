@@ -6,103 +6,27 @@ Loc["nl"] = {
 		stock = "Origineel", -- Default, Original, whatever word you use for this
 		current = "Momenteel Geïnstalleerd",
 		noOptions = "Geen opties beschikbaar voor dit artikel",
+		notinstall = "Not Installed",
 		installing = "Installeren ",
+		installed = "Installed!",
+		instfail = " install failed!",
+		removed = "Removed!",
+		removing = "Removing ",
+		remfail = " removal failed!",
+		cant = "Can't be installed on this vehicle",
 		amountoption = "Aantal opties: ",
 		already = " reeds geïnstalleerd", -- eg. "Stock Bumper already Installed"
 		menuinstalled = " Opties] Geïnstalleerd: ", --eg "[4 Options] Installed: Grille 1"
 		nearwheel = "You need to move closer to a wheel",
-		nearengine = "You need to move closer to the engine"
+		nearengine = "You need to move closer to the engine",
+		closer = "Move closer to the headlights",
+		harness = "Attaching Racing Harness..",
 	},
-	--Performance Items
-	["armour"] = { --armour.lua
-		cant = "Pantser kan niet worden geïnstalleerd op dit voertuig",
-		already = "Pantser al geïnstalleerd",
-		install = "Pantser installeren..",
-		installed = "Succes! Pantser geïnstalleerd..",
-		failed = "Pantser installatie mislukt!",
-		removed = "Succes! Pantser verwijderd",
-		removing = "Pantser verwijderen..",
-		remfail = "Pantser verwijderen mislukt!",
-	},
-	["brakes"] = { --brakes.lua
-		cant = "Remmen kunnen niet worden geïnstalleerd op dit voertuig",
-		already = "Remmen zijn al geïnstalleerd",
-		install = "Remmen niveau installeren: ",
-		installed = "Succes! Remmen geïnstalleerd...",
-		failed = "Installatie van remmen mislukt!",
-		remove = "Succes! Remmen Verwijderd",
-		removal = "Remmen verwijderd...",
-		remfail = "Verwijdering remmen mislukt!",
-	},
-	["engines"] = { --engines.lua
-		cant = "Motoren kunnen niet op dit voertuig worden geïnstalleerd",
-		already = "Motor is al geïnstalleerd",
-		install = "Installeer motor niveau: ",
-		installed = "Succes! Motor geïnstalleerd...",
-		failed = "Motor installatie mislukt!",
-		remove = "Succes! Motor Verwijderd",
-		removal = "Motor wordt verwijderd...",
-		remfail = "Verwijdering motor mislukt!",
-	},
-	["suspension"] = { --suspension.lua
-		cant = "Ophanging kan niet op dit voertuig worden geïnstalleerd",
-		already = "Ophanging reeds geïnstalleerd",
-		install = "Installeer ophanging niveau: ",
-		installed = "Succes! Ophanging geïnstalleerd..",
-		failed = "Ophanging installatie mislukt!",
-		removed = "Gelukt! Ophanging Verwijderd",
-		removal = "Ophanging verwijderen...",
-		remfail = "Ophanging verwijderen mislukt!",
-	},
-	["transmission"] = { --transmission.lua
-		cant = "Transmissie kan niet worden geïnstalleerd op dit voertuig",
-		already = "Transmissie reeds geïnstalleerd",
-		install = "Installeer transmissie niveau: ",
-		installed = "Succes! Transmissie geïnstalleerd..",
-		failed = "Installatie van transmissie mislukt!",
-		remove = "Succes! Transmissie verwijderd",
-		removal = "Verwijderen transmissie...",
-		remfail = "Verwijdering transmissie mislukt!",
-	},
-	["tires"] = { --tires.lua
-		--Drift
-		already = "Drift banden reeds geïnstalleerd",
-		install = "Drift banden geïnstalleerd...",
-		installed = "Succes! Drift banden geïnstalleerd",
-		failed = "Installatie Drift banden mislukt!",
-		remove = "Succes! Drift banden Verwijderd",
-		removal = "Drift Banden Verwijderen...",
-		remfail = "Drift Banden verwijder mislukt!",
+	["tires"] = {
 		swap = "Kogelweerende Banden verwijderd!",
-		--BProof
-		already2 = "Kogelvrije Banden reeds geïnstalleerd",
-		install2 = "Kogelvrije Banden installeren...",
-		installed2 = "Succes! Kogelvrije Banden geïnstalleerd",
-		failed2 = "Installatie van kogelvrije banden mislukt!",
-		remove2 = "Succes! Kogelvrije Banden Verwijderd",
-		removal2 = "Kogelvrije Banden Verwijderen",
-		remfail2 = "Kogelvrije Banden verwijderen mislukt!",
 		swap2 = "Kogelvrije Banden verwijderd!",
 	},
-	["turbo"] = { --turbo.lua
-		already = "Turbo is al geïnstalleerd",
-		install = "Turbo installeren...",
-		installed = "Succes! Turbo geïnstalleerd...",
-		failed = "Turbo-installatie mislukt!",
-		remove = "Succes! Turbo verwijderd",
-		verwijderen = "Turbo verwijderen...",
-		remfail = "Verwijdering turbo mislukt!",
-	},
-	["xenons"] = { --xenons.lua
-		already = "Xenon koplampen reeds geïnstalleerd",
-		install = "Xenons installeren...",
-		installed = "Succes! Xenon Koplampen Geïnstalleerd",
-		failed = "Xenon Koplampen Installatie Mislukt!",
-		remove = "Succes! Xenon verwijderd",
-		verwijderen = "Xenon verwijderen...",
-		remfail = "Xenon verwijderen mislukt!",
-		closer = "Ga dichter naar de koplampen",
-
+	["xenons"] = {
 		notinstall = "Xenons koplampen niet geïnstalleerd",
 		--Menus
 		neonheader1 = "Lichtsturingen",
@@ -121,29 +45,17 @@ Loc["nl"] = {
 		xenonheader = "Xenon Regelaars",
 		xenontxt = "Aanpassen kleur koplamp van voertuig",
 	},
-
 	--Cosmetic Items
-	["bumpers"] = { --bumpers.lua
-		stockMod = "Originele Bumper...",
-		installed = "Succes! Bumper Geïnstalleerd",
-		failed = "Bumper installatie mislukt!",
-		menuheader = " Gril en bumpercosmetica", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["bumpers"] = {
 		menugrille = "Gril",
 		menuFBumper = "Voor Bumper",
 		menuBBumper = "Achter Bumper",
 	},
-	["exhaust"] = { --exhaust.lua
-		stockMod = "Standaard Uitlaat..",
-		already = " reeds geïnstalleerd", -- eg. "Stock Bumper already Installed"
-		installed = "Succes! Uitlaat Geïnstalleerd",
-		failed = "Uitlaat installatie mislukt!",
+	["exhaust"] = {
 		menuheader = " Uitlaat Modificatie", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	["exterior"] = { --exterior.lua
+	["exterior"] = {
 		stockMod = "Originele Exterior Mod..",
-		installed = "Success! Exterior geinstalleerd",
-		failed = "Exterior installatie mislukt!",
-		menuheader = " Exterior Wijziging", --eg "Sultan RS Grille and Bumper Cosmetics"
 
 		label1 = "Trim A",
 		label2 = "Trim B",
@@ -156,23 +68,13 @@ Loc["nl"] = {
 		label9 = "Brandstoftanks",
 		label10 = "Antennes",
 	},
-	["hood"] = { --hood.lua
-		stockMod = "Originele Motorkap...",
-		installed = "Succes! Motorkap geïnstalleerd",
-		failed = "Motorkap installatie mislukt!",
-		menuheader = "Motorkap modificatie", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["hood"] = {
+		menuheader = "Motorkap modificatie",
 	},
-	["horns"] = { --horns.lua
-		installed = "Succes! Claxon geïnstalleerd",
-		failed = "Installatie claxon mislukt!",
-		menuheader = "Claxon Wijzigen", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["horns"] = {
+		menuheader = "Claxon Wijzigen",
 	},
-	["interior"] = { --interior.lua
-		stockMod = "Originele Interieur Mod...",
-		installed = "Succes! Interieur Mod Geïnstalleerd",
-		failed = "Interieur aanpassing mislukt!",
-		menuheader = "Interieur Aanpassing", --eg "Sultan RS Grille and Bumper Cosmetics"
-
+	["interior"] = {
 		label1 = "Rolkooien",
 		label2 = "Ornamenten",
 		label3 = "Dashboards",
@@ -183,28 +85,21 @@ Loc["nl"] = {
 		label8 = "Platen",
 		label9 = "Luidsprekers",
 	},
-	["livery"] = { --exhaust.lua
+	["livery"] = {
 		oldMod = "oud",
-		already = " reeds geplakt", -- eg. "Stock Bumper already Installed"
-		installed = "Succes! Sticker geplakt",
-		failed = "Sticker plakken mislukt!",
 		menuheader = " Stickers Aanpassing", --eg "Sultan RS Grille and Bumper Cosmetics"
+		menuoldheader = " Roof Livery Modification",
 	},
-	["nos"] = { --exhaust.lua
+	["nos"] = {
 		notinstalled = "Turbo is niet geïnstalleerd",
-		nstalling = "Succes! NOS Installeren",
-		installed = "Succes! NOS geïnstalleerd",
-		failed = "NOS installatie mislukt!",
-		removing = "Removing NOS Bottle",
-		removed = "NOS verwijderd",
-		remfail = "Kan NOS niet verwijderen",
+
 		nosColour = "NOS Purge Colour",
 		boostmode = "Boost Mode",
 		purgemode = "Purge Mode",
 		boost = "Boost Power: ",
 		spray = "Spray Strength: ",
 	},
-	["paint"] = { --paints.lua
+	["paint"] = {
 		primary = "Primair",
 		secondary = "Secundair",
 		pearl = "Parelmoer",
@@ -218,9 +113,6 @@ Loc["nl"] = {
 		metals = "Metalen",
 		chameleon = "Chameleon",
 
-		installing = "Success! Voertuig overspuiten",
-		installed = "Succes! Overspuiten gelukt",
-		failed = "Overspuiten mislukt!",
 		menuheader = "Overspuiten",
 	},
 	["paintrgb"] = {
@@ -229,24 +121,15 @@ Loc["nl"] = {
 		error = "Hex Code invoer dient 6 characters te zijn",
 		customheader = "Custom HEX en RGB",
 		chrome = "Chrome",
-		hex = "HEX Kiezer",
-		rgb = "RGB Kiezer",
+		hexP = "HEX Kiezer",
+		rgbP = "RGB Kiezer",
 	},
-	["plates"] = { --paints.lua
-		already = "Kenteken reeds geïnstalleerd!",
-		installing = "Kenteken installeren...",
-		installed = "Succes! Kenteken Geïnstalleerd",
-		failed = "Kenteken installatie mislukt!",
-		menuheader = " Kenteken Wijziging",
+	["plates"] = {
 		label1 = "Kentekenhouder",
 		label2 = "Vanity kenteken",
 		label3 = "Custom kenteken",
-        menuheader2 = " Custom Kenteken Stijl",
 	},
 	["rims"] = {
-		installing = "Velgen installeren...",
-		installed = "Succes! Velgen geïnstalleerd",
-		failed = "Velgen installatie mislukt!",
 		menuheader = "Velgen Modificatie",
 
 		label1 = "Sport",
@@ -267,39 +150,25 @@ Loc["nl"] = {
 
 		labelcustom = "Custom Velgen",
 	},
-	["rollcage"] = { --rollcage.lua
-		installed = "Success! Roolkooi geinstalleerd",
-		failed = "Roll Cage Installatie mislukt!",
+	["rollcage"] = {
 		menuheader = " Rolkooi modificatie",
 	},
-	["roof"] = { --roof.lua
-		installed = "Succes! Dak geïnstalleerd",
-		failed = "Dakinstallatie mislukt!",
+	["roof"] = {
 		menuheader = " Dakaanpassing", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	["seat"] = { --seat.lua
-		installed = "Succes! Stoel geïnstalleerd",
-		failed = "Stoelinstallatie mislukt!",
+	["seat"] = {
 		menuheader = " Stoelwijziging", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	["skirts"] = { --skirts.lua
-		installed = "Succes! Skirt geïnstalleerd",
-		failed = "Skirt installatie mislukt!",
-		menuheader = "Skirt en Fender Cosmetics", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["skirts"] = {
 		menuskirt = "Skirts",
 		menuRF = "Rechter spatbord",
 		menuLF = "Linker Spatbord",
 	},
-	["spoilers"] = { --spoilers.lua
-		installed = "Succes! Spoiler Geïnstalleerd",
-		failed = "Spoiler installatie mislukt!",
+	["spoilers"] = {
 		menuheader = " Spoiler Wijziging", --eg "Sultan RS Grille and Bumper Cosmetics"
 	},
-	["smoke"] = { --tiresmoke.lua
+	["smoke"] = {
 		already = "Deze kleur is momenteel toegepast!",
-		installing = "Bandenrook wordt geïnstalleerd...",
-		installed = "Succes! Smoke geïnstalleerd",
-		failed = "Rookinstallatie mislukt!",
 		menuheader = " Bandenrook modificatie", --eg "Sultan RS Grille and Bumper Cosmetics"
 
 		remove = "Verwijder rook",
@@ -318,46 +187,34 @@ Loc["nl"] = {
 		hpink = "Hot Pink",
 		purple = "Paars",
 		blacklight = "Blacklight",
-
-		submit = "Verzenden",
 	},
-	["windows"] = { --windows.lua
-		installed = "Succes! Tint geïnstalleerd",
-		failed = "Tint installatie mislukt!",
+	["windows"] = {
 		menuheader = " Raam Tints", --eg "Sultan RS Grille and Bumper Cosmetics"
-
-		label1 = "Tint verwijderen",
-		label2 = "Limo",
-		label3 = "Groen",
-		label4 = "Licht Rook",
-		label5 = "Donker Rook",
-		label6 = "Puur Zwart",
 	},
 	["stores"] = {
 		browse = "Winkel doorbladeren",
 		tools = "Mechanisch Gereedschap",
 		perform = "Prestatie Artikelen",
 		cosmetic = "Cosmetische Artikelen",
+		repairs = "Repair Items",
+		nos = "NOS Items",
 	},
 	["crafting"] = { --crafting.lua
 		menuheader = "Mechanisch Handwerk",
 		toolheader = "Werktuigkundige gereedschappen",
+		repairheader = "Repair Items",
 		performheader = "Prestatie Artikelen",
 		cosmetheader = "Cosmetische Artikelen",
+		nosheader = "NOS Items",
 		numitems = " items", --for menu. eg. "11 items"
-		ingredients = "U heeft niet de juiste ingrediënten",
 	},
-	["payments"] = { --payments.lua
+	["payments"] = {
 		charge = "Klant rekening geven",
 	},
-	["check"] = { --check_tunes.lua
+	["check"] = {
 		plate = "Kenteken [",
 		value = "]<br>Waarde: €",
 		unavail = "❌ Niet beschikbaar",
-		notinstall = "Niet geïnstalleerd",
-		reinforced = "Versterk Plaatwerk",
-		xenoninst = "Xenon Geïnstalleerd",
-		tireinst = " Geïnstalleerd",
 
 		label1 = "Motoren:",
 		label2 = "Remmen:",
@@ -410,14 +267,8 @@ Loc["nl"] = {
 		label47 = "Ja",
 		label48 = "Nee",
 		label49 = "Wilt u de remmen verwijderen?",
-		label50 = "Wilt u de motor verwijderen?",
-		label51 = "Wilt u de ophanging verwijderen?",
-		label52 = "Wilt u de transmissie verwijderen?",
-		label53 = "Wilt u de pantser verwijderen?",
-		label54 = "Wilt u de Turbo verwijderen?",
-		label55 = "Wilt u de Xenon verwijderen?",
-		label56 = "Wilt u de banden verwijderen?",
-		label57 = "Wilt u de Nitrous lossen?",
+		label50 = "Antilag:",
+		label51 = "Harness:",
 		label58 = "Lachgas:",
 	},
 	["repair"] = {
@@ -441,7 +292,6 @@ Loc["nl"] = {
 		repaired = " volledig gerepareerd",
 		cancel = "Reparatie geannuleerd!",
 		nomaterials = "Er zijn niet genoeg materialen in de kluis",
-		failinfo = " Niet gelukt auto-info op te halen, probeer het gereedschap opnieuw te gebruiken",
 
 		cost = "<br>Kosten: ",
 		status = "Status: ",
@@ -452,6 +302,7 @@ Loc["nl"] = {
 		nocar = "Er is geen voertuig in de buurt",
 	},
 	["police"] = {
+		header = "Modification Station",
 		userepair = "Gebruik reparatiestation",
 		repair = "Reparatie",
 		extras = "Extras",
@@ -495,6 +346,7 @@ Loc["nl"] = {
 		nearby = "Er is geen voertuig in de buurt",
 		shop = "Kan niet buiten een winkel werken",
 		mechanic = "Alleen een monteur weet hoe je dit moet doen",
+		checking = "Checking Stash.."
 	},
 	["servfunction"] = {
 		checkdamage = "Controleer voertuig op schade",
@@ -511,17 +363,15 @@ Loc["nl"] = {
 	["previews"] = {
 		changes = "Aantal veranderingen: ",
 	},
-	["garage"] = {
-		jobgarage = "Werk garage",
-		vehout = "Voertuig is uit de garage",
-		remveh = "Voertuig verwijderen",
-		cantspawn = " in de weg",
-		marker = "Werkvoertuig aangegeven op de kaart",
-		markername = "Werk voertuig",
-	},
 	--Below are names of items/mods that can't be reteived natively
+	vehicleWindowOptions = {
+		{ name = "Limo", id = 4 },
+		{ name = "Green", id = 5 },
+		{ name = "Light Smoke", id = 3 },
+		{ name = "Dark Smoke", id = 2 },
+		{ name = "Pure Black", id = 1 }
+	},
 	vehiclePlateOptions = {
-		{ name = "Blauw op wit #1", id = 0 },
 		{ name = "Blauw op wit #2", id = 3 },
 		{ name = "Blauw op wit #3", id = 4 },
 		{ name = "Geel op blauw", id = 2 },
@@ -711,21 +561,87 @@ Loc["nl"] = {
 		{ name = "Chrome", id = 120 },
 	},
 	vehicleResprayOptionsChameleon = {
+		{ name = "Anodized Red", id = 161 },
+		{ name = "Anodized Wine", id = 162 },
+		{ name = "Anodized Purple", id = 163 },
+		{ name = "Anodized Blue", id = 164 },
+		{ name = "Anodized Green", id = 165 },
+		{ name = "Anodized Lime", id = 166 },
+		{ name = "Anodized Copper", id = 167 },
+		{ name = "Anodized Bronze", id = 168 },
+		{ name = "Anodized Champagne", id = 169 },
+		{ name = "Anodized Gold", id = 170 },
+		{ name = "Green/Blue Flip", id = 171 },
+		{ name = "Green/Red Flip", id = 172 },
+		{ name = "Green/Brown Flip", id = 173 },
+		{ name = "Green/Turqoise Flip", id = 174 },
+		{ name = "Green/Purple Flip", id = 175 },
+		{ name = "Teal/Purple Flip", id = 176 },
+		{ name = "Turqoise/Red Flip", id = 177 },
+		{ name = "Turqoise/Purple Flip", id = 178 },
+		{ name = "Cyan/Purple Flip", id = 179 },
+		{ name = "Blue/Pink Flip", id = 180 },
+		{ name = "Blue/Green Flip", id = 181 },
+		{ name = "Purple/Red Flip", id = 182 },
+		{ name = "Pruple/Green Flip", id = 183 },
+		{ name = "Magenta/Green Flip", id = 184 },
+		{ name = "Magenta/Yellow Flip", id = 185 },
+		{ name = "Burgundy/Green Flip", id = 186 },
+		{ name = "Magenta/Cyan Flip", id = 187 },
+		{ name = "Copper/Purple Flip", id = 188 },
+		{ name = "Magenta/Orange Flip", id = 189 },
+		{ name = "Red/Orange Flip", id = 190 },
+		{ name = "Orange/Purple Flip", id = 191 },
+		{ name = "Orange/Blue Flip", id = 192 },
+		{ name = "White/Purple Flip", id = 193 },
+		{ name = "Red/Rainbow Flip", id = 194 },
+		{ name = "Blue/Rainbow Flip", id = 195 },
+		{ name = "Dark Green Pearl", id = 196 },
+		{ name = "Dark Teal Pearl", id = 197 },
+		{ name = "Dark Blue Pearl", id = 198 },
+		{ name = "Dark Purple Pearl", id = 199 },
+		{ name = "Oil Slick Pearl", id = 200 },
+		{ name = "Light Green Pearl", id = 201 },
+		{ name = "Light Blue Pearl", id = 202 },
+		{ name = "Light Purple Pearl", id = 203 },
+		{ name = "Light Pink Pearl", id = 204 },
+		{ name = "Off White Pearl", id = 205 },
+		{ name = "Pink Pearl", id = 206 },
+		{ name = "Yellow Pearl", id = 207 },
+		{ name = "Green Pearl", id = 208 },
+		{ name = "Blue Pearl", id = 209 },
+		{ name = "Cream Pearl", id = 210 },
+		{ name = "White Prismatic", id = 211 },
+		{ name = "Graphite Prismatic", id = 212 },
+		{ name = "Dark Blue Prismatic", id = 213 },
+		{ name = "Dark Purple Prismatic", id = 214 },
+		{ name = "Hot Pink Prismatic", id = 215 },
+		{ name = "Dark Red Prismatic", id = 216 },
+		{ name = "Dark Green Prismatic", id = 217 },
+		{ name = "Black Prismatic", id = 218 },
+		{ name = "Black Oil Spill", id = 219 },
+		{ name = "Black Rainbow", id = 220 },
+		{ name = "Black Holographic", id = 221 },
+		{ name = "White Holographic", id = 222 },
 		{ name = "Monochrome", id = 223 },
-		{ name = "Chromatic Aberration", id = 236 },
-		{ name = "Night & Day", id = 224 },
-		{ name = "The Verlierer", id = 225 },
+		{ name = "Night / Day", id = 224 },
+		{ name = "Verlierer 2", id = 225 },
 		{ name = "Sprunk Extreme", id = 226 },
 		{ name = "Vice City", id = 227 },
-		{ name = "Sunset", id = 233 },
-		{ name = "Temperature", id = 238 },
-		{ name = "Synthwave Nights", id = 228 },
+		{ name = "Synthwave", id = 228 },
 		{ name = "Four Seasons", id = 229 },
-		{ name = "The Seven", id = 234 },
 		{ name = "Maisonette 9 Throwback", id = 230 },
 		{ name = "Bubblegum", id = 231 },
 		{ name = "Full Rainbow", id = 232 },
+		{ name = "Sunsets", id = 233 },
+		{ name = "The Seven", id = 234 },
 		{ name = "Kamen Rider", id = 235 },
-		{ name = "It's Christmas", id = 237 },
+		{ name = "Chrome Abberation", id = 236 },
+		{ name = "Its Christmas", id = 237 },
+		{ name = "Temperature", id = 238 },
+		{ name = "Haos Special Works", id = 239 },
+		{ name = "Electro", id = 240 },
+		{ name = "Monika", id = 241 },
+		{ name = "Fubuki", id = 242 }
 	},
 }

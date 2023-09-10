@@ -1,46 +1,10 @@
-local QBCore = exports['qb-core']:GetCoreObject()
-RegisterNetEvent('QBCore:Client:UpdateObject', function() QBCore = exports['qb-core']:GetCoreObject() end)
-
---Don't even try to ask me how this works, found it on a tutorial site for organising tables
-function pairsByKeys(t)
-	local a = {}
-	for n in pairs(t) do a[#a+1] = n end
-	table.sort(a)
-	local i = 0
-	local iter = function() i = i + 1 if a[i] == nil then return nil else return a[i], t[a[i]] end end
-	return iter
-end
-
-function rgbToHex(r,g,b)
-	local rgb = (r * 0x10000) + (g * 0x100) + b
-	return string.format("%06x", rgb)
-end
-
-function HexTorgb(hex)
-	local hex = hex:gsub("#","")
-	return tonumber("0x"..hex:sub(1,2)), tonumber("0x"..hex:sub(3,4)), tonumber("0x"..hex:sub(5,6))
-end
-
-function cv(amount)
-    local formatted = amount
-    while true do formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2') if (k==0) then break end end
-    return formatted
-end
-
-function IsVehicleOwned(plate)
-	local p = promise.new()
-	QBCore.Functions.TriggerCallback('jim-mechanic:checkVehicleOwner', function(cb) p:resolve(cb) end, plate)
-    return Citizen.Await(p)
-end
-
---attempt at grabbing odometer info, doesn't work as mechanicjob sets it to 0 after restart
 function searchDist(vehicle)
 	local dist = ""
 	local p = promise.new()
 	QBCore.Functions.TriggerCallback('jim-mechanic:distGrab', function(cb) p:resolve(cb) end, trim(GetVehicleNumberPlateText(vehicle)))
 	dist = Citizen.Await(p)
 	if dist ~= "" then
-		if Config.distkph then
+		if Config.System.distkph then
 			dist = Loc[Config.Lan]["functions"].distance..string.format("%.2f", (math.floor(dist) * 0.001)).."Km"
 		else
 			dist = Loc[Config.Lan]["functions"].distance..string.format("%.2f", (math.floor(dist) * 0.000621371)).."Mi"
@@ -51,50 +15,30 @@ end
 
 function getClass(vehicle)
 	local classlist = {
-		"Compacts",
-		"Sedans",
-		"SUVs",
-		"Coupes",
-		"Muscle",
-		"Sports Classics",
-		"Sports",
-		"Super",
-		"Motorcycles",
-		"Off-road",
-		"Industrial",
-		"Utility",
-		"Vans",
-		"Cycles",
-		"Boats",
-		"Helicopters",
-		"Planes",
-		"Service",
-		"Emergency",
-		"Military",
-		"Commercial",
-		"Trains",
+		"Compacts", 		--1
+		"Sedans", 			--2
+		"SUVs", 			--3
+		"Coupes", 			--4
+		"Muscle", 			--5
+		"Sports Classics", 	--6
+		"Sports", 			--7
+		"Super", 			--8
+		"Motorcycles", 		--9
+		"Off-road", 		--10
+		"Industrial", 		--11
+		"Utility", 			--12
+		"Vans", 			--13
+		"Cycles", 			--14
+		"Boats", 			--15
+		"Helicopters", 		--16
+		"Planes", 			--17
+		"Service", 			--18
+		"Emergency", 		--19
+		"Military", 		--20
+		"Commercial", 		--21
+		"Trains", 			--22
 	}
-	return classlist[GetVehicleClass(vehicle) + 1]
-end
-
-function useMechJob() if GetResourceState('qb-mechanicjob') == "started" then return true else return false end end
-
-function lookVeh(vehicle)
-	if type(vehicle) == "vec3" then
-		if not IsPedHeadingTowardsPosition(PlayerPedId(), vehicle, 30.0) then
-			TaskTurnPedToFaceCoord(PlayerPedId(), vehicle, 1500)
-			if Config.Debug then print("^5Debug^7: ^2Turning Player to^7: '^6"..json.encode(vehicle).."^7'") end
-			Wait(1500)
-		end
-	else
-		if DoesEntityExist(vehicle) then
-			if not IsPedHeadingTowardsPosition(PlayerPedId(), GetEntityCoords(vehicle), 30.0) then
-				TaskTurnPedToFaceCoord(PlayerPedId(), GetEntityCoords(vehicle), 1500)
-				if Config.Debug then print("^5Debug^7: ^2Turning Player to^7: '^6"..vehicle.."^7'") end
-				Wait(1500)
-			end
-		end
-	end
+	return classlist[GetVehicleClass(vehicle) + 1], GetVehicleClass(vehicle)
 end
 
 function getClosest(coords)
@@ -111,12 +55,13 @@ function searchCar(vehicle)
 		newName = nil
 		for k, v in pairs(QBCore.Shared.Vehicles) do
 			if tonumber(v.hash) == GetEntityModel(vehicle) then
-			if Config.Debug then print("^5Debug^7: ^2Vehicle info found in^7 ^4vehicles^7.^4lua^7: ^6"..v.hash.. " ^7(^6"..QBCore.Shared.Vehicles[k].name.."^7)") end
-			newName = QBCore.Shared.Vehicles[k].name.." "..QBCore.Shared.Vehicles[k].brand.."<br>"
+			if Config.System.Debug then print("^5Debug^7: ^2Vehicle info found in^7 ^4vehicles^7.^4lua^7: ^6"..v.hash.. " ^7(^6"..QBCore.Shared.Vehicles[k].name.."^7)") end
+			newName = QBCore.Shared.Vehicles[k].name.." "..QBCore.Shared.Vehicles[k].brand
 			end
 		end
-		if Config.Debug then if not newName then print("^5Debug^7: ^2Vehicle ^1not ^2found in ^4vehicles^7.^4lua^7: ^6"..GetEntityModel(vehicle).." ^7(^6"..GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)):lower().."^7)") end end
-		if not newName then newName = string.upper(GetMakeNameFromVehicleModel(GetEntityModel(vehicle)).." "..GetDisplayNameFromVehicleModel(GetEntityModel(vehicle))).." <br>" end
+		if Config.System.Debug then if not newName then print("^5Debug^7: ^2Vehicle ^1not ^2found in ^4vehicles^7.^4lua^7: ^6"..GetEntityModel(vehicle).." ^7(^6"..GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)):lower().."^7)") end end
+		if not newName then newName = string.upper(GetMakeNameFromVehicleModel(GetEntityModel(vehicle)).." "..GetDisplayNameFromVehicleModel(GetEntityModel(vehicle))) end
+		if Config.System.Menu == "ox" then newName = newName.."\n" end
 		return newName
 	else
 		return newName
@@ -137,45 +82,45 @@ end
 -- Push as in push to every player
 -- Doubles up as a way to reduce spam of commands
 function pushVehicle(entity)
-	if Config.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Running function^7...") end
+	--if Config.System.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Running function^7...") end
 	SetVehicleModKit(entity, 0)
 	if entity ~= 0 and DoesEntityExist(entity) then
 		if not NetworkHasControlOfEntity(entity) then
-			if Config.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Requesting network control of vehicle^7.") end
+			if Config.System.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Requesting network control of vehicle^7.") end
 			NetworkRequestControlOfEntity(entity)
 			local timeout = 2000
 			while timeout > 0 and not NetworkHasControlOfEntity(entity) do
 				Wait(100)
 				timeout = timeout - 100
 			end
+			if NetworkHasControlOfEntity(entity) and Config.System.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Network has control of entity^7.") end
 		end
-		if NetworkHasControlOfEntity(entity) and Config.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Network has control of entity^7.") end
 		if not IsEntityAMissionEntity(entity) then
-			if Config.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Setting vehicle as a ^7'^2mission^7' &2entity^7.") end
+			if Config.System.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Setting vehicle as a ^7'^2mission^7' &2entity^7.") end
 			SetEntityAsMissionEntity(entity, true, true)
 			local timeout = 2000
 			while timeout > 0 and not IsEntityAMissionEntity(entity) do
 				Wait(100)
 				timeout = timeout - 100
 			end
+			if IsEntityAMissionEntity(entity) and Config.System.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Vehicle is a ^7'^2mission^7'^2 entity^7.") end
 		end
-		if IsEntityAMissionEntity(entity) and Config.Debug then print("^5Debug^7: ^3pushVehicle^7: ^2Vehicle is a ^7'^2mission^7'^2 entity^7.") end
 	end
 end
 
 local updateDelay = {}
 function updateCar(vehicle)
 	updateDelay[vehicle] = { delay = Config.updateDelay or 2, mods = QBCore.Functions.GetVehicleProperties(vehicle) }
-	if Config.Debug then print("^5Debug^7: ^2Updating database timer started/reset^7: '^6" ..updateDelay[vehicle].mods.plate.."^7' - ^4"..(updateDelay[vehicle].delay * 10).." ^2Seconds^7.") end
+	if Config.System.Debug then print("^5Debug^7: ^2Updating database timer started/reset^7: '^6" ..updateDelay[vehicle].mods.plate.."^7' - ^4"..(updateDelay[vehicle].delay * 10).." ^2Seconds^7.") end
 end
 
 function forceUpdateCar(vehicle, mods)
 	TriggerServerEvent('jim-mechanic:updateVehicle', mods, trim(mods.plate))
 	if IsVehicleOwned(trim(GetVehicleNumberPlateText(vehicle))) then
-		if Config.Debug then print("^5Debug^7: ^2Updating database mods of vehicle^7: '^6" ..mods.plate.."^7'") end
-		if useMechJob() and DoesEntityExist(vehicle) then
+		if Config.System.Debug then print("^5Debug^7: ^2Updating database mods of vehicle^7: '^6" ..mods.plate.."^7'") end
+		if Config.Repairs.ExtraDamages == true and DoesEntityExist(vehicle) then
 			local mechDamages = {}
-			local p = promise.new() QBCore.Functions.TriggerCallback('qb-vehicletuning:server:GetStatus', function(cb) p:resolve(cb) end, trim(GetVehicleNumberPlateText(vehicle)))
+			local p = promise.new() QBCore.Functions.TriggerCallback('jim-mechanic:server:GetStatus', function(cb) p:resolve(cb) end, trim(GetVehicleNumberPlateText(vehicle)))
 			mechDamages = Citizen.Await(p) or {} mechDamages.body = nil mechDamages.engine = nil
 			TriggerServerEvent('jim-mechanic:server:saveStatus', mechDamages, trim(GetVehicleNumberPlateText(vehicle)))
 		end
@@ -238,10 +183,9 @@ function nearPoint(coords)
 	return near
 end
 
-injob = nil
 function locationChecks()
 	local check = true
-	if Config.LocationRequired then
+	if Config.Main.JobLocationRequired then
 		if injob then check = true
 		else check = false triggerNotify(nil, Loc[Config.Lan]["functions"].shop, "error")
 		end
@@ -249,10 +193,16 @@ function locationChecks()
 	return check
 end
 
+
+function previewLocationChecks()
+	if not inpreview then triggerNotify(nil, "Can't Check Mods Here", "error") end
+	return inpreview
+end
+
 function jobChecks()
 	local check = true
-	if Config.RequiresJob == true then check = false
-		for k, v in pairs(Config.JobRoles) do
+	if Config.System.ItemRequiresJob == true then check = false
+		for k, v in pairs(Config.Main.JobRoles) do
 			if v == PlayerJob.name then check = true end
 		end
 		if check == false then triggerNotify(nil, Loc[Config.Lan]["functions"].mechanic, "error") check = false end
@@ -263,25 +213,51 @@ end
 function qblog(text)
 	local Player = QBCore.Functions.GetPlayerData()
 	TriggerServerEvent('qb-log:server:CreateLog', 'vehicleupgrades', GetCurrentResourceName() .. " - "..Player.charinfo.firstname.." "..Player.charinfo.lastname.."("..Player.source..") ["..Player.citizenid.."]", 'blue',	text)
+	if Config.System.Debug then print("^5QBLog Message^7: ^3"..GetCurrentResourceName() .. " - "..Player.charinfo.firstname.." "..Player.charinfo.lastname.."("..Player.source..") ["..Player.citizenid.."]^7", text) end
 end
 
-function playAnim(animDict, animName, duration, flag)
-    loadAnimDict(animDict)
-    TaskPlayAnim(PlayerPedId(), animDict, animName, 1.0, -1.0, duration, flag, 1, false, false, false)
+function Checks()
+	if not jobChecks() then return false end
+	if not locationChecks() then return false end
+	if not inCar() then return false end
+	if not nearPoint(GetEntityCoords(PlayerPedId())) then return false end
+	return true
 end
 
-function stopAnim(animDict, animName)
-    StopAnimTask(PlayerPedId(), animName, animDict)
-    unloadAnimDict(animDict)
+function vehChecks()
+	local vehicle = nil
+	local Ped = PlayerPedId()
+	if not IsPedInAnyVehicle(Ped, false) then vehicle = getClosest(GetEntityCoords(Ped)) pushVehicle(vehicle) end
+	if lockedCar(vehicle) then return end
+	if Config.Main.isVehicleOwned and not IsVehicleOwned(trim(GetVehicleNumberPlateText(vehicle))) then triggerNotify(nil, Loc[Config.Lan]["common"].owned, "error") return end
+	return vehicle
 end
 
-function trim(value)
-	if not value then return nil end
-    return (string.gsub(value, '^%s*(.-)%s*$', '%1'))
+function lookAtWheel(vehicle)
+	local found = false local Pos = nil
+	for _, v in pairs({"wheel_lf","wheel_rf","wheel_lm1","wheel_rm1","wheel_lm2","wheel_rm2","wheel_lm3","wheel_rm3","wheel_lr", "wheel_rr"}) do
+		Pos = GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, v))
+		if #(GetEntityCoords(PlayerPedId()) - Pos) <= 1.2 then	found = true break end
+	end
+	lookVeh(Pos)
+	if not found then triggerNotify(nil, Loc[Config.Lan]["common"].nearwheel, "error") else return found end
 end
+
+function lookAtEngine(vehicle)
+	local found = false local Pos = nil
+	for _, v in pairs({"engine"}) do
+		if (#(GetEntityCoords(PlayerPedId()) - GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, v))) <= 2.0) and (GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, v)) ~= vec3(0,0,0)) then
+			Pos = GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, v)) found = true break
+		else found = true Pos = vehicle end
+	end
+	lookVeh(Pos)
+	if not found then triggerNotify(nil, Loc[Config.Lan]["common"].nearengine, "error") else return found end
+end
+
+function trim(value) if not value then return nil end return (string.gsub(value, '^%s*(.-)%s*$', '%1')) end
 
 --not a function, but a widely used event
-RegisterNetEvent('jim-mechanic:client:Menu:Close', function()
+RegisterNetEvent('jim-mechanic:client:Menu:Close', function() local Ped = PlayerPedId()
 	emptyHands(PlayerPedId())
 	FreezeEntityPosition(PlayerPedId(), false)
 	local vehicle = nil
@@ -295,7 +271,7 @@ function emptyHands(playerPed, dpemote)
 	if dpemote ~= nil then TriggerEvent('animations:client:EmoteCommandStart', {"c"}) ClearPedTasks(playerPed)
 	else ClearPedTasks(playerPed) end
 	for k, v in pairs(GetGamePool('CObject')) do
-		for _, model in pairs({`prop_sponge_01`, `prop_weld_torch`, `prop_rag_01`, `prop_fib_clipboard`, `v_ind_cs_toolbox4`, `p_amb_clipboard_01`, `ng_proc_spraycan01b`}) do
+		for _, model in pairs({`prop_sponge_01`, `prop_weld_torch`, `prop_rag_01`, `prop_fib_clipboard`, `v_ind_cs_toolbox4`, `p_amb_clipboard_01`, `ng_proc_spraycan01b`, `idrp_racing_harness`}) do
 			if GetEntityModel(v) == model then
 				if IsEntityAttachedToEntity(playerPed, v) then
 					unloadModel(model)
@@ -347,98 +323,112 @@ function doCarDamage(currentVehicle, veh)
 	end
 end
 
---▓
---░
-
 function nosBar(level)
-	local full, empty = table.unpack({(Config.nosBarFull or "▓"), (Config.nosBarEmpty or "░")})
-	if Config.nosBarColour then green, yellow, red, grey = table.unpack({"green", "yellow", "red", "grey"})
-	else green, yellow, red, grey = table.unpack({"white", "white", "white", "grey"}) end
 	local bartable = {}
-	for i = 1, 10 do bartable[i] = "<span style='color:"..green.."'>"..full.."</span>" end
-	if level <= 91 then bartable[10] = "<span style='color:"..grey.."'>"..empty.."</span>" end
-	if level <= 81 then bartable[9] = "<span style='color:"..grey.."'>"..empty.."</span>" end
-	if level <= 71 then bartable[8] = "<span style='color:"..grey.."'>"..empty.."</span>" for i = 1, 7 do bartable[i] = "<span style='color:"..yellow.."'>"..full.."</span>" end end
-	if level <= 61 then bartable[7] = "<span style='color:"..grey.."'>"..empty.."</span>" end
-	if level <= 51 then bartable[6] = "<span style='color:"..grey.."'>"..empty.."</span>" end
-	if level <= 41 then bartable[5] = "<span style='color:"..grey.."'>"..empty.."</span>" end
-	if level <= 31 then bartable[4] = "<span style='color:"..grey.."'>"..empty.."</span>" for i = 1, 3 do bartable[i] = "<span style='color:"..red.."'>"..full.."</span>" end end
-	if level <= 21 then bartable[3] = "<span style='color:"..grey.."'>"..empty.."</span>" end
-	if level <= 11 then bartable[2] = "<span style='color:"..grey.."'>"..empty.."</span>" end
-	if level <= 1 then bartable[1] = "<span style='color:"..grey.."'>"..empty.."</span>" end
+	for i = 1, 10 do bartable[i] = "<span style='color:green'>░</span>" end
+	if level <= 91 then bartable[10] = "<span style='color:grey'>░</span>" end
+	if level <= 81 then bartable[9] = "<span style='color:grey'>░</span>" end
+	if level <= 71 then bartable[8] = "<span style='color:grey'>░</span>" for i = 1, 7 do bartable[i] = "<span style='color:yellow'>▓</span>" end end
+	if level <= 61 then bartable[7] = "<span style='color:grey'>░</span>" end
+	if level <= 51 then bartable[6] = "<span style='color:grey'>░</span>" end
+	if level <= 41 then bartable[5] = "<span style='color:grey'>░</span>" end
+	if level <= 31 then bartable[4] = "<span style='color:grey'>░</span>" for i = 1, 3 do bartable[i] = "<span style='color:red'>▓</span>" end end
+	if level <= 21 then bartable[3] = "<span style='color:grey'>░</span>" end
+	if level <= 11 then bartable[2] = "<span style='color:grey'>░</span>" end
+	if level <= 1 then bartable[1] = "<span style='color:grey'>░</span>" end
 	local bar = ""
 	for i = 1, 10 do bar = bar..bartable[i] end
+	if Config.System.Menu == "ox" then bar = "" end
 	return bar
 end
 
-local time = 1000
-function loadModel(model) if not HasModelLoaded(model) then
-	if Config.Debug then print("^5Debug^7: ^2Loading Model^7: '^6"..model.."^7'") end
-	while not HasModelLoaded(model) do
-		if time > 0 then time = time - 1 RequestModel(model)
-		else time = 1000 print("^5Debug^7: ^3LoadModel^7: ^2Timed out loading model ^7'^6"..model.."^7'") break
+function progressBar(data)
+	local result = nil
+	lockInv(true)
+	if Config.System.ProgressBar == "ox" then
+		if exports.ox_lib:progressBar({	duration = data.time, label = data.label, useWhileDead = data.dead or false, canCancel = data.cancel or true,
+			anim = { dict = data.dict, clip = data.anim, flag = data.flag or nil, scenario = data.task }, disable = { combat = true }, }) then
+			result = true
+			lockInv(false)
+		else
+			result = false
+			lockInv(false)
 		end
-		Wait(10)
+	else
+		QBCore.Functions.Progressbar("mechbar",	data.label,	data.time, data.dead, data.cancel,
+			{ disableMovement = true, disableCarMovement = true, disableMouse = false, disableCombat = true, },
+			{ animDict = data.dict, anim = data.anim, flags = data.flag, task = data.task }, {}, {}, function()
+				result = true
+				lockInv(false)
+		end, function()
+			result = false
+				lockInv(false)
+		end, data.icon)
 	end
-end end
-function unloadModel(model) if Config.Debug then print("^5Debug^7: ^2Removing Model^7: '^6"..model.."^7'") end SetModelAsNoLongerNeeded(model) end
-function loadAnimDict(dict)	if not HasAnimDictLoaded(dict) then if Config.Debug then print("^5Debug^7: ^2Loading Anim Dictionary^7: '^6"..dict.."^7'") end while not HasAnimDictLoaded(dict) do RequestAnimDict(dict) Wait(5) end end end
-function unloadAnimDict(dict) if Config.Debug then print("^5Debug^7: ^2Removing Anim Dictionary^7: '^6"..dict.."^7'") end RemoveAnimDict(dict) end
-function loadPtfxDict(dict)	if not HasNamedPtfxAssetLoaded(dict) then if Config.Debug then print("^5Debug^7: ^2Loading Ptfx Dictionary^7: '^6"..dict.."^7'") end while not HasNamedPtfxAssetLoaded(dict) do RequestNamedPtfxAsset(dict) Wait(5) end end end
-function unloadPtfxDict(dict) if Config.Debug then print("^5Debug^7: ^2Removing Ptfx Dictionary^7: '^6"..dict.."^7'") end RemoveNamedPtfxAsset(dict) end
+	while result == nil do Wait(10) end
+	return result
+end
 
-CreateThread(function()
-	if GetGameBuildNumber() < 2612 then for k in pairs(Loc[Config.Lan].vehicleResprayOptionsChameleon) do Loc[Config.Lan].vehicleResprayOptionsChameleon[k].id = Loc[Config.Lan].vehicleResprayOptionsChameleon[k].id - 62 end end
+function checkRestriction() local Ped = PlayerPedId()
+	local dist, nearest, restrictions = nil, nil, nil
+	for k, v in pairs(Config.Locations) do
+		if dist then
+			if #(GetEntityCoords(Ped) - v.blip.coords) <= dist then
+				dist = #(GetEntityCoords(Ped) - v.blip.coords)
+				if v.Restrictions and v.Restrictions then restrictions = v.Restrictions	end
+			end
+		else
+			dist = #(GetEntityCoords(Ped) - v.blip.coords)
+		end
+	end
+	if dist <= 80.0 then return restrictions
+	else return false end
+end
+
+function enforceRestriction(type)
+    local Restrictions = checkRestriction()
+	local restrictionTable = {}
+	if Config.Main.JobLocationRequired and Restrictions then
+        for k, v in pairs (Restrictions.Allow) do restrictionTable[v] = true end
+        if not restrictionTable[type] then
+			local typeTable = {
+				["perform"] = "You can't change performance in this location",
+				["cosmetics"] = "You can't change cosmetics in this location" ,
+				["nos"] = "You can't change NOS in this location",
+				["repairs"] = "You can't repair in this location",
+			}
+			triggerNotify(nil, typeTable[type], "error") return false end
+	end
+	return true
+end
+
+function enforceClassRestriction(class)
+    local Restrictions = checkRestriction()
+	local restrictionTable = {}
+	if Config.Main.JobLocationRequired and Restrictions then
+        for k, v in pairs(Restrictions.Vehicle) do restrictionTable[v] = true end
+        if not restrictionTable[class] then
+			triggerNotify(nil, "You can't modify "..class.." at this location", "error") return false end
+	end
+	return true
+end
+
+function convertOxRGB(string)
+	string = string:gsub("rgb", "[")
+	string = string:gsub("%(", '"')
+	string = string:gsub(",", '","')
+	string = string:gsub("%)", '"]')
+	string = string:gsub("%s", "")
+	string = json.decode(string)
+	return string
+end
+
+RegisterNetEvent('vehiclemod:client:fixEverything', function()
+    if (IsPedInAnyVehicle(PlayerPedId(), false)) then
+        local veh = GetVehiclePedIsIn(PlayerPedId(),false)
+        if not IsThisModelABicycle(GetEntityModel(veh)) and GetPedInVehicleSeat(veh, -1) == PlayerPedId() then
+            local plate = trim(GetVehicleNumberPlateText(veh))
+            TriggerServerEvent("vehiclemod:server:fixEverything", plate)
+        end
+    end
 end)
-
-function makeProp(data, freeze, synced)
-    loadModel(data.prop)
-    local prop = CreateObject(data.prop, data.coords.x, data.coords.y, data.coords.z-1.03, synced or 0, synced or 0, 0)
-    SetEntityHeading(prop, data.coords.w-180.0)
-    FreezeEntityPosition(prop, freeze or 0)
-    if Config.Debug then print("^5Debug^7: ^6Prop ^2Created ^7: '^6"..prop.."^7'") end
-    return prop
-end
-
-function triggerNotify(title, message, type, src)
-	if Config.Notify == "okok" then
-		if not src then	exports['okokNotify']:Alert(title, message, 6000, type or 'info')
-		else TriggerClientEvent('okokNotify:Alert', src, title, message, 6000, type or 'info') end
-	elseif Config.Notify == "qb" then
-		if not src then	TriggerEvent("QBCore:Notify", message, "primary")
-		else TriggerClientEvent("QBCore:Notify", src, message, "primary") end
-	elseif Config.Notify == "t" then
-		if not src then exports['t-notify']:Custom({title = title, style = type, message = message, sound = true})
-		else TriggerClientEvent('t-notify:client:Custom', src, { style = type, duration = 6000, title = title, message = message, sound = true, custom = true}) end
-	elseif Config.Notify == "infinity" then
-		if not src then TriggerEvent('infinity-notify:sendNotify', message, type)
-		else TriggerClientEvent('infinity-notify:sendNotify', src, message, type) end
-	elseif Config.Notify == "rr" then
-		if not src then exports.rr_uilib:Notify({msg = message, type = type, style = "dark", duration = 6000, position = "top-right", })
-		else TriggerClientEvent("rr_uilib:Notify", src, {msg = message, type = type, style = "dark", duration = 6000, position = "top-right", }) end
-	end
-end
-
-function toggleItem(give, item, amount) TriggerServerEvent("jim-mechanic:server:toggleItem", give, item, amount) end
-
-function HasItem(items, amount)
-	local amount = amount or 1
-    local isTable = type(items) == 'table'
-    local isArray = isTable and table.type(items) == 'array' or false
-    local totalItems = #items
-    local count = 0
-    local kvIndex = 2
-	if Config.Debug then print("^5Debug^7: ^3HasItem^7: ^2Checking if player has required item^7 '^3"..tostring(items).."^7'") end
-    for _, itemData in pairs(QBCore.Functions.GetPlayerData().items) do
-        if itemData and (itemData.name == items) then
-			if Config.Debug then print("^5Debug^7: ^3HasItem^7: ^2Item^7: '^3"..tostring(items).."^7' ^2Slot^7: ^3"..itemData.slot.." ^7x(^3"..tostring(itemData.amount).."^7)") end
-			count += itemData.amount
-		end
-	end
-	if count >= amount then
-		if Config.Debug then print("^5Debug^7: ^3HasItem^7: ^2Items ^5FOUND^7 x^3"..count.."^7") end
-		return true
-	end
-	if Config.Debug then print("^5Debug^7: ^3HasItem^7: ^2Items ^1NOT FOUND^7") end
-    return false
-end

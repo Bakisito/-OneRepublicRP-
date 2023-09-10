@@ -1,17 +1,25 @@
 Crafting = {
-	Tools = {
-		{ ["mechanic_toolsa"] = { ["iron"] = 1, } },
-		{ ["toolboxa"] = { ["iron"] = 1, } },
+	Nos = {
+		{ ["nos"] = { ["noscan"] = 1, } },
+		{ ["noscan"] = { ["steel"] = 1, } },
+		{ ["noscolour"] = { ["plastic"] = 1, } },
+	},
+	Repairs = {
+		{ ["mechanic_tools"] = { ["iron"] = 1, } },
 		{ ["ducttape"] = { ["plastic"] = 1, } },
-		{ ["paintcan"] = { ["aluminum"] = 1, } },
-		{ ["tint_supplies"] = { ["iron"] = 1, } },
-		{ ["underglow_controller"] = { ["iron"] = 1, } },
-		{ ["cleaningkit"] = { ["rubber"] = 1, } },
 		{ ["newoil"] = { ["plastic"] = 1, } },
 		{ ["sparkplugs"] = { ["metalscrap"] = 1, } },
 		{ ["carbattery"] = { ["metalscrap"] = 1, ["plastic"] = 1 } },
 		{ ["axleparts"] = { ["steel"] = 1, } },
 		{ ["sparetire"] = { ["rubber"] = 1, } },
+	},
+	Tools = {
+		{ ["toolbox"] = { ["iron"] = 1, } },
+		{ ["paintcan"] = { ["aluminum"] = 1, } },
+
+		{ ["tint_supplies"] = { ["iron"] = 1, } },
+		{ ["underglow_controller"] = { ["iron"] = 1, } },
+		{ ["cleaningkit"] = { ["rubber"] = 1, } },
 
 				-- Example : Delete me --
 		-- Support for multiple items in recipes --
@@ -20,7 +28,6 @@ Crafting = {
 		{ ["cleaningkit"] = { ["rubber"] = 5, ["engine2"] = 1, ["plastic"] = 2 },
 				["amount"] = 2, ["job"] = { ["mechanic"] = 4, ["tuner"] = 4, } },
 				-- Example : Delete me --
-
 	},
 	Perform = {
 		{ ["turbo"] = { ["steel"] = 1, } },
@@ -44,8 +51,25 @@ Crafting = {
 		{ ["suspension5"] = { ["steel"] = 1, } },
 		{ ["bprooftires"] = { ["rubber"] = 1, } },
 		{ ["drifttires"] = { ["rubber"] = 1, } },
-		{ ["nos"] = { ["noscan"] = 1, } },
-		{ ["noscan"] = { ["steel"] = 1, } },
+
+		{ ["oilp1"] = { ["steel"] = 1, } },
+		{ ["oilp2"] = { ["steel"] = 1, } },
+		{ ["oilp3"] = { ["steel"] = 1, } },
+		{ ["drives1"] = { ["steel"] = 1, } },
+		{ ["drives2"] = { ["steel"] = 1, } },
+		{ ["drives3"] = { ["steel"] = 1, } },
+		{ ["cylind1"] = { ["steel"] = 1, } },
+		{ ["cylind2"] = { ["steel"] = 1, } },
+		{ ["cylind3"] = { ["steel"] = 1, } },
+		{ ["cables1"] = { ["steel"] = 1, } },
+		{ ["cables2"] = { ["steel"] = 1, } },
+		{ ["cables3"] = { ["steel"] = 1, } },
+		{ ["fueltank1"] = { ["steel"] = 1, } },
+		{ ["fueltank2"] = { ["steel"] = 1, } },
+		{ ["fueltank3"] = { ["steel"] = 1, } },
+
+		{ ["harness"] = { ["steel"] = 1, } },
+		{ ["antilag"] = { ["steel"] = 1, } },
 	},
 	Cosmetic = {
 		{ ["hood"] = { ["plastic"] = 1, } },
@@ -64,41 +88,44 @@ Crafting = {
 		{ ["headlights"] = { ["plastic"] = 1, } },
 		{ ["rims"] = { ["iron"] = 1, } },
 		{ ["rollcage"] = { ["steel"] = 1, } },
-		{ ["noscolour"] = { ["plastic"] = 1, } },
 	},
 }
 
 Stores = {
-	ToolItems = {
-		label = Loc[Config.Lan]["stores"].tools,
+	NosItems = {
+		label = Loc[Config.Lan]["stores"].nos,
 		items = {
-			{ name = "mechanic_toolsa", price = 100, amount = 10, info = {}, type = "item", },
-			{ name = "toolboxa", price = 100, amount = 10, info = {}, type = "item", },
-			{ name = "ducttape", price = 25, amount = 100, info = {}, type = "item", },
-			{ name = "paintcan", price = 700, amount = 50, info = {}, type = "item", },
-			{ name = "tint_supplies", price = 0, amount = 50, info = {}, type = "item", },
-			{ name = "underglow_controller", price = 0, amount = 50, info = {}, type = "item", },
-			{ name = "cleaningkit", price = 20, amount = 100, info = {}, type = "item", },
+			{ name = "nos", price = 5000, amount = 10, info = {}, type = "item", },
+			{ name = "noscolour", price = 700, amount = 10, info = {}, type = "item", },
+		},
+	},
+	RepairItems = {
+		label = Loc[Config.Lan]["stores"].repairs,
+		items = {
+			{ name = "mechanic_tools", price = 10, amount = 10, info = {}, type = "item", },
+			{ name = "weapon_wrench", price = 10, amount = 150, info = {}, type = "item", },
 			--{ name = "sparetire", price = 0, amount = 100, info = {}, type = "item", },
 			{ name = "axleparts", price = 200, amount = 10, info = {}, type = "item", },
 			{ name = "carbattery", price = 100, amount = 10, info = {}, type = "item", },
 			{ name = "sparkplugs", price = 100, amount = 10, info = {}, type = "item", },
 			{ name = "newoil", price = 50, amount = 10, info = {}, type = "item", },
-			{ name = "car_jack", price = 800, amount = 10, info = {}, type = "item", },
-			{ name = "carwheel", price = 50, amount = 10, info = {}, type = "item", },
-			{ name = "kq_carjack", price = 600, amount = 10, info = {}, type = "item", },
-			{ name = "kq_drifttire", price = 650, amount = 10, info = {}, type = "item", },
-			{ name = "kq_regulartire", price = 100, amount = 10, info = {}, type = "item", },
-			{ name = "advancedrepairkit", price = 500, amount = 10, info = {}, type = "item", },
-			{ name = "mechanic_tools", price = 100, amount = 10, info = {}, type = "item", },
-
-
 
 		},
 	},
+	ToolItems = {
+		label = Loc[Config.Lan]["stores"].tools,
+		items = {
+			{ name = "mechanic_toolsa", price = 100, amount = 10, info = {}, type = "item", },
+			{ name = "toolboxa", price = 100, amount = 10, info = {}, type = "item", },
+			--{ name = "toolbox", price = 0, amount = 10, info = {}, type = "item", },
+			{ name = "ducttape", price = 25, amount = 100, info = {}, type = "item", },
+			{ name = "paintcan", price = 700, amount = 50, info = {}, type = "item", },
+			{ name = "tint_supplies", price = 0, amount = 50, info = {}, type = "item", },
+			{ name = "underglow_controller", price = 0, amount = 10, info = {}, type = "item", },
+			{ name = "cleaningkit", price = 20, amount = 10, info = {}, type = "item", },
+		},
+	},
 	PerformItems = {
-
-
 		label = Loc[Config.Lan]["stores"].perform,
 		items = {
 			{ name = "turbo", price = 1750, amount = 50, info = {}, type = "item", },
@@ -122,10 +149,32 @@ Stores = {
 			{ name = "suspension5", price = 2750, amount = 50, info = {}, type = "item", },
 			--{ name = "bprooftires", price = 0, amount = 50, info = {}, type = "item", },
 			--{ name = "drifttires", price = 0, amount = 50, info = {}, type = "item", },
-			{ name = "nos", price = 5000, amount = 10, info = {}, type = "item", },
+
+			{ name = "oilp1", price = 0, amount = 50, info = {}, type = "item", },
+			{ name = "oilp2", price = 0, amount = 50, info = {}, type = "item", },
+			{ name = "oilp3", price = 0, amount = 50, info = {}, type = "item", },
+
+			{ name = "drives1", price = 0, amount = 50, info = {}, type = "item", },
+			{ name = "drives2", price = 0, amount = 50, info = {}, type = "item", },
+			{ name = "drives3", price = 0, amount = 50, info = {}, type = "item", },
+
+			{ name = "cylind1", price = 0, amount = 50, info = {}, type = "item", },
+			{ name = "cylind2", price = 0, amount = 50, info = {}, type = "item", },
+			{ name = "cylind3", price = 0, amount = 50, info = {}, type = "item", },
+
+			{ name = "cables1", price = 0, amount = 50, info = {}, type = "item", },
+			{ name = "cables2", price = 0, amount = 50, info = {}, type = "item", },
+			{ name = "cables3", price = 0, amount = 50, info = {}, type = "item", },
+
+			{ name = "fueltank1", price = 0, amount = 50, info = {}, type = "item", },
+			{ name = "fueltank2", price = 0, amount = 50, info = {}, type = "item", },
+			{ name = "fueltank3", price = 0, amount = 50, info = {}, type = "item", },
+
+			{ name = "harness", price = 0, amount = 50, info = {}, type = "item", },
+			{ name = "antilag", price = 0, amount = 50, info = {}, type = "item", },
 		},
 	},
-	StoreItems = {
+	CosmeticItems = {
 		label = Loc[Config.Lan]["stores"].cosmetic,
 		items = {
 			{ name = "hood", price = 700, amount = 50, info = {}, type = "item", },
@@ -144,7 +193,6 @@ Stores = {
 			{ name = "headlights", price = 700, amount = 50, info = {}, type = "item", },
 			{ name = "rims", price = 700, amount = 100, info = {}, type = "item", },
 			{ name = "rollcage", price = 700, amount = 50, info = {}, type = "item", },
-			{ name = "noscolour", price = 700, amount = 50, info = {}, type = "item", },
 		},
 	},
 }
@@ -153,9 +201,13 @@ Stores = {
 	-- This is corrective code to help simplify the stores for people removing the slot info
 	-- Jim shops doesn"t use it but other inventories do
 	-- Most people don"t even edit the slots, these lines generate the slot info autoamtically
-Stores.StoreItems.slots = #Stores.StoreItems.items
-for k in pairs(Stores.StoreItems.items) do Stores.StoreItems.items[k].slot = k end
+Stores.CosmeticItems.slots = #Stores.CosmeticItems.items
+for k in pairs(Stores.CosmeticItems.items) do Stores.CosmeticItems.items[k].slot = k end
 Stores.PerformItems.slots = #Stores.PerformItems.items
 for k in pairs(Stores.PerformItems.items) do Stores.PerformItems.items[k].slot = k end
 Stores.ToolItems.slots = #Stores.ToolItems.items
 for k in pairs(Stores.ToolItems.items) do Stores.ToolItems.items[k].slot = k end
+Stores.RepairItems.slots = #Stores.RepairItems.items
+for k in pairs(Stores.RepairItems.items) do Stores.RepairItems.items[k].slot = k end
+Stores.NosItems.slots = #Stores.NosItems.items
+for k in pairs(Stores.NosItems.items) do Stores.NosItems.items[k].slot = k end

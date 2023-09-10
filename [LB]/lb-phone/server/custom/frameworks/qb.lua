@@ -208,7 +208,7 @@ CreateThread(function()
             ["trendy"] = true,
             ["instapic"] = true
         }
-        
+
         if not allowedApps[app:lower()] or (not username) or (verified ~= 1 and verified ~= 0) then
             return
         end
@@ -292,7 +292,7 @@ CreateThread(function()
     end)
 
     if Config.QBMailEvent then
-        local SendQBMail = function(phoneNumber, data)
+        local function sendQBMail(phoneNumber, data)
             if not phoneNumber then
                 return
             end
@@ -306,11 +306,14 @@ CreateThread(function()
             if data.button?.enabled then
                 actions = {
                     {
-                        label = data.button.buttonData.locationLabel,
+                        label = "button",
                         data = {
                             event = data.button.buttonEvent,
                             isServer = false,
-                            data = data.button.buttonData
+                            data = {
+                                qbMail = true,
+                                data = data.button.buttonData
+                            }
                         }
                     }
                 }
@@ -327,14 +330,17 @@ CreateThread(function()
 
         RegisterNetEvent("qb-phone:server:sendNewMail", function(data)
             local phoneNumber = GetEquippedPhoneNumber(source)
-            SendQBMail(phoneNumber, data)
+            sendQBMail(phoneNumber, data)
         end)
 
         RegisterNetEvent("qb-phone:server:sendNewMailToOffline", function(citizenid, data)
             local phoneNumber = GetEquippedPhoneNumber(citizenid)
-            SendQBMail(phoneNumber, data)
+            sendQBMail(phoneNumber, data)
+        end)
+
+        AddEventHandler("__cfx_export_qb-phone_sendNewMailToOffline", function(citizenid, data)
+            local phoneNumber = GetEquippedPhoneNumber(citizenid)
+            sendQBMail(phoneNumber, data)
         end)
     end
 end)
-
-

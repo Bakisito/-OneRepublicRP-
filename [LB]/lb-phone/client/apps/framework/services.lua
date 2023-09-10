@@ -1,4 +1,5 @@
 local lib = exports.loaf_lib:GetLib()
+local callsDisabled = false
 
 local function GetCompany(company)
     for i = 1, #Config.Companies.Services do
@@ -56,7 +57,10 @@ RegisterNUICallback("Services", function(data, cb)
     if action == "getCompanies" then
         lib.TriggerCallback("phone:services:getOnline", cb)
     elseif action == "getCompany" then
-        GetCompanyData(cb)
+        GetCompanyData(function(data)
+            data.receiveCalls = not callsDisabled
+            cb(data)
+        end)
     elseif action == "depositMoney" and Config.Companies.Management.Deposit then
         DepositMoney(data.amount, cb)
     elseif action == "withdrawMoney" and Config.Companies.Management.Withdraw then
@@ -70,6 +74,10 @@ RegisterNUICallback("Services", function(data, cb)
     elseif action == "toggleDuty" and ToggleDuty and Config.Companies.Management.Duty then
         ToggleDuty()
         cb(true)
+    elseif action == "toggleCalls" then
+        callsDisabled = not callsDisabled
+        TriggerServerEvent("phone:phone:disableCompanyCalls", callsDisabled)
+        cb(not callsDisabled)
     elseif action == "customIconClick" then
         local jobData = GetCompany(data.company)
         if jobData?.onCustomIconClick then

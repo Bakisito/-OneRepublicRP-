@@ -3,7 +3,7 @@ games {'gta5'}
 
 author 'ManKind - [https://discord.gg/39fNFepADG]'
 description 'Vehicle Keys System'
-version '1.2.6'
+version '1.2.7'
 
 lua54 'yes'
 
@@ -32,11 +32,13 @@ ui_page 'html/index.html'
 
 files {
 	'html/index.html',
-	'html/sounds/*.ogg'
+	'html/sounds/*.ogg',
+	'locales/*.json'
 }
 
 dependencies {
     'ox_lib',
+	'/onesync'
 }
 
 escrow_ignore {
@@ -44,6 +46,7 @@ escrow_ignore {
 	'config/framework_cl.lua',
 	'config/framework_sv.lua',
 	'config/inventory.lua',
+	'locales/*.json',
 	'html/sounds/*.*',
 	'itemimage/*.png',
 	'Keyfobs.sql',

@@ -1,75 +1,6 @@
 # mk_vehiclekeys
-# Vehicle Keys System [OneSync-Infinity]
+# Vehicle Keys System
 # Written by ManKind [https://discord.gg/39fNFepADG]
-
-## Features ##
-#   Main
--   Vehicle Keys system to allow players to start/stop vehicles
--   Uses One Sync Infinity (State Bags) to handle keys instead of old plate number or decor methods. Players will have keys for as long as the vehicle exists on the server (until its destroyed/garaged/server restart) even if they logout or disconnect from the server. As long as the vehicle is spawned they will not magically lose keys.
--   Easy to use exports to give players keys/check if they have keys from other scripts
--   Limit players access to flying vehicles (Job or license restrictions)
--   Locking/Unlocking state for vehicles controlled by the server (no desync of lock state between players)
-#   Framework Independant
--   Useable on all frameworks (Setup for QB-Core / ESX-Legacy by default)
--   Setup custom framework integration inside config file
--   Setup any notify system you chose to use (qb-core/esx/ox_lib/t-notify/ect)
--   All script text is inside Config so you can change to any language you like
-#   Optimized
--   Script runs at 0.0 idle and between 0.0-0.01 while you have a weapon equipped
-#   Keys as Items
--   Setup an item with metadata to be used for player owned vehicles. (Having the item allowing driving, locking and unlocking the vehicle)
--   Keyfob management menu for purchasing additional sets of keys or reprogramming your vehicle with a new fob.
-#   Hotwiring
--   Ability to hotwire vehicles (1 attempt per vehicle per player)
--   Base hotwire uses a progress bar with a chance to fail (changeable in config)
--   Ability to import any minigame for use instead of the progress bar (setup in config)
--   Police alert (setup in config)
--   Trigger custom events on successful vehicle hotwire
-#   Lockpicking
--   Setup any lockpick/advanced lockpick item in config
-#   Lockpicking Vehicle Doors
--   Ability to lockpick vehicle doors
--   Base lockpicking doors uses a progressbar with chance to fail and break picks (setup in config)
--   Ability to import any minigame for use instead of the progress bar (setup in config)
--   Police alert (setup in config)
-#   Lockpicking Vehicle Ignitions
--   Ability to lockpick vehicle ignitions
--   Base lockpick of ignitions is [ox_lib] skillCheck mini game (hard for regular lockpick/easier with advanced)
--   Ability to import any minigame for use instead of [ox_lib] skillcheck
--   Chance to break picks on win/fail (setup in config)
--   Police alert (setup in config)
--   Trigger custom events on successful vehicle ignition lockpick
-#   Carjack NPC PEDs
--   Carjack PEDs by aiming at them with a shooting type weapon (not melee)
--   All PEDs will exit the vehicle and flee. Driver will hand you the keys and run off
--   Police alert (setup in config)
-#   Steal Dead NPC PEDs Keys
--   If you drag a dead NPC out of the driver seat you will take his car keys
-#   Commands
--   [/givekey] - Give a set of keys to nearest player (command can be turned off or renamed in config)
--   [/removekey] [PlayerSource] - Remove a set of keys from a specific player (can be turned off or renamed in config)
--   [/engine]  - Toggle engine on/off (command can be turned off or renamed in config)
-#   Keybinds
--   Toggle Vehicle Locks - default [L] keybind to lock/unlock vehicle. (Can change default in config)
--   Toggle Engine - default [MouseWheelUp] keybind to toggle engine on/off (can be disabled or default changed in config)
-#   Sounds
--   Vehicle locking/unlocking plays sound for all players within a short distance
--   Can disable in config if you don't run the sound resource
-#   Restrictions
--   Enable restriction checks in config to check before allowing toggling locks (check if dead/down/cuffed)
-#   No Shuffle
--   Enable/Disable players automatically shuffling from passenger seat to driver seat if you don't have a script already doing it
-#   NPC Vehicles
--   Enable/Disable ability for parked NPC vehicles to have a chance to be locked/unlocked instead of just being able to break the window and get inside
--   Enable/Disable ability for NPC driven vehicles to be locked/unlocked while on the roadway
-#   Whitelist Vehicles
--   Any vehicle in this list will not require a set of keys to be driven and locally spawned vehicles will always be unlocked. Useful for certain vehicles like golf carts
-#   Whitelist Job Vehicles
--   Define a table with a job name and a list of vehicles. Any player who sits in (or toggles vehicle locks while close) one of the vehicles in the list with that job will automatically get a set of keys to it.
-    -   If using keyfobs you can disable this feature for player owned vehicles so that only fobs will allow use.
-#   Engine Starting
--   Disable/Enable vehicle engine starting when the accelerater key is pressed
--   Disable/Enable vehicle engine auto starting when you get in the driver seat
 
 # Requirements
 -   One Sync Infinity
@@ -86,9 +17,9 @@
         add_ace resource.ox_lib command.add_principal allow
         add_ace resource.ox_lib command.remove_principal allow
 -   Setup exports. Edit your scripts that give vehicle keys using the following export:
-    exports["mk_vehiclekeys"]:AddKey(VehicleEntity) **Client Side**
+    exports["mk_vehiclekeys"]:AddKey(vehicle) **Client Side**
     - Note that keys are given based on the vehicles client entity id (not server entity) and not the vehicles plate number.
-    exports["mk_vehiclekeys"]:AddKey(VehicleEntity, PlayerSource) **Server Side**
+    exports["mk_vehiclekeys"]:AddKey(vehicle, source) **Server Side**
     - Note that keys are given based on the vehicles server entity id (not client entity) and not the vehicles plate number.
     - For other useful exports read the **#Exports** section at the bottom of this file
     **NOTE; IF USING KEYS AS ITEM YOU STILL HAVE TO SETUP THESE EXPORTS WHEN PLAYER VEHICLES ARE SPAWNED AS THE EXPORT SYNCS THE VEHICLE WITH THE CORRECT FOB ID FROM THE DATABASE**
@@ -333,8 +264,71 @@
             -   Entity(ped).state:set('MK_Disable_CarJack', true, true)
             -   Useful if you have a script that spawns peds you don't want to give keys easily
 
-# Credits
--   [Overextended] Amazing MySQL and Lib resources! (https://github.com/overextended)
-
-# Support
--   If you need any help or have questions please reach out to me in my discord [https://discord.gg/39fNFepADG] or drop me a DM!
+## Features ##
+#   Main
+-   Vehicle Keys system to allow players to start/stop vehicles
+-   Uses One Sync Infinity (State Bags) to handle keys instead of old plate number or decor methods. Players will have keys for as long as the vehicle exists on the server (until its destroyed/garaged/server restart) even if they logout or disconnect from the server. As long as the vehicle is spawned they will not magically lose keys.
+-   Easy to use exports to give players keys/check if they have keys from other scripts
+-   Limit players access to flying vehicles (Job or license restrictions)
+-   Locking/Unlocking state for vehicles controlled by the server (no desync of lock state between players)
+#   Framework Independant
+-   Useable on all frameworks (Setup for QB-Core / ESX-Legacy by default)
+-   Setup custom framework integration inside config file
+-   Setup any notify system you chose to use (qb-core/esx/ox_lib/t-notify/ect)
+-   All script text is inside Config so you can change to any language you like
+#   Optimized
+-   Script runs at 0.0 idle and between 0.0-0.01 while you have a weapon equipped
+#   Keys as Items
+-   Setup an item with metadata to be used for player owned vehicles. (Having the item allowing driving, locking and unlocking the vehicle)
+-   Keyfob management menu for purchasing additional sets of keys or reprogramming your vehicle with a new fob.
+#   Hotwiring
+-   Ability to hotwire vehicles (1 attempt per vehicle per player)
+-   Base hotwire uses a progress bar with a chance to fail (changeable in config)
+-   Ability to import any minigame for use instead of the progress bar (setup in config)
+-   Police alert (setup in config)
+-   Trigger custom events on successful vehicle hotwire
+#   Lockpicking
+-   Setup any lockpick/advanced lockpick item in config
+#   Lockpicking Vehicle Doors
+-   Ability to lockpick vehicle doors
+-   Base lockpicking doors uses a progressbar with chance to fail and break picks (setup in config)
+-   Ability to import any minigame for use instead of the progress bar (setup in config)
+-   Police alert (setup in config)
+#   Lockpicking Vehicle Ignitions
+-   Ability to lockpick vehicle ignitions
+-   Base lockpick of ignitions is [ox_lib] skillCheck mini game (hard for regular lockpick/easier with advanced)
+-   Ability to import any minigame for use instead of [ox_lib] skillcheck
+-   Chance to break picks on win/fail (setup in config)
+-   Police alert (setup in config)
+-   Trigger custom events on successful vehicle ignition lockpick
+#   Carjack NPC PEDs
+-   Carjack PEDs by aiming at them with a shooting type weapon (not melee)
+-   All PEDs will exit the vehicle and flee. Driver will hand you the keys and run off
+-   Police alert (setup in config)
+#   Steal Dead NPC PEDs Keys
+-   If you drag a dead NPC out of the driver seat you will take his car keys
+#   Commands
+-   [/givekey] - Give a set of keys to nearest player (command can be turned off or renamed in config)
+-   [/removekey] [PlayerSource] - Remove a set of keys from a specific player (can be turned off or renamed in config)
+-   [/engine]  - Toggle engine on/off (command can be turned off or renamed in config)
+#   Keybinds
+-   Toggle Vehicle Locks - default [L] keybind to lock/unlock vehicle. (Can change default in config)
+-   Toggle Engine - default [MouseWheelUp] keybind to toggle engine on/off (can be disabled or default changed in config)
+#   Sounds
+-   Vehicle locking/unlocking plays sound for all players within a short distance
+-   Can disable in config if you don't run the sound resource
+#   Restrictions
+-   Enable restriction checks in config to check before allowing toggling locks (check if dead/down/cuffed)
+#   No Shuffle
+-   Enable/Disable players automatically shuffling from passenger seat to driver seat if you don't have a script already doing it
+#   NPC Vehicles
+-   Enable/Disable ability for parked NPC vehicles to have a chance to be locked/unlocked instead of just being able to break the window and get inside
+-   Enable/Disable ability for NPC driven vehicles to be locked/unlocked while on the roadway
+#   Whitelist Vehicles
+-   Any vehicle in this list will not require a set of keys to be driven and locally spawned vehicles will always be unlocked. Useful for certain vehicles like golf carts
+#   Whitelist Job Vehicles
+-   Define a table with a job name and a list of vehicles. Any player who sits in (or toggles vehicle locks while close) one of the vehicles in the list with that job will automatically get a set of keys to it.
+    -   If using keyfobs you can disable this feature for player owned vehicles so that only fobs will allow use.
+#   Engine Starting
+-   Disable/Enable vehicle engine starting when the accelerater key is pressed
+-   Disable/Enable vehicle engine auto starting when you get in the driver seat

@@ -5,7 +5,7 @@ lua54 'yes'
 name "um-multicharacter"
 author "uyuyorum store"
 license 'FiveM Escrow'
-version "3.3.0"
+version "4.0.0"
 description "UM - Multi Character"
 
 shared_scripts {
@@ -13,6 +13,7 @@ shared_scripts {
 	'locales/*.lua',
 	'list/*.lua',
 	'config.lua',
+	'framework/custom.lua',
 }
 
 client_scripts {
@@ -22,6 +23,7 @@ client_scripts {
 server_scripts {
 	'@oxmysql/lib/MySQL.lua',
 	'server/*.lua',
+	'framework/getskin.lua',
 }
 
 ui_page 'web/build/index.html'
@@ -33,6 +35,7 @@ files {
 	'web/build/*.png',
 	'web/build/filters/*.png',
 	'web/build/audio/*.wav',
+	'web/build/audio/*.mp3',
 }
 
 escrow_ignore {
@@ -42,6 +45,7 @@ escrow_ignore {
 	'server/qb_commands.lua',
 	'server/qb_functions.lua',
 	'server/qb_logs.lua',
+	'framework/*.lua',
 }
 
 dependencies {

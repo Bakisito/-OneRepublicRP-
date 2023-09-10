@@ -255,7 +255,7 @@ Config.Locations = {
 		["label"] = "Auto Parts",
 		["targetLabel"] = "Abrir tienda de Auto Parts",
 		["type"] = "items",
-		["job"] = "mechanic1","mechanic2","mechanic3","mechanic4","mechanic5","mechanic6",
+		["job"] = "mechanic1","mechanic2","biembo","mechanic4","mechanic5","mechanic6",
 		["model"] = {
 		`mp_f_bennymech_01`,
 		`s_m_y_xmech_01`,

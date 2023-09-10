@@ -2,9 +2,10 @@
 fx_version 'cerulean'
 games { 'gta5' }
 
-author 'Night'
+author 'Nights Software'
 description 'Air Raid Sirens'
-version '3.2.0'
+version '3.3.0'
+url 'https://store.ea-rp.com'
 lua54 'yes'
 
 ui_page "index.html"

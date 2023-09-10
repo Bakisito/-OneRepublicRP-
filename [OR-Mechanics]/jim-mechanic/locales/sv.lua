@@ -6,103 +6,27 @@ Loc["sv"] = {
 		stock = "Stock", -- Default, Original, whatever word you use for this
 		current = "För närvarande installerad",
 		noOptions = "Inga alternativ tillgängliga för denna artikel",
+		notinstall = "Not Installed",
 		installing = "Installerar",
+		installed = "Installed!",
+		instfail = " install failed!",
+		removed = "Removed!",
+		removing = "Removing ",
+		remfail = " removal failed!",
+		cant = "Can't be installed on this vehicle",
 		amountoption = "Antal alternativ: ",
 		already = " Redan installerad", -- eg. "Stock Bumper already Installed"
 		menuinstalled = " Alternativ Installerad: ", --eg "[4 Options] Installed: Grille 1"
 		nearwheel = "You need to move closer to a wheel",
-		nearengine = "You need to move closer to the engine"
+		nearengine = "You need to move closer to the engine",
+		closer = "Move closer to the headlights",
+		harness = "Attaching Racing Harness..",
 	},
-	--Performance Items
-	["armour"] = { --armour.lua
-		cant = "Armour kan inte installeras på detta fordon",
-		already = "Armour redan installerad",
-		install = "Installerar Armour..",
-		installed = "Framgång! Armour Installerad..",
-		failed = "Armour installation misslyckades!",
-		removed = "Framgång! Armour borttagen",
-		removing = "Ta bort Armour..",
-		remfail = "Borttagning av Armour misslyckades!",
-	},
-	["brakes"] = { --brakes.lua
-		cant = "Bromsar kan inte installeras på detta fordon",
-		already = "Bromsar redan installerade",
-		install = "Installation av bromsnivå: ",
-		installed = "Framgång! Bromsar installerade..",
-		failed = "Bromsinstallationen misslyckades!",
-		remove = "Framgång! Bromsar borttagna",
-		removing = "Borttagning av bromsar..",
-		remfail = "Bromsborttagning misslyckades!",
-	},
-	["engines"] = { --engines.lua
-		cant = "Motorer kan inte installeras på detta fordon",
-		already = "Motorn redan installerad",
-		install = "Installation av motornivå: ",
-		installed = "Framgång! Motor installerad..",
-		failed = "Motorinstallationen misslyckades!",
-		remove = "Framgång! Motor borttagen",
-		removing = "Ta bort motor..",
-		remfail = "Motorborttagning misslyckades!",
-	},
-	["suspension"] = { --suspension.lua
-		cant = "Fjädring kan inte installeras på detta fordon",
-		already = "Suspension redan installerad		",
-		install = "Installerar Suspension Level: ",
-		installed = "Framgång! Suspension Installerad..",
-		failed = "Suspension installation misslyckades!",
-		removed = "Framgång! Suspension borttagen",
-		removing = "Tar bort Suspension..",
-		remfail = "Suspension borttagning misslyckades!",
-	},
-	["transmission"] = { --transmission.lua
-		cant = "Transmission kan inte installeras på detta fordon",
-		already = "Transmission redan installerad",
-		install = "Installation av transmissionsnivå: ",
-		installed = "Framgång! Transmission Installed..",
-		failed = "Transmissionsinstallationen misslyckades!",
-		remove = "Framgång! Transmission borttagen",
-		removing = "Ta bort transmissionen..",
-		remfail = "Det gick inte att ta bort transmission!",
-	},
-	["tires"] = { --tires.lua
-		--Drift
-		already = "Driftdäck redan installerade",
-		install = "Installation av driftdäck..",
-		installed = "Framgång! Driftdäck installerade",
-		failed = "Driftdäckinstallationen misslyckades!",
-		remove = "Framgång! Driftdäck borttagna",
-		removing = "Tar bort Drift-däck..",
-		remfail = "Borttagning av driftdäck misslyckades!",
+	["tires"] = {
 		swap = "BulletProof-däck borttagna!",
-		--BProof
-		already2 = "Skottsäkra däck redan installerade",
-		install2 = "Installation av skottsäkra däck..",
-		installed2 = "Framgång! Skottsäkra däck installerade",
-		failed2 = "Installation av skottsäkra däck misslyckades!",
-		remove2 = "Framgång! Skottsäkra däck borttagna",
-		removing2 = "Ta bort skottsäkra däck",
-		remfail2 = "Borttagning av skottsäkert däck misslyckades!",
 		swap2 = "Driftdäck borttagna!",
 	},
-	["turbo"] = { --turbo.lua
-		already = "Turbo redan installerad",
-		install = "Installerar Turbo..",
-		installed = "Framgång! Turbo installerad..",
-		failed = "Turboinstallationen misslyckades!",
-		remove = "Framgång! Turbo borttagen",
-		removing = "Tar bort turbo..",
-		remfail = "Turboborttagning misslyckades!",
-	},
-	["xenons"] = { --xenons.lua
-		already = "Xenonstrålkastare redan installerade",
-		install = "Installerar Xenoner..",
-		installed = "Framgång! Xenonstrålkastare installerade",
-		failed = "Installation av xenonstrålkastare misslyckades!",
-		remove = "Framgång! Xenon borttaget",
-		removing = "Ta bort Xenon..",
-		remfail = "Det gick inte att ta bort xenon!",
-		closer = "Flytta dig närmare strålkastarna",
-
+	["xenons"] = {
 		notinstall = "Xenonstrålkastare ej installerade",
 		--Menus
 		neonheader1 = "Lighting Controls",
@@ -121,29 +45,17 @@ Loc["sv"] = {
 		xenonheader = "Xenon Controls",
 		xenontxt = "Adjust vehicle headlight color",
 	},
-
 	--Cosmetic Items
-	["bumpers"] = { --bumpers.lua
-		stockMod = "Stock stötfångare..",
-		installed = "Framgång! Stötfångare installerade",
-		failed = "Installation av stötfångare misslyckades!",
-		menuheader = " Kosmetik för galler och stötfångare", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["bumpers"] = {
 		menugrille = "Grill",
 		menuFBumper = "Främre stötfångare",
 		menuBBumper = "Stötfångare bak",
 	},
-	["exhaust"] = { --exhaust.lua
-		stockMod = "Stock Avgasystem..",
-		already = " redan installerad", -- eg. "Stock Bumper already Installed"
-		installed = "Framgång! Avgassystem installerat",
-		failed = "Avgasinstallationen misslyckades!",
-		menuheader = " Modifiering av avgaser", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["exhaust"] = {
+		menuheader = " Modifiering av avgaser",
 	},
-	["exterior"] = { --exterior.lua
+	["exterior"] = {
 		stockMod = "Lager Exteriör Mod..",
-		installed = "Framgång! Exteriör mod installerad",
-		failed = "Installation av exteriör mod misslyckades!",
-		menuheader = " Exteriör modifiering", --eg "Sultan RS Grille and Bumper Cosmetics"
 
 		label1 = "Trima A",
 		label2 = "Trima B",
@@ -156,23 +68,13 @@ Loc["sv"] = {
 		label9 = "Bränsletankar",
 		label10 = "Antenner",
 	},
-	["hood"] = { --hood.lua
-		stockMod = "Stock Huva..",
-		installed = "Framgång! Huva installerad",
-		failed = "Installationen av huven misslyckades!",
-		menuheader = " Huvmodifiering", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["hood"] = {
+		menuheader = " Huvmodifiering",
 	},
-	["horns"] = { --horns.lua
-		installed = "Framgång! Tuta installerat",
-		failed = "Tutinstallationen misslyckades!",
-		menuheader = " Tut Modifikation", --eg "Sultan RS Grille and Bumper Cosmetics"
+	["horns"] = {
+		menuheader = " Tut Modifikation",
 	},
-	["interior"] = { --interior.lua
-		stockMod = "Lagerinredning Mod..",
-		installed = "Framgång! Invändig interiör installerad",
-		failed = "Installation av inredningsmod misslyckades!",
-		menuheader = " Invändig modifiering", --eg "Sultan RS Grille and Bumper Cosmetics"
-
+	["interior"] = {
 		label1 = "Rullburar",
 		label2 = "Ornaments",
 		label3 = "Instrumentbrädor",
@@ -183,28 +85,21 @@ Loc["sv"] = {
 		label8 = "Plaques",
 		label9 = "Högtalare",
 	},
-	["livery"] = { --exhaust.lua
+	["livery"] = {
 		oldMod = "gammal",
-		already = " redan installerad", -- eg. "Stock Bumper already Installed"
-		installed = "Framgång! Livery installerat",
-		failed = "Livery-installationen misslyckades!",
-		menuheader = " Livery Modifiering", --eg "Sultan RS Grille and Bumper Cosmetics"
+		menuheader = " Livery Modifiering",
+		menuoldheader = " Roof Livery Modification",
 	},
-	["nos"] = { --exhaust.lua
+	["nos"] = {
 		notinstalled = "Turbo är inte installerad",
-		installing = "Framgång! Installerar NOS",
-		installed = "Framgång! NOS installerat",
-		failed = "NOS-installationen misslyckades!",
-		removing = "Tar bort NOS-flaskan",
-		removed = "NOS-flaska borttagen",
-		remfail = "Det gick inte att ta bort NOS-flaskan",
+
 		nosColour = "NOS Purge Colour",
 		boostmode = "Boost Mode",
 		purgemode = "Purge Mode",
 		boost = "Boost Power: ",
 		spray = "Spray Strength: ",
 	},
-	["paint"] = { --paints.lua
+	["paint"] = {
 		primary = "Primär",
 		secondary = "Sekundär",
 		pearl = "Pärlemorskimrande",
@@ -218,9 +113,6 @@ Loc["sv"] = {
 		metals = "Metaller",
 		chameleon = "Chameleon",
 
-		installing = "Framgång! Installerar Färg",
-		installed = "Framgång! Färg installerad",
-		failed = "Installation av färg misslyckades!",
 		menuheader = " Spraya om",
 	},
 	["paintrgb"] = {
@@ -229,24 +121,15 @@ Loc["sv"] = {
 		error = "Hexkodinmatning måste vara 6 tecken",
 		customheader = "Anpassad HEX",
 		chrome = "Krom",
-		hex = "HEX Picker",
-		rgb = "RGB-väljare",
+		hexP = "HEX Picker",
+		rgbP = "RGB-väljare",
 	},
-	["plates"] = { --paints.lua
-		already = "Plåt redan installerads!",
-		installing = "installerar plåtar..",
-		installed = "Framgång! Plåt installerad",
-		failed = "Plåt installationen misslyckades!",
-		menuheader = " Plåt Moderering",
+	["plates"] = {
 		label1 = "Plåt hållare",
 		label2 = "Vanity Plåtar",
 		label3 = "Custom Plåtar",
-		menuheader2 = " Anpassande plåt stilar",
 	},
 	["rims"] = {
-		installing = "Installera fälgar..",
-		installed = "Framgång! Fälgar monterade",
-		failed = "Installation av fälgar misslyckades!",
 		menuheader = "Modifiering av fälgar",
 
 		label1 = "Sport",
@@ -267,39 +150,25 @@ Loc["sv"] = {
 
 		labelcustom = "Anpassade fälgar		",
 	},
-	["rollcage"] = { --rollcage.lua
-		installed = "Framgång! Rullbur installerad",
-		failed = "Installationen av Roll Cage misslyckades!",
+	["rollcage"] = {
 		menuheader = " Modifiering av rullbur",
 	},
-	["roof"] = { --roof.lua
-		installed = "Framgång! Tak installerat",
-		failed = "Takinstallationen misslyckades!",
+	["roof"] = {
 		menuheader = " Takmodifiering",
 	},
-	["seat"] = { --seat.lua
-		installed = "Framgång! Säte monterad",
-		failed = "Sätesinstallationen misslyckades!",
+	["seat"] = {
 		menuheader = " Säte Modifiering",
 	},
-	["skirts"] = { --skirts.lua
-		installed = "Framgång! Skirt installerad",
-		failed = "Skirt installationen misslyckades!",
-		menuheader = " Skirt och Fender Cosmetics",
+	["skirts"] = {
 		menuskirt = "Skirts",
 		menuRF = "Höger stänkskärm",
 		menuLF = "Vänster stänkskärm",
 	},
-	["spoilers"] = { --spoilers.lua
-		installed = "Framgång! Spoiler installerad",
-		failed = "Spoilerinstallationen misslyckades!",
+	["spoilers"] = {
 		menuheader = " Modifiering av spoiler",
 	},
-	["smoke"] = { --tiresmoke.lua
+	["smoke"] = {
 		already = "Denna färg används för närvarande!",
-		installing = "Installation av däckrök..",
-		installed = "Framgång! Rök installerad",
-		failed = "Installationen av rök misslyckades!",
 		menuheader = " Modifiering av däckrök",
 
 		remove = "Ta bort rök",
@@ -318,46 +187,34 @@ Loc["sv"] = {
 		hpink = "Skrikrosa",
 		purple = "Lila",
 		blacklight = "Blacklight",
-
-		submit = "Skicka in",
 	},
-	["windows"] = { --windows.lua
-		installed = "Framgång! Nyans installerad",
-		failed = "Installationen av färgton misslyckades!",
+	["windows"] = {
 		menuheader = " Fönstertoning",
-
-		label1 = "Borttagning av nyans",
-		label2 = "Limo",
-		label3 = "Grön",
-		label4 = "Lätt Toning",
-		label5 = "Mörk Toning",
-		label6 = "Ren svart",
 	},
 	["stores"] = {
 		browse = "Bläddra i butik",
 		tools = "Mekaniska verktyg",
 		perform = "Prestandaobjekt",
 		cosmetic = "Kosmetiska föremål",
+		repairs = "Repair Items",
+		nos = "NOS Items",
 	},
-	["crafting"] = { --crafting.lua
+	["crafting"] = {
 		menuheader = "Crafting Bänk",
 		toolheader = "Mekaniska Verktyg",
+		repairheader = "Repair Items",
 		performheader = "Prestandaobjekt",
 		cosmetheader = "Kosmetiska föremål",
+		nosheader = "NOS Items",
 		numitems = " föremål", --for menu. eg. "11 items"
-		ingredients = "Du har inte rätt ingredienser",
 	},
-	["payments"] = { --payments.lua
+	["payments"] = {
 		charge = "Debitera kunden",
 	},
-	["check"] = { --check_tunes.lua
+	["check"] = {
 		plate = "Plåt: [",
 		value = "]<br>Värde: SEK",
 		unavail = "❌ Inte tillgänglig",
-		notinstall = "Inte installerad",
-		reinforced = "Förstärkt kropp",
-		xenoninst = "Xenon installerat",
-		tireinst = "Installerad",
 
 		label1 = "Motorer:",
 		label2 = "Bromsar:",
@@ -410,14 +267,8 @@ Loc["sv"] = {
 		label47 = "Ja",
 		label48 = "Nej",
 		label49 = "Vill du ta bort bromsarna?",
-		label50 = "Vill du ta bort motorn?",
-		label51 = "Vill du ta bort upphängningen?",
-		label52 = "Vill du ta bort transmissionen?",
-		label53 = "Vill du ta bort rustningen?",
-		label54 = "Vill du ta bort Turbon?",
-		label55 = "Vill du ta bort Xenon?",
-		label56 = "Vill du ta bort däcken?",
-		label57 = "Vill du lossa Nitrous?",
+		label50 = "Antilag:",
+		label51 = "Harness:",
 		label58 = "Nitrous:",
 	},
 	["repair"] = {
@@ -428,10 +279,10 @@ Loc["sv"] = {
 
 		engine = "Motor",
 		body = "Kropp",
-		radiator = "Radiator",
+		oil = "Radiator",
 		driveshaft = "Drivaxel",
-		brakes = "Bromsar",
-		clutch = "Koppling",
+		spark = "Bromsar",
+		battery = "Koppling",
 		tank = "Bränsletank",
 		replacetire = "Replace Tires",
 		tire = "Wheels",
@@ -441,7 +292,6 @@ Loc["sv"] = {
 		repaired = " Helt reparerad",
 		cancel = " Reparationen avbruten!",
 		nomaterials = "Det finns inte tillräckligt med material i kassaskåpet",
-		failinfo = "Det gick inte att hämta bilinformation, försök använda verktygen igen",
 
 		cost = "<br>Cost: ",
 		status = "Status: ",
@@ -452,6 +302,7 @@ Loc["sv"] = {
 		nocar = "Det finns inget fordon i närheten",
 	},
 	["police"] = {
+		header = "Modification Station",
 		userepair = "Använd Reparationsstation",
 		repair = "Reparera",
 		extras = "Extrafunktioner",
@@ -495,6 +346,7 @@ Loc["sv"] = {
 		nearby = "Det finns inget fordon i närheten",
 		shop = "Kan inte jobba utanför en butik",
 		mechanic = "Bara en mekaniker vet hur man gör detta",
+		checking = "Checking Stash.."
 	},
 	["servfunction"] = {
 		checkdamage = "Kontrollera fordonet för skador",
@@ -511,17 +363,15 @@ Loc["sv"] = {
 	["previews"] = {
 		changes = "Antal förändringar: ",
 	},
-	["garage"] = {
-		jobgarage = "Jobb Garage",
-		vehout = "Fordon ute ur garaget",
-		remveh = "Ta bort fordonet",
-		cantspawn = " i vägen",
-		marker = "Arbetsfordon märkt på kartan",
-		markername = "Jobb Fordon",
-	},
 	--Below are names of items/mods that can't be reteived natively
+	vehicleWindowOptions = {
+		{ name = "Limo", id = 4 },
+		{ name = "Green", id = 5 },
+		{ name = "Light Smoke", id = 3 },
+		{ name = "Dark Smoke", id = 2 },
+		{ name = "Pure Black", id = 1 }
+	},
 	vehiclePlateOptions = {
-		{ name = "Blått på vitt #1", id = 0 },
 		{ name = "Blått på vitt #2", id = 3 },
 		{ name = "Blått på vitt #3", id = 4 },
 		{ name = "Gult på blått", id = 2 },
@@ -711,21 +561,87 @@ Loc["sv"] = {
 		{ name = "Krom", id = 120 },
 	},
 	vehicleResprayOptionsChameleon = {
+		{ name = "Anodized Red", id = 161 },
+		{ name = "Anodized Wine", id = 162 },
+		{ name = "Anodized Purple", id = 163 },
+		{ name = "Anodized Blue", id = 164 },
+		{ name = "Anodized Green", id = 165 },
+		{ name = "Anodized Lime", id = 166 },
+		{ name = "Anodized Copper", id = 167 },
+		{ name = "Anodized Bronze", id = 168 },
+		{ name = "Anodized Champagne", id = 169 },
+		{ name = "Anodized Gold", id = 170 },
+		{ name = "Green/Blue Flip", id = 171 },
+		{ name = "Green/Red Flip", id = 172 },
+		{ name = "Green/Brown Flip", id = 173 },
+		{ name = "Green/Turqoise Flip", id = 174 },
+		{ name = "Green/Purple Flip", id = 175 },
+		{ name = "Teal/Purple Flip", id = 176 },
+		{ name = "Turqoise/Red Flip", id = 177 },
+		{ name = "Turqoise/Purple Flip", id = 178 },
+		{ name = "Cyan/Purple Flip", id = 179 },
+		{ name = "Blue/Pink Flip", id = 180 },
+		{ name = "Blue/Green Flip", id = 181 },
+		{ name = "Purple/Red Flip", id = 182 },
+		{ name = "Pruple/Green Flip", id = 183 },
+		{ name = "Magenta/Green Flip", id = 184 },
+		{ name = "Magenta/Yellow Flip", id = 185 },
+		{ name = "Burgundy/Green Flip", id = 186 },
+		{ name = "Magenta/Cyan Flip", id = 187 },
+		{ name = "Copper/Purple Flip", id = 188 },
+		{ name = "Magenta/Orange Flip", id = 189 },
+		{ name = "Red/Orange Flip", id = 190 },
+		{ name = "Orange/Purple Flip", id = 191 },
+		{ name = "Orange/Blue Flip", id = 192 },
+		{ name = "White/Purple Flip", id = 193 },
+		{ name = "Red/Rainbow Flip", id = 194 },
+		{ name = "Blue/Rainbow Flip", id = 195 },
+		{ name = "Dark Green Pearl", id = 196 },
+		{ name = "Dark Teal Pearl", id = 197 },
+		{ name = "Dark Blue Pearl", id = 198 },
+		{ name = "Dark Purple Pearl", id = 199 },
+		{ name = "Oil Slick Pearl", id = 200 },
+		{ name = "Light Green Pearl", id = 201 },
+		{ name = "Light Blue Pearl", id = 202 },
+		{ name = "Light Purple Pearl", id = 203 },
+		{ name = "Light Pink Pearl", id = 204 },
+		{ name = "Off White Pearl", id = 205 },
+		{ name = "Pink Pearl", id = 206 },
+		{ name = "Yellow Pearl", id = 207 },
+		{ name = "Green Pearl", id = 208 },
+		{ name = "Blue Pearl", id = 209 },
+		{ name = "Cream Pearl", id = 210 },
+		{ name = "White Prismatic", id = 211 },
+		{ name = "Graphite Prismatic", id = 212 },
+		{ name = "Dark Blue Prismatic", id = 213 },
+		{ name = "Dark Purple Prismatic", id = 214 },
+		{ name = "Hot Pink Prismatic", id = 215 },
+		{ name = "Dark Red Prismatic", id = 216 },
+		{ name = "Dark Green Prismatic", id = 217 },
+		{ name = "Black Prismatic", id = 218 },
+		{ name = "Black Oil Spill", id = 219 },
+		{ name = "Black Rainbow", id = 220 },
+		{ name = "Black Holographic", id = 221 },
+		{ name = "White Holographic", id = 222 },
 		{ name = "Monochrome", id = 223 },
-		{ name = "Chromatic Aberration", id = 236 },
-		{ name = "Night & Day", id = 224 },
-		{ name = "The Verlierer", id = 225 },
+		{ name = "Night / Day", id = 224 },
+		{ name = "Verlierer 2", id = 225 },
 		{ name = "Sprunk Extreme", id = 226 },
 		{ name = "Vice City", id = 227 },
-		{ name = "Sunset", id = 233 },
-		{ name = "Temperature", id = 238 },
-		{ name = "Synthwave Nights", id = 228 },
+		{ name = "Synthwave", id = 228 },
 		{ name = "Four Seasons", id = 229 },
-		{ name = "The Seven", id = 234 },
 		{ name = "Maisonette 9 Throwback", id = 230 },
 		{ name = "Bubblegum", id = 231 },
 		{ name = "Full Rainbow", id = 232 },
+		{ name = "Sunsets", id = 233 },
+		{ name = "The Seven", id = 234 },
 		{ name = "Kamen Rider", id = 235 },
-		{ name = "It's Christmas", id = 237 },
+		{ name = "Chrome Abberation", id = 236 },
+		{ name = "Its Christmas", id = 237 },
+		{ name = "Temperature", id = 238 },
+		{ name = "Haos Special Works", id = 239 },
+		{ name = "Electro", id = 240 },
+		{ name = "Monika", id = 241 },
+		{ name = "Fubuki", id = 242 }
 	},
 }

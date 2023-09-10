@@ -26,7 +26,7 @@ Full Credit to wildbrick142 for the inclusion of the Chameleon Paint Mod
 
 	--Performance
 	["turbo"] =             {["name"] = "turbo",            ["label"] = "Supercharger Turbo",	["weight"] = 0, ["type"] = "item",  ["image"] = "turbo.png",            ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = "Who doesn't need a 65mm Turbo??"},
-	["car_armor"]=          {["name"] = "car_armor",		["label"] = "Vehicle Armor",		["weight"] = 0, ["type"] = "item",  ["image"] = "armour.png",           ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+	["car_armor"]=          {["name"] = "car_armor",		["label"] = "Vehicle Armor",		["weight"] = 0, ["type"] = "item",  ["image"] = "car_armour.png",           ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
 
 	["nos"]=                {["name"] = "nos",				["label"] = "NOS Bottle",			["weight"] = 0, ["type"] = "item",  ["image"] = "nos.png",              ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = "A full bottle of NOS"},
 	["noscan"]=             {["name"] = "noscan",			["label"] = "Empty NOS Bottle",		["weight"] = 0, ["type"] = "item",  ["image"] = "noscan.png",           ["unique"] = false, ["useable"] = true, ["shouldClose"] = true, ["description"] = "An Empty bottle of NOS"},
@@ -55,6 +55,28 @@ Full Credit to wildbrick142 for the inclusion of the Chameleon Paint Mod
 
 	["bprooftires"]=        {["name"] = "bprooftires",		["label"] = "Bulletproof Tires",	["weight"] = 0, ["type"] = "item",  ["image"] = "bprooftires.png",      ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
 	["drifttires"]=         {["name"] = "drifttires",		["label"] = "Drift Tires",			["weight"] = 0, ["type"] = "item",  ["image"] = "drifttires.png",       ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+
+	["oilp1"]=              {["name"] = "oilp1",			["label"] = "Tier 1 Oil Pump",		["weight"] = 0, ["type"] = "item",  ["image"] = "oilp1.png",            ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+	["oilp2"]=              {["name"] = "oilp2",			["label"] = "Tier 2 Oil Pump",		["weight"] = 0, ["type"] = "item",  ["image"] = "oilp2.png",            ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+	["oilp3"]=              {["name"] = "oilp3",			["label"] = "Tier 3 Oil Pump",		["weight"] = 0, ["type"] = "item",  ["image"] = "oilp3.png",            ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+
+	["drives1"]=            {["name"] = "drives1",			["label"] = "Tier 1 Drive Shaft",	["weight"] = 0, ["type"] = "item",  ["image"] = "drives1.png",          ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+	["drives2"]=            {["name"] = "drives2",			["label"] = "Tier 2 Drive Shaft",	["weight"] = 0, ["type"] = "item",  ["image"] = "drives2.png",          ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+	["drives3"]=            {["name"] = "drives3",			["label"] = "Tier 3 Drive Shaft",	["weight"] = 0, ["type"] = "item",  ["image"] = "drives3.png",          ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+
+	["cylind1"]=            {["name"] = "cylind1",			["label"] = "Tier 1 Cylinder Head",	["weight"] = 0, ["type"] = "item",  ["image"] = "cylind1.png",          ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+	["cylind2"]=            {["name"] = "cylind2",			["label"] = "Tier 2 Cylinder Head",	["weight"] = 0, ["type"] = "item",  ["image"] = "cylind2.png",          ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+	["cylind3"]=            {["name"] = "cylind3",			["label"] = "Tier 3 Cylinder Head",	["weight"] = 0, ["type"] = "item",  ["image"] = "cylind3.png",          ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+
+	["cables1"]=            {["name"] = "cables1",			["label"] = "Tier 1 Battery Cables",["weight"] = 0, ["type"] = "item",  ["image"] = "cables1.png",          ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+	["cables2"]=            {["name"] = "cables2",			["label"] = "Tier 2 Battery Cables",["weight"] = 0, ["type"] = "item",  ["image"] = "cables2.png",          ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+	["cables3"]=            {["name"] = "cables3",			["label"] = "Tier 3 Battery Cables",["weight"] = 0, ["type"] = "item",  ["image"] = "cables3.png",          ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+
+	["fueltank1"]=          {["name"] = "fueltank1",		["label"] = "Tier 1 Fuel Tank",     ["weight"] = 0, ["type"] = "item",  ["image"] = "fueltank1.png",        ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+	["fueltank2"]=          {["name"] = "fueltank2",		["label"] = "Tier 2 Fuel Tank",     ["weight"] = 0, ["type"] = "item",  ["image"] = "fueltank2.png",        ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+	["fueltank3"]=          {["name"] = "fueltank3",		["label"] = "Tier 3 Fuel Tank",     ["weight"] = 0, ["type"] = "item",  ["image"] = "fueltank3.png",        ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+
+	["antilag"]=            {["name"] = "antilag",		    ["label"] = "AntiLag",              ["weight"] = 0, ["type"] = "item",  ["image"] = "antiLag.png",        ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
 
 	--Cosmetics
 	["underglow_controller"]={["name"] = "underglow_controller",["label"] = "Neon Controller",	["weight"] = 0, ["type"] = "item",  ["image"] = "underglow_controller.png", ["unique"] = false, ["useable"] = true, ["shouldClose"] = true, ["description"] = "RGB LED Vehicle Remote"},
@@ -94,10 +116,12 @@ Full Credit to wildbrick142 for the inclusion of the Chameleon Paint Mod
 ----------------------
 # Dependancies
 
-- This script requires `qb-menu` and `qb-input` for the menu systems
-- This script requires `qb-target` for opening stores, crafting tables, cash registers, going on duty, nos refill
+`jim-payments`
+- This script is designed to use `jim-payments` (https://github.com/jimathy/jim-payments) for charging customs and sending money to the society accounts
 
-- This script is also designed to use `jim-payments` (https://github.com/jimathy/jim-payments) for charging customs and sending money to the society accounts
+`jim-jobgarage`
+- This script makes us of `jim-jobgarage` (https://github.com/jimathy/jim-jobgarage) for creating temporary vehicles for job roles
+
 
 ----------------------
 ## NOS + Odometer
@@ -110,26 +134,83 @@ The `hasnitro` and `noslevel` columns being added enables the of saving Nitrous 
 The `traveldistance` column adds an Odometer to the toolbox/mechanic_tools menus, this this can retrieved in miles or kilometers.
 
 ----------------------
-# QB-MechanicJob
+# Extra Damages and Upgrades
 
-**You don't need `qb-mechanicjob` to use this script**
+**As of v3.0 you no longer need `qb-mechanicjob` to use any of this script**
 
 Extra damages will be enabled by default if you use `qb-mechanicjob` and `qb-vehiclefailure`
 
-This needs to be added the the main script, but if you **DON'T** want to use qb-mechanicjob but have an updated qb-vehiclefailure
-replace this event in qb-vehiclefailure > client.lua. This will make it only work if qb-mechanicjob is started.
+Extra Damages and their upgrades can be enabled in the config with `Config.Repairs.ExtraDamages = true`
+
+If you wish to enable this you need to go to `qb-vehiclefailure > client.lua` and replace `DamageRandomComponent()` with this event.
 
 ```lua
 -- Functions
-local function DamageRandomComponent()
-	if GetResourceState('qb-mechanicjob') ~= "started" then return end
-    local dmgFctr = math.random() + math.random(0, 2)
-    local randomComponent = DamageComponents[math.random(1, #DamageComponents)]
-    local randomDamage = (math.random() + math.random(0, 1)) * dmgFctr
-    exports['qb-mechanicjob']:SetVehicleStatus(QBCore.Functions.GetPlate(vehicle), randomComponent, exports['qb-mechanicjob']:GetVehicleStatus(QBCore.Functions.GetPlate(vehicle), randomComponent) - randomDamage)
-end
+local function DamageRandomComponent() exports['jim-mechanic']:DamageRandomComponent(QBCore.Functions.GetPlate(vehicle)) end
+```
+This will make `jim-mechanic` control the saving and handling of damage values
+
+----------------------
+# Harness Item
+
+The script can take control of the already in place `harness` item
+
+This can be enabled or disabled in the config with `Config.Overrides.HarnessControl == true`
+
+If you enable this, there are a few steps you need to take as this is handled in `jim-mechanic`.
+
+1. Delete the file `seatbelt.lua` from `qb-smallresources > client`
+2. REMOVE these 3 events from `qb-smallresources > server > main.lua`:
+
+```lua
+QBCore.Functions.CreateUseableItem("harness", function(source, item)
+    TriggerClientEvent('seatbelt:client:UseHarness', source, item)
+end)
+
+RegisterNetEvent('equip:harness', function(item)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+
+    if not Player then return end
+
+    if not Player.PlayerData.items[item.slot].info.uses then
+        Player.PlayerData.items[item.slot].info.uses = Config.HarnessUses - 1
+        Player.Functions.SetInventory(Player.PlayerData.items)
+    elseif Player.PlayerData.items[item.slot].info.uses == 1 then
+        TriggerClientEvent("inventory:client:ItemBox", src, QBCore.Shared.Items['harness'], "remove")
+        Player.Functions.RemoveItem('harness', 1)
+    else
+        Player.PlayerData.items[item.slot].info.uses -= 1
+        Player.Functions.SetInventory(Player.PlayerData.items)
+    end
+end)
+
+RegisterNetEvent('seatbelt:DoHarnessDamage', function(hp, data)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+
+    if not Player then return end
+
+    if hp == 0 then
+        Player.Functions.RemoveItem('harness', 1, data.slot)
+    else
+        Player.PlayerData.items[data.slot].info.uses -= 1
+        Player.Functions.SetInventory(Player.PlayerData.items)
+    end
+end)
 ```
 
+To make your hud not complain about the harness export you will need to change the name of the export to jim-mechanic
+for example:
+`ps-hud` > `client.lua` > line 80
+change:
+```lua
+    local hasHarness = exports['qb-smallresources']:HasHarness()
+```
+to:
+```lua
+    local hasHarness = exports['jim-mechanic']:HasHarness()
+```
 ----------------------
 ## Creating new polyzone for a new location
 
@@ -218,7 +299,7 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
             end
         end
         local modLivery = GetVehicleMod(vehicle, 48)
-        if GetVehicleMod(vehicle, 48) == -1 and GetVehicleLivery(vehicle) ~= 0 then modLivery = GetVehicleLivery(vehicle) end
+        modLivery = GetVehicleLivery(vehicle) ~= -1 and GetVehicleLivery(vehicle) or modLivery
         local tireHealth = {}
         local tireBurstState = {}
         local tireBurstCompletely = {}
@@ -478,6 +559,88 @@ end
 ```
 
 # Changelog:
+
+## 3.0.1
+    - Fix fueltanks kicking players/not installing
+    - Repair clipboards remove after 4 seconds
+    - Doors close when progressbars are finished when checking damages
+    - Fix extra damage upgrades not showing in the `toolbox` menu
+    - Fix issue with ox_target not telling shops what job you have
+    - ACTUALLY fix qs stash support..
+    - Fix polyzone creation repeating the wrong info
+    - Removed fuel exports infavour of Default GTA Natives
+
+## 3.0
+    Disclaimer:
+        This is a full re-write, many files have changed.
+        You will NEED to completely replace the script for it to function correctly.
+        There are alot of changes over a long period of time, so there may be more than I've listed here.
+
+    - New Features:
+        - Seatbelt and Harness control
+            - Now players get harness prop attached to them when use a vehicle harness
+            - These are persistant on each vehicle and can only be removed with the toolbox
+        - Extra Damages are now integrated into the script
+            - No need for `qb-mechanicjob` to be running aswell anymore
+            - This allows for better control and less errors related to damages
+            - Allows for new upgrades and items to be added related
+        - Support for `OX_Target`, `OX_Lib Context Menus`, `OX_Lib ProgressBars`, `OX_Inventory`, `OX_Lib's Notifications`
+        - Added new Item + Feature `AntiLag` (2step)
+            - For the boy racers
+        - Added usable `Car Lifts` to the script
+            - Specify each location in locations.lua
+            - Can take control of carlifts in locations, as long as they are two separate models eg. Gabz Tuners
+            - Server Synced
+    Changes:
+    - More Chameleon paints!
+    - Fix `SetXenon` warning Spam (hopefully)
+    - Slight change to `GetVehicleProperties` function
+        - Hopefully fixed livery issues for people
+    - Update location support for Gabz Benny's MLO
+    - Update `qs-inventory` sql support
+    - Completely Reorganised the `config.lua`
+        - Better readability and more toggles
+    - Completely rewrote `repair.lua`
+        - More Optimized, Fixed animations
+        - Removed tyre change animations as it wasn't playing well with other scripts
+        - Added an attempt to reduce `qb-mechanicjob` related spam
+        - Greatly improved stash removal of items, no more "tidyStash" exploits!
+    - Compeletly re-wrote `check_tunes.lua`
+        - Alot more optimzied and now supports `ox_lib` context menus
+        - More organised and smarterer
+    - Rewrite of `paint.lua`
+        - General Optimizations
+        - Redesign of the RGB/HEX Picker menus to accomodate `ox_lib`
+        - This merges hex and rgb menus together but adds more behind the scenes functionality
+    - Refactored and Optimized `nos.lua`
+        - General Optimizations
+        - Redesign of the RGB/HEX Picker menus to accomodate `ox_lib`
+        - This merges hex and rgb menus together but adds more behind the scenes functionality
+        - New sputtering `nos` effect for when boosting too long
+    - Refactored and Optimized `xenons.lua`
+    - Moved and refactored the `Config.Locations` to `shared/locations.lua`
+        - Moved and refactored functions from `locations.lua` to `client/locfunctions.lua`
+        - Added the ability to add certain vehicle or modification restrictions for each location
+        - eg. set a location to ONLY be able to for repairs
+    - Greatly reduced the amount of files in the script
+        - cosmetic based events all run from `cosmetics.lua`
+        - Vehicle extras are now available through `externals` item by default
+    - Added support for roof liveries, used with the livery item
+    - `police.lua` is completely replaced by a new file `emergency.lua`
+        - This is a rewrite making it possible to add any cosmetic to the emergency mech bench
+        - Locations are now kept in the config with the toggles for what should be changeable
+        - Added every possible cosmetic and several performance upgrades
+        - Added config option `LockEmergency` to lock bench to only Emergency Class vehicles
+    - Rewrote how `manualrepair.lua` benches handle calculcations
+        - You can repair vehicles with a value of $0
+    - Improved `preview.lua` functions, more optimized
+        - Exploit prevention, the plate now changes when previewing
+            - When you stop, it resets their plate
+            - This stops players saving their previewed vehicles
+        - Extras now available in the preview menu
+        - Added "Stop Previewing" button for the people who cba getting out of their car
+        - Support for RoadPhone `/preview` mail messages
+        - Fixes to preview printouts, some item names were wrong
 
 ## 2.9.8SpamFix
     - Fix for nosRefill not sending money ot society - locations.lua

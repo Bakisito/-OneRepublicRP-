@@ -5,7 +5,7 @@ Config.MinHour = 22
 Config.MaxHour = 4
 -----------------------------------------------------------------------------------------------------------
 Config.allowedJobs = {--Players with that job are not restricted with the clocking above
-"mechanic1","mechanic2","mechanic3","mechanic4","mechanic5"
+"mechanic1","mechanic2","biembo","mechanic4","mechanic5"
 }
 
 Config.onlyOwnedVehicles = true -- This will restrict the Jack to be only used in player owned vehicles

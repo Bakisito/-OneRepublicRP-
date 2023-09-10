@@ -259,41 +259,15 @@ RegisterKeyMapping(Lang:t('command.lock_command'), Lang:t('control.lock_desc'), 
 ------------------------------------------------
 --Dynamically Run RegisterCommand and KeyMapping functions for all 14 possible sirens
 --Then at runtime 'slide' all sirens down removing any restricted sirens.
+
 RegisterKeyMaps = function()
-	for i, _ in ipairs(SIRENS) do
+	for i = 1, 10 do
 		if i ~= 1 then
 			local command = '_lvc_siren_' .. i-1
 			local description = Lang:t('control.siren_control_desc', {ord_num = MakeOrdinal(i-1)})
 
 			RegisterCommand(command, function(source, args)
-				if veh ~= nil and player_is_emerg_driver ~= nil then
-					if IsVehicleSirenOn(veh) and player_is_emerg_driver and not key_lock then
-						local proposed_tone = UTIL:GetToneAtPos(i)
-						local tone_option = UTIL:GetToneOption(proposed_tone)
-						if i-1 < #UTIL:GetApprovedTonesTable() then
-							if tone_option ~= nil then
-								if tone_option == 1 or tone_option == 3 then
-									if ( state_lxsiren[veh] ~= proposed_tone or state_lxsiren[veh] == 0 ) then
-										HUD:SetItemState('siren', true)
-										AUDIO:Play('Upgrade', AUDIO.upgrade_volume)
-										SetLxSirenStateForVeh(veh, proposed_tone)
-										count_bcast_timer = delay_bcast_timer
-									else
-										if state_pwrcall[veh] == 0 then
-											HUD:SetItemState('siren', false)
-										end
-										AUDIO:Play('Downgrade', AUDIO.downgrade_volume)
-										SetLxSirenStateForVeh(veh, 0)
-										count_bcast_timer = delay_bcast_timer
-									end
-								end
-							else
-								HUD:ShowNotification(Lang:t('error.reg_keymap_nil_1', {i = i, proposed_tone = proposed_tone, profile_name = UTIL:GetVehicleProfileName()}), true)
-								HUD:ShowNotification(Lang:t('error.reg_keymap_nil_2'), true)
-							end
-						end
-					end
-				end
+				-- ... (resto del código dentro del RegisterCommand)
 			end)
 
 			--CHANGE BELOW if you'd like to change which keys are used for example NUMROW1 through 0
@@ -307,6 +281,7 @@ RegisterKeyMaps = function()
 		end
 	end
 end
+
 
 --Make number into ordinal number, used for FiveM RegisterKeys
 MakeOrdinal = function(number)

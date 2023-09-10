@@ -17,7 +17,7 @@ Animation.ScenarioList = {
 Animation.Export = function(emoteName)
     Wait(100)
     TriggerEvent('animations:client:EmoteCommandStart',{emoteName})
-    -- or
+    -- -- -- or
     -- exports["rpemotes"]:EmoteCommandStart(emoteName, 0)
 end
 
