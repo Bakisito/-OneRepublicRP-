@@ -20,6 +20,56 @@ Notify = function(msg, type)
     QBCore.Functions.Notify(msg, type)
 end
 
+RegisterNetEvent("ds-mining:sellstuff")
+AddEventHandler("ds-mining:sellstuff", function()
+    if Config.BulkSelling then
+        TriggerServerEvent('ds-mining:server:sellstuff', true)
+    else
+        local newdx = {}
+        for k,v in pairs(Config.SellingPrices) do
+            table.insert(newdx, { value = k, text = v.label , label = v.label})
+        end
+
+        if Config.Input == 'ox-lib' then
+
+            local dialog = lib.inputDialog(Language['sell_mining'], {
+                {type = 'select', label = Language['select_item'], options = newdx, required = true},
+                {type = 'number', label = Language['amount'], required = true, min = 1},
+            })
+            if not dialog then return end
+            if tonumber(dialog[2]) > 0 then
+                TriggerServerEvent('ds-mining:server:sellstuff',false, dialog[1], tonumber(dialog[2]))
+            end
+
+        else
+            local dialog = exports['qb-input']:ShowInput({
+                header = Language['sell_mining'],
+                submitText = Language['sell'],
+                inputs = {
+                    {
+                        text = Language['select_item'],
+                        name = "metal",
+                        type = "select",
+                        options = newdx
+                    },
+
+                    {
+                        text = Language['amount'],
+                        name = "amount",
+                        type = "number",
+                        isRequired = true
+                    },
+                },
+            })
+            if dialog ~= nil then
+                if tonumber(dialog['amount']) > 0 then
+                    TriggerServerEvent('ds-mining:server:sellstuff',false, dialog['metal'], tonumber(dialog['amount']))
+                end
+            end
+        end
+    end
+end)
+
 
 Progressbar = function(label, time)
     local retval = false
@@ -75,7 +125,7 @@ AddEventHandler("ds-mining:openfoodshop", function()
     ShopItems.label = Language['mining_shop']
     ShopItems.items = Config.FoodShopItems
     ShopItems.slots = #Config.FoodShopItems
-    TriggerServerEvent("jim-shops:ShopOpen", "shop", "Miningshop_"..math.random(1, 99), ShopItems)
+    TriggerServerEvent("inventory:server:OpenInventory", "shop", "Miningshop_"..math.random(1, 99), ShopItems)
 end)
 
 RegisterNetEvent("ds-mining:buystuff")
@@ -84,13 +134,7 @@ AddEventHandler("ds-mining:buystuff", function()
     ShopItems.label = Language['mining_shop']
     ShopItems.items = Config.MineShopItems
     ShopItems.slots = #Config.MineShopItems
-    TriggerServerEvent("jim-shops:ShopOpen", "shop", "Miningshop_"..math.random(1, 99), ShopItems)
-end)
-
-
-RegisterNetEvent("ds-mining:removeitem")
-AddEventHandler("ds-mining:removeitem", function(item, qty)
-    TriggerServerEvent("ds-mining:removeQBItem", item, qty)
+    TriggerServerEvent("inventory:server:OpenInventory", "shop", "Miningshop_"..math.random(1, 99), ShopItems)
 end)
 
 DrawText3Ds = function(x, y, z, text)
@@ -110,14 +154,143 @@ end
 
 
 helpText = function(msg)
-    -- BeginTextCommandDisplayHelp('STRING')
-    -- AddTextComponentSubstringPlayerName(msg)
-    -- EndTextCommandDisplayHelp(0, false, true, -1)
-    QBCore.Functions.Notify(msg, "info")
-
+    BeginTextCommandDisplayHelp('STRING')
+    AddTextComponentSubstringPlayerName(msg)
+    EndTextCommandDisplayHelp(0, false, true, -1)
 end
 
 
 CustomCoolDown = function()
     return true
 end
+
+CreateSpotBlips = function(newlocation)
+    SpotBlips[currentspot] = {}
+    for k,v in pairs(Config.Mining) do
+        if v.spot == newlocation then
+            local blip = AddBlipForCoord(v.coords)
+            SetBlipScale(blip, Config.Blip['c4_blip'].Scale)
+            SetBlipSprite(blip, Config.Blip['c4_blip'].Sprite)
+            SetBlipColour(blip, Config.Blip['c4_blip'].Color)
+            SetBlipAsShortRange(blip, true)
+            BeginTextCommandSetBlipName("STRING")
+            AddTextComponentString(Config.Blip['c4_blip'].Label)
+            EndTextCommandSetBlipName(blip)
+            table.insert(SpotBlips[currentspot], blip)
+        end
+    end
+end
+
+CreatemineBlip = function(bool)
+    if bool then
+        mineblip = AddBlipForCoord(vector3(2938.42, 2744.78, 43.26))
+        SetBlipScale(mineblip, Config.Blip['main_blip'].Scale)
+        SetBlipSprite(mineblip, Config.Blip['main_blip'].Sprite)
+        SetBlipColour(mineblip, Config.Blip['main_blip'].Color)
+        SetBlipAsShortRange(mineblip, true)
+        BeginTextCommandSetBlipName("STRING")
+        AddTextComponentString(Config.Blip['main_blip'].Label)
+        EndTextCommandSetBlipName(mineblip)
+    else
+        RemoveBlip(mineblip)
+        mineblip = nil
+    end
+end
+
+RegisterNetEvent("ds-mining:selectdiamond")
+AddEventHandler("ds-mining:selectdiamond", function()
+
+    local newdx = {}
+    for k,v in pairs(Config.ItemProcess) do
+        if not v.usemelt then
+            table.insert(newdx, { value = k, text = v.label , label = v.label})
+        end
+    end
+
+    if Config.Input == 'ox-lib' then
+
+        local dialog = lib.inputDialog(Language['shape_item'], {
+            {type = 'select', label = Language['select_item'], options = newdx, required = true},
+            {type = 'number', label = Language['amount'], required = true, min = 1},
+        })
+        if not dialog then return end
+        if tonumber(dialog[2]) > 0 then
+            TriggerEvent('ds-mining:processdiamonds', dialog[1], tonumber(dialog[2]))
+        end
+
+    else
+        local dialog = exports['qb-input']:ShowInput({
+            header = Language['shape_item'],
+            submitText = Language['start_working'],
+            inputs = {
+                {
+                    text = Language['start_working'],
+                    name = "metal",
+                    type = "select",
+                    options = newdx
+                },
+
+                {
+                    text = "Amount",
+                    name = "amount",
+                    type = "number",
+                    isRequired = true
+                },
+            },
+        })
+        if dialog ~= nil then
+            if tonumber(dialog['amount']) > 0 then
+                TriggerEvent('ds-mining:processdiamonds', dialog['metal'], tonumber(dialog['amount']))
+            end
+        end
+    end
+end)
+
+
+RegisterNetEvent("ds-mining:enteramount")
+AddEventHandler("ds-mining:enteramount", function()
+    local newdx = {}
+    for k,v in pairs(Config.ItemProcess) do
+        if v.usemelt then
+            table.insert(newdx, { value = k, text = v.label , label = v.label })
+        end
+    end
+
+    if Config.Input == 'ox-lib' then
+        local dialog = lib.inputDialog(Language['melt_metal'], {
+            {type = 'select', label = Language['select_item'], options = newdx, required = true},
+            {type = 'number', label = Language['amount'], required = true, min = 1},
+        })
+        if not dialog then return end
+
+        if tonumber(dialog[2]) > 0 then
+            TriggerEvent('ds-mining:meltmetals', dialog[1], tonumber(dialog[2]))
+        end
+    else
+        local dialog = exports['qb-input']:ShowInput({
+            header = Language['melt_metal'],
+            submitText = Language['start_melting'],
+            inputs = {
+                {
+                    text = Language['select_item'],
+                    name = "metal",
+                    type = "select",
+                    options = newdx
+                },
+
+                {
+                    text = "Amount",
+                    name = "amount",
+                    type = "number",
+                    isRequired = true
+                },
+            },
+        })
+        if dialog ~= nil then
+
+            if tonumber(dialog['amount']) > 0 then
+                TriggerEvent('ds-mining:meltmetals', dialog['metal'], tonumber(dialog['amount']))
+            end
+        end
+    end
+end)

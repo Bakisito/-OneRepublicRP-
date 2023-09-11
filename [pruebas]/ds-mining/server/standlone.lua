@@ -6,10 +6,12 @@ else
     TriggerEvent(Config.Object.event, function(obj) QBCore = obj end)
 end
 
-RegisterNetEvent("ds-mining:removeQBItem")
-AddEventHandler("ds-mining:removeQBItem",function(item, qty)
-    local src = source
-    RemoveItem(src, item, qty)
+QBCore.Functions.CreateCallback("ds-mining:server:removeitem",function(source, cb, item, qty)
+    if RemoveItem(source, item, qty) then
+        cb(true)
+    else
+        cb(false)
+    end
 end)
 
 AddItem = function(src, item, qty)
@@ -71,5 +73,14 @@ QBCore.Functions.CreateCallback('ds-mining:server:getdata', function(source, cb)
             MineData[license] = {}
             cb(MineData[license])
         end
+    end
+end)
+
+RegisterServerEvent("ds-mining:getunwashed")
+AddEventHandler("ds-mining:getunwashed", function(item)
+    local src = source
+    if item then
+        AddItem(source,item,1)
+        Notify(src, Language['mined']..item, "success")
     end
 end)

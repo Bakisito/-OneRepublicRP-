@@ -1,4 +1,4 @@
-Mining for QBCOre & ESX 
+Mining for QBCore & ESX
 
 [Installation]
 > docs - https://docs.dolajiscripts.com/resources/ds-mining

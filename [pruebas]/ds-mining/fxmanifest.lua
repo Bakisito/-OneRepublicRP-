@@ -26,6 +26,7 @@ escrow_ignore {
     'language.lua',
     'client/standlone.lua',
     'server/standlone.lua',
+    'server/server.lua',
 }
 
 

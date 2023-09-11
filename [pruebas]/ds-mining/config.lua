@@ -3,14 +3,14 @@ Config = {}
 Config.Object = {
     usingexport = true, --- disable this if you are not using latest qbcore version. Note: Set to false for non qbcore versions.
     CoreName = 'qb-core', --- your core name for export.
-    event = "QBCore:GetObject()",  -- fill this if you disable usingexport.
+    event = "QBCore:GetObject",  -- fill this if you disable usingexport.
 }
 
 Config.Input = "ox-lib" --- ("ox-lib", "qb-input") input script will be used for menus (uncomment line no-14 in fxmanifest.lua if you using ox-lib)
-Config.UseGlobalCoolDown = true  --- Enable if you want to set mine location cooldown for all players.
-Config.EyeTarget = "qb-target"  --- you can use qtarget or qb-target
-Config.CoolDown = 30  ---- CoolDown in minutes for reset all locations.
 Config.UseDrawText = false ---- set to false if you want to use eye target.
+Config.UseGlobalCoolDown = true  --- Enable if you want to set mine location cooldown for all players.
+Config.EyeTarget = "qb-target"  --- you can use ox_target or qb-target
+Config.CoolDown = 30  ---- CoolDown in minutes for reset all locations.
 Config.RequireJob = false --- enable this if you want to use job only.
 Config.JobName = "mining" --- job name Note: make sure you add job in your server accordingly your framework.
 Config.UseburnFire = true --- on/off fire on melting
@@ -64,7 +64,7 @@ Config.RewardOnStoneQty = { --- this qty will be multi by per stone
 }
 
 
-Config.BulkSelling = true ---- sell all items at time.
+Config.BulkSelling = false ---- sell all items at time.
 Config.SellingPrices = {
     ["ds_diamond"] = {label = "Diamante", price = math.random(100,150)},
     ["copper_bar"] = {label = "Barra de Cobre", price = math.random(100,150)},
@@ -172,45 +172,7 @@ Config.MineShopItems = { -- Food Shop
 
 
 CreateEntityTarget = function(data) --- Eye Target Function chnage if you are using diffrent script
-    if Config.EyeTarget == 'qtarget' then
-        if data.work == 'first' then
-            exports.qtarget:AddEntityZone("mining-"..data.object, data.object, {
-                name="mining-"..data.object,
-                debugPoly=false,
-                useZ = true
-                    }, {
-                    options = {
-                        {
-                            event = data.event,
-                            icon = "fas fa-eye",
-                            label = data.label,
-                            object = data.object,
-                            area = data.area,
-                            propno = data.propno
-                        },
-                    },
-                    distance = 2.5
-                })
-
-        else
-            exports.qtarget:AddEntityZone("mining-"..data.object, data.object, {
-                name="mining-"..data.object,
-                debugPoly=false,
-                useZ = true
-                    }, {
-                    options = {
-                        {
-                            event = data.event,
-                            icon = "fas fa-eye",
-                            label = data.label,
-                            object = data.object,
-                        },
-                    },
-                    distance = 2.5
-                })
-
-        end
-    elseif  Config.EyeTarget == 'qb-target' then
+   if  Config.EyeTarget == 'qb-target' then
         if data.work == 'first' then
             exports['qb-target']:AddEntityZone("mining-"..data.object, data.object, {
                 name = "mining-"..data.object,
@@ -249,66 +211,128 @@ CreateEntityTarget = function(data) --- Eye Target Function chnage if you are us
                 distance = 2.5
             })
         end
+    elseif Config.EyeTarget == 'ox_target' then
+        if data.work == 'first' then
+            exports.ox_target:addLocalEntity(data.object, {
+                label = data.label,
+                name = "mining-"..data.object,
+                icon = "fas fa-eye",
+                distance = 2.5,
+                event = data.event,
+                object = data.object,
+                area = data.area,
+                propno = data.propno
+            })
+        else
+            exports.ox_target:addLocalEntity(data.object, {
+                label = data.label,
+                name = "mining-"..data.object,
+                icon = "fas fa-eye",
+                distance = 2.5,
+                event = data.event,
+                object = data.object,
+            })
+        end
     end
+
 end
 
 
 CreateBoxTarget = function(createdPed,v) --- Eye Target Function chnage if you are using diffrent script
-    if v.type == 'buying' then
-        exports['qb-target']:AddBoxZone("buying", v.coordinates, 0.70, 0.70, {
-            name="buying",
-            heading= v.heading,
-            debugPoly=false,
-            minZ=v.coordinates.z-0.9,
-            maxZ=v.coordinates.z+0.9,
-            }, {
-                options = {
-                    {
-                        type = "client",
-                        event = 'ds-mining:buystuff',
-                        icon = "fas fa-eye",
-                        label = Language['buy_mining'],
+    if Config.EyeTarget == "qb-target" then
+        if v.type == 'buying' then
+            exports['qb-target']:AddBoxZone("buying", v.coordinates, 0.70, 0.70, {
+                name="buying",
+                heading= v.heading,
+                debugPoly=false,
+                minZ=v.coordinates.z-0.9,
+                maxZ=v.coordinates.z+0.9,
+                }, {
+                    options = {
+                        {
+                            type = "client",
+                            event = 'ds-mining:buystuff',
+                            icon = "fas fa-eye",
+                            label = Language['buy_mining'],
+                        },
                     },
-                },
-                distance = 3.5
-        })
-    elseif v.type == 'selling' then
-        exports['qb-target']:AddBoxZone("selling", v.coordinates, 0.70, 0.70, {
-            name="selling",
-            heading= v.heading,
-            debugPoly=false,
-            minZ=v.coordinates.z-0.9,
-            maxZ=v.coordinates.z+0.9,
-            }, {
-                options = {
-                    {
-                        type = "client",
-                        event = 'ds-mining:sellstuff',
-                        icon = "fas fa-eye",
-                        label = Language['sell_stuff'],
-                    },
+                    distance = 3.5
+            })
+        elseif v.type == 'selling' then
+            exports['qb-target']:AddBoxZone("selling", v.coordinates, 0.70, 0.70, {
+                name="selling",
+                heading= v.heading,
+                debugPoly=false,
+                minZ=v.coordinates.z-0.9,
+                maxZ=v.coordinates.z+0.9,
+                }, {
+                    options = {
+                        {
+                            type = "client",
+                            event = 'ds-mining:sellstuff',
+                            icon = "fas fa-eye",
+                            label = Language['sell_stuff'],
+                        },
 
+                    },
+                    distance = 3.5
+            })
+        else
+            exports['qb-target']:AddBoxZone(v.label, v.coords, v.length, v.width, {
+                name = v.label,
+                heading = v.heading,
+                debugPoly = false,
+                minZ = v.coords.z-0.9,
+                maxZ = v.coords.z+0.9,
+            }, {
+                options = {
+                    {
+                        type = v.type,
+                        event = v.event,
+                        icon = "fas fa-eye",
+                        label = v.label,
+                    },
                 },
-                distance = 3.5
-        })
-    else
-        exports['qb-target']:AddBoxZone(v.label, v.coords, v.length, v.width, {
-            name = v.label,
-            heading = v.heading,
-            debugPoly = false,
-            minZ = v.coords.z-0.9,
-            maxZ = v.coords.z+0.9,
-        }, {
-            options = {
-                {
-                    type = v.type,
-                    event = v.event,
-                    icon = "fas fa-eye",
-                    label = v.label,
-                },
-            },
-            distance = 2.5
-        })
+                distance = 2.5
+            })
+        end
+    elseif Config.EyeTarget == 'ox_target' then
+        if v.type == 'buying' then
+            exports.ox_target:addLocalEntity(createdPed, {
+                label = Language['buy_mining'],
+                name = "mining-buying",
+                icon = "fas fa-eye",
+                distance = 2.5,
+                event = 'ds-mining:buystuff',
+            })
+
+        elseif v.type == 'selling' then
+
+            exports.ox_target:addLocalEntity(createdPed, {
+                label = Language['sell_stuff'],
+                name = "mining-selling",
+                icon = "fas fa-eye",
+                distance = 2.5,
+                event = 'ds-mining:sellstuff',
+            })
+        else
+            exports.ox_target:addBoxZone({
+                coords = v.coords,
+                size = vec3(v.length, v.width, 2),
+                rotation = v.heading,
+                debug = false,
+                options = {
+                    {
+                        name = v.label,
+                        icon = "fas fa-eye",
+                        label = v.label,
+                        items =  false,
+                        distance = 2,
+                        event = v.event,
+                    }
+                }
+            })
+        end
     end
 end
 
