@@ -5,7 +5,7 @@
 
 
 Config = {
-	Debug = false, -- allows you to restart script while in-game, otherwise u need to restart fivem.
+	Debug = true, -- allows you to restart script while in-game, otherwise u need to restart fivem.
     ProgressBars = true, -- set to false if you do not use progressBars or using your own
 	BuyWithBank = true, -- buy company with bank money, false = cash.
 	SalePercentage = 0.55, -- sell percentage when selling a mech shop.

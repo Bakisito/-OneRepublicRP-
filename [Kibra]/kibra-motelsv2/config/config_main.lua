@@ -22,7 +22,7 @@ Config.UIFixCommand = "uifix" -- Closes all UI screens that remain open on your 
 
 Config.BillingLabel = "Motel Room Bill" -- When the Motel room rent invoice is issued to the player, the text that will appear as the title of the invoice.
 
-Config.BillingCheckTime = 30 -- This is the time period that determines how long the player will pay a motel room rent. You can type in seconds.
+Config.BillingCheckTime = 43200 -- This is the time period that determines how long the player will pay a motel room rent. You can type in seconds.
 
 Config.PoliceJob = "police"
 
