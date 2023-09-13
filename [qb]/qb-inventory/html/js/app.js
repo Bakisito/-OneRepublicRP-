@@ -595,6 +595,20 @@ function FormatItemInfo(itemData) {
         } else if (itemData.name == "carkey") {
             $(".item-info-title").html('<p>'+itemData.label+'</p>')
             $(".item-info-description").html("<p><strong>Brand: </strong>" + itemData.info.brand + "</p><p><strong>Name: </strong>" + itemData.info.name + "</p><p><strong>Vehicle ID: </strong>" + itemData.info.id + "</p><p><strong>Plate: </strong>" + itemData.info.plate + "</p>");
+        } else if (itemData.name == "rentalpapers") {
+            $(".item-info-title").html('<p>' + itemData.label + '</p>')
+            $(".item-info-description").html('<p><strong>First Name: </strong><span>'+ itemData.info.firstname + '</span></p><p><strong>Last Name: </strong><span>'+ itemData.info.lastname +
+            '</span></p><p><strong>Vehicle Model: </strong><span>'+ itemData.info.model + '</span></p><p><strong>License Plate: </strong><span>'+ itemData.info.plate+
+            '</span></p><p><strong>Rental Date: </strong><span>'+ itemData.info.date + '</span></p><p><strong>Rented At: </strong><span>'+ itemData.info.rentedtime + '</span></p><p><strong>Rental Until: </strong><span>'+ 
+            itemData.info.rentaltime);
+        } else if (itemData.name == "rentalkeys") {
+            $(".item-info-title").html("<p>" + itemData.label + "</p>");
+            $(".item-info-description").html(
+                "<p><strong>Vehicle: </b> " + "<a style=\"font-size:bold;color:yellow\">" +
+                itemData.info.vehicle +"</a>" +
+                "</span></p><p><strong>Vehicle Plate: </b> " + "<a style=\"font-size:bold;color:yellow\">" +
+                itemData.info.plate +"</a>"
+            );    
         } else if (itemData.name == "stickynote") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html("<p>" + itemData.info.label + "</p>");

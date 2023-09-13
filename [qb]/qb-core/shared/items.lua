@@ -1527,4 +1527,7 @@ QBShared.Items = {
 	
 	["rope"] = {["name"] = "rope", ["label"] = "Rope", ["weight"] = 10, ["type"] = "item", ["image"] = "rope1.png", ["unique"] = false, ["useable"] = true, ["shouldClose"] = true, ["combinable"] = nil, ["description"] = ""},
 
+	['rentalpapers'] 				 = {['name'] = 'rentalpapers', 			  	  	['label'] = 'Documentos de alquiler', 			['weight'] = 0, 		['type'] = 'item', 		['image'] = 'documents.png', 			['unique'] = true, 		['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = ''},
+	['rentalkeys'] 				 = {['name'] = 'rentalkeys', 			  	  	['label'] = 'Llaves de alquiler', 			['weight'] = 0, 		['type'] = 'item', 		['image'] = 'rentalkeys.png', 			['unique'] = true, 		['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = ''},
+
 }
