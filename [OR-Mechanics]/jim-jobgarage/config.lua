@@ -51,7 +51,7 @@ Config = {
 				},
 			},
 		},
-		{ 	zoneEnable = true,
+		{ 	zoneEnable = false,
 			job = "police",
 			garage = {
 				spawn = vec4(435.41, -975.93, 25.31, 90.86),
@@ -75,7 +75,7 @@ Config = {
 				},
 			},
 		},
-		{ 	zoneEnable = true,
+		{ 	zoneEnable = false,
 			job = "ambulance",
 			garage = {
 				spawn = vec4(294.95, -606.92, 43.24, 64.84),

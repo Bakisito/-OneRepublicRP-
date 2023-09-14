@@ -86,7 +86,7 @@ if Config.PoliceAlerts.ENABLE then
             message = L('policealerts_gunshots_message_2', data.sex, weapon_name, data.street)
         end
         TriggerClientEvent('cd_dispatch:AddNotification', -1, {
-            job_table = Config.PoliceAlerts.police_jobs,
+            job_table = {'police','ambulance'},
             coords = data.coords,
             title = L('policealerts_gunshots_title'),
             message = message,

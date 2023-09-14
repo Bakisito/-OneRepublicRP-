@@ -51,7 +51,25 @@ function OnDeath()
                 loadAnimDict(deadAnimDict)
                 TaskPlayAnim(player, deadAnimDict, deadAnim, 1.0, 1.0, -1, 1, 0, 0, 0, 0)
             end
-            TriggerServerEvent('hospital:server:ambulanceAlert', Lang:t('info.civ_died'))
+            local data = exports['cd_dispatch']:GetPlayerInfo()
+            TriggerServerEvent('cd_dispatch:AddNotification', {
+                job_table = {'ambulance'}, 
+                coords = data.coords,
+                title = 'Civil Muerto',
+                message = ''..data.sex..' se encuentra en estado de gravedad en la calle: '..data.street, 
+                flash = 1,
+                unique_id = data.unique_id,
+                sound = 1,
+                blip = {
+                    sprite = 310, 
+                    scale = 1.2, 
+                    colour = 3,
+                    flashes = true, 
+                    text = '911 - Civil Muerto',
+                    time = 5,
+                    radius = 5,
+                }
+            })
         end
     end
 end
@@ -186,8 +204,26 @@ CreateThread(function()
                     end
 
                     if IsControlJustPressed(0, 47) and not emsNotified then
-                        TriggerServerEvent('hospital:server:ambulanceAlert', Lang:t('info.civ_down'))
-                        emsNotified = true
+                        local data = exports['cd_dispatch']:GetPlayerInfo()
+                        TriggerServerEvent('cd_dispatch:AddNotification', {
+                            job_table = {'ambulance'}, 
+                            coords = data.coords,
+                            title = 'Civil Herido',
+                            message = ''..data.sex..' se encuentra herido en la calle: '..data.street, 
+                            flash = 1,
+                            unique_id = data.unique_id,
+                            sound = 1,
+                            blip = {
+                                sprite = 61, 
+                                scale = 1.2, 
+                                colour = 3,
+                                flashes = true, 
+                                text = '911 - Civil Herido',
+                                time = 5,
+                                radius = 5,
+                            }
+                        })
+                      emsNotified = true
                     end
                 end
 

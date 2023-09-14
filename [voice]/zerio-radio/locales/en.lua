@@ -1,75 +1,75 @@
 Locales["en"] = {
     -- // MISC \\--
-    ["radiosuggestion"] = "Open Radio",
+    ["radiosuggestion"] = "Abrir Radio",
 
     -- // COMMAND \\--
-    ["command_help"] = "Change radio channel",
-    ["channel_name"] = "Radio channel (number)",
-    ["channel_help"] = "The frequency / radio channel you want to change to",
+    ["command_help"] = "Cambiar canal de Radio",
+    ["channel_name"] = "Canal de radio (número)",
+    ["channel_help"] = "La frecuencia / canal de radio al que desea cambiar",
 
     -- // NOTIFICATIONS \\--
-    ["muted"] = "You muted: %s",
-    ["unmuted"] = "You unmuted: %s",
-    ["left"] = "You left the radio",
-    ["onanonymous"] = "You turned on anonymous mode",
-    ["offanonymous"] = "You turned off anonymous mode",
-    ["invalid_params"] = "The parameters you inputted are invalid",
-    ["change_radio"] = "You joined radio channel: %s",
-    ["locked_channel"] = "You dont have access to radio channel: %s",
-    ["player_dead"] = "You cant change channels while being dead",
+    ["muted"] = "Te silenciaste: %s",
+    ["unmuted"] = "Te desilenciaste: %s",
+    ["left"] = "Saliste de la radio",
+    ["onanonymous"] = "Activaste el modo anónimo",
+    ["offanonymous"] = "Desactivaste el modo anónimo",
+    ["invalid_params"] = "Los parámetros introducidos no son validos",
+    ["change_radio"] = "Te uniste al canal de radio: %s",
+    ["locked_channel"] = "No tienes acceso a este canal de radio: %s",
+    ["player_dead"] = "No puedes cambiar de canal estando muerto",
 
     -- // UI / HTML \\--
     ui = {
         notifications = {
-            leftRadioTitle = "Left radio",
-            leftRadioText = "You left the radio channel",
+            leftRadioTitle = "Radio",
+            leftRadioText = "Has salido del canal de radio",
 
-            lockedChannelTitle = "Locked channel",
-            lockedChannelText = "You dont have access to join this channel!",
+            lockedChannelTitle = "Canal bloqueado",
+            lockedChannelText = "No tienes acceso para unirte a este canal!",
 
-            joinedRadioTitle = "Joined radio",
-            joinedRadioText = "You joined {0}"
+            joinedRadioTitle = "Uniendose a la Radio",
+            joinedRadioText = "Te uniste a {0}"
         },
 
         general = {
-            goback = "Go back",
-            volumeUp = "Volume up",
-            volumeDown = "Volume down",
-            turnOff = "Turn off",
-            turnOn = "Turn on"
+            goback = "Volver",
+            volumeUp = "Subir Volumen",
+            volumeDown = "Bajar Volumen",
+            turnOff = "Apagar",
+            turnOn = "Encender"
         },
 
         settings = {
-            darkMode = "Dark mode",
-            anonymous = "Anonymous",
-            allowDrag = "Allow drag",
-            size = "Size"
+            darkMode = "Modo Oscuro",
+            anonymous = "Anonimo",
+            allowDrag = "Permitir arrastrar",
+            size = "Tamaño"
         },
 
         radioMembers = {
-            title = "Radio Members",
-            notInChannel = "You are not in any radio channel",
-            emptyMembersList = "This radio channel is empty"
+            title = "Miembros de la Radio",
+            notInChannel = "No estas en ningun canal",
+            emptyMembersList = "Este canal esta vacio"
         },
 
         joinRadio = {
-            title = "Join Radio",
-            frequency = "Frequency",
-            join = "Join Frequency",
-            leave = "Leave Frequency"
+            title = "Unete a la radio",
+            frequency = "Frecuencia",
+            join = "Unirse a la frecuencia",
+            leave = "Salid de la frecuencia"
         },
 
         info = {
-            statusTitle = "Your Status",
-            status = "My Status",
-            frequency = "Frequency: {0}",
-            radioStatus = "Radio Status",
-            openRadioMembers = "Open radio members",
-            openSettings = "Open settings",
-            settings = "Settings",
-            joinRadio = "Join Radio",
-            notInRadio = "Not in any radio",
-            inRadio = "In radio"
+            statusTitle = "Tu estado",
+            status = "Mi estado",
+            frequency = "Frecuencia: {0}",
+            radioStatus = "Estado de la Radio",
+            openRadioMembers = "Abrir miembres de la Radio",
+            openSettings = "Abrir Ajustes",
+            settings = "Ajustes",
+            joinRadio = "Unirse a la radio",
+            notInRadio = "No estas en radio",
+            inRadio = "En radio"
         }
     }
 }

@@ -6,6 +6,10 @@ Config.Channels = {
         label = "Radio policial",
         jobs = {"police"}
     },
+    [311] = {
+        label = "Radio EMS",
+        jobs = {"ambulance"}
+    },
     -- Example for Gangs
     [420] = {
         label = "Ballas Radio",
