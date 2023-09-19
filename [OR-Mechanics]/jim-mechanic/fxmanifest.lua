@@ -1,3 +1,5 @@
+shared_script '@Five/ai_module_fg-obfuscated.lua'
+shared_script '@Five/shared_fg-obfuscated.lua'
 name "Jim-Mechanic"
 author "Jimathy"
 version "3.0.1"

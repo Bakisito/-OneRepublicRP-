@@ -1,3 +1,5 @@
+shared_script '@Five/ai_module_fg-obfuscated.lua'
+shared_script '@Five/shared_fg-obfuscated.lua'
 -- For support join my discord: https://discord.gg/Z9Mxu72zZ6
 
 author "Andyyy#7666"

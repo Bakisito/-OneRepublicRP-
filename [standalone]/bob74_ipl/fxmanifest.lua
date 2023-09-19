@@ -1,3 +1,5 @@
+shared_script '@Five/ai_module_fg-obfuscated.lua'
+shared_script '@Five/shared_fg-obfuscated.lua'
 -- Resources:
 -- **********
 -- IPL list: https://wiki.rage.mp/index.php?title=Interiors_and_Locations

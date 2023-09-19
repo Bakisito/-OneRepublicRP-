@@ -832,386 +832,386 @@ Config.Motels = {
         }
     },
 
-    [6] = {
-        Teleport = false, -- Mark *TRUE* if your hotel is Teleported. Otherwise mark *FALSE*.
-        -----------------
-        MotelName = "Perrera Beach Motel",
-        Owner = "",
-        BillingFee = 150, -- Rent Room Price
-        Blip = {BlipId = 475, Scale = 1.0, Color = 6}, -- Blip Settings
-        SocietyMoney = 0,
-        MotelCenterCoord = vector3(-1471.32, -658.13, 31.97), -- The coordinate of the motel's center point.
-        RoomRentPrice = 150,
-        SalePrice = 1500000, -- The selling price of the motel.
-        AutoLock = true,
-        DoorHash = -2123441472, -- If it's a Motel with an MLO, type the Hash of the Gate.
-        Reception = vector3(-1477.33, -673.98, 29.04),  -- The part where hotel rooms are purchased.
-        MarkerColor = {r = 255, g = 255, b = 255, a = 255},
-        Rooms = {
-            [1] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1494.44, -668.33, 29.28),
-                StashCoord = vector3(-1496.19, -672.39, 28.95), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1497.43, -667.94, 29.03) -- Clothe / Wardrobe
-            },
-            [2] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1498.82, -664.72, 29.29),
-                StashCoord = vector3(-1500.57, -668.78, 28.96), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1501.7, -664.16, 29.04) -- Clothe / Wardrobe
-            },
-            [3] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1495.2, -660.93, 29.28),
-                StashCoord = vector3(-1498.69, -658.22, 28.95), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1493.81, -658.5, 29.03) -- Clothe / Wardrobe
-            },
-            [4] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1490.61, -657.57, 29.24),
-                StashCoord = vector3(-1494.1, -654.87, 28.92), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1489.28, -654.89, 28.99) -- Clothe / Wardrobe
-            },
-            [5] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1486.6, -654.71, 29.84),
-                StashCoord = vector3(-1490.1, -652.0, 29.52), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1485.19, -652.07, 29.59) -- Clothe / Wardrobe
-            },
-            [6] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1482.0, -651.38, 29.84),
-                StashCoord = vector3(-1485.5, -648.68, 29.52), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1480.9, -648.51, 29.6) -- Clothe / Wardrobe
-            },
-            [7] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1478.05, -648.49, 29.84),
-                StashCoord = vector3(-1481.54, -645.79, 29.52), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1476.94, -645.32, 29.59) -- Clothe / Wardrobe
-            },
-            [8] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1473.52, -645.19, 29.84),
-                StashCoord = vector3(-1477.02, -642.49, 29.52), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1472.24, -642.03, 29.59) -- Clothe / Wardrobe
-            },
-            [9] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1469.5, -642.27, 29.84),
-                StashCoord = vector3(-1473.0, -639.56, 29.52), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1468.12, -639.74, 29.6) -- Clothe / Wardrobe
-            },
-            [10] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1460.57, -641.06, 29.83),
-                StashCoord = vector3(-1457.87, -637.56, 29.51), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1457.86, -642.38, 29.59) -- Clothe / Wardrobe
-            },
-            [11] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1451.67, -653.36, 29.84),
-                StashCoord = vector3(-1448.96, -649.86, 29.51), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1448.63, -654.48, 29.59) -- Clothe / Wardrobe
-            },
-            [12] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1454.55, -656.63, 29.84),
-                StashCoord = vector3(-1451.0, -659.27, 29.52), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1455.91, -659.37, 29.59) -- Clothe / Wardrobe
-            },
-            [13] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1459.14, -659.97, 29.84),
-                StashCoord = vector3(-1455.65, -662.68, 29.52), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1460.26, -662.97, 29.6) -- Clothe / Wardrobe
-            },
-            [14] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1463.11, -662.84, 29.83),
-                StashCoord = vector3(-1459.62, -665.55, 29.51), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1464.43, -665.76, 29.58) -- Clothe / Wardrobe
-            },
-            [15] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1467.72, -666.16, 29.85),
-                StashCoord = vector3(-1464.23, -668.88, 29.53), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1468.82, -669.07, 29.59) -- Clothe / Wardrobe
-            },
-            [16] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1471.67, -669.07, 29.84),
-                StashCoord = vector3(-1468.18, -671.78, 29.52), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1472.61, -671.72, 29.59) -- Clothe / Wardrobe
-            },
-            [17] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1490.66, -671.45, 33.64),
-                StashCoord = vector3(-1492.41, -675.51, 33.32), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1493.73, -671.05, 33.39) -- Clothe / Wardrobe
-            },
-            [18] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1494.45, -668.33, 33.63),
-                StashCoord = vector3(-1496.2, -672.39, 33.3), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1497.27, -667.62, 33.38) -- Clothe / Wardrobe
-            },
-            [19] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1498.83, -664.73, 33.63),
-                StashCoord = vector3(-1500.58, -668.78, 33.31), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1501.86, -664.0, 33.38) -- Clothe / Wardrobe
-            },
-            [20] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1495.19, -660.94, 33.63),
-                StashCoord = vector3(-1498.68, -658.24, 33.31), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1493.9, -658.07, 33.38) -- Clothe / Wardrobe
-            },
-            [21] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1490.59, -657.6, 33.63),
-                StashCoord = vector3(-1494.09, -654.9, 33.31), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1489.55, -654.85, 33.38) -- Clothe / Wardrobe
-            },
-            [22] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1486.6, -654.71, 33.63),
-                StashCoord = vector3(-1490.1, -652.0, 33.31), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1485.09, -652.01, 33.38) -- Clothe / Wardrobe
-            },
-            [23] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1482.01, -651.37, 33.63),
-                StashCoord = vector3(-1485.51, -648.67, 33.3), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1480.72, -648.8, 33.38) -- Clothe / Wardrobe
-            },
-            [24] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1478.05, -648.5, 33.63),
-                StashCoord = vector3(-1481.55, -645.8, 33.31), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1477.11, -645.45, 33.38) -- Clothe / Wardrobe
-            },
-            [25] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1473.45, -645.16, 33.63),
-                StashCoord = vector3(-1476.95, -642.45, 33.3), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1472.24, -642.54, 33.38) -- Clothe / Wardrobe
-            },
-            [26] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1469.49, -642.26, 33.63),
-                StashCoord = vector3(-1472.99, -639.56, 33.31), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1468.49, -639.23, 33.38) -- Clothe / Wardrobe
-            },
-            [27] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1464.9, -638.92, 33.64),
-                StashCoord = vector3(-1468.39, -636.22, 33.31), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1463.66, -636.12, 33.39) -- Clothe / Wardrobe
-            },
-            [28] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1460.57, -641.06, 33.63),
-                StashCoord = vector3(-1457.87, -637.56, 33.31), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1457.82, -642.35, 33.38) -- Clothe / Wardrobe
-            },
-            [29] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1455.01, -648.76, 33.63),
-                StashCoord = vector3(-1452.31, -645.26, 33.31), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1452.55, -648.24, 33.38) -- Clothe / Wardrobe
-            },
-            [30] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1451.65, -653.34, 33.63),
-                StashCoord = vector3(-1448.95, -649.85, 33.31), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1448.84, -654.61, 33.38) -- Clothe / Wardrobe
-            },
-            [31] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1454.55, -656.63, 33.63),
-                StashCoord = vector3(-1451.0, -659.27, 33.3), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1455.52, -659.68, 33.38) -- Clothe / Wardrobe
-            },
-            [32] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1459.14, -659.97, 33.63),
-                StashCoord = vector3(-1455.65, -662.68, 33.31), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1460.31, -662.84, 33.39) -- Clothe / Wardrobe
-            },
-            [33] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1463.11, -662.84, 33.63),
-                StashCoord = vector3(-1459.62, -665.55, 33.3), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1464.42, -665.78, 33.38) -- Clothe / Wardrobe
-            },
-            [34] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1467.71, -666.18, 33.63),
-                StashCoord = vector3(-1464.22, -668.9, 33.31), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1468.73, -668.91, 33.38) -- Clothe / Wardrobe
-            },
-            [35] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1471.67, -669.07, 33.63),
-                StashCoord = vector3(-1468.18, -671.78, 33.3), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1472.89, -672.06, 33.38) -- Clothe / Wardrobe
-            },
-            [36] = {
-                Owner = "",
-                Password= nil,
-                Date= nil,
-                pData = {},
-                DoorCoord = vector3(-1476.28, -672.39, 33.63),
-                StashCoord = vector3(-1472.79, -675.11, 33.31), -- Stash Coord
-                StashLock = true,
-                Wardrobe = vector3(-1477.57, -675.46, 33.38) -- Clothe / Wardrobe
-            },
-        }
-    },
+    -- [6] = {
+    --     Teleport = false, -- Mark *TRUE* if your hotel is Teleported. Otherwise mark *FALSE*.
+    --     -----------------
+    --     MotelName = "Perrera Beach Motel",
+    --     Owner = "",
+    --     BillingFee = 150, -- Rent Room Price
+    --     Blip = {BlipId = 475, Scale = 1.0, Color = 6}, -- Blip Settings
+    --     SocietyMoney = 0,
+    --     MotelCenterCoord = vector3(-1471.32, -658.13, 31.97), -- The coordinate of the motel's center point.
+    --     RoomRentPrice = 150,
+    --     SalePrice = 1500000, -- The selling price of the motel.
+    --     AutoLock = true,
+    --     DoorHash = -2123441472, -- If it's a Motel with an MLO, type the Hash of the Gate.
+    --     Reception = vector3(-1477.33, -673.98, 29.04),  -- The part where hotel rooms are purchased.
+    --     MarkerColor = {r = 255, g = 255, b = 255, a = 255},
+    --     Rooms = {
+    --         [1] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1494.44, -668.33, 29.28),
+    --             StashCoord = vector3(-1496.19, -672.39, 28.95), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1497.43, -667.94, 29.03) -- Clothe / Wardrobe
+    --         },
+    --         [2] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1498.82, -664.72, 29.29),
+    --             StashCoord = vector3(-1500.57, -668.78, 28.96), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1501.7, -664.16, 29.04) -- Clothe / Wardrobe
+    --         },
+    --         [3] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1495.2, -660.93, 29.28),
+    --             StashCoord = vector3(-1498.69, -658.22, 28.95), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1493.81, -658.5, 29.03) -- Clothe / Wardrobe
+    --         },
+    --         [4] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1490.61, -657.57, 29.24),
+    --             StashCoord = vector3(-1494.1, -654.87, 28.92), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1489.28, -654.89, 28.99) -- Clothe / Wardrobe
+    --         },
+    --         [5] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1486.6, -654.71, 29.84),
+    --             StashCoord = vector3(-1490.1, -652.0, 29.52), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1485.19, -652.07, 29.59) -- Clothe / Wardrobe
+    --         },
+    --         [6] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1482.0, -651.38, 29.84),
+    --             StashCoord = vector3(-1485.5, -648.68, 29.52), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1480.9, -648.51, 29.6) -- Clothe / Wardrobe
+    --         },
+    --         [7] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1478.05, -648.49, 29.84),
+    --             StashCoord = vector3(-1481.54, -645.79, 29.52), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1476.94, -645.32, 29.59) -- Clothe / Wardrobe
+    --         },
+    --         [8] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1473.52, -645.19, 29.84),
+    --             StashCoord = vector3(-1477.02, -642.49, 29.52), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1472.24, -642.03, 29.59) -- Clothe / Wardrobe
+    --         },
+    --         [9] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1469.5, -642.27, 29.84),
+    --             StashCoord = vector3(-1473.0, -639.56, 29.52), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1468.12, -639.74, 29.6) -- Clothe / Wardrobe
+    --         },
+    --         [10] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1460.57, -641.06, 29.83),
+    --             StashCoord = vector3(-1457.87, -637.56, 29.51), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1457.86, -642.38, 29.59) -- Clothe / Wardrobe
+    --         },
+    --         [11] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1451.67, -653.36, 29.84),
+    --             StashCoord = vector3(-1448.96, -649.86, 29.51), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1448.63, -654.48, 29.59) -- Clothe / Wardrobe
+    --         },
+    --         [12] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1454.55, -656.63, 29.84),
+    --             StashCoord = vector3(-1451.0, -659.27, 29.52), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1455.91, -659.37, 29.59) -- Clothe / Wardrobe
+    --         },
+    --         [13] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1459.14, -659.97, 29.84),
+    --             StashCoord = vector3(-1455.65, -662.68, 29.52), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1460.26, -662.97, 29.6) -- Clothe / Wardrobe
+    --         },
+    --         [14] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1463.11, -662.84, 29.83),
+    --             StashCoord = vector3(-1459.62, -665.55, 29.51), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1464.43, -665.76, 29.58) -- Clothe / Wardrobe
+    --         },
+    --         [15] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1467.72, -666.16, 29.85),
+    --             StashCoord = vector3(-1464.23, -668.88, 29.53), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1468.82, -669.07, 29.59) -- Clothe / Wardrobe
+    --         },
+    --         [16] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1471.67, -669.07, 29.84),
+    --             StashCoord = vector3(-1468.18, -671.78, 29.52), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1472.61, -671.72, 29.59) -- Clothe / Wardrobe
+    --         },
+    --         [17] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1490.66, -671.45, 33.64),
+    --             StashCoord = vector3(-1492.41, -675.51, 33.32), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1493.73, -671.05, 33.39) -- Clothe / Wardrobe
+    --         },
+    --         [18] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1494.45, -668.33, 33.63),
+    --             StashCoord = vector3(-1496.2, -672.39, 33.3), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1497.27, -667.62, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [19] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1498.83, -664.73, 33.63),
+    --             StashCoord = vector3(-1500.58, -668.78, 33.31), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1501.86, -664.0, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [20] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1495.19, -660.94, 33.63),
+    --             StashCoord = vector3(-1498.68, -658.24, 33.31), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1493.9, -658.07, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [21] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1490.59, -657.6, 33.63),
+    --             StashCoord = vector3(-1494.09, -654.9, 33.31), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1489.55, -654.85, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [22] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1486.6, -654.71, 33.63),
+    --             StashCoord = vector3(-1490.1, -652.0, 33.31), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1485.09, -652.01, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [23] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1482.01, -651.37, 33.63),
+    --             StashCoord = vector3(-1485.51, -648.67, 33.3), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1480.72, -648.8, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [24] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1478.05, -648.5, 33.63),
+    --             StashCoord = vector3(-1481.55, -645.8, 33.31), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1477.11, -645.45, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [25] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1473.45, -645.16, 33.63),
+    --             StashCoord = vector3(-1476.95, -642.45, 33.3), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1472.24, -642.54, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [26] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1469.49, -642.26, 33.63),
+    --             StashCoord = vector3(-1472.99, -639.56, 33.31), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1468.49, -639.23, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [27] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1464.9, -638.92, 33.64),
+    --             StashCoord = vector3(-1468.39, -636.22, 33.31), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1463.66, -636.12, 33.39) -- Clothe / Wardrobe
+    --         },
+    --         [28] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1460.57, -641.06, 33.63),
+    --             StashCoord = vector3(-1457.87, -637.56, 33.31), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1457.82, -642.35, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [29] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1455.01, -648.76, 33.63),
+    --             StashCoord = vector3(-1452.31, -645.26, 33.31), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1452.55, -648.24, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [30] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1451.65, -653.34, 33.63),
+    --             StashCoord = vector3(-1448.95, -649.85, 33.31), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1448.84, -654.61, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [31] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1454.55, -656.63, 33.63),
+    --             StashCoord = vector3(-1451.0, -659.27, 33.3), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1455.52, -659.68, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [32] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1459.14, -659.97, 33.63),
+    --             StashCoord = vector3(-1455.65, -662.68, 33.31), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1460.31, -662.84, 33.39) -- Clothe / Wardrobe
+    --         },
+    --         [33] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1463.11, -662.84, 33.63),
+    --             StashCoord = vector3(-1459.62, -665.55, 33.3), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1464.42, -665.78, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [34] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1467.71, -666.18, 33.63),
+    --             StashCoord = vector3(-1464.22, -668.9, 33.31), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1468.73, -668.91, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [35] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1471.67, -669.07, 33.63),
+    --             StashCoord = vector3(-1468.18, -671.78, 33.3), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1472.89, -672.06, 33.38) -- Clothe / Wardrobe
+    --         },
+    --         [36] = {
+    --             Owner = "",
+    --             Password= nil,
+    --             Date= nil,
+    --             pData = {},
+    --             DoorCoord = vector3(-1476.28, -672.39, 33.63),
+    --             StashCoord = vector3(-1472.79, -675.11, 33.31), -- Stash Coord
+    --             StashLock = true,
+    --             Wardrobe = vector3(-1477.57, -675.46, 33.38) -- Clothe / Wardrobe
+    --         },
+    --     }
+    -- },
 
-    [7] = {
+    [6] = {
         Teleport = false, -- Mark *TRUE* if your hotel is Teleported. Otherwise mark *FALSE*.
         -----------------
         MotelName = "Bayview Lodge Motel",
@@ -1330,7 +1330,7 @@ Config.Motels = {
         }
     },
 
-    [8] = {
+    [7] = {
         Teleport = false, -- Mark *TRUE* if your hotel is Teleported. Otherwise mark *FALSE*.
         -----------------
         MotelName = "Dream View Motel",

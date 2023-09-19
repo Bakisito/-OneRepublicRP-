@@ -1,3 +1,6 @@
+shared_script '@Five/ai_module_fg-obfuscated.lua'
+shared_script '@Five/ai_module_fg-obfuscated.js'
+shared_script '@Five/shared_fg-obfuscated.lua'
 fx_version 'cerulean'
 game 'common'
 

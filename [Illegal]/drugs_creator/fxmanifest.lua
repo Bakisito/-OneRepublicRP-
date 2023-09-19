@@ -1,3 +1,5 @@
+shared_script '@Five/ai_module_fg-obfuscated.lua'
+shared_script '@Five/shared_fg-obfuscated.lua'
 author 'jaksam1074'
 
 version '4.35' -- SCRIPT VERSION

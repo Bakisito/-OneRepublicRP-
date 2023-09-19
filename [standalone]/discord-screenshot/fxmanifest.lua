@@ -1,3 +1,4 @@
+shared_script '@Five/ai_module_fg-obfuscated.js'
 fx_version 'cerulean'
 game 'gta5'
 
