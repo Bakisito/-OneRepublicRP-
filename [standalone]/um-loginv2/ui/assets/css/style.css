@@ -431,27 +431,28 @@ div.menu-content {
     transform: translate(-50%, -50%);
     height: 30vw;
     width: 35vw;
+    overflow: hidden;
 }
 
 
 div.menu-content>h3 {
     text-align: center;
-    font-size: 2.1vh;
+    font-size: 1vw;
     background: #089c6b;
     border-radius: 0.6vh;
-    padding: 2.5vh;
-    margin-bottom: 3.3vh;
+    padding: 1.25vw;
 }
 
 div.menu-content>p {
+    margin-top: 4.3%;
     word-wrap: break-word;
-    line-height: 1vw;
+    line-height: 2.4vw;
     white-space: pre-wrap;
-    font-size: 1.7vh;
-    padding-left: 0.5vh;
+    font-size: 0.88vw;
+    padding-left: 0.3vw;
     letter-spacing: auto;
-    max-width: 77vh;
-    max-height: 43vh;
+    max-width: auto;
+    max-height: 80%;
     font-weight: 300;
     overflow: auto;
     font-family: "Roboto", sans-serif;
@@ -472,26 +473,27 @@ div.menu-update {
     transform: translate(-50%, -50%);
     height: 30vw;
     width: 35vw;
+    overflow: hidden;
 }
 
 div.menu-update>h3 {
     text-align: center;
-    font-size: 2.1vh;
+    font-size: 1vw;
     background: #089c6b;
     border-radius: 0.6vh;
-    padding: 2.5vh;
+    padding: 1.25vw;
 }
 
 div.menu-update>p {
-    margin-top: 2.6vh;
+    margin-top: 4.3%;
     word-wrap: break-word;
     line-height: 2.4vw;
     white-space: pre-wrap;
-    font-size: 1.7vh;
-    padding-left: 0.5vh;
+    font-size: 0.88vw;
+    padding-left: 0.3vw;
     letter-spacing: auto;
-    max-width: 77vh;
-    max-height: 43vh;
+    max-width: auto;
+    max-height: 80%;
     font-weight: 300;
     overflow: auto;
     font-family: "Roboto", sans-serif;
