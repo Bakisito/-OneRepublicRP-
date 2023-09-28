@@ -135,9 +135,9 @@ Config.PrivSlots = Slots.List -- Set a custom total slots for the user whose lic
 Config.CinematicMode = false -- If you want to use cinematic mode, you can make it true (um special?)
 
 Config.BackgroundMusic = {
-    Status = false, -- If you want to use background music, you can make it true.
-    Name = 'multisong.mp3', -- [web/build/audio/]
-    Volume = 0.3
+    Status = true, -- If you want to use background music, you can make it true.
+    Name = 'bgmusic.mp3', -- [web/build/audio/]
+    Volume = 0.4
 }
 
 Config.Pages = {

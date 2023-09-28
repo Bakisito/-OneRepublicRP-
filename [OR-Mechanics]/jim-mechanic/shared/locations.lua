@@ -79,7 +79,7 @@ Config.Locations[#Config.Locations+1] = { --[[ AUTO Exotic]]--
 		vector2(552.56274414062, -164.00897216797)
 	},
 	autoClock = { enter = false, exit = false, },
-	nosrefill = { { coords = vec4(548.9797, -170.2274, 54.4860, 268.4527) } }, -- 548.9797, -170.2274, 54.4860, 268.4527
+	nosrefill = {  {coords = vec4(548.9797, -170.2274, 54.4860, 268.4527) },  }, -- 548.9797, -170.2274, 54.4860, 268.4527
 	stash = {
 		{ coords = vec4(538.3455, -165.950, 54.7932, 90), w = 4.5, d = 0.9, },
 	},
@@ -119,7 +119,7 @@ Config.Locations[#Config.Locations+1] = { --[[ AUTO Exotic]]--
 		cat = nil,
 	},
 	discord = {
-		link = "https://discord.com/api/webhooks/1149887803858096199/vOdDEQitLrfCeh6BlBCYNAETFx7W8GuA7clTOQoBGyFx1RHdTV-90mj65ePZqgJug1Sa",
+		link = "https://discord.com/api/webhooks/1155619820235132999/QgkWZ3aG_gl7AZCCOdO8Hg0SkHb5YstGvhqRCtjOZ4Afot5eNfTA4NrKRn4HLDUlu_BW",
 		color = 2571775,
 	}
 }
