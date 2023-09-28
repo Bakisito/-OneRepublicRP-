@@ -42,6 +42,26 @@ const MenuUpdate = (icon, title, content) => {
 }
 
 
+$('body').mousedown((event) => {
+    const isMenuContentClicked = $(event.target).closest('.menu-content').length > 0;
+
+    if (menutoggle === true && !isMenuContentClicked) {
+        menutoggle = false;
+        $('.menu-content').fadeOut("slow");
+    }
+});
+
+
+$('body').mousedown((event) => {
+    const isMenuContentClicked = $(event.target).closest('.menu-update').length > 0;
+
+    if (menuUpdateToggle === true && !isMenuContentClicked) {
+        menuUpdateToggle = false;
+        $('.menu-update').fadeOut("slow");
+    }
+});
+
+
 
 const RandomBackground = () => {
     let images = UM.RandomBackground.img
@@ -120,7 +140,8 @@ if (UM.RandomColor.enabled) {
     setInterval(RGBColor, UM.RandomColor.time);
 }
 $("#langsc").attr("src", `../lang/${UM.Lang}.js`);
-$("div.logo img").attr("src", `assets/img/${UM.Logo}`);
+$("div.logo a img").attr("src", `assets/img/${UM.Logo}`);
+$('div.logo a').attr('href', `https://www.instagram.com/onerepublicrp/`);
 $("#music").attr("src", `assets/audio/${UM.Music.musicID}`);
 $(':root').css('--green', UM.TemplateColor.defaultcolor)
 $(':root').css('--opacity', UM.TemplateColor.opacitycolor)
