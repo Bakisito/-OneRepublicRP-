@@ -47,7 +47,7 @@ Config.TreeRespawnTime = 60 * 20 * 1000             -- After this time, tree wil
 Config.PenaltyAmount = 500                          -- Penalty that is levied when a player finishes work without a company vehicle
 Config.DontPayRewardWithoutVehicle = false          -- Set to true if you want to not pay reward to players who want to end without company vehicle (accepting the penalty)
 Config.DeleteVehicleWithPenalty = false             -- Delete Vehicle even if its not company vehicle
-Config.JobCooldown = 0 * 60 -- 10 * 60              -- 0 minutes cooldown between making jobs (in brackets there's example for 10 minutes)
+Config.JobCooldown = 5 * 60 -- 10 * 60              -- 0 minutes cooldown between making jobs (in brackets there's example for 10 minutes)
 Config.GiveKeysToAllLobby = true                    -- Set to false if you want to give keys only to group creator while starting job
 
 -- ^ Options: top-left, top-center, top-right, bottom-left, bottom-center, bottom-right
@@ -60,7 +60,7 @@ Config.Blips = { -- Here you can configure Company blip.
         Color = 25,
         Scale = 0.8,
         Pos = vector3(-552.9, 5348.58, 74.74),
-        Label = 'Lumberjack Job'
+        Label = 'Trabajo de leñador'
     },
 }
 

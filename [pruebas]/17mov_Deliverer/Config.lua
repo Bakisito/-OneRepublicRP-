@@ -19,10 +19,10 @@ Config.Price = 100                                                  -- 100$ per 
 Config.BlockHostFromWorking = true                                  -- Means that if players are working in group, then the host only can drive veh, parntner needs to deliver. Set to false if you want also host to be able to deliver
 Config.EnableVehicleTeleporting = true                              -- If its true, then the script will teleport the host to the company vehicle. If its false, then the company vehicle will apeear, but the whole squad need to go enter the car manually
 Config.enableSpawningPedsInDoors = true                             -- Set to false if you don't want to use peds in doors. 
-Config.JobCooldown = 0 * 60 -- 10 * 60            -- 0 minutes cooldown between making jobs (in brackets there's example for 10 minutes)
+Config.JobCooldown = 10 * 60 -- 10 * 60            -- 0 minutes cooldown between making jobs (in brackets there's example for 10 minutes)
 Config.GiveKeysToAllLobby = true                                    -- Set to false if you want to give keys only for group creator while starting job
 Config.ProgressBarOffset = "25px"                   -- Value in px of counter offset on screen
-Config.ProgressBarAlign = "bottom-right"            -- Align of the progressbar
+Config.ProgressBarAlign = "bottom-center"            -- Align of the progressbar
 
 -- ^ Options: top-left, top-center, top-right, bottom-left, bottom-center, bottom-right
 
@@ -36,7 +36,7 @@ Config.RewardItemsToGive = {
 
 Config.RequireWorkClothes = true                   -- Set it to true, to change players clothes everytime when they're starting job.
 
-Config.PenaltyAmount = 500                      -- Penalty that is levied when a player finishes work without a company vehicle
+Config.PenaltyAmount = 1500                      -- Penalty that is levied when a player finishes work without a company vehicle
 Config.DontPayRewardWithoutVehicle = false      -- Set to true if you want to dont pay reward to players who want's to end without company vehicle (accepting the penalty)
 Config.DeleteVehicleWithPenalty = false         -- Delete Vehicle even if its not company veh
 
