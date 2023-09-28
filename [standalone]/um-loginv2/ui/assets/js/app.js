@@ -19,7 +19,7 @@ const MenuContent = (icon, title, content) => {
     if (!menutoggle) {
         $(".menu-content").fadeIn("slow");
         menutoggle = true;
-    } else {
+    } else if (menutoggle) {
         $(".menu-content").fadeOut("slow");
         menutoggle = false;
     }
@@ -35,7 +35,7 @@ const MenuUpdate = (icon, title, content) => {
     if (!menuUpdateToggle) {
         $(".menu-update").fadeIn("slow");
         menuUpdateToggle = true;
-    } else {
+    } else if (menuUpdateToggle) {
         $(".menu-update").fadeOut("slow");
         menuUpdateToggle = false;
     }
@@ -44,22 +44,19 @@ const MenuUpdate = (icon, title, content) => {
 
 $('body').mousedown((event) => {
     const isMenuContentClicked = $(event.target).closest('.menu-content').length > 0;
+    const isButtonClicked = $(event.target).closest('.menu-item-text').length > 0;
 
-    if (menutoggle === true && !isMenuContentClicked) {
+    if (menutoggle === true && !isMenuContentClicked && !isButtonClicked) {
         menutoggle = false;
         $('.menu-content').fadeOut("slow");
     }
-});
 
-
-$('body').mousedown((event) => {
-    const isMenuContentClicked = $(event.target).closest('.menu-update').length > 0;
-
-    if (menuUpdateToggle === true && !isMenuContentClicked) {
+    if (menuUpdateToggle === true && !isMenuContentClicked && !isButtonClicked) {
         menuUpdateToggle = false;
         $('.menu-update').fadeOut("slow");
     }
 });
+
 
 
 
