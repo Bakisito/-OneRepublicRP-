@@ -54,12 +54,12 @@ UM.RandomBackground = {
 UM.RandomInfo = {
         enabled: true,
         text: [
-                "🎉[1] Hablandome MUUEEEELLLLTOOOO",
-                "🥳[2] Tu no me puede venir con normativa de otro servidore",
-                "🥳[3] Si tu cree que la policia tiene ventaja! pue metete a policia entonce!",
-                "🎉[4] Maldito negro verdad?!",
-                "🥳[5] Ok una pregunta, como a que hora tu me va deja habla?",
-                "🎉[6] me dicen que le dieron una puñalada a richard",
-                "🥳[7] Nooo tu roles aqui se acaban!!",
+                "🎉  Hablandome MUUEEEELLLLTOOOO",
+                "🥳  Tu no me puede venir con normativa de otro servidore",
+                "🥳  Si tu cree que la policia tiene ventaja! pue metete a policia entonce!",
+                "🎉  Maldito negro verdad?!",
+                "🥳  Ok una pregunta, como a que hora tu me va deja habla?",
+                "🎉  Me dicen que le dieron una puñalada a richard",
+                "🥳  Nooo tu roles aqui se acaban!!",
         ]
 }
