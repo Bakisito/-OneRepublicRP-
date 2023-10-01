@@ -94,6 +94,13 @@ RegisterNetEvent("rcore_television:AddTelevisionToCache", function(data)
     end
 
     for k, v in pairs(TelevisionCache[playerBucket]) do
+        if data.NetID then
+            if v.NetID == data.NetID then
+                found = true
+                key = k
+                break
+            end
+        end
         if #(v.tvPos - data.tvPos) < 1.5 then
             found = true
             key = k
@@ -255,3 +262,26 @@ RegisterCommand('tvgrantpermission', function(source, args, user)
 
     grantedPermission[sourceNumber] = nil
 end)
+
+function GetServerTime()
+    local currentTimestamp = os.time()
+    local modifiedTimestamp = currentTimestamp + ((Config.ServerTimezoneOffsetHours or 0) * 60 * 60)
+    return modifiedTimestamp
+end
+
+RegisterCommand("televisionversion", function(source, args, rawCommand)
+    local frameworks = { [0] = "standlone", [1] = "esx", [2] = "qb-core" }
+    local detection = { [1] = "Raycast", [2] = "GetClosestObject" }
+    local dateTime = os.date("%d.%m.%Y, %I:%M %p", GetServerTime())
+
+    print("^3")
+    print("rcore_television")
+
+    print(string.format("^7framework: ^3%s", frameworks[Config.FrameWork]))
+    print(string.format("^7detection type: ^3%s", detection[Config.DetectorType]))
+    print(string.format("^7version: ^3%s", GetResourceMetadata(GetCurrentResourceName(), "version")))
+    print(string.format("^7casino time: ^3%s", dateTime))
+
+    print("https://documentation.rcore.cz/paid-resources/rcore_television")
+    print("^7")
+end, false)

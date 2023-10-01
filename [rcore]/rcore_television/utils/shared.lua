@@ -60,6 +60,18 @@ Config.GetQBCoreObject = function()
     return obj
 end
 
+function DrawText(text, x, y)
+    SetTextFont(0)
+    SetTextScale(0.5, 0.5)
+    SetTextColour(255, 255, 255, 255)
+    SetTextOutline()
+    SetTextCentre(true)
+
+    BeginTextCommandDisplayText("STRING")
+    AddTextComponentSubstringPlayerName(text)
+    EndTextCommandDisplayText(x, y)
+end
+
 -- this is for translation
 function _U(str, ...)
     local text = Locales[str]

@@ -33,13 +33,13 @@ Config.OnPlayerLoaded = "QBCore:Client:OnPlayerLoaded"
 Config.OnJobUpdate = "QBCore:Client:OnJobUpdate"
 
 -- will enable debug print and stuff
-Config.Debug = true
+Config.Debug = false
 
 -- will type start and end of events + nui callbacks
 Config.FunctionsDebug = false
 
 -- Will print in what type of thing error has happened.. Example CreateThread, RegisterNetEvent, RegisterCommand, etc.
-Config.GeneralDebug = true
+Config.GeneralDebug = false
 
 -- a command to set volume for TV
 Config.volumeCommand = "tvvolume"
@@ -144,7 +144,7 @@ Config.CompletRedirect = {
 Config.ClickOnScreen = {
     ["twitch"] = function(duiObj)
         -- will accept the "i am over 18 hell yeah"
-        SendDuiMouseMove(duiObj, 960, 615)
+        SendDuiMouseMove(duiObj, 870, 605)
         SendDuiMouseDown(duiObj, "left")
         SendDuiMouseUp(duiObj, "left")
     end,
@@ -185,6 +185,10 @@ Config.IgnorePositionUpdateCustomSupport = {
 -- false value = enabled poping
 -- true value = disabled
 Config.ScaleformPop = true
+
+-- this will allow networked objects to be streamed on (possible that they can move)
+-- this feature is in work-in-progress it can have some unwanted bugs!
+Config.AllowNetworkedObjects = false
 
 -- list of default videos for TV.. you have to manualy change it in html/menu.html aswell
 Config.listVideos = {
@@ -444,6 +448,20 @@ Config.resolution = {
             y = -2.0,
             z = 0.40,
         },
+    },
+    [-1833573429] = {
+        ['CameraOffSet'] = {
+            ['rotationOffset'] = vec3(0.000000, 0.000000, 0.000000),
+            ['x'] = 0.0,
+            ['y'] = -5.0,
+            ['z'] = -1.0
+        },
+        ['distance'] = 10,
+        ['distanceToOpen'] = 4.0,
+        ['ScreenSize'] = vec3(0.020170, 0.024115, 0.000000),
+        ['ScreenOffSet'] = vec3(-1.994405, -0.056000, 0.000000),
+        ['Job'] = nil,
+        ['ItemToOpen'] = nil
     },
     [GetHashKey("prop_huge_display_01")] = {
         --Job = { ["police"] = {"*"},  },
@@ -905,6 +923,6 @@ Config.PermissionGroup = {
 }
 
 Config.CommandPermissions = {
-    ["tveditor"] = { 3, 4, 5,  "admin", "superadmin", "god" },
-    ["tvpermission"] = { 3, 4, 5,  "admin", "superadmin", "god" },
+    ["tveditor"] = { 3, 4, 5, "admin", "superadmin", "god" },
+    ["tvpermission"] = { 3, 4, 5, "admin", "superadmin", "god" },
 }
