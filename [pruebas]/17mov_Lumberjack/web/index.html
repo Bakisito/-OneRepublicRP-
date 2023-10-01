@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,11 +8,12 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
+
 <body>
     <div class="startJob" id="counter">
         <div class="decoLine">
             <div class="decorationLine">
-                <div class="text">Job Progress</div>
+                <div class="text">Progreso del trabajo</div>
                 <img src="assets/decoration.svg" height="17">
             </div>
             <div class="line"></div>
@@ -25,16 +27,16 @@
     <div class="multiplayerMenu">
         <div class="fixedSize">
             <div class="jobTittle">
-                <div class="tittle">WOODLAND WONDERS</div>
-                <div class="description">MULTIPLAYER JOB</div>
+                <div class="tittle">MARAVILLAS DEL BOSQUE</div>
+                <div class="description">TRABAJO MULTIJUGADOR</div>
             </div>
-    
+
             <div class="header">
                 <div class="backgroundText">
-                    <div class="bgText">LUMBERJACK LOBBY</div>
+                    <div class="bgText">LOBBY DE LEÑADORES</div>
                     <div class="content">
                         <div class="decorationLine">
-                            <div class="text" id="headerDecoText">LUMBERJACK LOBBY</div>
+                            <div class="text" id="headerDecoText">LOBBY DE LEÑADORES</div>
                             <div class="decorationParent">
                                 <div class="fullHeight"></div>
                                 <img id="headerDeco" src="assets/decoration.svg">
@@ -48,27 +50,28 @@
                 <div class="gradient"></div>
                 <div class="decoLine">
                     <div class="decorationLine">
-                        <div class="text startJobClipPath" style="clip-path: polygon(0% 0%, 0 51%, 26% 100%, 100% 99%, 100% 0);">Start</div>
+                        <div class="text startJobClipPath"
+                            style="clip-path: polygon(0% 0%, 0 51%, 26% 100%, 100% 99%, 100% 0);">Start</div>
                         <img src="assets/decoration.svg" height="17">
                     </div>
                     <div class="line"></div>
                 </div>
 
-                <div class="startBtn" onclick="startJob()">Start Job!</div>
+                <div class="startBtn" onclick="startJob()">Iniciar Trabajo!</div>
             </div>
 
             <div class="mainScreen">
                 <div class="tabs">
                     <div class="tab activeTab" id="mainMenu">
                         <img src="assets/home.svg">
-                        <div class="text">MAIN MENU</div>
+                        <div class="text">MENU PRINCIPAL</div>
                     </div>
                     <div class="tab" id="management">
                         <img src="assets/management.svg">
-                        <div class="text">MANAGEMENT</div>
+                        <div class="text">ADMINISTRACIÓN</div>
                     </div>
                 </div>
-    
+
                 <div class="tabsSlider">
                     <div class="mainMenu slide" style="min-width: 410px">
                         <div class="box" id="cloakroom">
@@ -77,10 +80,10 @@
                                 <img src="assets/strokes.svg" height="40px">
                             </div>
                             <div class="content">
-                                <div class="topic">Select Clothes</div>
-                                <div class="value">Clothes #<span id="clothesId">1</span></div>
+                                <div class="topic">Seleccionar Atuendos</div>
+                                <div class="value">Atuendos #<span id="clothesId">1</span></div>
                             </div>
-                
+
                             <div class="switch">
                                 <div class="sliderParent">
                                     <div class="fullHeight"></div>
@@ -99,55 +102,55 @@
                                 <img src="assets/strokes.svg" height="40px">
                             </div>
                             <div class="content">
-                                <div class="topic">Percentage of your salary</div>
-                                <div class="value">Boss set it to: <span class="salaryPercent">100%</span></div>
+                                <div class="topic">Porcentaje de tu salario</div>
+                                <div class="value">El jefe lo puso en: <span class="salaryPercent">100%</span></div>
                             </div>
                         </div>
-                
+
                         <div class="myTeamParent">
                             <div class="decoLine">
                                 <div class="decorationLine">
-                                    <div class="text">YOUR TEAM</div>
+                                    <div class="text">TU EQUIPO</div>
                                     <img src="assets/decoration.svg" height="17">
                                 </div>
                                 <div class="line"></div>
                             </div>
-                
-                           <div class="myTeam"></div>
+
+                            <div class="myTeam"></div>
                         </div>
-            
+
                         <div class="nearbyPlayersParent">
                             <div class="decoLine">
                                 <div class="decorationLine">
-                                    <div class="text">Nearby Players</div>
+                                    <div class="text">Jugadores Cerca</div>
                                     <img src="assets/decoration.svg" height="17">
                                 </div>
                                 <div class="line"></div>
                             </div>
-                
+
                             <div class="nearbyPlayers"></div>
                         </div>
                     </div>
                     <div class="management slide">
                         <div class="decoLine">
                             <div class="decorationLine">
-                                <div class="text">MANAGE TEAM</div>
+                                <div class="text">ADMINISTRAR EQUIPO</div>
                                 <img src="assets/decoration.svg" height="17">
                             </div>
                             <div class="line"></div>
                         </div>
-            
+
                         <div class="manageMyTeam"></div>
-        
+
                         <div class="manageReward">
                             <div class="decoLine">
                                 <div class="decorationLine">
-                                    <div class="text">MANAGE REWARD PERCENTS</div>
+                                    <div class="text">ADMINISTRAR PORCENTAJE DE RECOMPENSAS</div>
                                     <img src="assets/decoration.svg" height="17">
                                 </div>
                                 <div class="line"></div>
                             </div>
-            
+
                             <div class="teamRewards"></div>
                         </div>
                     </div>
@@ -157,7 +160,8 @@
             <div class="tutorialScreen" id="inviteScreen">
                 <div class="background">
                     <div class="tittle">Invitation</div>
-                    <div class="text">You have received an invitation to join the lumberjack team from <span class="inviterName"></span></div>
+                    <div class="text">Has recibido una Invitación para entrar al equipo de leñadores enviada por <span
+                            class="inviterName"></span></div>
                 </div>
 
                 <div class="btns">
@@ -168,24 +172,27 @@
 
             <div class="tutorialScreen" id="warningScreen">
                 <div class="background">
-                    <div class="tittle">WARNING</div>
-                    <div class="text">You are not in a company car, you can end your work, but you will be charged a penalty.</div>
+                    <div class="tittle">ADVERTENCIA</div>
+                    <div class="text">
+                        No estas en utilizando un vehiculo de la empresa, puedes finalizar el trabajo, pero se te dara
+                        un penalty.
+                    </div>
                 </div>
 
                 <div class="btns">
-                    <div class="btn closeTutorialBtn" onclick="reactWarning(true)">Accept Penalty</div>
-                    <div class="btn dontShowTutorialBtn" onclick="reactWarning(false)">Cancel</div>
+                    <div class="btn closeTutorialBtn" onclick="reactWarning(true)">Aceptar Penalty</div>
+                    <div class="btn dontShowTutorialBtn" onclick="reactWarning(false)">Cancelar</div>
                 </div>
             </div>
 
             <div class="tutorialScreen" id="tutorialScreen">
                 <div class="background">
-                    <div class="tittle">Lumberjack Job Tutorial</div>
+                    <div class="tittle">Tutorial Para Leñadores</div>
                     <div class="text"></div>
                 </div>
                 <div class="btns">
-                    <div class="btn closeTutorialBtn" onclick="closeTutorial(false)">Close Tutorial</div>
-                    <div class="btn dontShowTutorialBtn" onclick="closeTutorial(true)">Don't Show Again</div>
+                    <div class="btn closeTutorialBtn" onclick="closeTutorial(false)">Cerrar Tutorial</div>
+                    <div class="btn dontShowTutorialBtn" onclick="closeTutorial(true)">No mostrar de nuevo</div>
                 </div>
             </div>
 
@@ -206,4 +213,5 @@
     </div>
 </body>
 <script src="script.js"></script>
+
 </html>
