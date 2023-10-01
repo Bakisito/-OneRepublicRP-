@@ -52,7 +52,7 @@ Config.GiveKeysToAllLobby = true                    -- Set to false if you want 
 
 -- ^ Options: top-left, top-center, top-right, bottom-left, bottom-center, bottom-right
 
-Config.RequireWorkClothes = false                   -- Set it to true, to change players clothes everytime they're starting the job.
+Config.RequireWorkClothes = true                   -- Set it to true, to change players clothes everytime they're starting the job.
 Config.RestrictBlipToRequiredJob = false            -- Set to true, to hide job blip for players, who dont have RequiredJob. If requried job is "none", then this option will not have any effect.
 Config.Blips = { -- Here you can configure Company blip.
     [1] = {
@@ -190,7 +190,7 @@ Config.DeliveryLocations = {
             coords = vector4(1162.71, 2119.91, 57.08, 181.97),
             rotation = vec3(0, 0.0, 90.0),
             targetHeading = 181.97,
-            pricePerPercent = math.random(3, 10),
+            pricePerPercent = math.random(20, 25),
             itemRewards = {
                 -- {
                 --     item_name = "water_bottle",
@@ -210,7 +210,7 @@ Config.DeliveryLocations = {
             coords = vector4(2408.8, 4985.74, 47.67, 130.56),
             rotation = vec3(0, 0, -135.0),
             targetHeading = 137.34,
-            pricePerPercent = math.random(3, 10),
+            pricePerPercent = math.random(22, 25),
             itemRewards = {
                 -- {
                 --     item_name = "water_bottle",
@@ -232,7 +232,7 @@ Config.DeliveryLocations = {
             coords = vector4(1246.87, -3155.74, 7.0, 270.07),
             rotation = vec3(0, -3.0, 0.0),
             targetHeading = 270,
-            pricePerLog = math.random(4, 12),
+            pricePerLog = math.random(88, 92),
             itemRewards = {
                 -- {
                 --     item_name = "water_bottle",
@@ -252,7 +252,7 @@ Config.DeliveryLocations = {
             coords = vector4(165.57, -3151.59, 7.0, 272.06),
             rotation = vec3(0, 0, 0.0),
             targetHeading = 272.06,
-            pricePerLog = math.random(4, 12),
+            pricePerLog = math.random(88, 92),
             itemRewards = {
                 -- {
                 --     item_name = "water_bottle",
@@ -274,7 +274,7 @@ Config.DeliveryLocations = {
             coords = vector4(119.48, -445.33, 42.33, 339.04),
             rotation = vec3(0, 0, 70.0),
             targetHeading = 339.04,
-            pricePerPallete = math.random(60, 120),
+            pricePerPallete = math.random(900, 970),
             itemRewards = {
                 -- {
                 --     item_name = "water_bottle",
@@ -294,7 +294,7 @@ Config.DeliveryLocations = {
             coords = vector4(-1095.58, -1638.03, 5.5, 35.11),
             rotation = vec3(0, 0, 125.0),
             targetHeading = 35.11,
-            pricePerPallete = math.random(60, 120),
+            pricePerPallete = math.random(900, 970),
             itemRewards = {
                 -- {
                 --     item_name = "water_bottle",
@@ -314,7 +314,7 @@ Config.DeliveryLocations = {
             coords = vector4(-477.95, -958.22, 24.99, 93.47),
             rotation = vec3(0, 0, 0.0),
             targetHeading = 93.47,
-            pricePerPallete = math.random(60, 120),
+            pricePerPallete = math.random(900, 970),
             itemRewards = {
                 -- {
                 --     item_name = "water_bottle",
