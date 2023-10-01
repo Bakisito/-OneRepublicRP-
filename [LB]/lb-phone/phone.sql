@@ -1,10 +1,11 @@
 -- phone_number is the identifier used for phones in twitter etc
 CREATE TABLE IF NOT EXISTS `phone_phones` (
     `id` VARCHAR(100) NOT NULL, -- if metadata - unique id for the phone; if not - player identifier
-    `phone_number` VARCHAR(15) NOT NULL, -- varchar since it can start with 0
+    `owner` VARCHAR(100) NOT NULL, -- the player identifier of the first person who used the phone, used for lookup app etc
+    `phone_number` VARCHAR(15) NOT NULL,
     `name` VARCHAR(50),
 
-    `pin` VARCHAR(4) DEFAULT NULL, -- pin for the phone
+    `pin` VARCHAR(4) DEFAULT NULL,
     `face_id` VARCHAR(100) DEFAULT NULL, -- the identifier of the face that is used for the phone
     
     `settings` LONGTEXT, -- json encoded settings
@@ -91,6 +92,8 @@ CREATE TABLE IF NOT EXISTS `phone_twitter_accounts` (
     `follower_count` INT(11) NOT NULL DEFAULT 0,
     `following_count` INT(11) NOT NULL DEFAULT 0,
 
+    `private` BOOLEAN DEFAULT FALSE,
+
     `date_joined` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (`username`),
@@ -107,13 +110,24 @@ CREATE TABLE IF NOT EXISTS `phone_twitter_loggedin` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_twitter_follows` (
-    `followed` VARCHAR(20) NOT NULL, -- the person followed, matches to `username` in phone_twitter_accounts
-    `follower` VARCHAR(20) NOT NULL, -- the person following, matches to `username` in phone_twitter_accounts
+    `followed` VARCHAR(20) NOT NULL,
+    `follower` VARCHAR(20) NOT NULL,
     `notifications` BOOLEAN NOT NULL DEFAULT FALSE, -- if the follower gets notifications from the followed
 
     PRIMARY KEY (`followed`, `follower`),
     FOREIGN KEY (`followed`) REFERENCES `phone_twitter_accounts`(`username`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (`follower`) REFERENCES `phone_twitter_accounts`(`username`) ON DELETE CASCADE ON UPDATE CASCADE
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `phone_twitter_follow_requests` (
+    `requester` VARCHAR(20) NOT NULL,
+    `requestee` VARCHAR(20) NOT NULL,
+
+    `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`requester`, `requestee`),
+    FOREIGN KEY (`requester`) REFERENCES `phone_twitter_accounts`(`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (`requestee`) REFERENCES `phone_twitter_accounts`(`username`) ON DELETE CASCADE ON UPDATE CASCADE
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `phone_twitter_tweets` (
@@ -258,7 +272,14 @@ CREATE TABLE IF NOT EXISTS `phone_instagram_accounts` (
     `profile_image` VARCHAR(200) DEFAULT NULL,
     `bio` VARCHAR(100) DEFAULT NULL,
 
+    `post_count` INT(11) NOT NULL DEFAULT 0,
+    `story_count` INT(11) NOT NULL DEFAULT 0,
+    `follower_count` INT(11) NOT NULL DEFAULT 0,
+    `following_count` INT(11) NOT NULL DEFAULT 0,
+
     `phone_number` VARCHAR(15) NOT NULL,
+
+    `private` BOOLEAN DEFAULT FALSE,
 
     `verified` BOOLEAN DEFAULT FALSE,
     `date_joined` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -378,6 +399,17 @@ CREATE TABLE IF NOT EXISTS `phone_instagram_stories_views` (
     PRIMARY KEY (`story_id`, `viewer`),
     FOREIGN KEY (`story_id`) REFERENCES `phone_instagram_stories`(`id`) ON DELETE CASCADE,
     FOREIGN KEY (`viewer`) REFERENCES `phone_instagram_accounts`(`username`) ON DELETE CASCADE ON UPDATE CASCADE
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `phone_instagram_follow_requests` (
+    `requester` VARCHAR(20) NOT NULL,
+    `requestee` VARCHAR(20) NOT NULL,
+
+    `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`requester`, `requestee`),
+    FOREIGN KEY (`requester`) REFERENCES `phone_instagram_accounts`(`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (`requestee`) REFERENCES `phone_instagram_accounts`(`username`) ON DELETE CASCADE ON UPDATE CASCADE
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CLOCK
@@ -904,6 +936,189 @@ CREATE TABLE IF NOT EXISTS `phone_voice_memos_recordings` (
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DELIMITER //
+
+-- Instagram triggers
+-- Triggers for post counts
+CREATE TRIGGER IF NOT EXISTS phone_instagram_increment_post_count
+AFTER INSERT ON phone_instagram_posts
+FOR EACH ROW
+BEGIN
+    UPDATE phone_instagram_accounts
+    SET post_count = post_count + 1
+    WHERE username = NEW.username;
+END;
+
+CREATE TRIGGER IF NOT EXISTS phone_instagram_decrement_post_count
+AFTER DELETE ON phone_instagram_posts
+FOR EACH ROW
+BEGIN
+    UPDATE phone_instagram_accounts
+    SET post_count = post_count - 1
+    WHERE username = OLD.username;
+END;
+
+-- Trigger for story counts
+CREATE TRIGGER IF NOT EXISTS phone_instagram_increment_story_count
+AFTER INSERT ON phone_instagram_stories
+FOR EACH ROW
+BEGIN
+    UPDATE phone_instagram_accounts
+    SET story_count = story_count + 1
+    WHERE username = NEW.username;
+END;
+
+CREATE TRIGGER IF NOT EXISTS phone_instagram_decrement_story_count
+AFTER DELETE ON phone_instagram_stories
+FOR EACH ROW
+BEGIN
+    UPDATE phone_instagram_accounts
+    SET story_count = story_count - 1
+    WHERE username = OLD.username;
+END;
+
+-- Trigger for comment counts
+CREATE TRIGGER IF NOT EXISTS phone_instagram_increment_comment_count
+AFTER INSERT ON phone_instagram_comments
+FOR EACH ROW
+BEGIN
+    UPDATE phone_instagram_posts
+    SET comment_count = comment_count + 1
+    WHERE id = NEW.post_id;
+END;
+
+CREATE TRIGGER IF NOT EXISTS phone_instagram_decrement_comment_count
+AFTER DELETE ON phone_instagram_comments
+FOR EACH ROW
+BEGIN
+    UPDATE phone_instagram_posts
+    SET comment_count = comment_count - 1
+    WHERE id = OLD.post_id;
+END;
+
+-- Trigger for like counts
+CREATE TRIGGER IF NOT EXISTS phone_instagram_increment_like_count
+AFTER INSERT ON phone_instagram_likes
+FOR EACH ROW
+BEGIN
+    IF NEW.is_comment = 0 THEN
+        UPDATE phone_instagram_posts
+        SET like_count = like_count + 1
+        WHERE id = NEW.id;
+    ELSE
+        UPDATE phone_instagram_comments
+        SET like_count = like_count + 1
+        WHERE id = NEW.id;
+    END IF;
+END;
+
+CREATE TRIGGER IF NOT EXISTS phone_instagram_decrement_like_count
+AFTER DELETE ON phone_instagram_likes
+FOR EACH ROW
+BEGIN
+    IF OLD.is_comment = 0 THEN
+        UPDATE phone_instagram_posts
+        SET like_count = like_count - 1
+        WHERE id = OLD.id;
+    ELSE
+        UPDATE phone_instagram_comments
+        SET like_count = like_count - 1
+        WHERE id = OLD.id;
+    END IF;
+END;
+
+-- Triggers for follower counts
+CREATE TRIGGER IF NOT EXISTS phone_instagram_update_counts_after_follow
+AFTER INSERT ON phone_instagram_follows
+FOR EACH ROW
+BEGIN
+    UPDATE phone_instagram_accounts
+    SET follower_count = follower_count + 1
+    WHERE username = NEW.followed;
+
+    UPDATE phone_instagram_accounts
+    SET following_count = following_count + 1
+    WHERE username = NEW.follower;
+END;
+
+CREATE TRIGGER IF NOT EXISTS phone_instagram_update_counts_after_unfollow
+AFTER DELETE ON phone_instagram_follows
+FOR EACH ROW
+BEGIN
+    UPDATE phone_instagram_accounts
+    SET follower_count = follower_count - 1
+    WHERE username = OLD.followed;
+
+    UPDATE phone_instagram_accounts
+    SET following_count = following_count - 1
+    WHERE username = OLD.follower;
+END;
+
+-- Triggers for phone_twitter_follows
+CREATE TRIGGER IF NOT EXISTS phone_twitter_update_counts_after_follow
+AFTER INSERT ON phone_twitter_follows
+FOR EACH ROW
+BEGIN
+    -- Increment the follower_count for the followed user
+    UPDATE phone_twitter_accounts
+    SET follower_count = follower_count + 1
+    WHERE username = NEW.followed;
+
+    -- Increment the following_count for the follower user
+    UPDATE phone_twitter_accounts
+    SET following_count = following_count + 1
+    WHERE username = NEW.follower;
+END;
+
+CREATE TRIGGER IF NOT EXISTS phone_twitter_update_counts_after_unfollow
+AFTER DELETE ON phone_twitter_follows
+FOR EACH ROW
+BEGIN
+    -- Decrement the follower_count for the followed user
+    UPDATE phone_twitter_accounts
+    SET follower_count = follower_count - 1
+    WHERE username = OLD.followed;
+
+    -- Decrement the following_count for the follower user
+    UPDATE phone_twitter_accounts
+    SET following_count = following_count - 1
+    WHERE username = OLD.follower;
+END;
+
+CREATE TRIGGER IF NOT EXISTS phone_twitter_update_like_count_after_like
+AFTER INSERT ON phone_twitter_likes
+FOR EACH ROW
+BEGIN
+    UPDATE phone_twitter_tweets
+    SET like_count = like_count + 1
+    WHERE id = NEW.tweet_id;
+END;
+
+CREATE TRIGGER IF NOT EXISTS phone_twitter_update_like_count_after_unlike
+AFTER DELETE ON phone_twitter_likes
+FOR EACH ROW
+BEGIN
+    UPDATE phone_twitter_tweets
+    SET like_count = like_count - 1
+    WHERE id = OLD.tweet_id;
+END;
+
+CREATE TRIGGER IF NOT EXISTS phone_twitter_update_retweet_count_after_retweet
+AFTER INSERT ON phone_twitter_retweets
+FOR EACH ROW
+BEGIN
+    UPDATE phone_twitter_tweets
+    SET retweet_count = retweet_count + 1
+    WHERE id = NEW.tweet_id;
+END;
+
+CREATE TRIGGER IF NOT EXISTS phone_twitter_update_retweet_count_after_unretweet
+AFTER DELETE ON phone_twitter_retweets
+FOR EACH ROW
+BEGIN
+    UPDATE phone_twitter_tweets
+    SET retweet_count = retweet_count - 1
+    WHERE id = OLD.tweet_id;
+END;
 
 -- Triggers for phone_tiktok_follows
 -- Increment phone_tiktok_accounts.follower_count and phone_tiktok_accounts.following_count after inserting a new row into phone_tiktok_follows

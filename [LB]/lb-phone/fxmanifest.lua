@@ -4,7 +4,7 @@ fx_version "cerulean"
 game "gta5"
 lua54 "yes"
 
-version "1.4.0"
+version "1.4.2"
 
 shared_script {
     "config/*.lua",
@@ -26,6 +26,7 @@ files {
 
 ui_page "ui/dist/index.html"
 
+
 dependencies {
     "loaf_lib",
     "mysql-async"
@@ -34,8 +35,8 @@ dependencies {
 escrow_ignore {
     "config/**/*",
 
-    "client/apps/framework/*.lua",
-    "server/apps/framework/*.lua",
+    "client/apps/framework/**/*.lua",
+    "server/apps/framework/**/*.lua",
     "shared/*.lua",
 
     "client/custom/**/*.lua",

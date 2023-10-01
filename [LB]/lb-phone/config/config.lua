@@ -37,7 +37,7 @@ Config.WhitelistApps = {
 }
 
 Config.BlacklistApps = {
-    -- ["DarkChat"] = {"police"}
+     ["DarkChat"] = {"police"}
 }
 
 Config.Companies = {}
@@ -120,10 +120,10 @@ Config.Companies.Contacts = { -- not needed if you use the services app, this wi
 Config.Companies.Management = {
     Enabled = true, -- if true, employees & the boss can manage the company
 
-    Duty = true, -- if true, employees can go on/off duty
+    Duty = false, -- if true, employees can go on/off duty
     -- Boss actions
-    Deposit = true, -- if true, the boss can deposit money into the company
-    Withdraw = true, -- if true, the boss can withdraw money from the company
+    Deposit = false, -- if true, the boss can deposit money into the company
+    Withdraw = false, -- if true, the boss can withdraw money from the company
     Hire = true, -- if true, the boss can hire employees
     Fire = true, -- if true, the boss can fire employees
     Promote = true, -- if true, the boss can promote employees
@@ -137,10 +137,11 @@ Config.Valet = {}
 Config.Valet.Enabled = true -- allow players to get their vehicles from the phone
 Config.Valet.Price = 600 -- price to get your vehicle
 
-Config.HouseScript = "loaf_housing" --[[
+Config.HouseScript = "qb-houses" --[[
     The housing script you use on your server
     Supported:
         * loaf_housing - https://store.loaf-scripts.com/package/4310850
+        * qb-houses - https://github.com/qbcore-framework/qb-houses
 ]]
 
 --[[ VOICE OPTIONS ]] --
@@ -289,6 +290,7 @@ Config.EnableVoiceMessages = true -- Allow players to send voice messages?
 
 Config.CityName = "One Republic" -- The name that's being used in the weather app etc.
 Config.RealTime = true -- if true, the time will use real life time depending on where the user lives, if false, the time will be the ingame time.
+Config.CustomTime = false -- NOTE: disable Config.RealTime if using this. you can set this to a function that returns custom time, as a table: { hour = 0-24, minute = 0-60 }
 
 Config.EmailDomain = "gmail.com"
 
@@ -318,6 +320,16 @@ Config.PhoneOffset = vector3(0.0, -0.005, 0.0) -- the offset of the phone when a
 Config.Post = {} -- What apps should send posts to discord? You can set your webhooks in server/webhooks.lua
 Config.Post.Twitter = true -- New tweets
 Config.Post.Instagram = true -- New posts
+Config.Post.Accounts = {
+    Birdy = {
+        Username = "Twitter",
+        Avatar = "https://cdn.discordapp.com/attachments/1150990242116014131/1158113919316004995/Twitter.png?ex=651b1123&is=6519bfa3&hm=2ed2e00d3963d09529dae899711bd6fb62b247c57ba1eb4eda883e3d8e9ceade&"
+    },
+    InstaPic = {
+        Username = "Instagram",
+        Avatar = "https://cdn.discordapp.com/attachments/1150990242116014131/1158113981697900674/Instagram.png?ex=651b1131&is=6519bfb1&hm=e31bfa6a49442b3c56ef0b41e23644310a8f1a2703dd833c95880c41d29227b9&"
+    }
+}
 
 Config.TwitterTrending = {}
 Config.TwitterTrending.Enabled = true -- show trending hashtags?
@@ -392,12 +404,13 @@ Config.Crypto = {}
 Config.Crypto.Coins = {"bitcoin","ethereum","tether","binancecoin","usd-coin","ripple","binance-usd","cardano","dogecoin","solana","shiba-inu","polkadot","litecoin","bitcoin-cash"}
 Config.Crypto.Currency = "usd" -- currency to use for crypto prices. https://api.coingecko.com/api/v3/simple/supported_vs_currencies
 Config.Crypto.Refresh = 5 * 60 * 1000 -- how often should the crypto prices be refreshed (client cache)? (Default 5 minutes)
+Config.Crypto.QBit = false -- support QBit? (requires qb-crypto)
 
 Config.KeyBinds = {
     -- Find keybinds here: https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard/
     Open = { -- toggle the phone
         Command = "phone",
-        Bind = "F2",
+        Bind = "F1",
         Description = "Open your phone"
     },
     Focus = { -- keybind to toggle the mouse cursor.

@@ -10,7 +10,7 @@ CreateThread(function()
             address = exports["lb-phone"]:GetEmailAddress(phoneNumber)
         end
 
-        print("Address: ", address)
+        debugprint("Address: ", address)
 
         exports["lb-phone"]:SendMail({
             to = address,

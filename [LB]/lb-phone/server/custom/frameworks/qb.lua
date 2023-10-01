@@ -84,7 +84,7 @@ CreateThread(function()
             return false
         end
 
-        qPlayer.Functions.AddMoney("bank", amount, "lb-phone")
+        qPlayer.Functions.AddMoney("bank", math.floor(amount + 0.5), "lb-phone")
         return true
     end
 
@@ -97,7 +97,7 @@ CreateThread(function()
             return false
         end
 
-        QB.Functions.GetPlayer(source)?.Functions.RemoveMoney("bank", amount, "lb-phone")
+        QB.Functions.GetPlayer(source)?.Functions.RemoveMoney("bank", math.floor(amount + 0.5), "lb-phone")
         return true
     end
 
@@ -341,6 +341,22 @@ CreateThread(function()
         AddEventHandler("__cfx_export_qb-phone_sendNewMailToOffline", function(citizenid, data)
             local phoneNumber = GetEquippedPhoneNumber(citizenid)
             sendQBMail(phoneNumber, data)
+        end)
+    end
+
+    if Config.Crypto.QBit then
+        lib.RegisterCallback("phone:crypto:getOtherQBitWallet", function(source, cb, otherNumber)
+            local otherSrc = GetSourceFromNumber(otherNumber)
+            if not otherSrc then
+                return cb(false)
+            end
+
+            local otherPlayer = QB.Functions.GetPlayer(otherSrc)
+            if not otherPlayer then
+                return cb(false)
+            end
+
+            cb(otherPlayer.PlayerData.metadata.walletid)
         end)
     end
 end)
