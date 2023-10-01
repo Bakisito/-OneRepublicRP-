@@ -15,6 +15,7 @@ main = {
         timeToForceHandbrake = 2,
         maxSpeedAfterHandbrake = 40 -- IN MPH
     },
+    disableVehicleOnGrapple = false,
     radiusToAttachToVehicle = 2 -- Set this higher if issues with connecting to back tyre
 }
 
@@ -56,9 +57,11 @@ grapplerCommand = {
     deploy = "deploy",
     remove = "remove",
     reset = "reset",
-    itemEnabled = false,
+    itemEnabled = true,
     itemName = "grappler",
     oxInventory = false,
+    quasarInventory = false, -- Enable QB/ESX below aswell
+    coreInventory = false, -- Enable QB/ESX below aswell
 
     acePermissions = {
         enabled = false,
