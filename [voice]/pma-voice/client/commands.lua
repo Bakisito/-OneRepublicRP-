@@ -54,7 +54,7 @@ exports("clearProximityOverride", function()
 	end
 end)
 
-table.insert(Cfg.voiceModes, {60.0, "Megaphone"})
+
  
 exports("setMegaphone", function(bool, value)
 	if bool then

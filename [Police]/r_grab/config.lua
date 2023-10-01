@@ -10,12 +10,12 @@
 Config = {
     Language = 'en', -- Language library used for the script, see the last lines to modify the text of the language. (Config.Languages)
 
-    CheckVersion = true, -- Checks if an update is needed, the message will be put in the server console when the resource is started
+    UseOutdatedVersion = false, -- Enable this parameter to suppress alert messages in the console if you wish to use an older version of the script.
 
-    CommandEnabled = true, -- Activate or not the system to take it via the command.
-    GrabCommand = 'escoltar', -- Command to take the person by the arm (modifiable from cl_utils.lua)
-    PutCarCommand = '+putcar', -- Command to put the person into the vehicle. (modifiable from cl_utils.lua)
-    ExitCarCommand = '+exitcar', -- Command to get the player out of a vehicle. (modifiable from cl_utils.lua)
+    CommandEnabled = false, -- Activate or not the system to take it via the command.
+    GrabCommand = 'grab', -- Command to take the person by the arm (modifiable from cl_utils.lua)
+    PutCarCommand = 'putcar', -- Command to put the person into the vehicle. (modifiable from cl_utils.lua)
+    ExitCarCommand = 'exitcar', -- Command to get the player out of a vehicle. (modifiable from cl_utils.lua)
 
     ESX = { -- ESX compatibility (you can modify this function on cl_utils.lua)
         enabled = false, -- Activate or not the ESX system
@@ -27,7 +27,7 @@ Config = {
     },
         
     QB = { -- QB compatibility (you can modify this function on cl_utils.lua)
-        enabled = true, -- Activate or not the QB system
+        enabled = false, -- Activate or not the QB system
         jobs = { -- Job for which the grab ped can be used
             'police',
             'fbi',
@@ -58,19 +58,19 @@ Config = {
 
 -- https://docs.fivem.net/docs/game-references/controls/
 Config.Keys = {
-    GrabAndDropKey = 38, -- If CommandEnabled is equal to false you must put a key to take the person.
-    GrabAndDropKeyString = '~AGARRAR/SOLTAR~', -- Name of the button.
+    GrabAndDropKey = 289, -- If CommandEnabled is equal to false you must put a key to take the person.
+    GrabAndDropKeyString = '~INPUT_REPLAY_START_STOP_RECORDING_SECONDARY~', -- Name of the button.
 
     TaskEnterKey = 305, -- Button to put the person inside the vehicle
-    TaskEnterKeyString = '~ENTRAR AL VEHICULO~' -- Name of the button to put the person inside the vehicle
+    TaskEnterKeyString = '~INPUT_REPLAY_STARTPOINT~' -- Name of the button to put the person inside the vehicle
 }
 
 -- Libraries of languages.
 Config.Languages = {
     ['en'] = {
-        ['taskenter'] = 'Poner a la persona en el vehículo '..Config.Keys.TaskEnterKeyString,
-        ['exitped'] = 'Sacar a la persona del vehículo '..Config.Keys.TaskEnterKeyString,
-        ['releaseperson'] = 'Liberar a la persona presione '..Config.Keys.GrabAndDropKeyString
+        ['taskenter'] = 'Put the person in the vehicle '..Config.Keys.TaskEnterKeyString,
+        ['exitped'] = 'Taking the person out the vehicle '..Config.Keys.TaskEnterKeyString,
+        ['releaseperson'] = 'Release the person press '..Config.Keys.GrabAndDropKeyString
     },
     ['fr'] = {
         ['taskenter'] = 'Faire monter la personne '..Config.Keys.TaskEnterKeyString,

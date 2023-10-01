@@ -5,7 +5,7 @@
       <WeaponSlots>
         <Item>
           <OrderNumber value="185" />
-          <Entry>SLOT_megaphone</Entry>
+          <Entry>SLOT_MEGAPHONE</Entry>
         </Item>
       </WeaponSlots>
     </Item>
@@ -13,7 +13,7 @@
       <WeaponSlots>
         <Item>
           <OrderNumber value="195" />
-          <Entry>SLOT_megaphone</Entry>
+          <Entry>SLOT_MEGAPHONE</Entry>
         </Item>
       </WeaponSlots>
     </Item>
@@ -22,7 +22,7 @@
     <WeaponSlots>
       <Item>
         <OrderNumber value="85" />
-        <Entry>SLOT_megaphone</Entry>
+        <Entry>SLOT_MEGAPHONE</Entry>
       </Item>
     </WeaponSlots>
   </SlotBestOrder>
@@ -54,7 +54,7 @@
           <Name>WEAPON_MEGAPHONE</Name>
           <Model>w_pi_megaphone</Model>
           <Audio />
-          <Slot>SLOT_megaphone</Slot>
+          <Slot>SLOT_MEGAPHONE</Slot>
           <DamageType>FIRE_EXTINGUISHER</DamageType>
           <Explosion>
             <Default>DONTCARE</Default>
@@ -209,7 +209,7 @@
           <FirstPersonReticuleStyleHash />
           <PickupHash />
           <MPPickupHash />
-          <HumanNameHash>WT_FIRE</HumanNameHash>
+          <HumanNameHash>WT_MEGAPHONE</HumanNameHash>
           <MovementModeConditionalIdle />
           <StatName>EXTINGUISHER</StatName>
           <KnockdownCount value="-1" />

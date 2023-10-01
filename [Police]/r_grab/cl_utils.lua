@@ -11,16 +11,6 @@ if Config.ESX.enabled then
     ESX = nil
 
     TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-elseif Config.QB.enabled then
-    QBdata = {}
-
-    RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
-        QBdata = exports['qb-core']:GetCoreObject().Functions.GetPlayerData()
-    end)
-
-    RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
-        QBdata.job = JobInfo
-    end)
 end
 
 -- [[ Functions ]]
@@ -37,6 +27,8 @@ function verifyJobPlayer()
             end
         end
     elseif Config.QB.enabled then
+        local QBdata = exports['qb-core']:GetCoreObject().Functions.GetPlayerData()
+
         for i = 1, #Config.QB.jobs do
             if QBdata.job and QBdata.job.name == Config.QB.jobs[i] then
                 return true
@@ -51,11 +43,9 @@ end
 
 -- You can modify the notification system of the script (do not change the name of the function)
 function Hint(message)
-    -- AddTextEntry('r_grab', message)
-    -- BeginTextCommandDisplayHelp('r_grab')
-    -- EndTextCommandDisplayHelp(0, 0, 0, -1)
-    QBCore.Functions.Notify(message, "info")
-
+    AddTextEntry('r_grab', message)
+    BeginTextCommandDisplayHelp('r_grab')
+    EndTextCommandDisplayHelp(0, 0, 0, -1)
 end
 
 -- Blocks the player when he is dragged
@@ -80,13 +70,14 @@ end
 -- [[ Command ]]
 
 -- Command to control the resource (when CommandEnabled is activated)
-if Config.CommandEnabled then
-    RegisterCommand(Config.GrabCommand, function(_, args)
-        if verifyJobPlayer() then
-            fGrab(GetPedInFront())
-        end
-    end)
 
+RegisterCommand(Config.GrabCommand, function(_, args)
+    if verifyJobPlayer() then
+        fGrab(GetPedInFront())
+    end
+end)
+
+if Config.CommandEnabled then
     RegisterCommand(Config.PutCarCommand, function(_, args)
         if verifyJobPlayer() then
             fPutCar(true)
@@ -99,16 +90,7 @@ if Config.CommandEnabled then
         end
     end)
 else
-    CreateThread(function()
-        while true do
-            Wait(5)
-            if jobPlayer or grab ~= nil then
-                if IsControlJustPressed(1, Config.Keys.GrabAndDropKey) then
-                    fGrab(GetPedInFront())
-                end
-            end
-        end
-    end)
+    RegisterKeyMapping(Config.GrabCommand, 'Grab ped key', 'keyboard', 'F2')
 end
 
 -- [[ Exports ]]
