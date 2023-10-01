@@ -6,6 +6,6 @@ game "gta5"
 
 author 'Larcius'
 description 'Forests of San Andreas (South): Ultimate'
-version '4.5'
+version '4.7'
 
 data_file('DLC_ITYP_REQUEST')('stream/forests_s_slod.ytyp')

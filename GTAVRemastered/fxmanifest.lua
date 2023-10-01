@@ -6,6 +6,6 @@ game "gta5"
 
 author 'Larcius'
 description 'GTA V Remastered: Ultimate'
-version '4.0'
+version '4.6'
 
 data_file('DLC_ITYP_REQUEST')('stream/vremastered_slod.ytyp')
