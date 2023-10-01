@@ -411,17 +411,17 @@ Config.KeyBinds = {
     Open = { -- toggle the phone
         Command = "phone",
         Bind = "F1",
-        Description = "Open your phone"
+        Description = "Abrir el teléfono"
     },
     Focus = { -- keybind to toggle the mouse cursor.
         Command = "togglePhoneFocus",
         Bind = "LMENU",
-        Description = "Toggle cursor on your phone"
+        Description = "Alternar el cursor en el teléfono"
     },
     StopSounds = { -- in case the sound would bug out, you can use this command to stop all sounds.
         Command = "stopSounds",
         Bind = false,
-        Description = "Stop all phone sounds"
+        Description = "Detener todos los sonidos del teléfono"
     },
 
     FlipCamera = {
@@ -432,37 +432,37 @@ Config.KeyBinds = {
     TakePhoto = {
         Command = "takePhoto",
         Bind = "RETURN",
-        Description = "Take a photo / video"
+        Description = "Hacer una foto / vídeo"
     },
     ToggleFlash = {
         Command = "toggleCameraFlash",
         Bind = "E",
-        Description = "Toggle flash"
+        Description = "Alternar flash"
     },
     LeftMode = {
         Command = "leftMode",
         Bind = "LEFT",
-        Description = "Change mode"
+        Description = "Cambiar modo"
     },
     RightMode = {
         Command = "rightMode",
         Bind = "RIGHT",
-        Description = "Change mode"
+        Description = "Cambiar modo"
     },
 
     AnswerCall = {
         Command = "answerCall",
         Bind = "RETURN",
-        Description = "Answer incoming call"
+        Description = "Contestar llamada entrante"
     },
     DeclineCall = {
         Command = "declineCall",
         Bind = "BACK",
-        Description = "Decline incoming call"
+        Description = "Rechazar llamada entrante"
     },
     UnlockPhone = {
         Bind = "SPACE",
-        Description = "Open your phone",
+        Description = "Abre tu teléfono",
     },
 }
 
