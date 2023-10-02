@@ -6535,6 +6535,16 @@ QBShared.Vehicles = {
         ['hash'] = `virtue`,
         ['shop'] = 'vanilla',
     },
+    ['wildtrak'] = {
+        ['name'] = 'Bronco',
+        ['brand'] = 'Ford',
+        ['model'] = 'wildtrak',
+        ['price'] = 92000,
+        ['category'] = 'ford',
+        ['categoryLabel'] = 'fresh',
+        ['hash'] = `wildtrak`,
+        ['shop'] = 'admins',
+    },
 }
 
 
