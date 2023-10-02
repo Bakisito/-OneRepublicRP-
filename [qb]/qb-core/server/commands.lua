@@ -122,7 +122,7 @@ end, 'admin')
 QBCore.Commands.Add('togglepvp', Lang:t("command.togglepvp.help"), {}, false, function()
     QBConfig.Server.PVP = not QBConfig.Server.PVP
     TriggerClientEvent('QBCore:Client:PvpHasToggled', -1, QBConfig.Server.PVP)
-end, 'admin')
+end, 'god')
 
 -- Permissions
 
@@ -153,20 +153,20 @@ QBCore.Commands.Add('openserver', Lang:t("command.openserver.help"), {}, false, 
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.server_already_open'), 'error')
         return
     end
-    if QBCore.Functions.HasPermission(source, 'admin') then
+    if QBCore.Functions.HasPermission(source, 'god') then
         QBCore.Config.Server.Closed = false
         TriggerClientEvent('QBCore:Notify', source, Lang:t('success.server_opened'), 'success')
     else
         QBCore.Functions.Kick(source, Lang:t("error.no_permission"), nil, nil)
     end
-end, 'admin')
+end, 'god')
 
 QBCore.Commands.Add('closeserver', Lang:t("command.closeserver.help"), {{ name = Lang:t("command.closeserver.params.reason.name"), help = Lang:t("command.closeserver.params.reason.help")}}, false, function(source, args)
     if QBCore.Config.Server.Closed then
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.server_already_closed'), 'error')
         return
     end
-    if QBCore.Functions.HasPermission(source, 'admin') then
+    if QBCore.Functions.HasPermission(source, 'god') then
         local reason = args[1] or 'No reason specified'
         QBCore.Config.Server.Closed = true
         QBCore.Config.Server.ClosedReason = reason
@@ -179,13 +179,13 @@ QBCore.Commands.Add('closeserver', Lang:t("command.closeserver.help"), {{ name =
     else
         QBCore.Functions.Kick(source, Lang:t("error.no_permission"), nil, nil)
     end
-end, 'admin')
+end, 'god')
 
 -- Vehicle
 
 QBCore.Commands.Add('car', Lang:t("command.car.help"), {{ name = Lang:t("command.car.params.model.name"), help = Lang:t("command.car.params.model.help") }}, true, function(source, args)
     TriggerClientEvent('QBCore:Command:SpawnVehicle', source, args[1])
-end, 'admin')
+end, 'god')
 
 QBCore.Commands.Add('dv', Lang:t("command.dv.help"), {}, false, function(source)
     TriggerClientEvent('QBCore:Command:DeleteVehicle', source)
@@ -200,7 +200,7 @@ QBCore.Commands.Add('givemoney', Lang:t("command.givemoney.help"), { { name = La
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
     end
-end, 'admin')
+end, 'god')
 
 --Hora
 QBCore.Commands.Add('hora', Lang:t("command.hora.help"), {}, false, function(source)
@@ -219,7 +219,7 @@ QBCore.Commands.Add('setmoney', Lang:t("command.setmoney.help"), { { name = Lang
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
     end
-end, 'admin')
+end, 'god')
 
 -- Job
 
@@ -235,7 +235,7 @@ QBCore.Commands.Add('setjob', Lang:t("command.setjob.help"), { { name = Lang:t("
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
     end
-end, 'admin')
+end, 'god')
 
 -- Gang
 
@@ -251,7 +251,7 @@ QBCore.Commands.Add('setgang', Lang:t("command.setgang.help"), { { name = Lang:t
     else
         TriggerClientEvent('QBCore:Notify', source, Lang:t('error.not_online'), 'error')
     end
-end, 'admin')
+end, 'god')
 
 -- Out of Character Chat
 QBCore.Commands.Add('ooc', Lang:t("command.ooc.help"), {}, false, function(source, args)

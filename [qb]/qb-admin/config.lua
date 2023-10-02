@@ -45,18 +45,18 @@ Config.NamesOverSelfHead                    = true                  -- Whether o
 Config.FuelScript                           = 'LegacyFuel'
 
 Config.Permissions = {
-    ["god"] = {
+    ["admin"] = {
         AllowedActions = {
             "characterspage", -- Access the All Characters page
-            "resourcepage", -- Access the Resource control page
-            "deletecharacter", -- Delete a character
-            "kickall", -- Kick all players
-            "reviveall", -- Revive all players
+           -- "resourcepage", -- Access the Resource control page
+            --"deletecharacter", -- Delete a character
+           -- "kickall", -- Kick all players
+           -- "reviveall", -- Revive all players
             "messageall", -- Message all players
             "massdeleteentities", -- Permission to delete ALL vehicles, peds, or objects for all players
             "setViewDistance", -- Set view distance
             "copyEntityInfo", -- Copy entity information
-            "freeaimMode", -- Enable free aim mode
+            --"freeaimMode", -- Enable free aim mode
             "displayVehicles", -- Display vehicle dev mode
             "displayPeds", -- Display peds dev mode
             "displayObjects", -- Display objects dev mode
@@ -64,9 +64,33 @@ Config.Permissions = {
             "clearadminchat", --Clear adminchat ADVISE TO KEEP TO GOD ONLY!
             "clearlogs", --Clear logslist ADVISE TO KEEP TO GOD ONLY!
             "leaderboardinfo", --Check the leaderboards
+            "adminmenu", -- Open the admin menu
+            "adminchat", -- Access the admin chat
+            "serverlogs", -- Access the server logs page
+            "servermetrics", -- Access the server metrics page
+            "jobpage", -- Access the jobs page
+            "gangpage", -- Access the gangs page
+            "banspage", -- Access the bans page
+            "teleport", -- Teleport yourself, others, to location
+            "freeze", -- Freeze a player
+            "kill", -- Kill yourself, others
+            "ban", -- Ban a player from the server
+            "warn", -- Warn a player
+            "checkwarns", -- Check the warnings of a player
+            "spectate", -- Spectate a player
+            "screenshot", -- Screenshot a player
+            "deleteclosestvehicle", -- Delete closest vehicle
+            "deleteclosestped", -- Delete closest ped
+            "deleteclosestobject", -- Delete closest object
+            "lockvehicle", -- Lock a vehicle
+            "unlockvehicle", -- Unlock a vehicle
+            "clearblood", -- Clear blood from clothes
+            "wetclothes", -- Wet clothes
+            "dryclothes", -- Dry clothes
+            "copyEntityInfo",
         },
     },
-    ["admin"] = {
+    ["god"] = {
         AllowedActions = {
             "characterspage", -- Access the All Characters page
             "resourcepage", -- Access the Resource control page
