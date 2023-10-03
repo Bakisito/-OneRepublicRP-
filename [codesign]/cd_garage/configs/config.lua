@@ -98,14 +98,14 @@ Config.GarageTax = {
     ENABLE = true, --Do you want to enable the vehicle tax system? (each vehicle will be taxed 1 time per server restart).
     method = 'vehicles_data', --[ 'default' / 'vehicles_data' ] Read below for more info on each on these 2 options.
     default_price = 1000, --If 'default' method is chosen, then it will be a set price to return any vehicle. (eg., $500 fee).
-    vehiclesdata_price_multiplier = 3 --If 'vehicles_data' method is chosen, the return vehicle price will be a % of the vehcles value. (eg., 1% of a $50,000 car would be a $500 fee).
+    vehiclesdata_price_multiplier = 2 --If 'vehicles_data' method is chosen, the return vehicle price will be a % of the vehcles value. (eg., 1% of a $50,000 car would be a $500 fee).
 }
 
 Config.Return_Vehicle = { --This is the price players pay for their vehicle to be returned to their garage if it has despawned or been blown up.
     ENABLE = true, --Do you want to allow players to return their vehicle if they are destroyed or despawned?
     method = 'vehicles_data', --[ 'default' / 'vehicles_data' ] Read below for more info on each on these 2 options.
     default_price = 500, --If 'default' method is chosen, then it will be a set price to return any vehicle. (eg., $500 fee).
-    vehiclesdata_price_multiplier = 7 --If 'vehicles_data' method is chosen, the return vehicle price will be a % of the vehcles value. (eg., 1% of a $50,000 car would be a $500 fee).
+    vehiclesdata_price_multiplier = 1 --If 'vehicles_data' method is chosen, the return vehicle price will be a % of the vehcles value. (eg., 1% of a $50,000 car would be a $500 fee).
 }
 
 

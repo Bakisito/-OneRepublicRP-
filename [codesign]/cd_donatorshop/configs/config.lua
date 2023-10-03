@@ -66,7 +66,7 @@ Config.StaffCommands = {
 
     Perms = { --You decide which permission groups can use the staff commands to add/remove coins ^.
         ['esx'] = {'superadmin', 'admin'},
-        ['qbcore'] = {'god', 'admin'},
+        ['qbcore'] = {'god', },
         ['other'] = {'change_me', 'change_me'}
     }
 }
