@@ -131,6 +131,8 @@ Stores = {
 			{ name = "cleaningkit", price = 20, amount = 10, info = {}, type = "item", },
 			{ name = "kq_carjack", price = 600, amount = 10, info = {}, type = "item", },
 			{ name = "advancedrepairkit", price = 400, amount = 10, info = {}, type = "item", },
+			{ name = "lockpick", price = 100, amount = 10, info = {}, type = "item", },
+			{ name = "advancedlockpick", price = 200, amount = 10, info = {}, type = "item", },
 			
 		},
 	},

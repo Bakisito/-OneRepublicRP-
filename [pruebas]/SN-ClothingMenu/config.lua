@@ -4,7 +4,7 @@ Config.ShowProps = true
 Config.AllowInVehicle = false
 
 Config.MainMenu = {
-    DefaultKey = '',
+    DefaultKey = ';',
     Command = 'clothing',
     CommandHelpText = 'Toggle Clothing'
 }
