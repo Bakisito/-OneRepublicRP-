@@ -1,3 +1,4 @@
+shared_script '@Five/ai_module_fg-obfuscated.lua'
 game("gta5")
 fx_version("cerulean")
 

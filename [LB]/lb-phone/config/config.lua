@@ -278,8 +278,8 @@ Config.PhoneNumber.Prefixes = { -- These are the first numbers of the phone numb
 Config.Battery = {} -- WITH THESE SETTINGS, A FULL CHARGE WILL LAST AROUND 2 HOURS.
 Config.Battery.Enabled = true -- Enable battery on the phone, you'll need to use the exports to charge it.
 Config.Battery.ChargeInterval = { 5, 10 } -- How much battery
-Config.Battery.DischargeInterval = { 100, 120 } -- How many seconds for each percent to be removed from the battery
-Config.Battery.DischargeWhenInactiveInterval = { 160, 240 } -- How many seconds for each percent to be removed from the battery when the phone is inactive
+Config.Battery.DischargeInterval = { 250, 500 } -- How many seconds for each percent to be removed from the battery
+Config.Battery.DischargeWhenInactiveInterval = { 400, 800 } -- How many seconds for each percent to be removed from the battery when the phone is inactive
 Config.Battery.DischargeWhenInactive = true -- Should the phone remove battery when the phone is closed?
 
 Config.CurrencyFormat = "$%s" -- ($100) Choose the formatting of the currency. %s will be replaced with the amount.
