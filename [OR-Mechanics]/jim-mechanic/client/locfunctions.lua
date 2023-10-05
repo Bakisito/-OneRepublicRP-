@@ -6,6 +6,7 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
 			for _, v in pairs(Config.Main.JobRoles) do if v == PlayerJob.name then havejob = true end end
 			if havejob then TriggerServerEvent("QBCore:ToggleDuty") end end
     end)
+	makeLocs()
 end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo) PlayerJob = JobInfo onDuty = PlayerJob.onduty end)
@@ -18,29 +19,43 @@ AddEventHandler('onResourceStart', function(resource) if GetCurrentResourceName(
 		if havejob then onDuty = PlayerJob.onduty end
 	end)
 	Wait(500)
+	if GetVehiclePedIsIn(PlayerPedId()) ~= 0 then TriggerEvent("jim-mechanic:Client:EnteredVehicle") end
+	makeLocs()
 end)
 
-local Prop, Targets = {}, {}
-CreateThread(function()
+local Prop, Targets, locsCreated = {}, {}, false
+function makeLocs()
+	if locsCreated then return end
+	if LocalPlayer.state['isLoggedIn'] == false then return end
+	Wait(3000)
 	for k, v in pairs(Config.Locations) do local JobLocation = nil
 	local loc = Config.Locations[k]
 	if loc.Enabled then
 	--Zone Creation
 		JobLocation = PolyZone:Create(loc.zones, { name = loc.job or "public", debugPoly = Config.System.Debug })
+		Config.Locations[k].designatedName = "MechZone: "..k
 		JobLocation:onPlayerInOut(function(isPointInside)
-			if Config.Main.JobLocationRequired and loc.job ~= nil then
+			if isPointInside then inLocation = Config.Locations[k].designatedName
+				if Config.System.Debug then print("^5Debug^7: ^3Entered ^2Mech Zone^7: (^6"..Config.Locations[k].designatedName.."^7)") end
+			else inLocation = ""
+				if Config.System.Debug then print("^5Debug^7: ^3Exited ^2Mech Zone^7: (^6"..Config.Locations[k].designatedName.."^7)") end
+			end
+
+			if Config.Previews.PreviewLocation then
 				if isPointInside then inpreview = true
-					if Config.Main.ItemRequiresJob then
-						if PlayerJob.name == tostring(loc.job) then	injob = true
-							if loc.autoClock.enter and not onDuty then TriggerServerEvent("QBCore:ToggleDuty") end
+				else inpreview = false end
+			end
+			if Config.Main.JobLocationRequired then
+				if loc.job ~= nil and PlayerJob.name == tostring(loc.job) then
+					if isPointInside then
+						if loc.autoClock.enter and not onDuty then
+							TriggerServerEvent("QBCore:ToggleDuty")
 						end
-					else injob = true end
-				else inpreview = false
-					if Config.Main.ItemRequiresJob then
-						if PlayerJob.name == tostring(loc.job) then injob = false
-							if loc.autoClock.exit and onDuty then TriggerServerEvent("QBCore:ToggleDuty") end
+					else
+						if loc.autoClock.exit and onDuty then
+							TriggerServerEvent("QBCore:ToggleDuty")
 						end
-					else injob = false end
+					end
 				end
 			end
 		end)
@@ -73,15 +88,11 @@ CreateThread(function()
 			if loc.store then
 				for l, b in pairs(loc.store) do local name = "MechStore: "..k..l
 					local restrict = nil if loc.Restrictions and loc.Restrictions.Allow[1] then restrict = loc.Restrictions.Allow end
-
 					JobLocation:onPlayerInOut(function(isPointInside)
 						if isPointInside then
-							if b.prop then
-								Prop[name] = makeProp({coords = vec4(b.coords.x, b.coords.y, b.coords.z, b.coords.w), prop = "gr_prop_gr_bench_04b"}, 1, 0)
-							end
+							if b.prop then Prop[name] = makeProp({coords = vec4(b.coords.x, b.coords.y, b.coords.z, b.coords.w), prop = "gr_prop_gr_bench_04b"}, 1, 0) end
 						end
 					end)
-
 					Targets[name] =
 					exports['qb-target']:AddBoxZone(name, vec3(b.coords.x, b.coords.y, b.coords.z-1), b.w or 3.6, b.d or 0.8, { name=name, heading = b.coords.w, debugPoly=Config.System.Debug, minZ=b.coords.z-1.0, maxZ=b.coords.z+1.0 },
 						{ options = { { event = "jim-mechanic:client:Store:Menu", icon = "fas fa-cogs", label = Loc[Config.Lan]["stores"].browse, job = loc.job, restrict = restrict }, },
@@ -93,36 +104,32 @@ CreateThread(function()
 		if loc.payments then
 			for l, b in pairs(loc.payments) do local name = "MechReceipt: "..k..l
 				if l ~= "img" then
-					Targets[name] =
-					exports['qb-target']:AddBoxZone(name, vec3(b.coords.x, b.coords.y, b.coords.z), (b.w or 0.5), (b.d or 0.5), { name=name, heading = b.coords.w, debugPoly=Config.System.Debug, minZ=b.coords.z-0.1, maxZ=b.coords.z+0.4 },
-						{ options = { { event = "okokBilling:ToggleCreateInvoice", icon = "fas fa-credit-card", label = Loc[Config.Lan]["payments"].charge, job = loc.job, img = loc.payments.img }, },
-							distance = 2.0
-					})
 					JobLocation:onPlayerInOut(function(isPointInside)
 						if isPointInside then
 							if b.prop then Prop[name] = makeProp({prop = "prop_till_03", coords = vec4(b.coords.x, b.coords.y, b.coords.z+1.03, b.coords.w+180.0)}, 1, false) end
 						end
 					end)
+					Targets[name] =
+					exports['qb-target']:AddBoxZone(name, vec3(b.coords.x, b.coords.y, b.coords.z), (b.w or 0.5), (b.d or 0.5), { name=name, heading = b.coords.w, debugPoly=Config.System.Debug, minZ=b.coords.z-0.1, maxZ=b.coords.z+0.4 },
+						{ options = { { event = "jim-payments:client:Charge", icon = "fas fa-credit-card", label = Loc[Config.Lan]["payments"].charge, job = loc.job, img = loc.payments.img }, },
+							distance = 2.0
+					})
 				end
 			end
 		end
 	--Make Mechanic Stash locations
 		if ((Config.Repairs.StashRepair and not Config.Repairs.FreeRepair) or Config.StoreCraft.StashCraft) or Config.Overrides.ShowAllStash then
-			if Config.Main.ItemRequiresJob then
-				if loc.stash then
-					for l, b in pairs(loc.stash) do local name = "MechSafe: "..k..l
-						JobLocation:onPlayerInOut(function(isPointInside)
-							if isPointInside then
-								if b.prop then
-									Prop[name] = makeProp({coords = vec4(b.coords.x, b.coords.y, b.coords.z, b.coords.w), prop = "prop_ld_int_safe_01"}, 1, 0)
-								end
-							end
-						end)
-						Targets[name] =
-						exports['qb-target']:AddBoxZone(name, vec3(b.coords.x, b.coords.y, b.coords.z-1), b.w or 3.6, b.d or 0.8, { name=name, heading = b.coords.w, debugPoly=Config.System.Debug, minZ=b.coords.z-1.0, maxZ=b.coords.z+1.0 },
-							{ options = { { event = "jim-mechanic:client:Safe", icon = "fas fa-cogs", label = Loc[Config.Lan]["repair"].browse, job = loc.job }, },
-								distance = 2.0 })
-					end
+			if loc.stash then
+				for l, b in pairs(loc.stash) do local name = "MechSafe: "..k..l
+					JobLocation:onPlayerInOut(function(isPointInside)
+						if isPointInside then
+							if b.prop then Prop[name] = makeProp({coords = vec4(b.coords.x, b.coords.y, b.coords.z, b.coords.w), prop = "prop_ld_int_safe_01"}, 1, 0) end
+						end
+					end)
+					Targets[name] =
+					exports['qb-target']:AddBoxZone(name, vec3(b.coords.x, b.coords.y, b.coords.z-1), b.w or 3.6, b.d or 0.8, { name=name, heading = b.coords.w, debugPoly=Config.System.Debug, minZ=b.coords.z-1.0, maxZ=b.coords.z+1.0 },
+						{ options = { { event = "jim-mechanic:client:Safe", icon = "fas fa-cogs", label = Loc[Config.Lan]["repair"].browse, job = loc.job }, },
+							distance = 2.0 })
 				end
 			end
 		end
@@ -132,26 +139,27 @@ CreateThread(function()
 				if type(b) ~= "boolean" then
 					local bossrole = {}
 					if loc.job then
-						if not QBCore.Shared.Jobs[loc.job] then print("Can't find the job "..loc.job.." in the core shared files") break end
-						for grade in pairs(QBCore.Shared.Jobs[loc.job].grades) do
-							if QBCore.Shared.Jobs[loc.job].grades[grade].isboss == true then
-								if bossrole[loc.job] then
-									if bossrole[loc.job] > tonumber(grade) then bossrole[loc.job] = tonumber(grade) end
-								else bossrole[loc.job] = tonumber(grade) end
+						if QBCore.Shared.Jobs and not QBCore.Shared.Jobs[loc.job] then print("^5Debug^7: ^1Can't find the job ^7'^6"..loc.job.."^7' ^1in the core shared files^7") else
+							for grade in pairs(QBCore.Shared.Jobs[loc.job].grades) do
+								if QBCore.Shared.Jobs[loc.job].grades[grade].isboss == true then
+									if bossrole[loc.job] then
+										if bossrole[loc.job] > tonumber(grade) then bossrole[loc.job] = tonumber(grade) end
+									else bossrole[loc.job] = tonumber(grade) end
+								end
 							end
+							JobLocation:onPlayerInOut(function(isPointInside)
+								if isPointInside then
+									if b.prop then Prop[name] = makeProp({prop = "prop_laptop_01a", coords = vec4(b.coords.x, b.coords.y, b.coords.z+1.03, b.coords.w+180.0)}, 1, false) end
+								end
+							end)
+							Targets[name] =
+							exports['qb-target']:AddBoxZone(name, b.coords.xyz, (b.w or 0.45), (b.d or 0.4), { name=name, heading = b.coords.w, debugPoly=Config.System.Debug, minZ=b.coords.z-0.1, maxZ=b.coords.z+0.4 },
+								{ options = {
+									{ type = "server", event = "QBCore:ToggleDuty", icon = "fas fa-clipboard", label = "Duty Toggle", job = loc.job },
+									{ event = "qb-bossmenu:client:OpenMenu", icon = "fas fa-list", label = "Open Bossmenu", job = bossrole, },
+								},
+								distance = 2.0 })
 						end
-						JobLocation:onPlayerInOut(function(isPointInside)
-							if isPointInside then
-								if b.prop then Prop[name] = makeProp({prop = "prop_laptop_01a", coords = vec4(b.coords.x, b.coords.y, b.coords.z+1.03, b.coords.w+180.0)}, 1, false) end
-								Targets[name] =
-								exports['qb-target']:AddBoxZone(name, b.coords.xyz, (b.w or 0.45), (b.d or 0.4), { name=name, heading = b.coords.w, debugPoly=Config.System.Debug, minZ=b.coords.z-0.1, maxZ=b.coords.z+0.4 },
-									{ options = {
-										{ type = "server", event = "QBCore:ToggleDuty", icon = "fas fa-clipboard", label = "Duty Toggle", job = loc.job },
-										{ event = "qb-bossmenu:client:OpenMenu", icon = "fas fa-list", label = "Open Bossmenu", job = bossrole, },
-									},
-									distance = 2.0 })
-							end
-						end)
 					end
 				end
 			end
@@ -163,9 +171,7 @@ CreateThread(function()
 			for l, b in pairs(loc.manualRepair) do local name = "RepairBench: "..k..l
 				JobLocation:onPlayerInOut(function(isPointInside)
 					if isPointInside then
-						if b.prop then
-							Prop[name] = makeProp({coords = vec4(b.coords.x, b.coords.y, b.coords.z-1.37, b.coords.w), prop = "gr_prop_gr_bench_03a"}, 1, 0)
-						end
+						if b.prop then Prop[name] = makeProp({coords = vec4(b.coords.x, b.coords.y, b.coords.z-1.37, b.coords.w), prop = "gr_prop_gr_bench_03a"}, 1, 0) end
 					end
 				end)
 				Targets[name] =
@@ -175,17 +181,13 @@ CreateThread(function()
 		end
 
 	--NosRefill Locations
-		if loc.nosrefill then
+		if loc.nosrefill and not Config.Overrides.disableNos then
 			for l, b in pairs(loc.nosrefill) do local name = "MechNos: "..k..l
-				JobLocation:onPlayerInOut(function(isPointInside)
-					if isPointInside then
-						Prop[name] = makeProp({prop = "prop_byard_gastank02", coords = vec4(b.coords.x, b.coords.y, b.coords.z, b.coords.w+180.0)}, 1, false)
-						Targets[name] =
-						exports['qb-target']:AddBoxZone(name, vec3(b.coords.x, b.coords.y, b.coords.z-1), 0.7, 0.7, { name=name, heading = b.coords[4], debugPoly=Config.System.Debug, minZ=b.coords.z-1.05, maxZ=b.coords.z+0.25 },
-							{ options = { { event = "jim-mechanic:client:NosRefill", item = "noscan", icon = "fas fa-gauge-high", label = "NOS ($"..Config.NOS.NosRefillCharge..")", coords = b.coords, tank = Prop[name], society = loc.job }, },
-							distance = 2.0 })
-					end
-				end)
+				Prop[name] = makeProp({prop = "prop_byard_gastank02", coords = vec4(b.coords.x, b.coords.y, b.coords.z, b.coords.w+180.0)}, 1, false)
+				Targets[name] =
+				exports['qb-target']:AddBoxZone(name, vec3(b.coords.x, b.coords.y, b.coords.z-1), 0.7, 0.7, { name=name, heading = b.coords[4], debugPoly=Config.System.Debug, minZ=b.coords.z-1.05, maxZ=b.coords.z+0.25 },
+					{ options = { { event = "jim-mechanic:client:NosRefill", item = "noscan", icon = "fas fa-gauge-high", label = "NOS ($"..Config.NOS.NosRefillCharge..")", coords = b.coords, tank = Prop[name], society = loc.job }, },
+					distance = 2.0 })
 			end
 		end
 	--Carlifts
@@ -212,11 +214,10 @@ CreateThread(function()
 								Targets[name] =
 									exports['qb-target']:AddBoxZone(name, vec3(targetOffSet.x, targetOffSet.y, targetOffSet.z-1.8), 0.7, 0.7, { name=name, heading = GetEntityHeading(currentLift), debugPoly=Config.System.Debug, minZ=targetOffSet.z-2.55, maxZ=targetOffSet.z+0.55 },
 										{ options = {
-											{ event = "jim-mechanic:client:lift", icon = "fas fa-gauge-high", label = "UP", lift = name, dir = "up", sound = Config.CarLifts.Sound },
-											{ event = "jim-mechanic:client:lift", icon = "fas fa-gauge-high", label = "DOWN", lift = name, dir = "down", sound = Config.CarLifts.Sound },
+											{ event = "jim-mechanic:client:lift", icon = "fas fa-gauge-high", label = "UP", lift = name, dir = "up", sound = Config.CarLifts.Sound, location = Config.Locations[k].designatedName },
+											{ event = "jim-mechanic:client:lift", icon = "fas fa-gauge-high", label = "DOWN", lift = name, dir = "down", sound = Config.CarLifts.Sound, location = Config.Locations[k].designatedName },
 										}, distance = 2.0 })
 							end
-							TriggerServerEvent("jim-mechanic:server:lift:SendSync")
 						else
 							if lift[name] == nil then
 								for _, v in pairs(Config.CarLifts.CarLiftModelReplace) do CreateModelHide(b.coords.x, b.coords.y, b.coords.z, 3.0, v, true) end
@@ -227,20 +228,24 @@ CreateThread(function()
 								Targets[name] =
 									exports['qb-target']:AddBoxZone(name, vec3(targetOffSet.x, targetOffSet.y, targetOffSet.z-1.8), 0.7, 0.7, { name=name, heading = b.coords[4], debugPoly=Config.System.Debug, minZ=targetOffSet.z-2.55, maxZ=targetOffSet.z+0.55 },
 										{ options = {
-											{ event = "jim-mechanic:client:lift", icon = "fas fa-gauge-high", label = "UP", lift = name, dir = "up", sound = Config.CarLifts.Sound },
-											{ event = "jim-mechanic:client:lift", icon = "fas fa-gauge-high", label = "DOWN", lift = name, dir = "down", sound = Config.CarLifts.Sound },
+											{ event = "jim-mechanic:client:lift", icon = "fas fa-gauge-high", label = "UP", lift = name, dir = "up", sound = Config.CarLifts.Sound, location = Config.Locations[k].designatedName },
+											{ event = "jim-mechanic:client:lift", icon = "fas fa-gauge-high", label = "DOWN", lift = name, dir = "down", sound = Config.CarLifts.Sound, location = Config.Locations[k].designatedName },
 										},
 									distance = 2.0 })
-									TriggerServerEvent("jim-mechanic:server:lift:SendSync")
 							end
 						end
 					end
 				end)
 			end
+			JobLocation:onPlayerInOut(function(isPointInside)
+				if isPointInside then
+					TriggerServerEvent("jim-mechanic:server:lift:SendSync")
+				end
+			end)
 		end
 	end end
-	if Config.CarLifts.Enable == true then TriggerServerEvent("jim-mechanic:server:lift:SendSync") end -- After loading in, sync the props
-end)
+	locsCreated = true
+end
 
 --[[
 --Thread for finding locations of existing pylons/lifts
@@ -270,36 +275,36 @@ RegisterNetEvent('jim-mechanic:client:Crafting:Menu', function(data)
 	if data.restrict then for i = 1, #data.restrict do restrictionTable[data.restrict[i]] = true end end
 	if data.restrict and not restrictionTable["tools"] then else Menu[#Menu + 1] = {
 		header = Loc[Config.Lan]["crafting"].toolheader, txt = #Crafting.Tools..Loc[Config.Lan]["crafting"].numitems,
-		params = { event = "jim-mechanic:Crafting", args = { craftable = Crafting.Tools, header = Loc[Config.Lan]["crafting"].toolheader, } } ,
+		params = { event = "jim-mechanic:Crafting", args = { craftable = Crafting.Tools, header = Loc[Config.Lan]["crafting"].toolheader, restrict = data.restrict } } ,
 		title = Loc[Config.Lan]["crafting"].toolheader, description = #Crafting.Tools..Loc[Config.Lan]["crafting"].numitems,
-		event = "jim-mechanic:Crafting", args = { craftable = Crafting.Tools, header = Loc[Config.Lan]["crafting"].toolheader, }
+		event = "jim-mechanic:Crafting", args = { craftable = Crafting.Tools, header = Loc[Config.Lan]["crafting"].toolheader, restrict = data.restrict }
 	} end
 	if data.restrict and not restrictionTable["repairs"] then else Menu[#Menu + 1] = {
 		header = Loc[Config.Lan]["crafting"].repairheader, txt = #Crafting.Repairs..Loc[Config.Lan]["crafting"].numitems,
-		params = { event = "jim-mechanic:Crafting", args = { craftable = Crafting.Repairs, header = Loc[Config.Lan]["crafting"].repairheader, } } ,
+		params = { event = "jim-mechanic:Crafting", args = { craftable = Crafting.Repairs, header = Loc[Config.Lan]["crafting"].repairheader, restrict = data.restrict } } ,
 		title = Loc[Config.Lan]["crafting"].repairheader, description = #Crafting.Repairs..Loc[Config.Lan]["crafting"].numitems,
-		event = "jim-mechanic:Crafting", args = { craftable = Crafting.Repairs, header = Loc[Config.Lan]["crafting"].repairheader, }
+		event = "jim-mechanic:Crafting", args = { craftable = Crafting.Repairs, header = Loc[Config.Lan]["crafting"].repairheader, restrict = data.restrict }
 	} end
 	if data.restrict and not restrictionTable["perform"] then else Menu[#Menu + 1] = {
 		header = Loc[Config.Lan]["crafting"].performheader, txt = #Crafting.Perform..Loc[Config.Lan]["crafting"].numitems,
-		params = { event = "jim-mechanic:Crafting", args = { craftable = Crafting.Perform, header = Loc[Config.Lan]["crafting"].performheader, } },
+		params = { event = "jim-mechanic:Crafting", args = { craftable = Crafting.Perform, header = Loc[Config.Lan]["crafting"].performheader, restrict = data.restrict } },
 		title = Loc[Config.Lan]["crafting"].performheader, description = #Crafting.Perform..Loc[Config.Lan]["crafting"].numitems,
-		event = "jim-mechanic:Crafting", args = { craftable = Crafting.Perform, header = Loc[Config.Lan]["crafting"].performheader, }
+		event = "jim-mechanic:Crafting", args = { craftable = Crafting.Perform, header = Loc[Config.Lan]["crafting"].performheader, restrict = data.restrict }
 	} end
 	if data.restrict and not restrictionTable["cosmetics"] then else Menu[#Menu + 1] = {
 		header = Loc[Config.Lan]["crafting"].cosmetheader, txt = #Crafting.Cosmetic..Loc[Config.Lan]["crafting"].numitems,
-		params = { event = "jim-mechanic:Crafting", args = { craftable = Crafting.Cosmetic, header = Loc[Config.Lan]["crafting"].cosmetheader, } },
+		params = { event = "jim-mechanic:Crafting", args = { craftable = Crafting.Cosmetic, header = Loc[Config.Lan]["crafting"].cosmetheader, restrict = data.restrict } },
 		title = Loc[Config.Lan]["crafting"].cosmetheader, description = #Crafting.Cosmetic..Loc[Config.Lan]["crafting"].numitems,
-		event = "jim-mechanic:Crafting", args = { craftable = Crafting.Cosmetic, header = Loc[Config.Lan]["crafting"].cosmetheader, }
+		event = "jim-mechanic:Crafting", args = { craftable = Crafting.Cosmetic, header = Loc[Config.Lan]["crafting"].cosmetheader, restrict = data.restrict }
 	} end
-	if data.restrict and not restrictionTable["nos"] then else Menu[#Menu + 1] = {
+	if data.restrict and not restrictionTable["nos"] and not Config.Overrides.disableNos then else Menu[#Menu + 1] = {
 		header = Loc[Config.Lan]["crafting"].nosheader, txt = #Crafting.Nos..Loc[Config.Lan]["crafting"].numitems,
-		params = { event = "jim-mechanic:Crafting", args = { craftable = Crafting.Nos, header = Loc[Config.Lan]["crafting"].nosheader, } } ,
+		params = { event = "jim-mechanic:Crafting", args = { craftable = Crafting.Nos, header = Loc[Config.Lan]["crafting"].nosheader, restrict = data.restrict } } ,
 		title = Loc[Config.Lan]["crafting"].nosheader, description = #Crafting.Nos..Loc[Config.Lan]["crafting"].numitems,
-		event = "jim-mechanic:Crafting", args = { craftable = Crafting.Nos, header = Loc[Config.Lan]["crafting"].nosheader, }
+		event = "jim-mechanic:Crafting", args = { craftable = Crafting.Nos, header = Loc[Config.Lan]["crafting"].nosheader, restrict = data.restrict }
 	} end
 	if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Crafting', title = Loc[Config.Lan]["crafting"].menuheader, position = 'top-right', options = Menu })	exports.ox_lib:showContext("Crafting")
-	elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(Menu) end
+	elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(Menu) end
 	lookVeh(data.coords)
 end)
 
@@ -341,36 +346,44 @@ RegisterNetEvent('jim-mechanic:Crafting', function(data)
 				end
 				if not QBCore.Shared.Items[k] then print("^5Debug^7: ^2Item not found in server^7: '^6"..k.."^7'") else
 					if data.craftable[i]["job"] and hasjob == false then else
-						local text = ""
-						setheader = QBCore.Shared.Items[tostring(k)].label
-						if data.craftable[i]["amount"] then setheader = setheader.." x"..data.craftable[i]["amount"] end
-						local disable = false
-						local checktable = {}
-						for l, b in pairs(data.craftable[i][tostring(k)]) do
-							text = text..QBCore.Shared.Items[l].label.." x"..b..br
-							settext = text
-							if Config.StoreCraft.StashCraft then checktable[l] = stashHasItem(stashItems, l, b) end
-							if not Config.StoreCraft.StashCraft then checktable[l] = HasItem(l, b) end
-							Wait(0)
-						end
-						for _, v in pairs(checktable) do if v == false then disable = true break end end
-						if not Config.StoreCraft.StashCraft then if not disable then setheader = setheader.." ✔️" end end
-						Menu[#Menu + 1] = {
-							disabled = disable,
-							icon = "nui://"..Config.System.img..QBCore.Shared.Items[tostring(k)].image,
-							header = setheader, txt = settext, --qb-menu
-							params = { event = "jim-mechanic:Crafting:MakeItem", args = { item = k, craft = data.craftable[i], craftable = data.craftable, header = data.header } }, -- qb-menu
-							title = setheader, description = settext, -- ox_lib
-							event = "jim-mechanic:Crafting:MakeItem", args = { item = k, craft = data.craftable[i], craftable = data.craftable, header = data.header }, -- ox_lib
-						}
-						settext, setheader = nil
+							local canShow = true
+							local text = ""
+							setheader = QBCore.Shared.Items[tostring(k)].label
+							if data.craftable[i]["amount"] then setheader = setheader.." x"..data.craftable[i]["amount"] end
+							local disable = false
+							local checktable = {}
+							for l, b in pairs(data.craftable[i][tostring(k)]) do
+								if not QBCore.Shared.Items[l] then
+									print("^5Debug^7: ^3Ingredient Item^2 not found in server^7: '^6"..l.."^7'")
+									canShow = false
+								else
+									text = text..QBCore.Shared.Items[l].label.." x"..b..br
+									settext = text
+									if Config.StoreCraft.StashCraft then checktable[l] = stashHasItem(stashItems, l, b) end
+									if not Config.StoreCraft.StashCraft then checktable[l] = HasItem(l, b) end
+									Wait(0)
+								end
+							end
+							if canShow then
+								for _, v in pairs(checktable) do if v == false then disable = true break end end
+								if not Config.StoreCraft.StashCraft then if not disable then setheader = setheader.." ✔️" end end
+								Menu[#Menu + 1] = {
+									disabled = disable,
+									icon = "nui://"..Config.System.img..QBCore.Shared.Items[tostring(k)].image,
+									header = setheader, txt = settext, --qb-menu
+									params = { event = "jim-mechanic:Crafting:MakeItem", args = { item = k, craft = data.craftable[i], craftable = data.craftable, header = data.header } }, -- qb-menu
+									title = setheader, description = settext, -- ox_lib
+									event = "jim-mechanic:Crafting:MakeItem", args = { item = k, craft = data.craftable[i], craftable = data.craftable, header = data.header }, -- ox_lib
+								}
+							end
+							settext, setheader = nil
 					end
 				end
 			end
 		end
 	end
-	if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Crafting', title = data.header, position = 'top-right', options = Menu })	exports.ox_lib:showContext("Crafting")
-	elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(Menu) end
+	if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Crafting', title = data.header, position = 'top-right', options = Menu })	exports.ox_lib:showContext("Crafting")
+	elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(Menu) end
 	lookVeh(data.coords)
 end)
 
@@ -387,21 +400,24 @@ end)
 ------ Nos Refill -------
 local refilling = false
 RegisterNetEvent('jim-mechanic:client:NosRefill', function(data) local Ped = PlayerPedId()
-	if refilling then return end
-	local p = promise.new()	QBCore.Functions.TriggerCallback('jim-mechanic:checkCash', function(cb) p:resolve(cb) end)
-	local cash = Citizen.Await(p)
+	if refilling then return end local cash = 0
+	if Config.System.Inv == "ox" then if HasItem("money", Config.NOS.NosRefillCharge) then cash = Config.NOS.NosRefillCharge end
+	else
+		local p = promise.new()	QBCore.Functions.TriggerCallback('jim-mechanic:checkCash', function(cb) p:resolve(cb) end)
+		cash = Citizen.Await(p)
+	end
 	if cash >= Config.NOS.NosRefillCharge then
 		refilling = true
 		local coords = GetOffsetFromEntityInWorldCoords(data.tank, 0, 0.5, 0.02)
-		local prop = makeProp({prop = "v_ind_cs_gascanister", coords = vec4(coords.x, coords.y, coords.z+1.03, data.coords.w)}, 1, 1)
+		local prop = makeProp({prop = "v_ind_cs_gascanister", coords = vec4(coords.x, coords.y, coords.z+1.03, GetEntityHeading(data.tank))}, 1, 1)
+		local cam = createTempCam(prop, Ped)
 		lookVeh(coords)
 		--if not IsPedHeadingTowardsPosition(Ped, coords, 20.0) then TaskTurnPedToFaceCoord(Ped, coords, 1500) Wait(1500) end
 		if #(coords - GetEntityCoords(Ped)) > 1.3 then TaskGoStraightToCoord(Ped, coords, 0.5, 400, 0.0, 0) Wait(400) end
 
 		UseParticleFxAssetNextCall('core')
 		local gas = StartParticleFxLoopedOnEntity('ent_sht_steam', prop, 0.02, 0.00, 0.42, 0.0, 0.0, 0.0, 0.1, 0, 0, 0)
-
-		if progressBar({label = "Refilling "..QBCore.Shared.Items["nos"].label, time = 7000, cancel = true, task = "CODE_HUMAN_MEDIC_TEND_TO_DEAD" }) then
+		if progressBar({label = "Refilling "..QBCore.Shared.Items["nos"].label, time = 7000, cancel = true, task = "CODE_HUMAN_MEDIC_TEND_TO_DEAD", cam = cam }) then
 			qblog("Purchased a NOS refill")
 			TriggerServerEvent("jim-mechanic:chargeCash", Config.NOS.NosRefillCharge, data.society)
 			toggleItem(false, "noscan", 1)
@@ -425,28 +441,28 @@ RegisterNetEvent('jim-mechanic:client:Store:Menu', function(data)
 	local restrictionTable = {}
 	if Config.System.Menu == "qb" then Menu[#Menu+1] = { icon = "fas fa-circle-xmark", header = "", txt = Loc[Config.Lan]["common"].close, params = { event = "jim-mechanic:client:Menu:Close" } } end
 	if data.restrict then for i = 1, #data.restrict do restrictionTable[data.restrict[i]] = true end end
-	if data.restrict and not restrictionTable["nos"] then else Menu[#Menu + 1] = {
-        header = Loc[Config.Lan]["stores"].nos, params = { event = "jim-mechanic:client:Store", args = { store = Stores.NosItems, job = data.job } },
-        title = Loc[Config.Lan]["stores"].nos, event = "jim-mechanic:client:Store", args = { shopName = "nosShop",  store = Stores.NosItems, job = data.job }
+	if data.restrict and not restrictionTable["nos"] and not Config.Overrides.disableNos then else Menu[#Menu + 1] = {
+        header = Loc[Config.Lan]["stores"].nos, params = { event = "jim-mechanic:client:Store", args = { shopName = "nosShop", store = Stores.NosItems, job = data.job } },
+        title = Loc[Config.Lan]["stores"].nos, event = "jim-mechanic:client:Store", args = { shopName = "nosShop", store = Stores.NosItems, job = data.job }
 	} end
 	if data.restrict and not restrictionTable["tools"] then else Menu[#Menu + 1] = {
-        header = Loc[Config.Lan]["stores"].tools, params = { event = "jim-mechanic:client:Store", args = { store = Stores.ToolItems, job = data.job } },
+        header = Loc[Config.Lan]["stores"].tools, params = { event = "jim-mechanic:client:Store", args = { shopName = "toolShop", store = Stores.ToolItems, job = data.job } },
         title = Loc[Config.Lan]["stores"].tools, event = "jim-mechanic:client:Store", args = { shopName = "toolShop",  store = Stores.ToolItems, job = data.job }
 	} end
 	if data.restrict and not restrictionTable["repairs"] then else Menu[#Menu + 1] = {
-        header = Loc[Config.Lan]["stores"].repairs, params = { event = "jim-mechanic:client:Store", args = { store = Stores.RepairItems, job = data.job } },
+        header = Loc[Config.Lan]["stores"].repairs, params = { event = "jim-mechanic:client:Store", args = { shopName = "repairShop", store = Stores.RepairItems, job = data.job } },
         title = Loc[Config.Lan]["stores"].repairs, event = "jim-mechanic:client:Store", args = { shopName = "repairShop",  store = Stores.RepairItems, job = data.job }
 	} end
 	if data.restrict and not restrictionTable["perform"] then else Menu[#Menu + 1] = {
-        header = Loc[Config.Lan]["stores"].perform, params = { event = "jim-mechanic:client:Store", args = { store = Stores.PerformItems, job = data.job } },
+        header = Loc[Config.Lan]["stores"].perform, params = { event = "jim-mechanic:client:Store", args = { shopName = "performShop", store = Stores.PerformItems, job = data.job } },
         title = Loc[Config.Lan]["stores"].perform, event = "jim-mechanic:client:Store", args = { shopName = "performShop",  store = Stores.PerformItems, job = data.job }
 	} end
 	if data.restrict and not restrictionTable["cosmetics"] then else Menu[#Menu + 1] = {
-        header = Loc[Config.Lan]["stores"].cosmetic, params = { event = "jim-mechanic:client:Store", args = { store = Stores.CosmeticItems, job = data.job } },
+        header = Loc[Config.Lan]["stores"].cosmetic, params = { event = "jim-mechanic:client:Store", args = { shopName = "cosmeticShop", store = Stores.CosmeticItems, job = data.job } },
         title = Loc[Config.Lan]["stores"].cosmetic, event = "jim-mechanic:client:Store", args = { shopName = "cosmeticShop",  store = Stores.CosmeticItems, job = data.job }
 	} end
 	if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Crafting', title = Loc[Config.Lan]["crafting"].menuheader, position = 'top-right', options = Menu })	exports.ox_lib:showContext("Crafting")
-	elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(Menu) end
+	elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(Menu) end
 end)
 
 -- Open the selected store

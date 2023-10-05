@@ -269,6 +269,7 @@ Loc["sv"] = {
 		label49 = "Vill du ta bort bromsarna?",
 		label50 = "Antilag:",
 		label51 = "Harness:",
+		label53 = "Livery - [ ",
 		label58 = "Nitrous:",
 	},
 	["repair"] = {
@@ -313,6 +314,7 @@ Loc["sv"] = {
 		engine = "Reparerar motor...",
 		body = "Reparerande kaross...",
 		complete = "Reparation slutförd",
+		restrict = "Only for Emergency Vehicles",
 	},
 	["manual"] = {
 		tyres = "Byte av skadade däck",
@@ -362,6 +364,26 @@ Loc["sv"] = {
 	},
 	["previews"] = {
 		changes = "Antal förändringar: ",
+		previewing = "Can't do this while previewing",
+	},
+	["stancer"] = {
+		wheel_lf = "Left Front Wheel",
+		wheel_rf = "Right Front Wheel",
+		wheel_lr = "Left Rear Wheel",
+		wheel_rr = "Right Rear Wheel",
+		wheel_lm1 = "Left Middle (1) Wheel",
+		wheel_rm1 = "Right Middle (1) Wheel",
+		wheel_lm2 = "Left Middle (2) Wheel",
+		wheel_rm2 = "Right Middle (2) Wheel",
+		wheel_lm3 = "Left Middle (3) Wheel",
+		wheel_rm3 = "Right Middle (3) Wheel",
+		spacer = "Spacer",
+		camber = "Camber",
+		width = "Width",
+		size = "Size",
+		suspens = "Suspension Adjust",
+		stance = "Stance",
+		reset = "Reset Wheel",
 	},
 	--Below are names of items/mods that can't be reteived natively
 	vehicleWindowOptions = {

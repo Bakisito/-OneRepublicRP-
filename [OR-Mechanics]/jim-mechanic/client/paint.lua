@@ -6,6 +6,8 @@ RegisterNetEvent('jim-mechanic:client:Paints:Apply', function(data)
 	local coords = GetEntityCoords(Ped)
 	local vehicle
 	if not IsPedInAnyVehicle(Ped, false) then	vehicle = getClosest(coords) pushVehicle(vehicle) lookVeh(vehicle) else	vehicle = GetVehiclePedIsIn(Ped, false) pushVehicle(vehicle) end
+	local cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", GetOffsetFromEntityInWorldCoords(Ped, 3.0, -0.5, 0.5), 0.0, 0.0, 0.0, 60.00, false, 0)
+	PointCamAtEntity(cam, Ped)
 	local vehPrimaryColour, vehSecondaryColour = GetVehicleColours(vehicle)
 	local vehPearlescentColour, vehWheelColour = GetVehicleExtraColours(vehicle)
 	local paintTable = {
@@ -19,6 +21,7 @@ RegisterNetEvent('jim-mechanic:client:Paints:Apply', function(data)
 		triggerNotify(nil, data.finish.." "..data.name..Loc[Config.Lan]["common"].already, "error")
 		TriggerEvent('jim-mechanic:client:Paints:Choose:Paint', data)
 	elseif colourCheck ~= data.id then
+		startTempCam(cam)
 		spraycan = makeProp({ prop = "ng_proc_spraycan01b", coords = vec4(0.0, 0.0, 0.0, 0.0)}, 0, 1)
 		AttachEntityToEntity(spraycan, Ped, GetPedBoneIndex(Ped, 57005), 0.11, 0.05, -0.06, 28.0, 30.0, 0.0, true, true, false, true, 1, true)
 		playAnim("switch@franklin@lamar_tagging_wall", "lamar_tagging_wall_loop_lamar", 2000, 8)
@@ -29,25 +32,19 @@ RegisterNetEvent('jim-mechanic:client:Paints:Apply', function(data)
 			loadPtfxDict("core")
 			local color = {255, 255, 255}
 			UseParticleFxAssetNextCall("core")
-			if string.find(data.name, "Red") then color = {255, 1, 1} end
-			if string.find(data.name, "Black") then color = {1, 1, 1} end
-			if string.find(data.name, "Blue") then color = {2, 21, 255} end
-			if string.find(data.name, "Green") then color = {94, 255, 1} end
-			if string.find(data.name, "Yellow") then color = {255, 255, 0} end
-			if string.find(data.name, "Orange") then color = {255, 62, 1} end
-			if string.find(data.name, "Pink") then color = {255, 50, 100} end
-			if string.find(data.name, "Purple") then color = {159, 43, 104} end
-			setanimDict = "switch@franklin@lamar_tagging_wall" setanim = "lamar_tagging_exit_loop_lamar"
-			setflags = 8
+			if data.paint == Loc[Config.Lan]["paint"].primary then SetVehicleColours(vehicle, data.id, vehSecondaryColour) color[1], color[2], color[3] = GetVehicleCustomPrimaryColour(vehicle)
+			elseif data.paint == Loc[Config.Lan]["paint"].secondary then SetVehicleColours(vehicle, vehPrimaryColour, data.id) color[1], color[2], color[3] = GetVehicleCustomSecondaryColour(vehicle) end
+			SetVehicleColours(vehicle, vehPrimaryColour, vehSecondaryColour)
 			settask = nil
 			local spray = StartParticleFxLoopedOnEntity("ent_amb_steam", spraycan, 0.0, 0.13, 0.0, 90.0, 90.0, 0.0, 0.2, 0.0, 0.0, 0.0)
 			SetParticleFxLoopedAlpha(spray, 255.0)
 			SetParticleFxLoopedColour(spray, color[1] / 255, color[2] / 255, color[3] / 255)
 		end)
 		stopAnim("switch@franklin@lamar_tagging_wall", "lamar_tagging_wall_loop_lamar")
-		playAnim("switch@franklin@lamar_tagging_wall", "lamar_tagging_exit_loop_lamar", time, 8)
 
-		if progressBar({label = Loc[Config.Lan]["common"].installing..data.paint.." "..data.finish.." "..data.name, time = time, dict = setanimDict, anim = setanim, flag = setflag, task = settask, cancel = true }) then SetVehicleModKit(vehicle, 0)
+		playAnim(isVehicleLift(vehicle) and "amb@prop_human_movie_bulb@idle_a" or "switch@franklin@lamar_tagging_wall", isVehicleLift(vehicle) and "idle_b" or "lamar_tagging_exit_loop_lamar", time, 8)
+
+		if progressBar({label = Loc[Config.Lan]["common"].installing..data.paint.." "..data.finish.." "..data.name, time = time, cancel = true }) then SetVehicleModKit(vehicle, 0)
 			qblog("`paintcan - "..QBCore.Shared.Items["paintcan"].label.." - "..data.paint.." "..data.finish.." "..data.name.."` installed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
 			if data.paint == Loc[Config.Lan]["paint"].primary then ClearVehicleCustomPrimaryColour(vehicle) SetVehicleColours(vehicle, data.id, vehSecondaryColour)
 			elseif data.paint == Loc[Config.Lan]["paint"].secondary then ClearVehicleCustomSecondaryColour(vehicle) SetVehicleColours(vehicle, vehPrimaryColour, data.id)
@@ -57,13 +54,15 @@ RegisterNetEvent('jim-mechanic:client:Paints:Apply', function(data)
 			elseif data.paint == Loc[Config.Lan]["paint"].interior then SetVehicleInteriorColour(vehicle, data.id) end
 			updateCar(vehicle)
 			triggerNotify(nil, Loc[Config.Lan]["common"].installed, "success")
-			if Config.Overrides.CosmeticItemRemoval then toggleItem(false, "paintcan")
+			if Config.Overrides.CosmeticItemRemoval then toggleItem(false, "paintcan", 1)
 			else TriggerEvent('jim-mechanic:client:Paints:Choose:Paint', data) end
 			emptyHands(Ped)
+			stopTempCam()
 		else
 			triggerNotify(nil, Loc[Config.Lan]["paint"].menuheader..Loc[Config.Lan]["common"].instfail, "error")
 			TriggerEvent('jim-mechanic:client:Paints:Choose:Paint', data)
 			emptyHands(Ped)
+			stopTempCam()
 		end
 	end
 end)
@@ -76,8 +75,9 @@ RegisterNetEvent('jim-mechanic:client:Paints:Check', function()
 	local coords = GetEntityCoords(Ped)
 	if not nearPoint(coords) then return end
 	local vehicle = nil
-	if not IsPedInAnyVehicle(Ped, false) then	vehicle = getClosest(coords) pushVehicle(vehicle) lookAtEngine(vehicle) else vehicle = GetVehiclePedIsIn(Ped, false) pushVehicle(vehicle) end
+	if not IsPedInAnyVehicle(Ped, false) then	vehicle = getClosest(coords) pushVehicle(vehicle) lookVeh(vehicle) else vehicle = GetVehiclePedIsIn(Ped, false) pushVehicle(vehicle) end
     if not enforceClassRestriction(getClass(vehicle)) then return end
+    if GetInPreview() then triggerNotify(nil, Loc[Config.Lan]["previews"].previewing, "error") return end
 	if lockedCar(vehicle) then return end
 	if Config.Main.isVehicleOwned and not IsVehicleOwned(trim(GetVehicleNumberPlateText(vehicle))) then triggerNotify(nil, Loc[Config.Lan]["common"].owned, "error") return end
 	if DoesEntityExist(vehicle) then
@@ -155,8 +155,8 @@ RegisterNetEvent('jim-mechanic:client:Paints:Check', function()
 				event = "jim-mechanic:client:Paints:Choose", args = Loc[Config.Lan]["paint"].dashboard
 			}
 		end
-		if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = Loc[Config.Lan]["paint"].menuheader, position = 'top-right', options = PaintMenu }) exports.ox_lib:showContext("Menu")
-		elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(PaintMenu) end
+		if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = Loc[Config.Lan]["paint"].menuheader, position = 'top-right', options = PaintMenu }) exports.ox_lib:showContext("Menu")
+		elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(PaintMenu) end
 	end
 end)
 
@@ -218,8 +218,8 @@ RegisterNetEvent('jim-mechanic:client:Paints:Choose', function(data)
 				title = Loc[Config.Lan]["paint"].chameleon, event = "jim-mechanic:client:Paints:Choose:Paint", args = { paint = data, finish = Loc[Config.Lan]["paint"].chameleon }
 			}
 		end
-		if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = Loc[Config.Lan]["paint"].menuheader..br..data, position = 'top-right', options = PaintMenu }) exports.ox_lib:showContext("Menu")
-		elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(PaintMenu) end
+		if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = Loc[Config.Lan]["paint"].menuheader..br..data, position = 'top-right', options = PaintMenu }) exports.ox_lib:showContext("Menu")
+		elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(PaintMenu) end
 	end
 end)
 
@@ -261,27 +261,29 @@ RegisterNetEvent('jim-mechanic:client:Paints:Choose:Paint', function(data)
 			if colourCheck == v.id then installed = Loc[Config.Lan]["common"].current icon = "fas fa-check" disabled = true else installed = "" end
 			PaintMenu[#PaintMenu + 1] = {
 				icon = icon, isMenuHeader = disabled, disabled = (Config.System.Menu == "ox" and disabled),
-				header = k..". "..v.name, txt = installed, params = { event = 'jim-mechanic:client:Paints:Apply', args = { paint = data.paint, id = v.id, name = v.name, finish = data.finish } },
-				title = k.." - "..v.name, description = installed,event = 'jim-mechanic:client:Paints:Apply', args = { paint = data.paint, id = v.id, name = v.name, finish = data.finish }
+				header = k..". "..v.name..(Config.System.Debug and " ("..v.id..")" or ""), txt = installed, params = { event = 'jim-mechanic:client:Paints:Apply', args = { paint = data.paint, id = v.id, name = v.name, finish = data.finish } },
+				title = k.." - "..v.name..(Config.System.Debug and " ("..v.id..")" or ""), description = installed,event = 'jim-mechanic:client:Paints:Apply', args = { paint = data.paint, id = v.id, name = v.name, finish = data.finish }
 			}
 		end
-		if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = data.finish.." "..data.paint, position = 'top-right', options = PaintMenu }) exports.ox_lib:showContext("Menu")
-		elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(PaintMenu) end	end
+		if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = data.finish.." "..data.paint, position = 'top-right', options = PaintMenu }) exports.ox_lib:showContext("Menu")
+		elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(PaintMenu) end	end
 end)
 
 ---RGB---
 local spraying = false
 RegisterNetEvent('jim-mechanic:client:RGBApply', function(data)
-	local coords = GetEntityCoords(ped)
+	local coords = GetEntityCoords(Ped)
 	local vehicle = getClosest(coords)
 	local r,g,b = table.unpack({255,255,255})
 	local spray = nil
+	local cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", GetOffsetFromEntityInWorldCoords(Ped, 3.0, -0.5, 1.5), 0.0, 0.0, 0.0, 60.00, false, 0)
+	PointCamAtEntity(cam, vehicle)
 	if data.hex then r, g, b = HexTorgb(data.hex) else
 	if data.r >= 255 then r = 255 elseif data.r <= 0 then r = 0 else r = data.r end
 		if data.g >= 255 then g = 255 elseif data.g <= 0 then g = 0 else g = data.g end
 		if data.b >= 255 then b = 255 elseif data.b <= 0 then b = 0 else b = data.b end
 	end
-
+	startTempCam(cam)
 	spraycan = makeProp({ prop = "ng_proc_spraycan01b", coords = vec4(0.0, 0.0, 0.0, 0.0)}, 0, 1)
 	AttachEntityToEntity(spraycan, Ped, GetPedBoneIndex(Ped, 57005), 0.11, 0.05, -0.06, 28.0, 30.0, 0.0, true, true, false, true, 1, true)
 	playAnim("switch@franklin@lamar_tagging_wall", "lamar_tagging_wall_loop_lamar", 2000, 8)
@@ -319,10 +321,11 @@ RegisterNetEvent('jim-mechanic:client:RGBApply', function(data)
 		Wait(20)
 	end
     spraying = false
+	stopTempCam()
 	updateCar(vehicle)
 	SetVehicleModKit(vehicle, 0)
 	qblog("`paintcan - "..QBCore.Shared.Items["paintcan"].label.." - {"..r..", "..g..", "..b.."}` installed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
-	if Config.Overrides.CosmeticItemRemoval then toggleItem(false, "paintcan")
+	if Config.Overrides.CosmeticItemRemoval then toggleItem(false, "paintcan", 1)
 	else TriggerEvent("jim-mechanic:client:Paints:Choose", data.select) end
 	emptyHands(Ped)
 end)
@@ -361,9 +364,9 @@ RegisterNetEvent('jim-mechanic:client:RGBHexMenu', function(data)
 	else
 		local finishes = { type = 'radio', name = 'finish', text = Loc[Config.Lan]["paintrgb"].finish, options = { { value = "147", text = Loc[Config.Lan]["paint"].classic }, { value = "12", text = Loc[Config.Lan]["paint"].matte }, { value = "120", text = Loc[Config.Lan]["paintrgb"].chrome } } }
 		if data.hex then
-			format = { { type = 'text', name = 'hex', text = "#"..rgbToHex(r,g,b):upper() }, finishes }
+			format = { { type = 'text', name = 'hex', text = "#"..rgbToHex(r, g, b):upper() }, finishes }
 		else
-			format = { { type = 'number', name = 'Red', text = 'R - '..r }, { type = 'number', name = 'Green', text = 'G - '..g }, { type = 'number', name = 'Blue', text = 'B - '..b }, finishes }
+			format = { { type = 'number', name = 'r', text = 'R - '..r }, { type = 'number', name = 'g', text = 'G - '..g }, { type = 'number', name = 'b', text = 'B - '..b }, finishes }
 		end
 			dialog = exports['qb-input']:ShowInput({
 				header = "<center>"..(data.hex and Loc[Config.Lan]["paintrgb"].hexP or Loc[Config.Lan]["paintrgb"].rgbP)..br.." ["..data.paint.."]"..br..
@@ -378,12 +381,12 @@ RegisterNetEvent('jim-mechanic:client:RGBHexMenu', function(data)
 				while string.len(hex) < 6 do hex = hex.."0"	Wait(10) end
 				r, g, b = HexTorgb(hex)
 			else
-				r, g, b = tonumber(dialog.Red or r), tonumber(dialog.Green or g), tonumber(dialog.Blue or b)
+				r, g, b = tonumber(dialog.r or (r or 0)), tonumber(dialog.g or (g or 0)), tonumber(dialog.b or (b or 0))
 			end
 		end
 	end
 	if dialog then
-		if r > 255 then r = 255 end if g > 255 then g = 255 end if b > 255 then b = 255 end
+		if r > 255 then r = 255 end if g > 255 then g = 255 end	if b > 255 then b = 255 end
 		TriggerEvent('jim-mechanic:client:RGBApply', { finish = tonumber(dialog.finish or dialog[2]), select = data.paint, r = r, g = g, b = b })
 	else
 		TriggerEvent("jim-mechanic:client:Paints:Choose", data.paint)

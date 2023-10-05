@@ -58,6 +58,7 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Check', function(part) local vali
 	if not enforceRestriction("cosmetics") then return end
 	if not locationChecks() then return end
 	if not inCar() then return end
+    if GetInPreview() then triggerNotify(nil, Loc[Config.Lan]["previews"].previewing, "error") return end
 	if not nearPoint(GetEntityCoords(Ped)) then return end
 	if not IsPedInAnyVehicle(Ped, false) then vehicle = getClosest(GetEntityCoords(Ped)) pushVehicle(vehicle) lookVeh(vehicle) end
     if not enforceClassRestriction(getClass(vehicle)) then return end
@@ -70,7 +71,7 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Check', function(part) local vali
         end
         for k, v in pairs(cosmeticTable[part]) do
             cosmeticTable[part][k].part = part
-            if GetNumVehicleMods(vehicle, v.id) > 1 and (not v.oldLiv and not v.roofLiv and not v.plate and not v.extras and not v.windows) then
+            if GetNumVehicleMods(vehicle, v.id) >= 1 and (not v.oldLiv and not v.roofLiv and not v.plate and not v.extra and not v.window) then
                 local installed = GetLabelText(GetModTextLabel(vehicle, v.id, GetVehicleMod(vehicle, v.id))) if installed == "NULL" then installed = Loc[Config.Lan]["common"].stock else end
                 Menu[#Menu+1] = {
                     header = v.header, txt = "["..(GetNumVehicleMods(vehicle, v.id)+1)..Loc[Config.Lan]["common"].menuinstalled..installed,
@@ -92,7 +93,9 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Check', function(part) local vali
                     else txt = "["..(#Loc[Config.Lan].vehicleHorns)..Loc[Config.Lan]["common"].menuinstalled..Loc[Config.Lan]["common"].stock end end
                 end
                 local extraCount = 0
-                if v.extra then for i = 0, 20 do if DoesExtraExist(vehicle, i) then canDo = true extraCount += 1 end end txt = "[ "..extraCount.." "..Loc[Config.Lan]["check"].label12.." ]" end
+                if v.extra then for i = 0, 20 do if DoesExtraExist(vehicle, i) then canDo = true extraCount += 1 end end
+                    txt = "[ "..extraCount.." "..Loc[Config.Lan]["check"].label12.." ]"
+                end
                 if canDo then
                     Menu[#Menu+1] = { header = v.header, txt = txt, params = { event = "jim-mechanic:client:Cosmetic:Choose", args = v }, title = v.header, description = txt, event = "jim-mechanic:client:Cosmetic:Choose", args = v, }
                 end
@@ -147,7 +150,7 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Choose', function(data) local val
             for i = 0, 14 do
                 if DoesExtraExist(vehicle, i) then hadMod = true
                 if IsVehicleExtraTurnedOn(vehicle, i) then icon = "fas fa-check" else icon = "" end
-                validMods[i] = { mod = (i-1), name = "Extra "..i, extra = true, install = txt, part = data.part, disabled = disabled, icon = icon, header = data.header } end
+                validMods[i] = { mod = i, name = "Extra "..i, extra = true, install = txt, part = data.part, disabled = disabled, icon = icon, header = data.header } end
             end
         else
             if GetVehicleMod(vehicle, data.id) == -1 then stockinstall = Loc[Config.Lan]["common"].current stockIcon = "fas fa-check" stockDisabled = true end
@@ -158,8 +161,8 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Choose', function(data) local val
         end
         Menu[#Menu+1] = {
             isMenuHeader = true, icon = "nui://"..Config.System.img..QBCore.Shared.Items[data.part].image,
-            header = searchCar(vehicle).."<br>"..data.header, txt = Loc[Config.Lan]["common"].amountoption..#validMods+1,
-            title = data.header, txt = Loc[Config.Lan]["common"].amountoption..#validMods+1,
+            header = searchCar(vehicle).."<br>"..data.header, txt = Loc[Config.Lan]["common"].amountoption..countTable(validMods),
+            title = data.header, txt = Loc[Config.Lan]["common"].amountoption..countTable(validMods),
         }
 		Menu[#Menu+1] = {
 			icon = "fas fa-circle-arrow-left",
@@ -191,8 +194,8 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Choose', function(data) local val
 				event = "jim-mechanic:client:Cosmetic:Apply", args = b
 			}
 		end
-		if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = searchCar(vehicle), position = 'top-right', options = Menu })	exports.ox_lib:showContext("Menu")
-		elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(Menu) end
+		if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = searchCar(vehicle), position = 'top-right', options = Menu })	exports.ox_lib:showContext("Menu")
+		elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(Menu) end
 	end
 end)
 
@@ -202,7 +205,8 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Apply', function(data) local Ped 
     --Specific Modifiers to adjust for specifc GTA bullshit
 	local vehicle = getClosest(GetEntityCoords(Ped)) pushVehicle(vehicle) lookVeh(vehicle)
     local above = isVehicleLift(vehicle)
-	local modName = GetLabelText(GetModTextLabel(vehicle, tonumber(data.id), tonumber(data.mod)))
+    local cam = createTempCam(vehicle, Ped)
+    local modName = GetLabelText(GetModTextLabel(vehicle, tonumber(data.id), tonumber(data.mod)))
 	if modName == "NULL" or (data.plate or data.oldLiv or data.roof or data.window) then modName = Loc[Config.Lan]["exterior"].stockMod end
 	if data.id and GetVehicleMod(vehicle, tonumber(data.id)) == tonumber(data.mod) then
         triggerNotify(nil, modName..Loc[Config.Lan]["common"].already, "error") TriggerEvent('jim-mechanic:client:Cosmetic:Check', data.part)
@@ -213,14 +217,14 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Apply', function(data) local Ped 
         if data.window and not above then ExecuteCommand("e maid") emote = {} end
         if data.horn then local horn = GetVehicleMod(vehicle, 14) SetVehicleMod(vehicle, 14, data.mod) StartVehicleHorn(vehicle, 2000, "HELDDOWN", false) SetVehicleMod(vehicle, 14, horn) end
         if above then emote = { dict = "amb@prop_human_movie_bulb@idle_a", anim = "idle_b", flag = 1 } end
-		if progressBar({label = Loc[Config.Lan]["common"].installing..modName, time = math.random(3000,5000), cancel = true, dict = emote.dict, anim = emote.anim, flag = emote.flag, task = emote.task, icon = data.part}) then
+		if progressBar({label = Loc[Config.Lan]["common"].installing..modName, time = math.random(3000,5000), cancel = true, dict = emote.dict, anim = emote.anim, flag = emote.flag, task = emote.task, icon = data.part, cam = cam }) then
 			local success = Loc[Config.Lan]["common"].installed:gsub("!","")
             if data.roofLiv then if data.mod == -1 then data.mod = 0 end SetVehicleRoofLivery(vehicle, data.mod)
             elseif data.oldLiv then SetVehicleLivery(vehicle, data.mod) SetVehicleMod(vehicle, 48, -1, false)
             elseif data.plate then if data.mod == -1 then data.mod = 0 end SetVehicleNumberPlateTextIndex(vehicle, data.mod)
             elseif data.window then if data.mod == -1 then data.mod = 0 end SetVehicleWindowTint(vehicle, tonumber(data.mod)) success = Loc[Config.Lan]["common"].installed
             elseif data.extra then
-                local veh = { engine = GetVehicleEngineHealth(vehicle), body = GetVehicleBodyHealth(vehicle) }
+                local veh = getDamages(vehicle)
                 if IsVehicleExtraTurnedOn(vehicle, data.mod) then SetVehicleExtra(vehicle, data.mod, 1)
                 else SetVehicleExtra(vehicle, data.mod, 0) SetVehicleFixed(vehicle) end
                 doCarDamage(vehicle, veh)
@@ -232,7 +236,7 @@ RegisterNetEvent('jim-mechanic:client:Cosmetic:Apply', function(data) local Ped 
             end
             qblog("`"..data.part.." - "..--[[QBCore.Shared.Items[data.part].label..]]"` changed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
             updateCar(vehicle)
-            if Config.Overrides.CosmeticItemRemoval then toggleItem(false, data.part)	else TriggerEvent('jim-mechanic:client:Cosmetic:Check', data.part) end
+            if Config.Overrides.CosmeticItemRemoval or not data.extra then toggleItem(false, data.part, 1) else TriggerEvent('jim-mechanic:client:Cosmetic:Choose', data) end
             triggerNotify(nil, success, "success")
         else
             triggerNotify(nil, Loc[Config.Lan]["common"].notinstall, "error")
@@ -304,12 +308,13 @@ RegisterNetEvent('jim-mechanic:client:Tires:Check', function() local Ped = Playe
             }
         end
 		if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = header, position = 'top-right', options = Menu }) exports.ox_lib:showContext("Menu")
-		elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(Menu) end
+		elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(Menu) end
     end
 end)
 
 RegisterNetEvent('jim-mechanic:client:Tires:Apply', function(data) local item = QBCore.Shared.Items["tires"] local Ped = PlayerPedId()
 	local vehicle = getClosest(GetEntityCoords(Ped)) pushVehicle(vehicle)
+    local cam = createTempCam(vehicle, Ped, { wheel = true })
 	spraying = true
 	local r, g, b = GetVehicleTyreSmokeColor(vehicle)
 	if r == data.R and g == data.G and b == data.B then
@@ -331,12 +336,12 @@ RegisterNetEvent('jim-mechanic:client:Tires:Apply', function(data) local item = 
 				Wait(500)
 			end
 		end)
-        if progressBar({label = Loc[Config.Lan]["common"].installing..item.label, time = math.random(3000,5000), cancel = true, dict = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", anim = "machinic_loop_mechandplayer", flag = 8 }) then SetVehicleModKit(vehicle, 0)
+        if progressBar({label = Loc[Config.Lan]["common"].installing..item.label, time = math.random(3000,5000), cancel = true, dict = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", anim = "machinic_loop_mechandplayer", flag = 8, cam = cam }) then SetVehicleModKit(vehicle, 0)
 			if checkToggleVehicleMod(vehicle, 20, true) then
 				qblog("`tires - "..QBCore.Shared.Items["tires"].label.." - {"..data.R ..", "..data.G..", "..data.B.."}` installed [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
 				SetVehicleTyreSmokeColor(vehicle, data.R, data.G, data.B)
 				updateCar(vehicle)
-				if Config.Overrides.CosmeticItemRemoval then toggleItem(false, "tires")
+				if Config.Overrides.CosmeticItemRemoval then toggleItem(false, "tires", 1)
 				else TriggerEvent('jim-mechanic:client:Tires:Check') end
 				triggerNotify(nil,item.label.." "..Loc[Config.Lan]["common"].installed, "success")
 			else

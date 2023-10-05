@@ -75,7 +75,7 @@ function searchPrice(vehicle)
 		price = cv(QBCore.Shared.Vehicles[k].price)
 		end
 	end
-	if not price then price = (0).."<br>" end
+	if not price then price = (0)..br end
     return price
 end
 
@@ -110,22 +110,27 @@ end
 
 local updateDelay = {}
 function updateCar(vehicle)
-	updateDelay[vehicle] = { delay = Config.updateDelay or 2, mods = QBCore.Functions.GetVehicleProperties(vehicle) }
-	if Config.System.Debug then print("^5Debug^7: ^2Updating database timer started/reset^7: '^6" ..updateDelay[vehicle].mods.plate.."^7' - ^4"..(updateDelay[vehicle].delay * 10).." ^2Seconds^7.") end
+	if DoesEntityExist(vehicle) and vehicle ~= 0 and vehicle ~= nil then
+		updateDelay[vehicle] = { delay = Config.updateDelay or 2, mods = QBCore.Functions.GetVehicleProperties(vehicle) }
+		if Config.System.Debug then print("^5Debug^7: ^2Updating database timer started/reset^7: '^6" ..updateDelay[vehicle].mods.plate.."^7' - ^4"..(updateDelay[vehicle].delay * 10).." ^2Seconds^7.") end
+	else
+		if Config.System.Debug then print("^5Debug^7: ^1ERROR^7 - ^2Attempted to add vehicle to update timer but vehicle entity recieved was ^7'^6nil^7'") end
+	end
 end
 
 function forceUpdateCar(vehicle, mods)
-	TriggerServerEvent('jim-mechanic:updateVehicle', mods, trim(mods.plate))
-	if IsVehicleOwned(trim(GetVehicleNumberPlateText(vehicle))) then
+	if IsVehicleOwned(mods.plate) then
+		-- Attempt to update database mods
+		TriggerServerEvent('jim-mechanic:updateVehicle', mods, trim(mods.plate))
 		if Config.System.Debug then print("^5Debug^7: ^2Updating database mods of vehicle^7: '^6" ..mods.plate.."^7'") end
-		if Config.Repairs.ExtraDamages == true and DoesEntityExist(vehicle) then
-			local mechDamages = {}
-			local p = promise.new() QBCore.Functions.TriggerCallback('jim-mechanic:server:GetStatus', function(cb) p:resolve(cb) end, trim(GetVehicleNumberPlateText(vehicle)))
-			mechDamages = Citizen.Await(p) or {} mechDamages.body = nil mechDamages.engine = nil
-			TriggerServerEvent('jim-mechanic:server:saveStatus', mechDamages, trim(GetVehicleNumberPlateText(vehicle)))
-		end
-		TriggerServerEvent("jim-mechanic:server:updateCar", VehToNet(vehicle), mods)
+		-- Attempt to update status damages
+		local mechDamages = {}
+		local p = promise.new() QBCore.Functions.TriggerCallback('jim-mechanic:server:GetStatus', function(cb) p:resolve(cb) end, trim(GetVehicleNumberPlateText(vehicle)))
+		mechDamages = Citizen.Await(p) or {} mechDamages.body = nil mechDamages.engine = nil
+		TriggerServerEvent('jim-mechanic:server:saveStatus', mechDamages, trim(GetVehicleNumberPlateText(vehicle)), GetVehicleEngineHealth(vehicle), GetVehicleBodyHealth(vehicle))
 	end
+	--Update everyone with the new changes (helps syncing)
+	TriggerServerEvent("jim-mechanic:server:updateCar", VehToNet(vehicle), mods)
 end
 
 CreateThread(function()
@@ -134,7 +139,11 @@ CreateThread(function()
 			if updateDelay[veh].delay and updateDelay[veh].delay > 0 then
 				updateDelay[veh].delay = updateDelay[veh].delay - 1
 				if updateDelay[veh].delay <= 0 then
-					if updateDelay[veh].delay then forceUpdateCar(veh, updateDelay[veh].mods) end
+					if updateDelay[veh].delay then
+						if DoesEntityExist(veh) and veh ~= 0 and veh ~= nil then
+							forceUpdateCar(veh, updateDelay[veh].mods)
+						end
+					end
 					updateDelay[veh] = nil
 				end
 			end
@@ -186,8 +195,8 @@ end
 function locationChecks()
 	local check = true
 	if Config.Main.JobLocationRequired then
-		if injob then check = true
-		else check = false triggerNotify(nil, Loc[Config.Lan]["functions"].shop, "error")
+		if inLocation == "" then check = false
+			triggerNotify(nil, Loc[Config.Lan]["functions"].shop, "error")
 		end
 	end
 	return check
@@ -201,11 +210,22 @@ end
 
 function jobChecks()
 	local check = true
-	if Config.System.ItemRequiresJob == true then check = false
-		for k, v in pairs(Config.Main.JobRoles) do
+	if Config.Main.ItemRequiresJob == true then check = false
+		for _, v in pairs(Config.Main.JobRoles) do
 			if v == PlayerJob.name then check = true end
 		end
-		if check == false then triggerNotify(nil, Loc[Config.Lan]["functions"].mechanic, "error") check = false end
+		if check == false then triggerNotify(nil, Loc[Config.Lan]["functions"].mechanic, "error") end
+	end
+	return check
+end
+
+function previewJobChecks()
+	local check = false
+	for _, v in pairs(Config.Main.JobRoles) do
+		if v == PlayerJob.name then check = true break end
+	end
+	if check == false then
+		triggerNotify(nil, Loc[Config.Lan]["functions"].mechanic, "error")
 	end
 	return check
 end
@@ -237,7 +257,7 @@ function lookAtWheel(vehicle)
 	local found = false local Pos = nil
 	for _, v in pairs({"wheel_lf","wheel_rf","wheel_lm1","wheel_rm1","wheel_lm2","wheel_rm2","wheel_lm3","wheel_rm3","wheel_lr", "wheel_rr"}) do
 		Pos = GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, v))
-		if #(GetEntityCoords(PlayerPedId()) - Pos) <= 1.2 then	found = true break end
+		if #(GetEntityCoords(PlayerPedId()) - Pos) <= 1.5 then	found = true break end
 	end
 	lookVeh(Pos)
 	if not found then triggerNotify(nil, Loc[Config.Lan]["common"].nearwheel, "error") else return found end
@@ -286,40 +306,42 @@ function emptyHands(playerPed, dpemote)
 	end
 end
 
+function getDamages(vehicle) local veh = { engine = 0, body = 0, windows = {}, doors = {}, wheels = {} }
+	veh.engine = GetVehicleEngineHealth(vehicle)
+	veh.body = GetVehicleBodyHealth(vehicle)
+	for i = 0, 6 do
+		veh.windows[i] = IsVehicleWindowIntact(vehicle, i)
+	end
+	for i = 0, 6 do
+		veh.doors[i] = IsVehicleDoorDamaged(vehicle, i)
+	end
+	for i = 0, 15 do
+		if IsVehicleTyreBurst(vehicle, i, false) then
+			if IsVehicleTyreBurst(vehicle, i, true) then
+				veh.wheels[i] = true
+			else
+				veh.wheels[i] = false
+			end
+		end
+	end
+	return veh
+end
+
 function doCarDamage(currentVehicle, veh)
-	smash = false
-	damageOutside = false
-	damageOutside2 = false
-	local engine = veh.engine + 0.0
-	local body = veh.body + 0.0
-	if engine < 200.0 then engine = 200.0 end
-    if engine > 1000.0 then engine = 1000.0 end
-	if body < 150.0 then body = 150.0 smash = true end
-	if body < 900.0 then smash = true end
-	if body < 800.0 then damageOutside = true end
-	if body < 500.0 then damageOutside2 = true end
-    SetVehicleEngineHealth(currentVehicle, engine)
-	if smash then
-		SmashVehicleWindow(currentVehicle, 0)
-		SmashVehicleWindow(currentVehicle, 1)
-		SmashVehicleWindow(currentVehicle, 2)
-		SmashVehicleWindow(currentVehicle, 3)
-		SmashVehicleWindow(currentVehicle, 4)
-	end
-	if damageOutside then
-		SetVehicleDoorBroken(currentVehicle, 1, true)
-		SetVehicleDoorBroken(currentVehicle, 6, true)
-		SetVehicleDoorBroken(currentVehicle, 4, true)
-	end
-	if damageOutside2 then
-		SetVehicleTyreBurst(currentVehicle, 0, true, 990.0)
-		SetVehicleTyreBurst(currentVehicle, 1, false, 990.0)
-		SetVehicleTyreBurst(currentVehicle, 2, true, 990.0)
-		SetVehicleTyreBurst(currentVehicle, 3, false, 990.0)
-		SetVehicleTyreBurst(currentVehicle, 4, true, 990.0)
-		SetVehicleTyreBurst(currentVehicle, 5, false, 990.0)
-		SetVehicleTyreBurst(currentVehicle, 45, true, 990.0)
-		SetVehicleTyreBurst(currentVehicle, 47, false, 990.0)
+	veh.engine += 0.0 veh.body += 0.0
+	if veh.engine < 200.0 then veh.engine = 200.0 end if veh.engine > 1000.0 then veh.engine = 1000.0 end
+	if veh.body < 150.0 then veh.body = 150.0 end if veh.body > 1000.0 then veh.body = 1000.0 end
+    SetVehicleEngineHealth(currentVehicle, veh.engine)
+    for k, v in pairs(veh.windows) do
+        if v then return end
+        RemoveVehicleWindow(currentVehicle, k)
+    end
+    for k, v in pairs(veh.doors) do
+        if not v then return end
+        SetVehicleDoorBroken(currentVehicle, k, true)
+    end
+	for k in pairs(veh.wheels) do
+		SetVehicleTyreBurst(currentVehicle, 0, veh.wheels[k], 990.0)
 	end
 end
 
@@ -345,24 +367,29 @@ end
 function progressBar(data)
 	local result = nil
 	lockInv(true)
+	if data.cam then startTempCam(data.cam) end
 	if Config.System.ProgressBar == "ox" then
-		if exports.ox_lib:progressBar({	duration = data.time, label = data.label, useWhileDead = data.dead or false, canCancel = data.cancel or true,
-			anim = { dict = data.dict, clip = data.anim, flag = data.flag or nil, scenario = data.task }, disable = { combat = true }, }) then
+		if exports.ox_lib:progressBar({	duration = Config.System.Debug and 1000 or data.time, label = data.label, useWhileDead = data.dead or false, canCancel = data.cancel or true,
+			anim = { dict = data.dict, clip = data.anim, flag = (data.flag == 8 and 32 or data.flag) or nil, scenario = data.task }, disable = { combat = true }, }) then
 			result = true
 			lockInv(false)
+			if data.cam then stopTempCam(data.cam) end
 		else
 			result = false
 			lockInv(false)
+			if data.cam then stopTempCam(data.cam) end
 		end
 	else
-		QBCore.Functions.Progressbar("mechbar",	data.label,	data.time, data.dead, data.cancel,
+		QBCore.Functions.Progressbar("mechbar",	data.label,	Config.System.Debug and 1000 or data.time, data.dead, data.cancel or true,
 			{ disableMovement = true, disableCarMovement = true, disableMouse = false, disableCombat = true, },
-			{ animDict = data.dict, anim = data.anim, flags = data.flag, task = data.task }, {}, {}, function()
+			{ animDict = data.dict, anim = data.anim, flags = (data.flag == 8 and 32 or data.flag) or nil, task = data.task }, {}, {}, function()
 				result = true
 				lockInv(false)
+				if data.cam then stopTempCam(data.cam) end
 		end, function()
 			result = false
 				lockInv(false)
+				if data.cam then stopTempCam(data.cam) end
 		end, data.icon)
 	end
 	while result == nil do Wait(10) end
@@ -370,18 +397,14 @@ function progressBar(data)
 end
 
 function checkRestriction() local Ped = PlayerPedId()
-	local dist, nearest, restrictions = nil, nil, nil
-	for k, v in pairs(Config.Locations) do
-		if dist then
-			if #(GetEntityCoords(Ped) - v.blip.coords) <= dist then
-				dist = #(GetEntityCoords(Ped) - v.blip.coords)
-				if v.Restrictions and v.Restrictions then restrictions = v.Restrictions	end
-			end
-		else
-			dist = #(GetEntityCoords(Ped) - v.blip.coords)
+	local restrictions = nil, nil, nil
+	for _, v in pairs(Config.Locations) do
+		if inLocation == v.designatedName then
+			if v.Restrictions and v.Restrictions then restrictions = v.Restrictions	end
+			break
 		end
 	end
-	if dist <= 80.0 then return restrictions
+	if restrictions ~= nil then return restrictions
 	else return false end
 end
 

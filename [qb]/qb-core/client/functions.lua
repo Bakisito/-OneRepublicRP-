@@ -421,15 +421,15 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
             local r, g, b = GetVehicleCustomSecondaryColour(vehicle)
             colorSecondary = { r, g, b, colorSecondary }
         end
+
         local extras = {}
-        for extraId = 0, 12 do
-            if DoesExtraExist(vehicle, extraId) then
-                local state = IsVehicleExtraTurnedOn(vehicle, extraId) == 1
-                extras[tostring(extraId)] = state
-            end
+        for i = 1, 15 do
+            if DoesExtraExist(vehicle, i) then extras[i] = IsVehicleExtraTurnedOn(vehicle, i) and 0 or 1 end
         end
-        local modLivery = GetVehicleMod(vehicle, 48)
-        modLivery = GetVehicleLivery(vehicle) ~= -1 and GetVehicleLivery(vehicle) or modLivery
+
+        local modLivery = GetVehicleLivery(vehicle)
+        if GetVehicleLiveryCount(vehicle) == -1 or modLivery == -1 then modLivery = GetVehicleMod(vehicle, 48) end
+
         local tireHealth = {}
         local tireBurstState = {}
         local tireBurstCompletely = {}
@@ -541,10 +541,8 @@ end
 function QBCore.Functions.SetVehicleProperties(vehicle, props)
     if DoesEntityExist(vehicle) then
         if props.extras then
-            for id, enabled in pairs(props.extras) do
-                if enabled then SetVehicleExtra(vehicle, tonumber(id), 0)
-                else SetVehicleExtra(vehicle, tonumber(id), 1)
-                end
+            for id, disable in pairs(props.extras) do
+                SetVehicleExtra(vehicle, tonumber(id), disable == 1)
             end
         end
         local colorPrimary, colorSecondary = GetVehicleColours(vehicle)
@@ -686,7 +684,6 @@ function QBCore.Functions.SetVehicleProperties(vehicle, props)
 		TriggerServerEvent('jim-mechanic:server:loadStatus', props, VehToNet(vehicle))
     end
 end
-
 function QBCore.Functions.LoadParticleDictionary(dictionary)
     if HasNamedPtfxAssetLoaded(dictionary) then return end
     RequestNamedPtfxAsset(dictionary)

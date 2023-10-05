@@ -1,5 +1,8 @@
 local Enable = Config.Emergency.CosmeticTable
 local cosmeticTable = { -- Don't touch if you don't know what this does
+    { id = 48, header = Loc[Config.Lan]["livery"].menuheader, enable = Enable["Liverys"], },
+    { header = Loc[Config.Lan]["livery"].menuheader, oldLiv = Enable["OldLiverys"] },
+    { header = Loc[Config.Lan]["livery"].menuoldheader, roofLiv = Enable["RoofLiverys"] },
     { header = Loc[Config.Lan]["horns"].menuheader, horn = Enable["Horn"] },
     { id = 7, header = Loc[Config.Lan]["hood"].menuheader, enable = Enable["Hood"], },
     { id = 4, header = Loc[Config.Lan]["exhaust"].menuheader, enable = Enable["Exhaust"], },
@@ -13,9 +16,6 @@ local cosmeticTable = { -- Don't touch if you don't know what this does
     { id = 3, header = Loc[Config.Lan]["skirts"].menuskirt, enable = Enable["Skirts"], },
     { id = 9, header = Loc[Config.Lan]["skirts"].menuRF, enable = Enable["RightFender"], },
     { id = 8, header = Loc[Config.Lan]["skirts"].menuLF, enable = Enable["LeftFender"], },
-    { id = 48, header = Loc[Config.Lan]["livery"].menuheader, enable = Enable["Liverys"], },
-    { header = Loc[Config.Lan]["livery"].menuheader, oldLiv = Enable["OldLiverys"] },
-    { header = Loc[Config.Lan]["livery"].menuoldheader, roofLiv = Enable["RoofLiverys"] },
     { id = 6, header = Loc[Config.Lan]["bumpers"].menugrille, enable = Enable["Grille"], },
     { id = 1, header = Loc[Config.Lan]["bumpers"].menuFBumper, enable = Enable["FrontBumper"], },
     { id = 2, header = Loc[Config.Lan]["bumpers"].menuBBumper, enable = Enable["BackBumper"], },
@@ -49,12 +49,12 @@ CreateThread(function()
 			{ options = { { event = "jim-mechanic:client:Emergency:Check", icon = "fas fa-cogs", label = Loc[Config.Lan]["police"].userepair, job = Config.Emergency.Jobs, }, }, distance = 5.0 })
 	end
 end)
-
+local carMeta = {}
 RegisterNetEvent('jim-mechanic:client:Emergency:Check', function(part) local validMods, Menu, vehicle, Ped, coords = {}, {}, nil, PlayerPedId(), GetEntityCoords(PlayerPedId())
 	--if Config.Main.CosmeticsJob then if not jobChecks() then return end end
 	if not IsPedInAnyVehicle(Ped, false) then vehicle = getClosest(coords) pushVehicle(vehicle) else vehicle = GetVehiclePedIsIn(Ped, false) pushVehicle(vehicle) end
 	--if Config.Main.isVehicleOwned and not IsVehicleOwned(trim(GetVehicleNumberPlateText(vehicle))) then triggerNotify(nil, Loc[Config.Lan]["common"].owned, "error") return end
-    if Config.Emergency.LockEmergency then if getClass(vehicle) ~= "Emergency" then return end end
+    if Config.Emergency.LockEmergency then if getClass(vehicle) ~= "Emergency" then triggerNotify(nil, Loc[Config.Lan]["police"].restrict, "error") return end end
 	if DoesEntityExist(vehicle) then
         if Config.System.Menu == "qb" then
             Menu[#Menu+1] = { icon = part, header = Loc[Config.Lan]["police"].header, txt = Loc[Config.Lan]["check"].label10, isMenuHeader = true }
@@ -67,16 +67,18 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Check', function(part) local val
                 title = "Vehicle Death (Debug)", event = "jim-mechanic:client:Emergency:Damage"
             }
         end
+        local hideRepair = false
         if Config.Emergency.requireDutyCheck then
             local p = promise.new()	QBCore.Functions.TriggerCallback('jim-mechanic:mechCheck', function(cb) p:resolve(cb) end)
-            if Citizen.Await(p) ~= true then
-                if Config.Emergency.CosmeticTable["Repair"] then
-                    Menu[#Menu+1] = {
-                        icon = "fas fa-wrench",
-                        header = Loc[Config.Lan]["police"].repair, params = { event = "jim-mechanic:client:Emergency:Repair", },
-                        title = Loc[Config.Lan]["police"].repair, event = "jim-mechanic:client:Emergency:Repair"
-                    }
-                end
+            hideRepair = Citizen.Await(p)
+        end
+        if hideRepair ~= true then
+            if Config.Emergency.CosmeticTable["Repair"] then
+                Menu[#Menu+1] = {
+                    icon = "fas fa-wrench",
+                    header = Loc[Config.Lan]["police"].repair, params = { event = "jim-mechanic:client:Emergency:Repair", },
+                    title = Loc[Config.Lan]["police"].repair, event = "jim-mechanic:client:Emergency:Repair"
+                }
             end
         end
         if Config.Emergency.CosmeticTable["Paints"] then
@@ -111,7 +113,7 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Check', function(part) local val
                 local installed = "LVL: "..(GetVehicleMod(vehicle, id)+1 ~= 0 and GetVehicleMod(vehicle, id)+1 or Loc[Config.Lan]["common"].stock)
                 Menu[#Menu+1] = {
                     header = label, txt = "["..(GetNumVehicleMods(vehicle, id)+1)..Loc[Config.Lan]["common"].menuinstalled..installed,
-                    params = { event = "jim-mechanic:client:Emergency:Choose", args = { perform = true, id = id12, header = label } },
+                    params = { event = "jim-mechanic:client:Emergency:Choose", args = { perform = true, id = id, header = label } },
                     title = label, description = "["..(GetNumVehicleMods(vehicle, id)+1)..Loc[Config.Lan]["common"].menuinstalled..installed,
                     event = "jim-mechanic:client:Emergency:Choose", args = { perform = true, id = id, header = label },
                 }
@@ -154,17 +156,8 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Check', function(part) local val
             }
         end
         for k, v in pairs(cosmeticTable) do
-            if v.enable and GetNumVehicleMods(vehicle, v.id) > 1 then
-                local installed = GetLabelText(GetModTextLabel(vehicle, v.id, GetVehicleMod(vehicle, v.id))) if installed == "NULL" then installed = Loc[Config.Lan]["common"].stock else end
-                Menu[#Menu+1] = {
-                    header = v.header, txt = "["..(GetNumVehicleMods(vehicle, v.id)+1)..Loc[Config.Lan]["common"].menuinstalled..installed,
-                    params = { event = "jim-mechanic:client:Emergency:Choose", args = v },
-                    title = v.header, description = "["..(GetNumVehicleMods(vehicle, v.id)+1)..Loc[Config.Lan]["common"].menuinstalled..installed,
-                    event = "jim-mechanic:client:Emergency:Choose", args = v,
-                }
-            end
             -- If specific items paramters, show extra categories
-            if (v.roofLiv and GetVehicleRoofLiveryCount(vehicle) > 1) or (v.oldLiv and GetVehicleLiveryCount(vehicle) > 1) or v.plate or v.extra or v.window or v.horn then local txt, canDo, extraCount = "", true, 0
+            if (v.roofLiv and GetVehicleRoofLiveryCount(vehicle) >= 1) or (v.oldLiv and GetVehicleLiveryCount(vehicle) >= 1) or v.plate or v.extra or v.window or v.horn then local txt, canDo, extraCount = "", true, 0
                 if v.roofLiv then txt = "["..(GetVehicleRoofLiveryCount(vehicle)-1)..Loc[Config.Lan]["common"].menuinstalled..GetVehicleRoofLivery(vehicle) end
                 if v.oldLiv then txt = "["..(GetVehicleLiveryCount(vehicle)-1)..Loc[Config.Lan]["common"].menuinstalled..GetVehicleLivery(vehicle) end
                 if v.plate then for _, b in pairs(Loc[Config.Lan].vehiclePlateOptions) do
@@ -175,22 +168,23 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Check', function(part) local val
                     if GetVehicleMod(vehicle, 14) == b.id then txt = "["..(#Loc[Config.Lan].vehicleHorns)..Loc[Config.Lan]["common"].menuinstalled..b.name break
                     else txt = "["..(#Loc[Config.Lan].vehicleHorns)..Loc[Config.Lan]["common"].menuinstalled..Loc[Config.Lan]["common"].stock end end
                 end
-                if v.extra then
-                    for i = 0, 14 do
-                        if DoesExtraExist(vehicle, i) then
-                            canDo = true
-                            extraCount += 1
-                        end
-                    end
-                    txt = "["..extraCount.." Options]"
-                    if extraCount == 0 then
-                        canDo = false
-                    end
+                if v.extra then for i = 0, 14 do if DoesExtraExist(vehicle, i) then canDo = true extraCount += 1 end end txt = "[ "..extraCount.." "..Loc[Config.Lan]["check"].label12.." ]"
+                    if extraCount == 0 then canDo = false end
                 end
                 if canDo then
                     Menu[#Menu+1] = { header = v.header, txt = txt, params = { event = "jim-mechanic:client:Emergency:Choose", args = v }, title = v.header, description = txt, event = "jim-mechanic:client:Emergency:Choose", args = v, }
                 end
             end
+            if v.enable and GetNumVehicleMods(vehicle, v.id) >= 1 then
+                local installed = GetLabelText(GetModTextLabel(vehicle, v.id, GetVehicleMod(vehicle, v.id))) if installed == "NULL" then installed = Loc[Config.Lan]["common"].stock else end
+                Menu[#Menu+1] = {
+                    header = v.header, txt = "["..(GetNumVehicleMods(vehicle, v.id)+1)..Loc[Config.Lan]["common"].menuinstalled..installed,
+                    params = { event = "jim-mechanic:client:Emergency:Choose", args = v },
+                    title = v.header, description = "["..(GetNumVehicleMods(vehicle, v.id)+1)..Loc[Config.Lan]["common"].menuinstalled..installed,
+                    event = "jim-mechanic:client:Emergency:Choose", args = v,
+                }
+            end
+
         end
 		if Config.System.Menu == "ox" and countTable(Menu) ~= 0 then exports.ox_lib:registerContext({id = 'EmergencyMenu', title = Loc[Config.Lan]["police"].header, position = 'top-right', options = Menu }) exports.ox_lib:showContext("EmergencyMenu")
 		elseif Config.System.Menu == "qb" and countTable(Menu) ~= 2 then exports['qb-menu']:openMenu(Menu)
@@ -331,8 +325,8 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Choose', function(data) local va
 				event = "jim-mechanic:client:Emergency:Apply", args = b
 			}
 		end
-		if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = Loc[Config.Lan]["police"].header, position = 'top-right', options = Menu })	exports.ox_lib:showContext("Menu")
-		elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(Menu) end
+		if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = Loc[Config.Lan]["police"].header, position = 'top-right', options = Menu })	exports.ox_lib:showContext("Menu")
+		elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(Menu) end
 	end
 end)
 
@@ -353,11 +347,10 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Apply', function(data) local Ped
             elseif data.plate then if data.mod == -1 then data.mod = 0 end SetVehicleNumberPlateTextIndex(vehicle, data.mod)
             elseif data.window then if data.mod == -1 then data.mod = 0 end SetVehicleWindowTint(vehicle, tonumber(data.mod)) success = Loc[Config.Lan]["common"].installed
             elseif data.extra then
-                local veh = { engine = GetVehicleEngineHealth(vehicle), body = GetVehicleBodyHealth(vehicle) }
+                local veh = getDamages(vehicle)
                 if IsVehicleExtraTurnedOn(vehicle, data.mod) then SetVehicleExtra(vehicle, data.mod, 1)
                 else SetVehicleExtra(vehicle, data.mod, 0) SetVehicleFixed(vehicle) end
-                doCarDamage(vehicle, veh)
-                Wait(100)
+                doCarDamage(vehicle, veh)                Wait(100)
                 SetVehicleEngineHealth(vehicle, veh.engine)
                 SetVehicleBodyHealth(vehicle, veh.body)
             else
@@ -382,6 +375,8 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Horn:Test', function(data)
 end)
 
 RegisterNetEvent('jim-mechanic:client:Emergency:Repair', function() local Ped = PlayerPedId() local vehicle = GetVehiclePedIsIn(Ped, false) pushVehicle(vehicle)
+    local cam = createTempCam(vehicle, Ped, { emergency = true })
+    startTempCam(cam)
 	local wait = 1000 local currentFuel = GetVehicleFuelLevel(vehicle)
     FreezeEntityPosition(vehicle, true)
 	triggerNotify(nil, Loc[Config.Lan]["manual"].tyres)
@@ -397,10 +392,7 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Repair', function() local Ped = 
 	Wait(2000)
 	triggerNotify(nil, Loc[Config.Lan]["police"].body)
 	if Config.Repairs.ExtraDamages == true then
-		local DamageComponents = { "oil", "axle", "battery", "fuel", "spark", }
-		for _, name in pairs(DamageComponents) do
-			TriggerServerEvent("jim-mechanic:server:updatePart", trim(GetVehicleNumberPlateText(vehicle)), name, 100.0)
-		end
+        TriggerServerEvent("jim-mechanic:server:fixAllPart", trim(GetVehicleNumberPlateText(vehicle)))
 	end
 	SetVehicleFixed(vehicle)
 	Wait(2000)
@@ -414,21 +406,42 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Repair', function() local Ped = 
 	triggerNotify(nil, Loc[Config.Lan]["police"].complete, "success")
 	FreezeEntityPosition(vehicle, false)
     SetVehicleFuelLevel(vehicle, currentFuel)
+    updateCar(vehicle)
+    stopTempCam()
 	TriggerEvent('jim-mechanic:client:Emergency:Menu')
 end)
 
 -- Debugging Damage Test --
 RegisterNetEvent('jim-mechanic:client:Emergency:Damage', function(data)
 	local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+
 	SetVehicleEngineHealth(vehicle, 50.0) SetVehicleBodyHealth(vehicle, 200.0)
-	local veh = { engine = GetVehicleEngineHealth(vehicle), body = GetVehicleBodyHealth(vehicle) }
-	doCarDamage(vehicle, veh)
 	SetVehicleDirtLevel(vehicle, 14.5)
     SetVehicleFuelLevel(vehicle, 1.0)
+
+    SetVehicleTyreBurst(vehicle, 0, true, 990.0)
+    SetVehicleTyreBurst(vehicle, 1, false, 990.0)
+    SetVehicleTyreBurst(vehicle, 2, true, 990.0)
+    SetVehicleTyreBurst(vehicle, 3, false, 990.0)
+    SetVehicleTyreBurst(vehicle, 4, true, 990.0)
+    SetVehicleTyreBurst(vehicle, 5, false, 990.0)
+    SetVehicleTyreBurst(vehicle, 45, true, 990.0)
+    SetVehicleTyreBurst(vehicle, 47, false, 990.0)
+
+    SetVehicleDoorBroken(vehicle, 1, true)
+    SetVehicleDoorBroken(vehicle, 6, true)
+    SetVehicleDoorBroken(vehicle, 4, true)
+
+    SmashVehicleWindow(vehicle, 0)
+    SmashVehicleWindow(vehicle, 1)
+    SmashVehicleWindow(vehicle, 2)
+    SmashVehicleWindow(vehicle, 3)
+    SmashVehicleWindow(vehicle, 4)
+
 	if Config.Repairs.ExtraDamages == true then
 		local DamageComponents = { "oil", "axle", "battery", "fuel", "spark", }
 		for _, name in pairs(DamageComponents) do
-			TriggerServerEvent("jim-mechanic:server:updatePart", trim(GetVehicleNumberPlateText(vehicle)), name, 20.0)
+			SetVehicleStatus(trim(GetVehicleNumberPlateText(vehicle)), name, 20.0, true)
 		end
 	end
 	TriggerEvent('jim-mechanic:client:Emergency:Menu')
@@ -470,30 +483,30 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Paints', function() local Ped = 
             params = { event = "jim-mechanic:client:Emergency:Check" }, event = "jim-mechanic:client:Emergency:Check" }
     PaintMenu[#PaintMenu + 1] = {
         header = Loc[Config.Lan]["paint"].primary, txt = Loc[Config.Lan]["common"].current..": "..vehPrimaryColour,
-        params = { event = "jim-mechanic:client:Paints:Choose", args = Loc[Config.Lan]["paint"].primary },
+        params = { event = "jim-mechanic:client:Emergency:Paints:Choose", args = Loc[Config.Lan]["paint"].primary },
         title = Loc[Config.Lan]["paint"].primary, description = Loc[Config.Lan]["common"].current..": "..vehPrimaryColour,
         event = "jim-mechanic:client:Emergency:Paints:Choose", args = Loc[Config.Lan]["paint"].primary
     }
     PaintMenu[#PaintMenu + 1] = {
         header = Loc[Config.Lan]["paint"].secondary, txt = Loc[Config.Lan]["common"].current..": "..vehSecondaryColour,
-        params = { event = "jim-mechanic:client:Paints:Choose", args = Loc[Config.Lan]["paint"].secondary },
+        params = { event = "jim-mechanic:client:Emergency:Paints:Choose", args = Loc[Config.Lan]["paint"].secondary },
         title = Loc[Config.Lan]["paint"].secondary, description = Loc[Config.Lan]["common"].current..": "..vehSecondaryColour,
         event = "jim-mechanic:client:Emergency:Paints:Choose", args = Loc[Config.Lan]["paint"].secondary
     }
     PaintMenu[#PaintMenu + 1] = {
         header = Loc[Config.Lan]["paint"].pearl, txt = Loc[Config.Lan]["common"].current..": "..vehPearlescentColour,
-        params = { event = "jim-mechanic:client:Paints:Choose", args = Loc[Config.Lan]["paint"].pearl },
+        params = { event = "jim-mechanic:client:Emergency:Paints:Choose", args = Loc[Config.Lan]["paint"].pearl },
         title = Loc[Config.Lan]["paint"].pearl, description = Loc[Config.Lan]["common"].current..": "..vehPearlescentColour,
         event = "jim-mechanic:client:Emergency:Paints:Choose", args = Loc[Config.Lan]["paint"].pearl
     }
     PaintMenu[#PaintMenu + 1] = {
         header = Loc[Config.Lan]["paint"].wheel, txt = Loc[Config.Lan]["common"].current..": "..vehWheelColour,
-        params = { event = "jim-mechanic:client:Paints:Choose", args = Loc[Config.Lan]["paint"].wheel },
+        params = { event = "jim-mechanic:client:Emergency:Paints:Choose", args = Loc[Config.Lan]["paint"].wheel },
         title = Loc[Config.Lan]["paint"].wheel, description = Loc[Config.Lan]["common"].current..": "..vehWheelColour,
         event = "jim-mechanic:client:Emergency:Paints:Choose", args = Loc[Config.Lan]["paint"].wheel
     }
-    if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = Loc[Config.Lan]["paint"].menuheader, position = 'top-right', options = PaintMenu }) exports.ox_lib:showContext("Menu")
-    elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(PaintMenu) end
+    if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = Loc[Config.Lan]["paint"].menuheader, position = 'top-right', options = PaintMenu }) exports.ox_lib:showContext("Menu")
+    elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(PaintMenu) end
 	end
 end)
 
@@ -519,8 +532,8 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Paints:Choose', function(data) l
 					params = { event = "jim-mechanic:client:Emergency:Paints:Choose:Colour", args = { paint = data, finish = Loc[Config.Lan]["paint"].metals } },
 					event = "jim-mechanic:client:Emergency:Paints:Choose:Colour", args = { paint = data, finish = Loc[Config.Lan]["paint"].metals } }
 
-        if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = data..Loc[Config.Lan]["paint"].menuheader, position = 'top-right', options = Menu }) exports.ox_lib:showContext("Menu")
-        elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(Menu) end
+        if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = data..Loc[Config.Lan]["paint"].menuheader, position = 'top-right', options = Menu }) exports.ox_lib:showContext("Menu")
+        elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(Menu) end
 	end
 end)
 
@@ -546,21 +559,23 @@ RegisterNetEvent('jim-mechanic:client:Emergency:Paints:Choose:Colour', function(
 	for k, v in pairs(paintTable[data.finish]) do local current = (colourCheck == v.id)
 		PaintMenu[#PaintMenu+1] = { icon = curtent and "fas fa-check", isMenuHeader = current, disabled = (Config.System.Menu == "ox" and current),
 			header = k..". "..v.name, txt = current and Loc[Config.Lan]["common"].current, title = k.." - "..v.name, description = curent and Loc[Cnfig.Lan]["common"].current,
-			params = { evdent = 'jim-mechanic:client:Emergency:Pains:Apply', args = { paint = data.paint, id = v.id, name = v.name, finish = data.finish } },
+			params = { event = 'jim-mechanic:client:Emergency:Paints:Apply', args = { paint = data.paint, id = v.id, name = v.name, finish = data.finish } },
 			event = 'jim-mechanic:client:Emergency:Paints:Apply', args = { paint = data.paint, id = v.id, name = v.name, finish = data.finish } }
 	end
-	if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = data.finish.." "..data.paint, position = 'top-right', options = PaintMenu }) exports.ox_lib:showContext("Menu")
-	elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(PaintMenu) end
+	if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = data.finish.." "..data.paint, position = 'top-right', options = PaintMenu }) exports.ox_lib:showContext("Menu")
+	elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(PaintMenu) end
 end)
 
 RegisterNetEvent('jim-mechanic:client:Emergency:Paints:Apply', function(data)
-	local vehicle = nil
-	if IsPedInAnyVehicle(PlayerPedId(), false) then vehicle = GetVehiclePedIsIn(PlayerPedId(), false) pushVehicle(vehicle) end
+	local vehicle = GetVehiclePedIsIn(PlayerPedId(), false) pushVehicle(vehicle)
 	local vehPrimaryColour, vehSecondaryColour = GetVehicleColours(vehicle)
 	local vehPearlescentColour, vehWheelColour = GetVehicleExtraColours(vehicle)
 	if data.paint == Loc[Config.Lan]["paint"].primary then SetVehicleColours(vehicle, data.id, vehSecondaryColour)
 	elseif data.paint == Loc[Config.Lan]["paint"].secondary then SetVehicleColours(vehicle, vehPrimaryColour, data.id)
-	elseif data.paint == Loc[Config.Lan]["paint"].pearl then SetVehicleExtraColours(vehicle, data.id, vehWheelColour) end
+    elseif data.paint == Loc[Config.Lan]["paint"].interior then SetVehicleInteriorColor(vehicle, data.id)
+    elseif data.paint == Loc[Config.Lan]["paint"].dashboard then SetVehicleDashboardColor(vehicle, data.id)
+    elseif data.paint == Loc[Config.Lan]["paint"].pearl then SetVehicleExtraColours(vehicle, data.id, vehWheelColour) end
+    updateCar(vehicle)
 	TriggerEvent('jim-mechanic:client:Emergency:Paints:Choose:Colour', data)
 end)
 

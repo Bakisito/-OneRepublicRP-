@@ -2,8 +2,21 @@ if Shared.Framework == "qbcore" then
 	Framework = exports["qb-core"]:GetCoreObject()
 elseif Shared.Framework == "esx" then
 	if ESX == nil then
-		TriggerEvent("esx:getSharedObject", function(obj)
-			Framework = obj
+		CreateThread(function()
+			local hasBeenSet = false
+
+			TriggerEvent("esx:getSharedObject", function(obj)
+				Framework = obj
+				hasBeenSet = true
+			end)
+
+			Wait(1000)
+
+			if Framework == nil and hasBeenSet == false then
+				error(
+					"Failed to import ESX, if you are using ESX Legacy 1.8.5+, then please uncomment the line in zerio-radio's fxmanifest"
+				)
+			end
 		end)
 	else
 		Framework = ESX
@@ -100,17 +113,18 @@ Functions = {
 	GetSettings = function(identifier)
 		if identifier ~= nil and type(identifier) == "string" then
 			if CachedSettings[identifier] ~= nil then
-				return CachedSettings[identifier]
+				return CopyTable(CachedSettings[identifier])
 			else
-				local result = Functions.SelectSQL("select * from zerio_radio_settings where identifier = @identifier", {
-					["@identifier"] = identifier,
-				})
+				local result =
+					Functions.SelectSQL("select * from zerio_radio_settings where identifier = @identifier", {
+						["@identifier"] = identifier,
+					})
 
 				if result ~= nil and result[1] ~= nil then
 					CachedSettings[identifier] = result[1]
-					return result[1]
+					return CopyTable(result[1])
 				else
-					return Functions.CreateSettings(identifier)
+					return CopyTable(Functions.CreateSettings(identifier))
 				end
 			end
 		else
@@ -120,9 +134,10 @@ Functions = {
 
 	CreateSettings = function(identifier)
 		if identifier ~= nil and type(identifier) == "string" then
-			local insertResp = Functions.InsertSQL("insert into zerio_radio_settings (identifier) values (@identifier)", {
-				["@identifier"] = identifier,
-			})
+			local insertResp =
+				Functions.InsertSQL("insert into zerio_radio_settings (identifier) values (@identifier)", {
+					["@identifier"] = identifier,
+				})
 
 			if insertResp then
 				local resp = Functions.SelectSQL("select * from zerio_radio_settings where id = @id", {
@@ -317,6 +332,20 @@ Functions = {
 		return 0
 	end,
 
+	RegisterItems = function()
+		if Shared.OpenType.Value == "item" then
+			Functions.CreateUseableItem(Shared.OpenType.Item, function(source)
+				TriggerClientEvent("zerio-radio:client:open", source)
+			end)
+		end
+
+		if Shared.Scanner.OpenType == "item" then
+			Functions.CreateUseableItem(Shared.Scanner.Item, function(source)
+				TriggerClientEvent("zerio-radio:client:openscanner", source)
+			end)
+		end
+	end,
+
 	Notify = function(source, msg, type)
 		if Shared.Framework == "qbcore" then
 			TriggerClientEvent("QBCore:Notify", source, msg, type)
@@ -332,32 +361,24 @@ if GetResourceState("sounity") ~= "missing" then
 	RegisterNetEvent("zerio-radio:server:playSounitySound", function()
 		local src = source
 		local ped = GetPlayerPed(src)
-	
-		local sound = exports.sounity:CreateSound(
-			Shared.PanicButtonSound.Name,
-			json.encode({
-				loop = true,
-			})
-		)
-	
-		exports.sounity:AttachSound(sound, NetworkGetNetworkIdFromEntity(ped))
-		exports.sounity:StartSound(sound)
-	
-		CreateThread(function()
-			Wait(Shared.PanicButtonSound.Duration * 1000)
-			exports.sounity:StopSound(sound)
-		end)
+
+		if ped then
+			local sound = exports.sounity:CreateSound(
+				Shared.PanicButtonSound.Name,
+				json.encode({
+					loop = true,
+				})
+			)
+
+			exports.sounity:AttachSound(sound, NetworkGetNetworkIdFromEntity(ped))
+			exports.sounity:StartSound(sound)
+
+			CreateThread(function()
+				Wait(Shared.PanicButtonSound.Duration * 1000)
+				exports.sounity:StopSound(sound)
+			end)
+		end
 	end)
 end
 
-if Shared.OpenType.Value == "item" then
-	Functions.CreateUseableItem(Shared.OpenType.Item, function(source)
-		TriggerClientEvent("zerio-radio:client:open", source)
-	end)
-end
-
-if Shared.Scanner.OpenType == "item" then
-	Functions.CreateUseableItem(Shared.Scanner.Item, function(source)
-		TriggerClientEvent("zerio-radio:client:openscanner", source)
-	end)
-end
+Functions.RegisterItems()

@@ -269,6 +269,7 @@ Loc["cn"] = {
 		label49 = "你是否确认要移除刹车套件?",
 		label50 = "Antilag:",
 		label51 = "Harness:",
+		label53 = "Livery - [ ",
 		label58 = "氮气:",
 	},
 	["repair"] = {
@@ -313,6 +314,7 @@ Loc["cn"] = {
 		engine = "引擎修复中...",
 		body = "车体修复中...",
 		complete = "车辆修复完成",
+		restrict = "Only for Emergency Vehicles",
 	},
 	["manual"] = {
 		tyres = "更换破损轮胎中",
@@ -362,6 +364,26 @@ Loc["cn"] = {
 	},
 	["previews"] = {
 		changes = "改装项目: ",
+		previewing = "Can't do this while previewing",
+	},
+	["stancer"] = {
+		wheel_lf = "Left Front Wheel",
+		wheel_rf = "Right Front Wheel",
+		wheel_lr = "Left Rear Wheel",
+		wheel_rr = "Right Rear Wheel",
+		wheel_lm1 = "Left Middle (1) Wheel",
+		wheel_rm1 = "Right Middle (1) Wheel",
+		wheel_lm2 = "Left Middle (2) Wheel",
+		wheel_rm2 = "Right Middle (2) Wheel",
+		wheel_lm3 = "Left Middle (3) Wheel",
+		wheel_rm3 = "Right Middle (3) Wheel",
+		spacer = "Spacer",
+		camber = "Camber",
+		width = "Width",
+		size = "Size",
+		suspens = "Suspension Adjust",
+		stance = "Stance",
+		reset = "Reset Wheel",
 	},
 	--Below are names of items/mods that can't be reteived natively
 	vehicleWindowOptions = {

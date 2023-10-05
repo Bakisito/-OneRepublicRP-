@@ -4,17 +4,20 @@ for k, v in pairs({
 	["turbo"] = "jim-mechanic:client:applyTurbo",
 	["headlights"] = "jim-mechanic:client:applyXenons",
 	["underglow_controller"] = 'jim-mechanic:client:neonMenu',
-	["mechanic_toolsa"] = 'jim-mechanic:client:Repair:Check',
+	["mechanic_tools"] = 'jim-mechanic:client:Repair:Check',
 	["rims"] = 'jim-mechanic:client:Rims:Check',
 	["paintcan"] = 'jim-mechanic:client:Paints:Check',
 	["tires"] = 'jim-mechanic:client:Tires:Check',
 	["ducttape"] = "jim-mechanic:quickrepair",
 	["bprooftires"] = "jim-mechanic:client:applyBulletProof",
 	["drifttires"] = "jim-mechanic:client:applyDrift",
-	["nos"] = "jim-mechanic:client:applyNOS",
 	["antilag"] = "jim-mechanic:client:applyAntiLag",
 }) do
 QBCore.Functions.CreateUseableItem(k, function(source, item) TriggerClientEvent(v, source) end) end
+
+if not Config.Overrides.disableNos then
+	QBCore.Functions.CreateUseableItem("nos", function(source, item) TriggerClientEvent("jim-mechanic:client:applyNOS", source) end)
+end
 
 for _, v in pairs({ "exhaust", "hood", "rollcage", "bumper", "externals", "livery", "internals", "roof", "spoiler", "skirts", "customplate", "seat", "tint_supplies", "horn" }) do
 	QBCore.Functions.CreateUseableItem(v, function(source, item) TriggerClientEvent("jim-mechanic:client:Cosmetic:Check", source, item.name) end)
@@ -22,7 +25,7 @@ end
 
 QBCore.Functions.CreateUseableItem("cleaningkit", function(source, item) TriggerClientEvent('jim-mechanic:client:cleanVehicle', source, true) end)
 
-QBCore.Functions.CreateUseableItem("toolboxa", function(source, item) TriggerClientEvent('jim-mechanic:client:Menu', source, true) end)
+QBCore.Functions.CreateUseableItem("toolbox", function(source, item) TriggerClientEvent('jim-mechanic:client:Menu', source, true) end)
 
 for i = 1, 5 do
 	QBCore.Functions.CreateUseableItem("suspension"..i, function(source, item) TriggerClientEvent("jim-mechanic:client:applySuspension", source, i-1) end)
@@ -33,20 +36,23 @@ for i = 1, 4 do
 end
 for i = 1, 3 do
 	QBCore.Functions.CreateUseableItem("brakes"..i, function(source, item) TriggerClientEvent("jim-mechanic:client:applyBrakes", source, i-1) end)
-	QBCore.Functions.CreateUseableItem("oilp"..i, function(source, item) TriggerClientEvent("jim-mechanic:client:applyExtraPart", source, { level = i, mod = "oillevel" }) end)
-	QBCore.Functions.CreateUseableItem("drives"..i, function(source, item) TriggerClientEvent("jim-mechanic:client:applyExtraPart", source, { level = i, mod = "shaftlevel" }) end)
-	QBCore.Functions.CreateUseableItem("cylind"..i, function(source, item) TriggerClientEvent("jim-mechanic:client:applyExtraPart", source, { level = i, mod = "cylinderlevel" }) end)
-	QBCore.Functions.CreateUseableItem("cables"..i, function(source, item) TriggerClientEvent("jim-mechanic:client:applyExtraPart", source, { level = i, mod = "cablelevel" }) end)
-	QBCore.Functions.CreateUseableItem("fueltank"..i, function(source, item) TriggerClientEvent("jim-mechanic:client:applyExtraPart", source, { level = i, mod = "fuellevel" }) end)
+	QBCore.Functions.CreateUseableItem("oilp"..i, function(source, item) TriggerClientEvent("jim-mechanic:client:applyExtraPart", source, { level = i, mod = "oilp" }) end)
+	if Config.Repairs.ExtraDamages then
+		QBCore.Functions.CreateUseableItem("drives"..i, function(source, item) TriggerClientEvent("jim-mechanic:client:applyExtraPart", source, { level = i, mod = "drives" }) end)
+		QBCore.Functions.CreateUseableItem("cylind"..i, function(source, item) TriggerClientEvent("jim-mechanic:client:applyExtraPart", source, { level = i, mod = "cylind" }) end)
+		QBCore.Functions.CreateUseableItem("cables"..i, function(source, item) TriggerClientEvent("jim-mechanic:client:applyExtraPart", source, { level = i, mod = "cables" }) end)
+		QBCore.Functions.CreateUseableItem("fueltank"..i, function(source, item) TriggerClientEvent("jim-mechanic:client:applyExtraPart", source, { level = i, mod = "fueltank" }) end)
+	end
 end
 
---Item Give/Remove (for performance items)
 if Config.System.Inv == "ox" then
+	--HasItem OX
 	function HasItem(src, items, amount) local count = exports.ox_inventory:Search(src, 'count', items)
 		if exports.ox_inventory:Search(src, 'count', items) >= (amount or 1) then if Config.System.Debug then print("^5Debug^7: ^3HasItem^7: ^5FOUND^7 x^3"..count.."^7 ^3"..tostring(items)) end return true
         else if Config.System.Debug then print("^5Debug^7: ^3HasItem^7: ^2Items ^1NOT FOUND^7") end return false end
 	end
 else
+	--HasItem QB
 	function HasItem(source, items, amount)
 		local amount, count = amount or 1, 0
 		local Player = QBCore.Functions.GetPlayer(source)

@@ -25,6 +25,25 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, DutyList = {}, {}, {},
 		if result then cb(result) else cb("") end
 	end)
 
+	QBCore.Functions.CreateCallback("jim-mechanic:checkWax", function(source, cb, plate)
+		if VehicleStatus and plate then
+			if VehicleStatus[plate] then
+				VehicleStatus[plate]["carwax"] = VehicleStatus[plate]["carwax"] or 0
+					if VehicleStatus[plate]["carwax"] < os.time() then VehicleStatus[plate]["carwax"] = 0 -- if the the has ran out, set to 0 (off)
+						TriggerClientEvent("jim-mechanic:client:setVehicleStatus", -1, plate, VehicleStatus[plate])
+					end
+				cb(VehicleStatus[plate]["carwax"])
+			end
+		else cb(0) end
+	end)
+
+	QBCore.Functions.CreateCallback("jim-mechanic:checkDefVehStats", function(source, cb, plate)
+		if defVehStats and plate then
+			if defVehStats[plate] then cb(defVehStats[plate]) else cb(0) end
+		else cb(0) end
+	end)
+
+
 ---==[[ UPDATE DATABASE MILAGE ]]==---
 	RegisterNetEvent('jim-mechanic:server:UpdateDrivingDistance', function(plate, DistAdd)
 		local result = MySQL.scalar.await('SELECT traveldistance FROM player_vehicles WHERE plate = ?', {plate})
@@ -35,33 +54,38 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, DutyList = {}, {}, {},
 	end)
 
 ---==[[ SAVE EXTRA DAMAGES ]]==---
-	RegisterNetEvent("jim-mechanic:updateVehicle", function(myCar, plate)
+	RegisterNetEvent("jim-mechanic:updateVehicle", function(props, plate)
 		local result = MySQL.scalar.await('SELECT mods FROM player_vehicles WHERE plate = ?', {plate})
 		if result then
-			if Config.System.Debug then print("^5Debug^7: ^3updateVehicle^7: ^2Vehicle Mods^7 - [^6"..plate.."^7]: ^4"..json.encode(myCar).."^7")
+			if Config.System.Debug then print("^5Debug^7: ^3updateVehicle^7: ^2Vehicle Mods^7 - [^6"..plate.."^7]: ^4"..json.encode(props).."^7")
 			else print("^5Debug^7: ^3updateVehicle^7: ^2Vehicle Mods^7 - [^6"..plate.."^7]") end
-			MySQL.Async.execute('UPDATE player_vehicles SET mods = ? WHERE plate = ?', { json.encode(myCar), plate })
+			MySQL.Async.execute('UPDATE player_vehicles SET mods = ? WHERE plate = ?', { json.encode(props), plate })
 		end
 	end)
 
-	RegisterNetEvent('jim-mechanic:server:saveStatus', function(mechDamages, plate)
+	RegisterNetEvent('jim-mechanic:server:saveStatus', function(mechDamages, plate, engine, body)
 		local result = MySQL.scalar.await('SELECT vehicle FROM player_vehicles WHERE plate = ?', { plate })
 		if result then
 			if Config.System.Debug then print("^5Debug^7: ^3saveStatus^7: ^2Save Extra Damages^7 - [^6"..plate.."^7]: ^4"..json.encode(mechDamages).."^7") end
-			MySQL.Async.execute('UPDATE player_vehicles SET status = ? WHERE plate = ?', { json.encode(mechDamages) , plate })
+            MySQL.Async.execute('UPDATE player_vehicles SET status = ?, engine = ?, body = ? WHERE plate = ?', {json.encode(mechDamages), engine, body, plate})
 		end
 	end)
 
 ---==[[ LOAD VALUES WHEN CAR IS SPAWNED ]] ==---
 	RegisterNetEvent('jim-mechanic:server:loadStatus', function(props, vehicle)
 		if props and type(props.headlightColor) == "table" then TriggerEvent("jim-mechanic:server:ChangeXenonColour", vehicle, { props.headlightColor[1], props.headlightColor[2], props.headlightColor[3] }) end
-		if Config.Repairs.ExtraDamages ~= true then return end
 		local result = MySQL.Sync.fetchAll('SELECT status FROM player_vehicles WHERE plate = ?', { props.plate })
-		if result[1] then
+		if result[1] and tostring(result[1].status) ~= "null" and tostring(result[1].status) ~= "0" and tostring(result[1].status) ~= "1" then
 			local status = json.decode(result[1].status) or {}
-			for _, v in pairs({"oil", "axle", "spark", "battery", "fuel"}) do
-				if Config.System.Debug then print("^5Debug^7: ^3loadStatus^7: [^6"..props.plate.."^7] ^2Setting damage of ^6"..v.."^2 to^7: ^4"..(status[v] or 100).."^7") end
-				TriggerEvent("jim-mechanic:server:updatePart", props.plate, v, (status[v] or 100))
+			if Config.Repairs.ExtraDamages then
+				for _, v in pairs({"oil", "axle", "spark", "battery", "fuel"}) do
+					if Config.System.Debug then print("^5Debug^7: ^3loadStatus^7: [^6"..props.plate.."^7] ^2Setting damage of ^6"..v.."^2 to^7: ^4"..(status[v] or 100).."^7") end
+					TriggerEvent("jim-mechanic:server:updatePart", props.plate, v, (status[v] or 100))
+				end
+			end
+			for _, v in pairs({"harness", "antiLag", "carwax"}) do
+				if Config.System.Debug then print("^5Debug^7: ^3loadStatus^7: [^6"..props.plate.."^7] ^2Setting ^6"..v.."^2 to^7: ^4"..(status[v] or 0).."^7") end
+				TriggerEvent("jim-mechanic:server:updatePart", props.plate, v, (status[v] or 0))
 			end
 		end
 	end)
@@ -71,29 +95,10 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, DutyList = {}, {}, {},
 		if items then
 			if Config.System.Debug then print("^5Debug^7: ^3saveStash^7: ^2Saving stash ^7'^6"..stashId.."^7'") end
 			local sql = 'INSERT INTO stashitems (stash, items) VALUES (:stash, :items) ON DUPLICATE KEY UPDATE items = :items'
-			if Config.System.Menu == "qs" then sql = 'INSERT INTO inventory_stash (stash, items) VALUES (:stash, :items) ON DUPLICATE KEY UPDATE stash = :stash' end
-			MySQL.Async.insert('INSERT INTO stashitems (stash, items) VALUES (:stash, :items) ON DUPLICATE KEY UPDATE items = :items', { ['stash'] = stashId, ['items'] = json.encode(items) })
+			if Config.System.Inv == "qs" then sql = 'INSERT INTO inventory_stash (stash, items) VALUES (:stash, :items) ON DUPLICATE KEY UPDATE stash = :stash' end
+			MySQL.Async.insert(sql, { ['stash'] = stashId, ['items'] = json.encode(items) })
 		end
 	end)
-
----==[[ WAX SERVER EVENT ]]==---
-	--plz update me
-	local WaxTimer = {}
-	RegisterNetEvent("jim-mechanic:server:WaxActivator", function(vehicle, time) WaxTimer[vehicle] = time end)
-	if Config.Overrides.WaxFeatures then
-		CreateThread(function()
-			local wait = 10000
-			while true do
-				Wait(wait)
-				if json.encode(WaxTimer) ~= "[]" then wait = 1000 else wait = 20000 end
-				for veh in pairs(WaxTimer) do
-					WaxTimer[veh] -= 1
-					TriggerClientEvent("jim-mechanic:client:CarWax:WaxTick", -1, veh)
-					if WaxTimer[veh] <= 0 then WaxTimer[veh] = nil end
-				end
-			end
-		end)
-	end
 
 ---==[[ DUPE EXPLOIT KICK ]]==---
 	RegisterNetEvent("jim-mechanic:server:DupeWarn", function(item, newsrc)
@@ -132,11 +137,17 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, DutyList = {}, {}, {},
 	RegisterNetEvent("jim-mechanic:server:giveList", function(info)
 		local src = source
 		local Player = QBCore.Functions.GetPlayer(src)
-		Player.Functions.AddItem("mechboard", 1, nil, info)
-		TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items["mechboard"], "add", 1)
+		local metadata = { description = string.format('Model: %s\nPlate: %s\n\nChanges: %s', info.veh, info.vehplate, #info.vehlist), info = info }
+		if Config.System.Inv == "ox" then
+			exports.ox_inventory:AddItem(src, "mechboard", 1, metadata)
+		else
+			Player.Functions.AddItem("mechboard", 1, nil, info)
+			if Config.Overrides.showItemBox then TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["mechboard"], "add", 1) end
+		end
 	end)
 
 	QBCore.Functions.CreateUseableItem("mechboard", function(source, item)
+		if Config.System.Inv == "ox" then item.info = item.metadata["info"]	end
 		if item.info["vehlist"] == nil then
 			triggerNotify("MechBoard", "The board is empty, don't spawn this item", "error", source)
 		else
@@ -317,7 +328,7 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, DutyList = {}, {}, {},
 						if k == b.name then
 							stashItems[l].amount = stashItems[l].amount - v
 							if stashItems[l].amount <= 0 then stashItems[l] = nil end
-							TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[k], "use", v)
+							if Config.Overrides.showItemBox then TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[k], "use", v) end
 							TriggerEvent('jim-mechanic:server:saveStash', Player.PlayerData.job.name .. "Safe", stashItems)
 							if Config.System.Debug then print("^5Debug^7: ^3Crafting^7: ^2Removing ^6"..QBCore.Shared.Items[k].label.." ^2x^6"..v.." ^2from stash^7: '^6"..Player.PlayerData.job.name.."Safe^7'") end
 						end
@@ -336,7 +347,7 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, DutyList = {}, {}, {},
 	RegisterNetEvent("jim-mechanic:server:OX:ChangeStash", function(stashName, item, amount) exports.ox_inventory:RemoveItem(stashName, item, amount) end)
 
 ---==[[ NOS SERVER STUFF ]]==---
-
+if not Config.Overrides.disableNos then
 	--These events sync the VehicleNitrous table with the server, making them able to be synced with the players
 	RegisterNetEvent('jim-mechanic:server:LoadNitrous', function(Plate) VehicleNitrous[Plate] = { hasnitro = 1, level = 100 }
 		TriggerClientEvent('jim-mechanic:client:LoadNitrous', -1, Plate)
@@ -350,7 +361,7 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, DutyList = {}, {}, {},
 	end)
 
 	RegisterNetEvent('jim-mechanic:server:UpdateNitroLevel', function(Plate, level)
-		VehicleNitrous[Plate] = { hasnitro = 1, level = level }
+		VehicleNitrous[Plate].level = level
 		TriggerClientEvent('jim-mechanic:client:UpdateNitroLevel', -1, Plate, level)
 		TriggerEvent("jim-mechanic:database:UpdateNitrous", Plate, VehicleNitrous[Plate].level, VehicleNitrous[Plate].hasnitro)
 	end)
@@ -370,12 +381,44 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, DutyList = {}, {}, {},
 	--Callback to send Database info to Client
 	QBCore.Functions.CreateCallback('jim-mechanic:GetNosLoaded', function(source, cb) cb(VehicleNitrous) end)
 
+	function GetNearbyPeds(netId, distance) local nearbyList = {}
+		local carCoords = GetEntityCoords(netId)
+		local Players = QBCore.Functions.GetQBPlayers()
+		for _, v in pairs(Players) do
+			local ped = GetPlayerPed(v.PlayerData.source)
+			if #(carCoords - GetEntityCoords(ped)) <= distance then	nearbyList[#nearbyList+1] = v.PlayerData.source	end
+		end
+		return nearbyList
+	end
+
 	--Syncing stuff
-	RegisterNetEvent('jim-mechanic:server:SyncPurge', function(netId, enabled, size) TriggerClientEvent('jim-mechanic:client:SyncPurge', -1, netId, enabled, size) end)
-	RegisterNetEvent('jim-mechanic:server:SyncTrail', function(netId, enabled) TriggerClientEvent('jim-mechanic:client:SyncTrail', -1, netId, enabled) end)
-	RegisterNetEvent('jim-mechanic:server:SyncFlame', function(netId, enabled, antilag) TriggerClientEvent('jim-mechanic:client:SyncFlame', -1, netId, enabled, antilag) end)
+	RegisterNetEvent('jim-mechanic:server:SyncPurge', function(netId, enabled, size)
+		if not enabled then
+			TriggerClientEvent('jim-mechanic:client:SyncPurge', -1, netId, false)
+		else
+			local nearbyList = GetNearbyPeds(NetworkGetEntityFromNetworkId(netId), Config.NOS.PurgeDis or 30.0)
+			for i = 1, #nearbyList do TriggerClientEvent('jim-mechanic:client:SyncPurge', nearbyList[i], netId, enabled, size) end
+		end
+	end)
+	RegisterNetEvent('jim-mechanic:server:SyncTrail', function(netId, enabled)
+		if not enabled then
+			TriggerClientEvent('jim-mechanic:client:SyncTrail', -1, netId, false)
+		else
+			local nearbyList = GetNearbyPeds(NetworkGetEntityFromNetworkId(netId), Config.NOS.TrailsDis or 30.0)
+			for i = 1, #nearbyList do TriggerClientEvent('jim-mechanic:client:SyncTrail', nearbyList[i], netId, enabled) end
+		end
+	end)
+	RegisterNetEvent('jim-mechanic:server:SyncFlame', function(netId, enabled, antilag, level)
+		if not enabled then
+			TriggerClientEvent('jim-mechanic:client:SyncFlame', -1, netId, false, antilag, level)
+		else
+			local nearbyList = GetNearbyPeds(NetworkGetEntityFromNetworkId(netId), Config.NOS.FlameDis or 30.0)
+			for i = 1, #nearbyList do TriggerClientEvent('jim-mechanic:client:SyncFlame', nearbyList[i], netId, enabled, antilag, level) end
+		end
+	end)
 
 ---==[[ PURGE COLOUR SERVER STUFF ]]==---
+
 	QBCore.Functions.CreateUseableItem("noscolour", function(source, item) TriggerClientEvent("jim-mechanic:client:NOS:rgbORhex", source) end)
 
 	--Event called on script start to grab Database info about nos
@@ -398,7 +441,6 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, DutyList = {}, {}, {},
 	-- This event is to make it so every car's purge colour is synced
 	-- If you change the colour of the purge on a car, everyone who gets in THAT car will spray this colour
 	RegisterNetEvent('jim-mechanic:server:ChangeColour', function(Plate, newColour)
-		print("recieved new colour")
 		nosColour[Plate] = newColour -- Update server side
 		TriggerClientEvent('jim-mechanic:client:ChangeColour', -1, Plate, newColour) -- Sync the colour per car between players
 		TriggerEvent('jim-mechanic:database:ChangeColour', Plate, newColour) -- Update Database with new colour
@@ -408,25 +450,30 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, DutyList = {}, {}, {},
 		--if Config.System.Debug then print("Update Purge Colour: "..plate) end
 		MySQL.Async.execute('UPDATE player_vehicles SET nosColour = ? WHERE plate = ?', { json.encode(newColour), plate })
 	end)
-
+end
 ---==[[ VEHICLE DAMAGES SERVER STUFF ]]==---
 	VehicleStatus = VehicleStatus or {}
 
 	AddEventHandler('onResourceStart', function(r) if GetCurrentResourceName() ~= r then return end
 		local result = MySQL.Sync.fetchAll("SELECT `status`, `plate` FROM `player_vehicles` WHERE 1")
-		for k, v in pairs(result) do
-			if v.status then
+		for _, v in pairs(result) do
+			if type(json.decode(v.status)) == "table" then
+				if Config.System.Debug then print("^5Debug^7: ^2Found vehicleStatus ^7- '^6"..v.plate.."^7'", "'^3"..type(json.decode(v.status)).."^7'")
+					print("^1"..v.status.."^7")
+				end
 				VehicleStatus[v.plate] = json.decode(v.status)
-				for list in pairs(VehicleStatus[v.plate]) do
-					-- add extra upgrades if not found
-					for _, name in pairs({"oillevel", "shaftlevel", "cylinderlevel", "cablelevel", "fuellevel"}) do
-						VehicleStatus[v.plate][name] = VehicleStatus[v.plate][name] or 0
-					end
-					-- Convert old status to new status
-					VehicleStatus[v.plate]["oil"] = VehicleStatus[v.plate]["oil"] or VehicleStatus[v.plate]["radiator"] VehicleStatus[v.plate]["radiator"] = nil
-					VehicleStatus[v.plate]["spark"] = VehicleStatus[v.plate]["spark"] or VehicleStatus[v.plate]["brakes"] VehicleStatus[v.plate]["brakes"] = nil
-					VehicleStatus[v.plate]["battery"] = VehicleStatus[v.plate]["battery"] or VehicleStatus[v.plate]["clutch"] VehicleStatus[v.plate]["clutch"] = nil
-					VehicleStatus[v.plate]["harness"] = VehicleStatus[v.plate]["harness"] or 0
+				--Create a table and apply values at the same time, this will help if its retreived errornous info from database
+				for _, name in pairs({"oillevel", "shaftlevel", "cylinderlevel", "cablelevel", "fuellevel", "harness", "antiLag", "carwax"}) do
+					VehicleStatus[v.plate][name] = VehicleStatus[v.plate][name] or 0
+				end
+				for _, name in pairs({"oil", "axle", "spark", "battery", "fuel"}) do
+					VehicleStatus[v.plate][name] = VehicleStatus[v.plate][name] or 100
+				end
+				-- Convert old status to new status
+				for _, name in pairs(VehicleStatus[v.plate]) do
+					if name == "radiator" then VehicleStatus[v.plate]["oil"] = VehicleStatus[v.plate]["radiator"] VehicleStatus[v.plate]["radiator"] = nil end
+					if name == "brakes" then VehicleStatus[v.plate]["spark"] = VehicleStatus[v.plate]["brakes"] VehicleStatus[v.plate]["brakes"] = nil end
+					if name == "clutch" then VehicleStatus[v.plate]["battery"] = VehicleStatus[v.plate]["clutch"] VehicleStatus[v.plate]["clutch"] = nil end
 				end
 			end
 		end
@@ -437,13 +484,14 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, DutyList = {}, {}, {},
 	end)
 
 	RegisterNetEvent('jim-mechanic:server:setupVehicleStatus', function(plate, engineHealth, bodyHealth) local defaultStatus = {}
+		if plate == nil or plate == 0 then return end
 		defaultStatus["engine"] = (engineHealth or 1000.0) defaultStatus["body"] = (bodyHealth or 1000.0)
 		for _, name in pairs({"oil", "axle", "spark", "battery", "fuel"}) do defaultStatus[name] = 100.0 end
 		for _, name in pairs({"oillevel", "shaftlevel", "cylinderlevel", "cablelevel", "fuellevel"}) do defaultStatus[name] = 0 end
-		defaultStatus["harness"] = 0 defaultStatus["antiLag"] = 0
+		defaultStatus["harness"] = 0 defaultStatus["antiLag"] = 0 defaultStatus["carwax"] = 0
 		if IsVehicleOwned(plate) then
 			VehicleStatus[plate] = GetVehicleStatus(plate) or defaultStatus
-			for k, v in pairs(defaultStatus) do
+			for k in pairs(defaultStatus) do
 				VehicleStatus[plate][k] = VehicleStatus[plate][k] or defaultStatus[k]
 			end
 		else
@@ -452,28 +500,52 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, DutyList = {}, {}, {},
 		TriggerClientEvent("jim-mechanic:client:setVehicleStatus", -1, plate, VehicleStatus[plate])
 	end)
 
-	RegisterNetEvent('jim-mechanic:server:updatePart', function(plate, part, level)
-		if VehicleStatus[plate] then local partValue = level
+	RegisterNetEvent('jim-mechanic:server:updatePart', function(plate, part, level, all) local src = source
+		if VehicleStatus[plate] then
+			local partValue = level
 			if partValue < 0 then partValue = 0
 			elseif partValue > ((part == "engine" or part == "body") and 1000.0 or 100) then
 				partValue = ((part == "engine" or part == "body") and 1000.0 or 100)
 			end
+			if part == "carwax" then if level ~= 0 then partValue = os.time() + level end end
 			VehicleStatus[plate][part] = partValue
-			TriggerClientEvent("jim-mechanic:client:setVehicleStatus", -1, plate, VehicleStatus[plate])
+			if all then
+				TriggerClientEvent("jim-mechanic:client:setVehicleStatus", -1, plate, VehicleStatus[plate])
+			end
 		end
 	end)
 
-	RegisterNetEvent('jim-mechanic:server:getStatusList', function() TriggerClientEvent("jim-mechanic:client:getStatusList", -1, VehicleStatus) end)
+	RegisterNetEvent('jim-mechanic:server:fixAllPart', function(plate) local src = source
+		if VehicleStatus[plate] then
+			VehicleStatus[plate]["oil"] = 100
+			VehicleStatus[plate]["axle"] = 100
+			VehicleStatus[plate]["battery"] = 100
+			VehicleStatus[plate]["fuel"] = 100
+			VehicleStatus[plate]["spark"] = 100
+		end
+		TriggerClientEvent("jim-mechanic:client:setVehicleStatus", src, plate, VehicleStatus[plate])
+	end)
+
+
+	RegisterNetEvent("jim-mechanic:server:getStatusList", function(player, plate) local src = source
+		if plate then -- if receive a plate, only send this to the player
+			TriggerClientEvent("jim-mechanic:client:setVehicleStatus", src, plate, VehicleStatus[plate])
+		else
+			TriggerClientEvent("jim-mechanic:client:getStatusList", player and src or -1, VehicleStatus)
+		end
+	end)
 
 	--- HARNESS Stuff --
-	if Config.Overrides.HarnessControl == true then
+	if Config.Harness.HarnessControl == true then
 		QBCore.Functions.CreateUseableItem("harness", function(source, item) TriggerClientEvent('jim-mechanic:client:applyHarness', source) end)
 	end
 
 ---==[[ ON RESOURCE START ]]==---
 	AddEventHandler('onResourceStart', function(r) if GetCurrentResourceName() ~= r then return end
-		getNosUpdate()
-		getNosColourUpdate()
+		if not Config.Overrides.disableNos then
+			getNosUpdate()
+			getNosColourUpdate()
+		end
 		for _, v in pairs(Config.Main.JobRoles) do DutyList[tostring(v)] = false end
 		for _, v in pairs(QBCore.Functions.GetPlayers()) do
 			local Player = QBCore.Functions.GetPlayer(v)
@@ -481,3 +553,19 @@ local Previewing, xenonColour, VehicleNitrous, nosColour, DutyList = {}, {}, {},
 				for _, b in pairs(Config.Main.JobRoles) do
 					if Player.PlayerData.job.name == b and Player.PlayerData.job.onduty then DutyList[tostring(b)] = true end end end end
 	end)
+
+RegisterNetEvent('jim-mechanic:server:updateDefVehStats', function(plate, props)
+	if not defVehStats[plate] then
+		defVehStats[plate] = props
+	else
+		for k, v in pairs(props) do
+			if defVehStats[plate][k] ~= v then defVehStats[plate][k] = v end
+		end
+	end
+end)
+
+RegisterNetEvent('jim-mechanic:server:updateCar', function(netId, props)
+	TriggerClientEvent("jim-mechanic:forceProperties", -1, netId, props)
+end)
+
+RegisterNetEvent("jim-mechanic:server:changePlate", function(vehicle, plate) SetVehicleNumberPlateText(NetworkGetEntityFromNetworkId(vehicle), plate) end)

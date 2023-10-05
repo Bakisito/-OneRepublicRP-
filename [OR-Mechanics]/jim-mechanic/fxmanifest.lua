@@ -1,8 +1,6 @@
-shared_script '@Five/ai_module_fg-obfuscated.lua'
-shared_script '@Five/shared_fg-obfuscated.lua'
 name "Jim-Mechanic"
 author "Jimathy"
-version "3.0.1"
+version "3.1"
 description "Mechanic Script By Jimathy"
 fx_version "cerulean"
 game "gta5"
@@ -11,10 +9,10 @@ lua54 'yes'
 shared_scripts { 'config.lua', 'locales/*.lua', 'shared/*.lua', }
 client_scripts { '@PolyZone/client.lua', '@PolyZone/BoxZone.lua', '@PolyZone/EntityZone.lua', '@PolyZone/CircleZone.lua', '@PolyZone/ComboZone.lua', 'client/*.lua', 'html/drawtext.lua', }
 server_scripts { '@oxmysql/lib/MySQL.lua', 'server/*.lua', }
-files { 'html/**', 'html/img/**', "data/carcols_gen9.meta", "data/carmodcols_gen9.meta", 'stream/*.ytyp' }
+files { 'html/**', 'html/img/**', 'html/snd/**', "data/carcols_gen9.meta", "data/carmodcols_gen9.meta", 'stream/*.ytyp' }
 ui_page 'html/index.html'
-data_file "CARCOLS_GEN9_FILE" "stream/carcols_gen9.meta"
-data_file "CARMODCOLS_GEN9_FILE" "stream/carmodcols_gen9.meta"
+data_file "CARCOLS_GEN9_FILE" "data/carcols_gen9.meta"
+data_file "CARMODCOLS_GEN9_FILE" "data/carmodcols_gen9.meta"
 data_file 'DLC_ITYP_REQUEST' 'stream/*.ytyp'
 
 escrow_ignore {

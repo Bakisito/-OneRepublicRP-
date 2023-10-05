@@ -3,25 +3,48 @@ if Shared.Framework == "qbcore" then
 elseif Shared.Framework == "esx" then
 	if ESX == nil then
 		Citizen.CreateThread(function()
-			while Framework == nil do
+			local counter = 0
+			while Framework == nil and counter <= 50 do
 				TriggerEvent("esx:getSharedObject", function(obj)
 					Framework = obj
 				end)
+				counter = counter + 1
 				Wait(100)
 			end
+
+			error(
+				"Failed to import ESX, if you are using ESX Legacy 1.8.5+, then please uncomment the line in zerio-radio's fxmanifest"
+			)
 		end)
 	else
 		Framework = ESX
 	end
 end
 
-if Shared.Framework == "standalone" then
-	RegisterNetEvent("zerio-radio:client:showNotification", function(msg)
-		BeginTextCommandThefeedPost("STRING")
-		AddTextComponentString(msg)
-		DrawNotification(false, true)
-	end)
-end
+Animation = {
+	OpenProp = GetHashKey("zerio_radio"),
+	OpenBone = 28422,
+	OpenOffset = vector3(0.0, 0.0, 0.0),
+	OpenRotation = vector3(90.0, 90.0, 0.0),
+
+	-- TalkProp = GetHashKey('prop_cs_hand_radio'),
+	-- TalkBone = 28422,
+	-- TalkOffset = vector3(0.0, 0.0, 0.0),
+	-- TalkRotation = vector3(0.0, 0.0, 0.0),
+
+	OpenDictionary = {
+		normal = "cellphone@",
+		in_car = "cellphone@in_car@ds",
+	},
+
+	OpenAnimation = {
+		open = "cellphone_text_in",
+		closed = "cellphone_text_out",
+	},
+
+	TalkDictionary = "random@arrests",
+	TalkAnimation = "generic_radio_chatter",
+}
 
 Functions = {
 	GetPlayerData = function()
@@ -76,7 +99,9 @@ Functions = {
 
 		if id then
 			if GetResourceState("pma-voice") == "started" then
-				CurrentFrequency = tonumber(Player(-1).state.radioChannel)
+				if IsOnesyncInfinity == true then
+					CurrentFrequency = tonumber(Player(-1).state.radioChannel)
+				end
 			elseif GetResourceState("mumble-voip") == "started" then
 				local freq = exports["mumble-voip"]:GetPlayerRadioChannel(GetPlayerServerId(id))
 
@@ -142,7 +167,13 @@ Functions = {
 			-- SOUND
 			if Shared.PanicButtonSound.Enabled == true then
 				if GetResourceState("high_3dsounds") == "started" then
-					local sound = exports["high_3dsounds"]:Play3DEntity(NetworkGetNetworkIdFromEntity(ped), 20.0, Shared.PanicButtonSound.Name, 1.0, true)
+					local sound = exports["high_3dsounds"]:Play3DEntity(
+						NetworkGetNetworkIdFromEntity(ped),
+						20.0,
+						Shared.PanicButtonSound.Name,
+						1.0,
+						true
+					)
 
 					CreateThread(function()
 						Wait(Shared.PanicButtonSound.Duration * 1000)
@@ -287,7 +318,7 @@ Functions = {
 								DisableAnonymous = Shared.DisableAnonymous,
 								EnablePanicButton = Shared.EnablePanicButton,
 								AllowCallSigns = Shared.AllowCallSigns,
-								Debug = Shared.Debug
+								Debug = Shared.Debug,
 							},
 						})
 					else
@@ -301,31 +332,15 @@ Functions = {
 	end,
 }
 
-Animation = {
-	OpenProp = GetHashKey("zerio_radio"),
-	OpenBone = 28422,
-	OpenOffset = vector3(0.0, 0.0, 0.0),
-	OpenRotation = vector3(90.0, 90.0, 0.0),
+if Shared.Framework == "standalone" then
+	RegisterNetEvent("zerio-radio:client:showNotification", function(msg)
+		BeginTextCommandThefeedPost("STRING")
+		AddTextComponentString(msg)
+		DrawNotification(false, true)
+	end)
+end
 
-	-- TalkProp = GetHashKey('prop_cs_hand_radio'),
-	-- TalkBone = 28422,
-	-- TalkOffset = vector3(0.0, 0.0, 0.0),
-	-- TalkRotation = vector3(0.0, 0.0, 0.0),
-
-	OpenDictionary = {
-		normal = "cellphone@",
-		in_car = "cellphone@in_car@ds",
-	},
-
-	OpenAnimation = {
-		open = "cellphone_text_in",
-		closed = "cellphone_text_out",
-	},
-
-	TalkDictionary = "random@arrests",
-	TalkAnimation = "generic_radio_chatter",
-}
-
+-- REGISTER STUFF FOR ITEM AND CUSTOM OPENTYPE
 if Shared.OpenType.Value == "custom" or Shared.OpenType.Value == "item" then
 	RegisterNetEvent("zerio-radio:client:open", Functions.Open)
 	exports("Open", Functions.Open)

@@ -146,7 +146,7 @@ local function printDifferences(vehicle, properties, newproperties)
 		["modGrille"] = { mod = 6, label = Loc[Config.Lan]["check"].label20, item = QBCore.Shared.Items["bumper"].label },
 		["modHood"] = { mod = 7, label = Loc[Config.Lan]["check"].label21, item = QBCore.Shared.Items["hood"].label },
 		["modFender"] = { mod = 8, label = Loc[Config.Lan]["check"].label22, item = QBCore.Shared.Items["skirts"].label },
-		["modRightFender"] = { mod = 9, label = Loc[Config.Lan]["check"].label26, item = QBCore.Shared.Items["skirts"].label },
+		["modRightFender"] = { mod = 9, label = Loc[Config.Lan]["check"].label23, item = QBCore.Shared.Items["skirts"].label },
 		["modRoof"] = { mod = 10, label = Loc[Config.Lan]["check"].label24, item = QBCore.Shared.Items["roof"].label },
 		["modPlateHolder"] = { mod = 25, label = Loc[Config.Lan]["check"].label25, item = QBCore.Shared.Items["customplate"].label },
 		["modVanityPlate"] = { mod = 26, label = Loc[Config.Lan]["check"].label26, item = QBCore.Shared.Items["customplate"].label },
@@ -170,7 +170,7 @@ local function printDifferences(vehicle, properties, newproperties)
 		["modHydrolic"] = { mod = 38, label = Loc[Config.Lan]["check"].label44, item = QBCore.Shared.Items["externals"].label },
 		["modAerials"] = { mod = 43, label = Loc[Config.Lan]["check"].label45, item = QBCore.Shared.Items["externals"].label },
 		["modTank"] = { mod = 45, label = Loc[Config.Lan]["check"].label46, item = QBCore.Shared.Items["externals"].label },
-		["modLivery"] = { mod = 48, label = Loc[Config.Lan]["police"].livery, item = QBCore.Shared.Items["livery"].label },
+        ["modLivery"] = { mod = 48, label = Loc[Config.Lan]["check"].label53, item = QBCore.Shared.Items["livery"].label },
 	}
 
 	for k, v in pairs(newproperties) do
@@ -185,7 +185,11 @@ local function printDifferences(vehicle, properties, newproperties)
 			end
 		end
 	end
-	if Config.Previews.PreviewPhone then
+	local hasPhone = false
+	for _, v in pairs(Config.Previews.PhoneItems) do
+		if HasItem(v) then hasPhone = true break end end
+
+    if Config.Previews.PreviewPhone and hasPhone then
 		if vehlist[1] then local newlist = ""
 			local eventTable = {
 				["gks"] = "gksphone:NewMail",
@@ -194,6 +198,7 @@ local function printDifferences(vehicle, properties, newproperties)
 				["roadphone"] = "roadphone:receiveMail",
 				--["lb"] = "roadphone:receiveMail",
 			}
+			local br = Config.Previews.PhoneMail == "roadphone" and "\n" or "<br>"
 			for i = 1, #vehlist do newlist = newlist..br..vehlist[i] end
 			TriggerServerEvent(eventTable[Config.Previews.PhoneMail], {
 				sender = vehplate,
@@ -202,7 +207,7 @@ local function printDifferences(vehicle, properties, newproperties)
 				button = {}
 			})
 		end
-	else
+	elseif not Config.Previews.PreviewPhone or not hasPhone then
 		if vehlist[1] then
 			local info = { veh = veh, vehplate = vehplate, vehlist = vehlist }
 			TriggerServerEvent("jim-mechanic:server:giveList", info)
@@ -215,9 +220,9 @@ local function printDifferences(vehicle, properties, newproperties)
 			local htmllink = Config.Discord.DiscordDefault
 			local colour = 16753920
 			for k, v in pairs(Config.Locations) do
-				if #(GetEntityCoords(PlayerPedId()) - v.blip.coords) <= 30 then
+				if inLocation == v.designatedName then
 					if v.discord.link ~= "" then
-						shopName = " - "..v.blip.label
+						shopName = " - "..(v.blip and v.blip.label or "N/A")
 						thumb = v.payments.img
 						htmllink = v.discord.link
 						colour = v.discord.colour
@@ -242,39 +247,85 @@ RegisterNetEvent("jim-mechanic:client:giveList", function(item)
 	if Config.System.Menu == "qb" then
 		list[#list+1] = { icon = "fas fa-circle-xmark", header = "", txt = Loc[Config.Lan]["common"].close, params = { event = "jim-mechanic:client:Menu:Close" }, }
 	end
-	list[#list+1] = { isMenuHeader = true, disabled = Config.System.Menu == "ox", header = "", txt = newlist, title = "", description = newlist,  }
+	list[#list+1] = { isMenuHeader = true, disabled = Config.System.Menu == "ox", header = "", txt = newlist, title = "Mods:", description = newlist,  }
 	if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = item.info["vehplate"], position = 'top-right', options = list }) exports.ox_lib:showContext("Menu")
 	elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(list) end
 end)
+
+local camTable = {}
+local currentCam = 2
+function startPreviewCamera(vehicle)
+	local vehcoords = GetEntityCoords(vehicle)
+	for k, v in ipairs({
+		GetOffsetFromEntityInWorldCoords(vehicle, 1.8, 3.5, 2.0), -- Front
+		GetOffsetFromEntityInWorldCoords(vehicle, 0.0, 4.0, 0.5),
+		GetOffsetFromEntityInWorldCoords(vehicle, -1.8, 3.5, 2.0),
+
+		GetOffsetFromEntityInWorldCoords(vehicle, -3.5, 0.0, 0.5), -- Left
+		GetOffsetFromEntityInWorldCoords(vehicle, -2.6, 0.0, 3.0), -- Left
+
+		GetOffsetFromEntityInWorldCoords(vehicle, -1.8, -3.5, 2.0), -- Back
+		GetOffsetFromEntityInWorldCoords(vehicle, 0.0, -5.0, 0.5),
+		GetOffsetFromEntityInWorldCoords(vehicle, 1.8, -3.5, 2.5),
+
+		GetOffsetFromEntityInWorldCoords(vehicle, 3.5, 0.0, 0.5), -- Right
+		GetOffsetFromEntityInWorldCoords(vehicle, 2.6, 0.0, 3.0), -- Right
+	}) do
+		camTable[k] = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", v.x, v.y, v.z, 0.0, 0.0, 180.0, 60.00, false, 0)
+		PointCamAtCoord(camTable[k], vehcoords.x, vehcoords.y, vehcoords.z)
+	end
+	SetCamActive(camTable[currentCam], true)
+	RenderScriptCams(true, true, 2000, true, true)
+	triggerNotify(nil, "Camera Enabled", "success")
+end
 
 local currentPlate = nil
 --A function to detect if the person editing is in the driver seat or not
 local function preview(Ped, vehicle)
 	if not previewing then
+		previewmode = true
 		previewing = true
 		qblog("Used `/preview` in: [**"..trim(GetVehicleNumberPlateText(vehicle)).."**]")
 		TriggerServerEvent("jim-mechanic:server:preview", true, VehToNet(vehicle), trim(GetVehicleNumberPlateText(vehicle)))
 		FreezeEntityPosition(vehicle, true)
+		if Config.Previews.hardCam then startPreviewCamera(vehicle) end
 	else return end
 	properties = QBCore.Functions.GetVehicleProperties(vehicle)
 	currentPlate = trim(GetVehicleNumberPlateText(vehicle))
-	SetVehicleNumberPlateText(vehicle, "PREVIEWZ")
+	if not Config.Overrides.disablePreviewPlate then
+		TriggerServerEvent("jim-mechanic:server:changePlate", VehToNet(vehicle), "PREVIEWZ")
+	end
 	while previewing do
-		if GetPedInVehicleSeat(vehicle, -1) ~= Ped then previewing = false end
+		if GetSeatPedIsIn(vehicle) ~= -1 then previewing = false end
 		if not previewing or stoppreview == true then
+			if Config.Previews.hardCam then
+				for i = 1, #camTable do
+					SetCamActive(camTable[i], true)
+					DestroyCam(camTable[i], true)
+				end
+				camTable = {}
+				currentCam = 2
+				RenderScriptCams(false, true, 2000, true, true)
+			end
+			previewmode = false
 			previewing = false
 			stoppreview = false
-			FreezeEntityPosition(vehicle, false)
-			TriggerServerEvent("jim-mechanic:server:preview", false)
-			local newproperties = QBCore.Functions.GetVehicleProperties(vehicle)
-			QBCore.Functions.SetVehicleProperties(vehicle, properties)
-			SetVehicleEngineOn(vehicle, true, false, false)
-			printDifferences(vehicle, properties, newproperties)
-			SetVehicleNumberPlateText(vehicle, currentPlate)
+			if DoesEntityExist(vehicle) then
+				FreezeEntityPosition(vehicle, false)
+				TriggerServerEvent("jim-mechanic:server:preview", false)
+				local newproperties = QBCore.Functions.GetVehicleProperties(vehicle)
+				QBCore.Functions.SetVehicleProperties(vehicle, properties)
+				SetVehicleEngineOn(vehicle, true, false, false)
+				if newproperties == nil then return	else
+				printDifferences(vehicle, properties, newproperties)
+				if not Config.Overrides.disablePreviewPlate then
+					TriggerServerEvent("jim-mechanic:server:changePlate", VehToNet(vehicle), currentPlate)
+				end end
+			end
 			currentPlate = nil
 			break
 		end
-		Wait(2000)
+		Wait(1000)
 	end
 end
 
@@ -287,7 +338,7 @@ end)
 RegisterNetEvent("jim-mechanic:preview:stop", function() stoppreview = true end)
 
 RegisterNetEvent('jim-mechanic:client:Preview:Menu', function() local validMods, Menu, vehicle, hasExtra, Ped = {}, {}, nil, false, PlayerPedId()
-	if Config.Previews.PreviewJob then if not jobChecks() then return end end
+	if Config.Previews.PreviewJob then if not previewJobChecks() then return end end
 	if Config.Previews.PreviewLocation then if not previewLocationChecks() then return end end
 	if not outCar() then return end
 	if IsPedInAnyVehicle(Ped, false) then
@@ -295,9 +346,11 @@ RegisterNetEvent('jim-mechanic:client:Preview:Menu', function() local validMods,
 		if GetPedInVehicleSeat(vehicle, -1) ~= Ped then return end
 		carMeta = { ["search"] = searchCar(vehicle), ["class"] = getClass(vehicle), ["plate"] = trim(GetVehicleNumberPlateText(vehicle)), ["price"] = searchPrice(vehicle), ["dist"] = searchDist(vehicle), }
 
-		Menu[#Menu+1] = { isMenuHeader = true, disabled = (Config.System.Menu == "ox"), header = (Config.System.Menu == "qb") and carMeta["search"] or "",
+		Menu[#Menu+1] = { header = (Config.System.Menu == "qb") and carMeta["search"] or "", icon = "fas fa-camera",
 			txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-			title = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"]
+			title = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
+			params = { event = "jim-mechanic:client:Preview:Camera", args = { event = "jim-mechanic:client:Preview:Menu" }, },
+			event = "jim-mechanic:client:Preview:Camera", args = { event = "jim-mechanic:client:Preview:Menu" },
 		}
 
 		if Config.System.Menu == "qb" then Menu[#Menu+1] = { icon = "fas fa-circle-xmark", header = "", txt = Loc[Config.Lan]["common"].close, params = { event = "jim-mechanic:client:Menu:Close" }, } end
@@ -327,9 +380,11 @@ RegisterNetEvent('jim-mechanic:client:Preview:Menu', function() local validMods,
 		local extraCount = 0
 		for i = 0, 14 do extraCount += tonumber(DoesExtraExist(vehicle, i)) or 0 end
 		if extraCount > 0 then
+			local isDamaged, text = false, ""
+			if GetVehicleBodyHealth(vehicle) < 950 or GetVehicleEngineHealth(vehicle) < 990 or GetVehiclePetrolTankHealth(vehicle) < 980 then isDamaged = true text = " - Vehicle Damaged" end
 			Menu[#Menu+1] = {
 				header = "", txt = Loc[Config.Lan]["police"].extras, params = { event = "jim-mechanic:client:Preview:Extras:Check" },
-				title = Loc[Config.Lan]["police"].extras, event = "jim-mechanic:client:Preview:Extras:Check",
+				title = Loc[Config.Lan]["police"].extras..text, event = "jim-mechanic:client:Preview:Extras:Check", disabled = isDamaged
 			}
 		end
 
@@ -368,7 +423,16 @@ RegisterNetEvent('jim-mechanic:client:Preview:Menu', function() local validMods,
 	end
 end)
 
-RegisterNetEvent("jim-mechanic:client:Preview:Camera", function(data) Wait(3000) TriggerEvent(data.event, data.data) end)
+RegisterNetEvent("jim-mechanic:client:Preview:Camera", function(data)
+	if Config.Previews.hardCam then
+		local prevCam = currentCam
+		currentCam += 1
+		currentCam = currentCam < 1 and countTable(camTable) or currentCam
+		currentCam = currentCam > countTable(camTable) and 1 or currentCam
+		SetCamActiveWithInterp(camTable[currentCam], camTable[prevCam], 800, 0, 0)
+	else Wait(3000) end
+	TriggerEvent(data.event, data.data)
+end)
 
 RegisterNetEvent("jim-mechanic:client:Preview:Multi", function(data) local validMods, Menu, icon, disabled, stockinstall, Ped = {}, {}, "", false, "", PlayerPedId()
 	if IsPedInAnyVehicle(Ped, false) then vehicle = GetVehiclePedIsIn(Ped, false)
@@ -401,7 +465,7 @@ RegisterNetEvent("jim-mechanic:client:Preview:Multi", function(data) local valid
 		if GetVehicleMod(vehicle, data.id) == v.id then icon = "fas fa-check" disabled = true end
 		Menu[#Menu + 1] = { icon = icon, isMenuHeader = disabled, disabled = (Config.System.Menu == "ox" and disabled),
 			header = k..". "..v.name, txt = v.install, params = { event = 'jim-mechanic:client:Preview:Multi:Apply', args = { id = tostring(v.id), mod = data.id, name = data.name }, } ,
-			title = k.." - "..v.name, txt = v.install, event = 'jim-mechanic:client:Preview:Multi:Apply', args = { id = tostring(v.id), mod = data.id, name = data.name },
+			title = k.." - "..v.name, description = v.install, event = 'jim-mechanic:client:Preview:Multi:Apply', args = { id = tostring(v.id), mod = data.id, name = data.name },
 		}
 	end
 	if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = Loc[Config.Lan]["police"].header, position = 'top-right', options = Menu }) exports.ox_lib:showContext("Menu")
@@ -692,11 +756,18 @@ RegisterNetEvent('jim-mechanic:client:Preview:Paints:Apply', function(data) loca
 end)
 
 --WHEELS
+local wheelType = {
+	[0] = Loc[Config.Lan]["rims"].label1, [1] = Loc[Config.Lan]["rims"].label2, [2] = Loc[Config.Lan]["rims"].label3, [3] = Loc[Config.Lan]["rims"].label4,
+	[4] = Loc[Config.Lan]["rims"].label5, [5] = Loc[Config.Lan]["rims"].label6, [6] = Loc[Config.Lan]["rims"].label15, [7] = Loc[Config.Lan]["rims"].label7,
+	[8] = Loc[Config.Lan]["rims"].label8, [9] = Loc[Config.Lan]["rims"].label9, [10] = Loc[Config.Lan]["rims"].label10, [11] = Loc[Config.Lan]["rims"].label11,
+	[12] = Loc[Config.Lan]["rims"].label12,
+}
+
 RegisterNetEvent('jim-mechanic:client:Preview:Rims:Apply', function(data) local Ped = PlayerPedId()
 	if IsPedInAnyVehicle(Ped, false) then vehicle = GetVehiclePedIsIn(Ped, false) end
 	SetVehicleWheelType(vehicle, tonumber(data.wheeltype))
 	if not data.bike then SetVehicleMod(vehicle, 23, tonumber(data.mod), true) else SetVehicleMod(vehicle, 24, tonumber(data.mod), false) end
-	if data.mod == -1 then TriggerEvent('jim-mechanic:client:Preview:Rims:Choose', data) else TriggerEvent('jim-mechanic:client:Preview:Rims:SubMenu', data) end
+	if data.mod == -1 then TriggerEvent('jim-mechanic:client:Preview:Rims:Check', data) else TriggerEvent('jim-mechanic:client:Preview:Rims:SubMenu', data) end
 end)
 
 RegisterNetEvent('jim-mechanic:client:Preview:Rims:Check', function() local Menu, Ped = {}, PlayerPedId()
@@ -712,12 +783,14 @@ RegisterNetEvent('jim-mechanic:client:Preview:Rims:Check', function() local Menu
 	Menu[#Menu + 1] = { icon = "fas fa-circle-arrow-left", header = "", txt = Loc[Config.Lan]["common"].ret, params = { event = "jim-mechanic:client:Preview:Menu" }, title = Loc[Config.Lan]["common"].ret, event = "jim-mechanic:client:Preview:Menu", }
 
 	if not cycle then
-		local wheelTable = {
-			[0] = Loc[Config.Lan]["rims"].label1, [1] = Loc[Config.Lan]["rims"].label2, [2] = Loc[Config.Lan]["rims"].label3, [3] = Loc[Config.Lan]["rims"].label4,
-			[4] = Loc[Config.Lan]["rims"].label5, [5] = Loc[Config.Lan]["rims"].label6, [7] = Loc[Config.Lan]["rims"].label7, [8] = Loc[Config.Lan]["rims"].label8,
-			[9] = Loc[Config.Lan]["rims"].label9, [10] = Loc[Config.Lan]["rims"].label10, [11] = Loc[Config.Lan]["rims"].label11, [12] = Loc[Config.Lan]["rims"].label12,
+
+		Menu[#Menu + 1] = { icon = GetVehicleMod(vehicle, 23) ~= -1 and "fa-solid fa-rotate-left" or nil, isMenuHeaader = (GetVehicleMod(vehicle, 23) == -1), disabled = (GetVehicleMod(vehicle, 23) == -1),
+			header = Loc[Config.Lan]["common"].stock,
+			txt = (GetVehicleMod(vehicle, 23) == -1) and Loc[Config.Lan]["common"].current, params = { event = "jim-mechanic:client:Preview:Rims:Apply",  args = { mod = -1, wheeltype = 0, } },
+			title = Loc[Config.Lan]["common"].stock,
+			description = (GetVehicleMod(vehicle, 23) == -1) and Loc[Config.Lan]["common"].current, event = "jim-mechanic:client:Preview:Rims:Apply", args = { mod = -1, wheeltype = 0, }
 		}
-		for k, v in pairs(wheelTable) do
+		for k, v in pairs(wheelType) do
 			Menu[#Menu+1] = {
 				header = v, params = { event = "jim-mechanic:client:Preview:Rims:Choose", args = { wheeltype = k, bike = false } },
 				title = v, event = "jim-mechanic:client:Preview:Rims:Choose", args = { wheeltype = k, bike = false },
@@ -730,12 +803,12 @@ RegisterNetEvent('jim-mechanic:client:Preview:Rims:Check', function() local Menu
 			title = Loc[Config.Lan]["rims"].label13, event = "jim-mechanic:client:Preview:Rims:Choose", args = { wheeltype = 6, bike = false }
 		}
 		Menu[#Menu+1] = {
-			header = Loc[Config.Lan]["rims"].label14, params = { event = "jim-mechanic:client:Preview:Rims:Choose", args = { wheeltype = 6, bike = false } },
+			header = Loc[Config.Lan]["rims"].label14, params = { event = "jim-mechanic:client:Preview:Rims:Choose", args = { wheeltype = 6, bike = true } },
 			title = Loc[Config.Lan]["rims"].label14, event = "jim-mechanic:client:Preview:Rims:Choose", args = { wheeltype = 6, bike = true }
 		}
 	end
-	if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = carMeta["search"], position = 'top-right', options = Menu }) exports.ox_lib:showContext("Menu")
-	elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(Menu) end
+	if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = carMeta["search"], position = 'top-right', options = Menu }) exports.ox_lib:showContext("Menu")
+	elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(Menu) end
 end)
 
 RegisterNetEvent('jim-mechanic:client:Preview:Rims:Choose', function(data) local vehicle, validMods, originalWheel, Menu, Ped = {}, {}, 0, {}, PlayerPedId()
@@ -745,32 +818,21 @@ RegisterNetEvent('jim-mechanic:client:Preview:Rims:Choose', function(data) local
 	for i = 1, (GetNumVehicleMods(vehicle, 23) +1) do
 		local modName = GetLabelText(GetModTextLabel(vehicle, 23, (i-1)))
 		if not validMods[modName] then
-			if GetVehicleMod(vehicle, 23) == (i-1) and originalWheel == tonumber(data.wheeltype) then txt = Loc[Config.Lan]["common"].current else txt = "" end
 			validMods[modName] = {}
-			validMods[modName][#validMods[modName]+1] = { id = (i-1), name = modName, install = txt }
+			validMods[modName][#validMods[modName]+1] = { id = (i-1), name = modName, }
 		elseif validMods[modName] then
 			if validMods[modName][1] then
-				if GetVehicleMod(vehicle, 23) == (i) and originalWheel == tonumber(data.wheeltype) then txt = Loc[Config.Lan]["common"].current else txt = "" end
 				local name = modName
 				if modName == "NULL" then name = modName.." ("..(i-1)..")" end
-				validMods[modName][#validMods[modName]+1] = { id = (i-1), name = name.." - Var "..(#validMods[modName]+1), install = txt }
+				validMods[modName][#validMods[modName]+1] = { id = (i-1), name = name.." - Var "..(#validMods[modName]+1), }
 			else
-				validMods[modName][#validMods[modName]+1] = { id = validMods[modName].id, name = validMods[modName].name.." - Var 1", install = validMods[modName].install }
-				if GetVehicleMod(vehicle, 23) == (i) and originalWheel == tonumber(data.wheeltype) then txt = Loc[Config.Lan]["common"].current else txt = "" end
-				validMods[modName][#validMods[modName]+1] = { id = (i-1), name = modName.." - Var "..(#validMods[modName]+1), install = txt }
+				validMods[modName][#validMods[modName]+1] = { id = validMods[modName].id, name = validMods[modName].name.." - Var 1",  }
+				validMods[modName][#validMods[modName]+1] = { id = (i-1), name = modName.." - Var "..(#validMods[modName]+1), }
 			end
 		end
 	end
 
 	if validMods["NULL"] then validMods[Loc[Config.Lan]["rims"].labelcustom] = validMods["NULL"] validMods["NULL"] = nil end
-
-	if GetVehicleMod(vehicle, 23) == -1 then stockinstall = Loc[Config.Lan]["common"].current else stockinstall = "" end
-	local wheelType = {
-		[0] = Loc[Config.Lan]["rims"].label1, [1] = Loc[Config.Lan]["rims"].label2, [2] = Loc[Config.Lan]["rims"].label3, [3] = Loc[Config.Lan]["rims"].label4,
-		[4] = Loc[Config.Lan]["rims"].label5, [5] = Loc[Config.Lan]["rims"].label6, [6] = Loc[Config.Lan]["rims"].label15, [7] = Loc[Config.Lan]["rims"].label7,
-		[8] = Loc[Config.Lan]["rims"].label8, [9] = Loc[Config.Lan]["rims"].label9, [10] = Loc[Config.Lan]["rims"].label10, [11] = Loc[Config.Lan]["rims"].label11,
-		[12] = Loc[Config.Lan]["rims"].label12,
-	}
 
 	Menu[#Menu+1] = { icon = "fas fa-camera",
 		header = (Config.System.Menu == "qb") and carMeta["search"] or "",
@@ -788,10 +850,18 @@ RegisterNetEvent('jim-mechanic:client:Preview:Rims:Choose', function(data) local
 		header = "", txt = Loc[Config.Lan]["common"].ret, params = { event = "jim-mechanic:client:Preview:Rims:Check" },
 		title = Loc[Config.Lan]["common"].ret,  event = "jim-mechanic:client:Preview:Rims:Check"
 	}
-	Menu[#Menu + 1] = {
-		header = Loc[Config.Lan]["common"].stock, txt = stockinstall, params = { event = "jim-mechanic:client:Preview:Rims:Apply",  args = { mod = -1, wheeltype = data.wheeltype, } },
-		title = Loc[Config.Lan]["common"].stock, description = stockinstall, event = "jim-mechanic:client:Preview:Rims:Apply", args = { mod = -1, wheeltype = data.wheeltype, }
-	}
+
+	if data.wheeltype == 6 then
+		Menu[#Menu + 1] = {
+			icon = GetVehicleMod(vehicle, (data.bike == true and 24 or 23)) ~= -1 and "fa-solid fa-rotate-left" or nil,
+			isMenuHeaader = (GetVehicleMod(vehicle, (data.bike == true and 24 or 23)) == -1), disabled = (GetVehicleMod(vehicle, (data.bike == true and 24 or 23)) == -1),
+			header = Loc[Config.Lan]["common"].stock,
+			txt = (GetVehicleMod(vehicle, (data.bike == true and 24 or 23)) == -1) and Loc[Config.Lan]["common"].current, params = { event = "jim-mechanic:client:Preview:Rims:Apply",  args = { mod = -1, wheeltype = 6, bike = data.bike } },
+			title = Loc[Config.Lan]["common"].stock,
+			description = (GetVehicleMod(vehicle, (data.bike == true and 24 or 23)) == -1) and Loc[Config.Lan]["common"].current, event = "jim-mechanic:client:Preview:Rims:Apply", args = { mod = -1, wheeltype = 6, bike = data.bike }
+		}
+	end
+
 	for k, v in pairsByKeys(validMods) do
 		Menu[#Menu + 1] = {
 			header = k, txt = Loc[Config.Lan]["common"].amountoption..#validMods[k], params = { event = 'jim-mechanic:client:Preview:Rims:SubMenu', args = { mod = v.id, wheeltype = data.wheeltype, wheeltable = validMods[k], bike = data.bike, label = wheelType[data.wheeltype] } },
@@ -799,8 +869,8 @@ RegisterNetEvent('jim-mechanic:client:Preview:Rims:Choose', function(data) local
 		}
 	end
 	SetVehicleWheelType(vehicle, originalWheel)
-	if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = carMeta["search"], position = 'top-right', options = Menu }) exports.ox_lib:showContext("Menu")
-	elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(Menu) end
+	if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = carMeta["search"], position = 'top-right', options = Menu }) exports.ox_lib:showContext("Menu")
+	elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(Menu) end
 end)
 
 RegisterNetEvent('jim-mechanic:client:Preview:Rims:SubMenu', function(data)	local Menu, Ped = {}, PlayerPedId()
@@ -809,24 +879,28 @@ RegisterNetEvent('jim-mechanic:client:Preview:Rims:SubMenu', function(data)	loca
 		header = (Config.System.Menu == "qb") and carMeta["search"] or "",
 		txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
 		title = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-		params = { event = "jim-mechanic:client:Preview:Camera", args = { data = data, event = "jim-mechanic:client:Preview:Rims:Check" }, },
-		event = "jim-mechanic:client:Preview:Camera", args = { data = data, event = "jim-mechanic:client:Preview:Rims:Check" },
+		params = { event = "jim-mechanic:client:Preview:Camera", args = { data = data, event = "jim-mechanic:client:Preview:Rims:SubMenu" }, },
+		event = "jim-mechanic:client:Preview:Camera", args = { data = data, event = "jim-mechanic:client:Preview:Rims:SubMenu" },
 	}
 	if Config.System.Menu == "qb" then
 		Menu[#Menu + 1] = { isMenuHeader = true, header = Loc[Config.Lan]["rims"].menuheader.."<br>("..string.upper(data.label)..")", txt = Loc[Config.Lan]["common"].amountoption..#data.wheeltable.."<br>"..Loc[Config.Lan]["common"].current..": "..GetLabelText(GetModTextLabel(vehicle, 23, GetVehicleMod(vehicle, 23))), }
 	end
 	Menu[#Menu + 1] = {
-		icon = "fas fa-circle-arrow-left", header = "", txt = Loc[Config.Lan]["common"].ret, params = { event = "jim-mechanic:client:Preview:Rims:Choose", args = { wheeltype = data.wheeltype } },
-		title = Loc[Config.Lan]["common"].ret, event = "jim-mechanic:client:Preview:Rims:Choose", args = { wheeltype = data.wheeltype }
+		icon = "fas fa-circle-arrow-left", header = "", txt = Loc[Config.Lan]["common"].ret, params = { event = "jim-mechanic:client:Preview:Rims:Choose", args = { wheeltype = data.wheeltype, bike = data.bike } },
+		title = Loc[Config.Lan]["common"].ret, event = "jim-mechanic:client:Preview:Rims:Choose", args = { wheeltype = data.wheeltype, bike = data.bike }
 	}
 	for i=1, #data.wheeltable do
-		Menu[#Menu + 1] = {
-			header = data.wheeltable[i].name, txt = data.wheeltable[i].install, params = { event = 'jim-mechanic:client:Preview:Rims:Apply', args = { mod = data.wheeltable[i].id, wheeltype = data.wheeltype, wheeltable = data.wheeltable, bike = data.bike, label = data.label } },
-			title = data.wheeltable[i].name, description = data.wheeltable[i].install, event = "jim-mechanic:client:Preview:Rims:Apply", args = { mod = data.wheeltable[i].id, wheeltype = data.wheeltype, wheeltable = data.wheeltable, bike = data.bike, label = data.label },
+		Menu[#Menu + 1] = { isMenuHeader = (GetVehicleMod(vehicle, (data.bike and 24 or 23)) == data.wheeltable[i].id) and (GetVehicleWheelType(vehicle) == data.wheeltype), disabled = (GetVehicleMod(vehicle, (data.bike and 24 or 23)) == data.wheeltable[i].id) and (GetVehicleWheelType(vehicle) == data.wheeltype),
+			header = data.wheeltable[i].name,
+			txt = ((GetVehicleMod(vehicle, (data.bike and 24 or 23)) == data.wheeltable[i].id) and (GetVehicleWheelType(vehicle) == data.wheeltype)) and Loc[Config.Lan]["common"].current,
+			params = { event = 'jim-mechanic:client:Preview:Rims:Apply', args = { mod = data.wheeltable[i].id, wheeltype = data.wheeltype, wheeltable = data.wheeltable, bike = data.bike, label = data.label } },
+			title = data.wheeltable[i].name,
+			description = ((GetVehicleMod(vehicle, (data.bike and 24 or 23)) == data.wheeltable[i].id) and (GetVehicleWheelType(vehicle) == data.wheeltype)) and Loc[Config.Lan]["common"].current,
+			event = "jim-mechanic:client:Preview:Rims:Apply", args = { mod = data.wheeltable[i].id, wheeltype = data.wheeltype, wheeltable = data.wheeltable, bike = data.bike, label = data.label },
 		}
 	end
-	if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = carMeta["search"], position = 'top-right', options = Menu })	exports.ox_lib:showContext("Menu")
-	elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(Menu) end
+	if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = carMeta["search"], position = 'top-right', options = Menu })	exports.ox_lib:showContext("Menu")
+	elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(Menu) end
 end)
 
 --Windows
@@ -872,15 +946,13 @@ RegisterNetEvent('jim-mechanic:client:Preview:Windows:Check', function(data) loc
 			event = "jim-mechanic:client:Preview:Windows:Apply", args = b
 		}
 	end
-	if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = carMeta["search"], position = 'top-right', options = Menu })	exports.ox_lib:showContext("Menu")
-	elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(Menu) end
+	if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = carMeta["search"], position = 'top-right', options = Menu })	exports.ox_lib:showContext("Menu")
+	elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(Menu) end
 end)
-
-
 
 RegisterNetEvent('jim-mechanic:client:Preview:Extras:Apply', function(data) local Ped = PlayerPedId()
 	local vehicle = GetVehiclePedIsIn(Ped, false)
-	local veh = { engine = GetVehicleEngineHealth(vehicle), body = GetVehicleBodyHealth(vehicle) }
+	local veh = getDamages(vehicle)
 	if IsVehicleExtraTurnedOn(vehicle, data.mod) then SetVehicleExtra(vehicle, data.mod, 1)
 	else SetVehicleExtra(vehicle, data.mod, 0) SetVehicleFixed(vehicle) end
 	doCarDamage(vehicle, veh)
@@ -897,8 +969,8 @@ RegisterNetEvent('jim-mechanic:client:Preview:Extras:Check', function(data) loca
 		header = (Config.System.Menu == "qb") and carMeta["search"] or "",
 		txt = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
 		title = "Class: "..carMeta["class"]..br..Loc[Config.Lan]["check"].plate.." "..carMeta["plate"]..br..Loc[Config.Lan]["check"].value..carMeta["price"]..br..carMeta["dist"],
-		params = { event = "jim-mechanic:client:Preview:Camera", args = { data = data, event = "jim-mechanic:client:Preview:Paints:Extras:Check" }, },
-		event = "jim-mechanic:client:Preview:Camera", args = { data = data, event = "jim-mechanic:client:Preview:Paints:Extras:Check" },
+		params = { event = "jim-mechanic:client:Preview:Camera", args = { data = data, event = "jim-mechanic:client:Preview:Extras:Check" }, },
+		event = "jim-mechanic:client:Preview:Camera", args = { data = data, event = "jim-mechanic:client:Preview:Extras:Check" },
 	}
 	if Config.System.Menu == "qb" then
 		Menu[#Menu+1] = { header = Loc[Config.Lan]["windows"].menuheader, title = Loc[Config.Lan]["windows"].menuheader, isMenuHeader = true, disabled = (Config.System.Menu == "ox" and disabled) }
@@ -918,6 +990,6 @@ RegisterNetEvent('jim-mechanic:client:Preview:Extras:Check', function(data) loca
 			event = "jim-mechanic:client:Preview:Extras:Apply", args = b
 		}
 	end
-	if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = carMeta["search"], position = 'top-right', options = Menu })	exports.ox_lib:showContext("Menu")
-	elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(Menu) end
+	if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = carMeta["search"], position = 'top-right', options = Menu })	exports.ox_lib:showContext("Menu")
+	elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(Menu) end
 end)

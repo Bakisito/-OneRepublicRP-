@@ -17,10 +17,12 @@ RegisterNetEvent('jim-mechanic:client:Menu', function(editable) local ped = Play
 		AttachEntityToEntity(toolbox, ped, GetPedBoneIndex(ped, 57005),0.3, -0.04, 0.0, 20.0, 245.0, 95.0, true, true, false, true, 1, true)
 		CreateThread(function() Wait(10000)	DeleteEntity(toolbox) toolbox = nil unloadAnimDict("anim@heists@narcotics@trash") end)
 	end
-
 	local plate = trim(GetVehicleNumberPlateText(vehicle))
-	if not VehicleStatus[plate] then TriggerServerEvent("jim-mechanic:server:setupVehicleStatus", plate, GetVehicleEngineHealth(vehicle), GetVehicleBodyHealth(vehicle)) Wait(100)
-	else TriggerServerEvent("jim-mechanic:server:getStatusList") end
+	if not VehicleStatus[plate] then
+		if Config.System.Debug then print("^5Debug^7: ^4VehicleStatus^7[^6"..plate.."^7]^2 not found^7,^2 loading^7...") end
+		TriggerServerEvent("jim-mechanic:server:setupVehicleStatus", plate, GetVehicleEngineHealth(vehicle), GetVehicleBodyHealth(vehicle))
+		while not VehicleStatus[plate] do Wait(10) end
+	else TriggerServerEvent("jim-mechanic:server:getStatusList", true, plate) Wait(1000) end
 	local CheckMenu = {}
 	local head = Loc[Config.Lan]["check"].plate.." ["..plate.."]"..br..Loc[Config.Lan]["check"].value..searchPrice(vehicle)..br..searchDist(vehicle)
 	CheckMenu[#CheckMenu+1] = { isMenuHeader = true, disabled = {Config.System.Menu == "ox"}, header = searchCar(vehicle), txt = head, title = head }
@@ -41,7 +43,7 @@ RegisterNetEvent('jim-mechanic:client:Menu', function(editable) local ped = Play
 	}
 
 	--NOS--
-	if VehicleNitrous[plate] then CheckTable[1].lock = false
+	if VehicleNitrous[plate] and not Config.Overrides.disableNos then CheckTable[1].lock = false
 		CheckTable[1].head = Loc[Config.Lan]["check"].label58.." "..math.floor(VehicleNitrous[plate].level).."%"
 		CheckTable[1].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[1].part].image
 		CheckTable[1].progress = math.floor(VehicleNitrous[plate].level)
@@ -112,37 +114,36 @@ RegisterNetEvent('jim-mechanic:client:Menu', function(editable) local ped = Play
 	--Harness
 	if VehicleStatus[plate].harness == 1 then CheckTable[12].head = QBCore.Shared.Items[CheckTable[12].part].label
 		CheckTable[12].icon = "nui://"..Config.System.img..QBCore.Shared.Items[CheckTable[12].part].image CheckTable[12].lock = false end
-	if Config.Overrides.HarnessControl ~= true then
+	if Config.Harness.HarnessControl ~= true then
 		CheckTable[12] = nil
 	end
 	if Config.Repairs.ExtraDamages == true then
-		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].oillevel == 0, part = "oillevel", head = "Oil Pump",
+		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].oillevel == 0, part = "oilp", head = "Oil Pump",
 			icon = VehicleStatus[plate].oillevel ~= 0 and "nui://"..Config.System.img..QBCore.Shared.Items["oilp"..VehicleStatus[plate].oillevel].image or "",
 			desc =  (VehicleStatus[plate].oillevel ~= 0 and QBCore.Shared.Items["oilp"..VehicleStatus[plate].oillevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].oillevel.." / ".."3".."]"
 		}
-		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].shaftlevel == 0, part = "shaftlevel", head = "Drive Shaft",
+		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].shaftlevel == 0, part = "drives", head = "Drive Shaft",
 			icon = VehicleStatus[plate].shaftlevel ~= 0 and "nui://"..Config.System.img..QBCore.Shared.Items["drives"..VehicleStatus[plate].shaftlevel].image or "",
 			desc =  (VehicleStatus[plate].shaftlevel ~= 0 and QBCore.Shared.Items["drives"..VehicleStatus[plate].shaftlevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].shaftlevel.." / ".."3".."]"
 		}
-		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].cylinderlevel == 0, part = "cylinderlevel", head = "Cylinder Head",
+		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].cylinderlevel == 0, part = "cylind", head = "Cylinder Head",
 			icon = VehicleStatus[plate].cylinderlevel ~= 0 and "nui://"..Config.System.img..QBCore.Shared.Items["cylind"..VehicleStatus[plate].cylinderlevel].image or "",
 			desc =  (VehicleStatus[plate].cylinderlevel ~= 0 and QBCore.Shared.Items["cylind"..VehicleStatus[plate].cylinderlevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].cylinderlevel.." / ".."3".."]"
 		}
-		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].cablelevel == 0, part = "cablelevel", head = "Battery Cables",
+		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].cablelevel == 0, part = "cables", head = "Battery Cables",
 			icon = VehicleStatus[plate].cablelevel ~= 0 and "nui://"..Config.System.img..QBCore.Shared.Items["cables"..VehicleStatus[plate].cablelevel].image or "",
 			desc =  (VehicleStatus[plate].cablelevel ~= 0 and QBCore.Shared.Items["cables"..VehicleStatus[plate].cablelevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].cablelevel.." / ".."3".."]"
 		}
-		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].fuellevel == 0, part = "fuellevel", head = "Fuel Tank",
+		CheckTable[#CheckTable+1] = { lock = VehicleStatus[plate].fuellevel == 0, part = "fueltank", head = "Fuel Tank",
 			icon = VehicleStatus[plate].fuellevel ~= 0 and "nui://"..Config.System.img..QBCore.Shared.Items["fueltank"..VehicleStatus[plate].fuellevel].image or "",
 			desc =  (VehicleStatus[plate].fuellevel ~= 0 and QBCore.Shared.Items["fueltank"..VehicleStatus[plate].fuellevel].label or Loc[Config.Lan]["common"].stock)..": [LVL "..VehicleStatus[plate].fuellevel.." / ".."3".."]"
 		}
 	end
 
-
 	for k, v in ipairs(CheckTable) do
 		if v.hide and v.lock then else
 			local extra = false
-			if v.part == "oilpump" or v.part == "dshaft" or v.part == "cylinder" or v.part == "cables" or v.part == "fuelt" then extra = true end
+			for l, b in pairs({"oilp", "drives", "cylind", "cables", "fueltank"}) do if v.part == b then extra = true end end
 			CheckMenu[#CheckMenu+1] = {
 				icon = v.icon, isMenuHeader = (not editable) or v.lock, disabled = Config.System.Menu == "ox" and (v.lock or not editable) or nil,
 				header = v.head, txt = v.desc, params = { event = "jim-mechanic:client:Menu:Remove", args = { vehicle = vehicle, mod = v.part, extra = extra } },
@@ -152,8 +153,8 @@ RegisterNetEvent('jim-mechanic:client:Menu', function(editable) local ped = Play
 		end
 	end
 	if editable then CheckMenu[#CheckMenu+1] = { icon = "fas fa-toolbox", header = "", txt = Loc[Config.Lan]["check"].label10, params = { event = "jim-mechanic:client:Menu:List" }, title = Loc[Config.Lan]["check"].label10, event = "jim-mechanic:client:Menu:List" } end
-	if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'CheckTunesMenu', title = searchCar(vehicle), position = 'top-right', options = CheckMenu }) exports.ox_lib:showContext("CheckTunesMenu")
-	elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(CheckMenu) end
+	if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'CheckTunesMenu', title = searchCar(vehicle), position = 'top-right', options = CheckMenu }) exports.ox_lib:showContext("CheckTunesMenu")
+	elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(CheckMenu) end
 end)
 
 RegisterNetEvent('jim-mechanic:client:Menu:List', function() local Ped = PlayerPedId()
@@ -207,8 +208,8 @@ RegisterNetEvent('jim-mechanic:client:Menu:List', function() local Ped = PlayerP
 	for k in pairs(inTable) do if GetNumVehicleMods(vehicle, k) ~= 0 then mods = true break end end
 	if GetVehicleLiveryCount(vehicle) ~= -1 then mods = true end
 	if mods then
-		if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = searchCar(vehicle), position = 'top-right', options = CheckMenu }) exports.ox_lib:showContext("Menu")
-		elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(CheckMenu) end
+		if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = searchCar(vehicle), position = 'top-right', options = CheckMenu }) exports.ox_lib:showContext("Menu")
+		elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(CheckMenu) end
 	else
 		triggerNotify(nil, Loc[Config.Lan]["common"].noOptions, "error") return
 	end
@@ -230,15 +231,15 @@ RegisterNetEvent('jim-mechanic:client:Menu:Remove', function(data) local plate =
 		["drifttires"] = { icon = "nui://"..Config.System.img..QBCore.Shared.Items["drifttires"].image, head = QBCore.Shared.Items["drifttires"].label, event = "applyDrift" },
 		["bprooftires"] = { icon = "nui://"..Config.System.img..QBCore.Shared.Items["bprooftires"].image, head = QBCore.Shared.Items["bprooftires"].label, event = "applyBulletProof" },
 		["nos"] = { icon = "nui://"..Config.System.img..QBCore.Shared.Items["noscan"].image, head = QBCore.Shared.Items["noscan"].label, event = "giveNOS" },
-		["oillevel"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].oillevel > 0 and QBCore.Shared.Items["oilp"..VehicleStatus[plate].oillevel].image or ""),
+		["oilp"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].oillevel > 0 and QBCore.Shared.Items["oilp"..VehicleStatus[plate].oillevel].image or ""),
 			head = (VehicleStatus[plate].oillevel > 0 and QBCore.Shared.Items["oilp"..VehicleStatus[plate].oillevel].label or ""), event = "applyExtraPart" },
-		["shaftlevel"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].shaftlevel > 0 and QBCore.Shared.Items["drives"..VehicleStatus[plate].shaftlevel].image or ""),
+		["drives"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].shaftlevel > 0 and QBCore.Shared.Items["drives"..VehicleStatus[plate].shaftlevel].image or ""),
 			head = (VehicleStatus[plate].shaftlevel > 0 and QBCore.Shared.Items["drives"..VehicleStatus[plate].shaftlevel].label or ""), event = "applyExtraPart" },
-		["cylinderlevel"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].cylinderlevel > 0 and QBCore.Shared.Items["cylind"..VehicleStatus[plate].cylinderlevel].image or ""),
+		["cylind"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].cylinderlevel > 0 and QBCore.Shared.Items["cylind"..VehicleStatus[plate].cylinderlevel].image or ""),
 			head = (VehicleStatus[plate].cylinderlevel > 0 and QBCore.Shared.Items["cylind"..VehicleStatus[plate].cylinderlevel].label or ""), event = "applyExtraPart" },
-		["cablelevel"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].cablelevel > 0 and QBCore.Shared.Items["cables"..VehicleStatus[plate].cablelevel].image or ""),
+		["cables"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].cablelevel > 0 and QBCore.Shared.Items["cables"..VehicleStatus[plate].cablelevel].image or ""),
 			head = (VehicleStatus[plate].cablelevel > 0 and QBCore.Shared.Items["cables"..VehicleStatus[plate].cablelevel].label or ""), event = "applyExtraPart" },
-		["fuellevel"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].fuellevel > 0 and QBCore.Shared.Items["fueltank"..VehicleStatus[plate].fuellevel].image or ""),
+		["fueltank"] = { icon = "nui://"..Config.System.img..(VehicleStatus[plate].fuellevel > 0 and QBCore.Shared.Items["fueltank"..VehicleStatus[plate].fuellevel].image or ""),
 			head = (VehicleStatus[plate].fuellevel > 0 and QBCore.Shared.Items["fueltank"..VehicleStatus[plate].fuellevel].label or ""), event = "applyExtraPart" },
 		["harness"] = { icon = "nui://"..Config.System.img..QBCore.Shared.Items["harness"].image, head = QBCore.Shared.Items["harness"].label, event = "applyHarness" },
 		["antilag"] = { icon = "nui://"..Config.System.img..QBCore.Shared.Items["antilag"].image, head = QBCore.Shared.Items["antilag"].label, event = "applyAntiLag" },
@@ -251,13 +252,13 @@ RegisterNetEvent('jim-mechanic:client:Menu:Remove', function(data) local plate =
 		isMenuHeader = true, header = Loc[Config.Lan]["check"].label49..orgTable[data.mod].head.."?",
 		disabled = (Config.System.Menu == "ox"), title = Loc[Config.Lan]["check"].label49..orgTable[data.mod].head.."?" }
 	CheckMenu[#CheckMenu+1] = { icon = "fas fa-circle-check",
-		header = "", txt = Loc[Config.Lan]["check"].label47, params = { event = "jim-mechanic:client:"..orgTable[data.mod].event, args = data.extra and true or { mod = data.mod, remove = true} },
-		title = Loc[Config.Lan]["check"].label47, event = "jim-mechanic:client:"..orgTable[data.mod].event, args = data.extra and true or { mod = data.mod, remove = true }
+		header = "", txt = Loc[Config.Lan]["check"].label47, params = { event = "jim-mechanic:client:"..orgTable[data.mod].event, args = not data.extra and true or { mod = data.mod, remove = true} },
+		title = Loc[Config.Lan]["check"].label47, event = "jim-mechanic:client:"..orgTable[data.mod].event, args = not data.extra and true or { mod = data.mod, remove = true }
 	}
 	CheckMenu[#CheckMenu+1] = { icon = "fas fa-circle-xmark",
 		header = "", txt = Loc[Config.Lan]["check"].label48, params = { event = "jim-mechanic:client:Menu", args = true },
 		title = Loc[Config.Lan]["check"].label48, event = "jim-mechanic:client:Menu", args = true
 	}
-	if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'RemoveMenu', title = searchCar(data.vehicle), position = 'top-right', options = CheckMenu }) exports.ox_lib:showContext("RemoveMenu")
-	elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(CheckMenu) end
+	if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'RemoveMenu', title = searchCar(data.vehicle), position = 'top-right', options = CheckMenu }) exports.ox_lib:showContext("RemoveMenu")
+	elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(CheckMenu) end
 end)

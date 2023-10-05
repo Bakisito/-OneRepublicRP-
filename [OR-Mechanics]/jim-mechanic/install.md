@@ -76,7 +76,7 @@ Full Credit to wildbrick142 for the inclusion of the Chameleon Paint Mod
 	["fueltank2"]=          {["name"] = "fueltank2",		["label"] = "Tier 2 Fuel Tank",     ["weight"] = 0, ["type"] = "item",  ["image"] = "fueltank2.png",        ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
 	["fueltank3"]=          {["name"] = "fueltank3",		["label"] = "Tier 3 Fuel Tank",     ["weight"] = 0, ["type"] = "item",  ["image"] = "fueltank3.png",        ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
 
-	["antilag"]=            {["name"] = "antilag",		    ["label"] = "AntiLag",              ["weight"] = 0, ["type"] = "item",  ["image"] = "antiLag.png",        ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
+	["antilag"]=            {["name"] = "antilag",		    ["label"] = "AntiLag",              ["weight"] = 0, ["type"] = "item",  ["image"] = "antiLag.png",          ["unique"] = true,  ["useable"] = true, ["shouldClose"] = true, ["description"] = ""},
 
 	--Cosmetics
 	["underglow_controller"]={["name"] = "underglow_controller",["label"] = "Neon Controller",	["weight"] = 0, ["type"] = "item",  ["image"] = "underglow_controller.png", ["unique"] = false, ["useable"] = true, ["shouldClose"] = true, ["description"] = "RGB LED Vehicle Remote"},
@@ -138,15 +138,15 @@ The `traveldistance` column adds an Odometer to the toolbox/mechanic_tools menus
 
 **As of v3.0 you no longer need `qb-mechanicjob` to use any of this script**
 
-Extra damages will be enabled by default if you use `qb-mechanicjob` and `qb-vehiclefailure`
-
 Extra Damages and their upgrades can be enabled in the config with `Config.Repairs.ExtraDamages = true`
 
 If you wish to enable this you need to go to `qb-vehiclefailure > client.lua` and replace `DamageRandomComponent()` with this event.
 
 ```lua
 -- Functions
-local function DamageRandomComponent() exports['jim-mechanic']:DamageRandomComponent(QBCore.Functions.GetPlate(vehicle)) end
+local function DamageRandomComponent()
+    exports['jim-mechanic']:DamageRandomComponent(QBCore.Functions.GetPlate(vehicle))
+end
 ```
 This will make `jim-mechanic` control the saving and handling of damage values
 
@@ -155,7 +155,7 @@ This will make `jim-mechanic` control the saving and handling of damage values
 
 The script can take control of the already in place `harness` item
 
-This can be enabled or disabled in the config with `Config.Overrides.HarnessControl == true`
+This can be enabled or disabled in the config with `Config.Harness.HarnessControl == true`
 
 If you enable this, there are a few steps you need to take as this is handled in `jim-mechanic`.
 
@@ -201,7 +201,7 @@ end)
 ```
 
 To make your hud not complain about the harness export you will need to change the name of the export to jim-mechanic
-for example:
+--PS-HUD--
 `ps-hud` > `client.lua` > line 80
 change:
 ```lua
@@ -211,6 +211,32 @@ to:
 ```lua
     local hasHarness = exports['jim-mechanic']:HasHarness()
 ```
+
+--QB-HUD--
+change:
+```lua
+local function hasHarness(items)
+    local ped = PlayerPedId()
+    if not IsPedInAnyVehicle(ped, false) then return end
+
+    local _harness = false
+    if items then
+        for _, v in pairs(items) do
+            if v.name == 'harness' then
+                _harness = true
+            end
+        end
+    end
+
+    harness = _harness
+end
+```
+to:
+```lua
+local function hasHarness(items) harness = exports["jim-mechanic"]:HasHarness() end
+```
+
+
 ----------------------
 ## Creating new polyzone for a new location
 
@@ -291,15 +317,15 @@ function QBCore.Functions.GetVehicleProperties(vehicle)
             local r, g, b = GetVehicleCustomSecondaryColour(vehicle)
             colorSecondary = { r, g, b, colorSecondary }
         end
+
         local extras = {}
-        for extraId = 0, 12 do
-            if DoesExtraExist(vehicle, extraId) then
-                local state = IsVehicleExtraTurnedOn(vehicle, extraId) == 1
-                extras[tostring(extraId)] = state
-            end
+        for i = 1, 15 do
+            if DoesExtraExist(vehicle, i) then extras[i] = IsVehicleExtraTurnedOn(vehicle, i) and 0 or 1 end
         end
-        local modLivery = GetVehicleMod(vehicle, 48)
-        modLivery = GetVehicleLivery(vehicle) ~= -1 and GetVehicleLivery(vehicle) or modLivery
+
+        local modLivery = GetVehicleLivery(vehicle)
+        if GetVehicleLiveryCount(vehicle) == -1 or modLivery == -1 then modLivery = GetVehicleMod(vehicle, 48) end
+
         local tireHealth = {}
         local tireBurstState = {}
         local tireBurstCompletely = {}
@@ -411,10 +437,8 @@ end
 function QBCore.Functions.SetVehicleProperties(vehicle, props)
     if DoesEntityExist(vehicle) then
         if props.extras then
-            for id, enabled in pairs(props.extras) do
-                if enabled then SetVehicleExtra(vehicle, tonumber(id), 0)
-                else SetVehicleExtra(vehicle, tonumber(id), 1)
-                end
+            for id, disable in pairs(props.extras) do
+                SetVehicleExtra(vehicle, tonumber(id), disable == 1)
             end
         end
         local colorPrimary, colorSecondary = GetVehicleColours(vehicle)
@@ -560,6 +584,203 @@ end
 
 # Changelog:
 
+## 3.1.1
+    Hotfixes:
+        - Fixed items claiming you were previewing if `Config.Previews.PreviewLocation` was enabled `shared.lua`
+        - Fixed missing preview livery locale `/locales`
+        - Removed distance print when a vehicle was higher than you `shared.lua`
+        - Corrected horrible typo in config for `modCam` description - `config.lua`
+        - Raised nos cool down time to be closer to actual seconds - `nos.lua`
+
+## 3.1
+    Changes:
+        - Adjustments to debug odometer - `extras.lua`
+            - Remove street name
+            - ReAdd speed information
+            - Add some handling info
+        - Added option to disable all handling changes to NOS `config.lua`, `extras.lua`, `nos.lua`
+        - Increased distace of `lookWheel` event so you don't need to be AS close to a wheel - `functions.lua`
+        - Add different cameras angles per repair choice - `repairs.lua`
+        - NOS Flame effects now run a loop on client, but are triggered through server - `nos.lua`, `functionserver.lua`
+        - Adjusted some server side database events - `functionserver.lua`
+            - This MAY help with garages coming out with modifications removed
+            - Stops an database check for unowned vehicles
+        - Upgraded Rims Menu - `rims.lua`, `preview.lua`
+            - Changed Rims menu "Stock" button, now appears only in the main menu for cars instead of every section
+            - Shows what category of wheels what are currently set
+    Fixes:
+        - Added small wait for ExteredVehicle event to delay info loading
+            - This should help with garage spawning systems lagging behind
+        - Addressed an exploit, when using an item like paintcan while in the car allowed saving
+            - The items now check if you are in preview mode
+        - `/ShowOdo` not removing the odometer when told to - `extras.lua`
+        - Fix previews not giving emails or mechboard items - `previews.lua`
+        - Fix machine gun fire antilag explosions - `extras.lua`
+        - Actually fix Duct tape item not removing - `extras.lua`
+        - Added missing option to disable modCam - `config.lua`
+        - Fix repair animations ending early - `repairs.lua`
+        - If missing a job, it will now let you know instead of erroring out - `locfunctions.lua`
+        - Crafting Menu remembers location restrictions - `locfunctions.lua`
+        - Better handling and detection of missing shared items when crafting - `locfunctions.lua`
+        - Hex code Paints now work again when using qb-menu - `paint.lua`
+        - Notification added for when lockEmergency is enabled - `locales`, `emergency.lua`
+        - Fix typo allowing motorcycles to use seatbelts and harnesses - `extras.lua`
+        - Suspension and Transmission shouldn't throw item exisiting errors after installing from default - `performance.lua`
+
+## 3.0.7.1
+    - Fix cam breaking on when adding nos to a car - `nos.lua`
+    - Seatbelts can no longer be used on `motorcycles` or `bicycles` - `extras.lua`
+    - Nos should no longer show if moving from one that has it to one that doesn't `extras.lua`
+    - Fix duct tape item not being removed - `extras.lua`
+    - Fix drift tires not being removed on use for some users - `performance.lua`
+    - Change `/preview` plate changing to a server based event - `extras.lua`, `functionserver.lua`
+        - This may help with persistant vehicle scripts duping the car
+
+## 3.0.7
+    - Jim Learned how to cam
+        - `functions.lua`, `performance.lua`, `cosmetics.lua`, `locfunctions.lua`, `manualrepair.lua`, `nos.lua`, `rims.lua`, `xenons.lua`
+        - New togglable cam for when editing vehicles
+        - Camera is created either side of the vehicle
+        - This is partly built into the `progressBar` event (`cam = cam`)
+    - New event added to help optimize: `jim-mechanic:Client:ExitVehicle` - `extras.lua`, `encfunctionserver.lua`
+        - This stops the need to check for if players in vehicle as its handled by `baseevents` now
+    - Added new config options - `config.lua`
+        - Distance options for NOS/Purge effects
+        - AntiLag has its own section for more options
+        - Added config option to add seatbelt notification
+        - Added config table of "phones" for /preview to check for when finishing - `previews.lua`
+    - Added some alternative sounds for antilag explosions - `extras.lua`, `shared.lua`, `html folder`
+    - Added distance options for NOS Effects - `functionserver.lua`
+    - NOS now automatically shuts off if travelling too slow - `nos.lua`
+    - Changes to nos boost functions in attempt to fix old issues - `nos.lua`
+    - Odometer changes - `extras.lua` / `html folder`
+        - Smaller text to fit all the info on
+        - Updated/Improved the odometer icon files - `html folder`
+        - Fix Nos/Purge not showing on odometer hud - `extras.lua`
+        - Increased the refresh speed of the odometer - `extras.lua`
+        - Added harness icon option to odometer - `extras.lua` / `config.lua`
+    - Added option to toggle itemboxes when items are given or removed - `config.lua`, `encfunctionserver.lua`, `functionserver.lua`
+    - Fix only front wheel changing on bikes in previews - `preview.lua`
+    - Fixes to RGB paint when using qb-menu - `paints.lua`
+    - Better handling of engine + lights when changing xenon/underglow - `xenon.lua`
+
+## 3.0.6.2
+    - Added extra debug message for toggleItem to help debug issues with inventories - `encfunctionserver.lua`
+    - Changed how the vehicleStatus is retreived from the database and added debug prints to help fix bugs - `functionserver.lua`
+    - Added distance check to carlift audio, had reports of it being heard on other side of map - `shared.lua`
+
+## 3.0.6.1
+    - ExtraDamages fixes - `extras.lua` / `shared.lua` / `functionserver.lua` / `encfunctionserver.lua`
+        - CarWax now load and saves properly
+        - Fixed harness, antilag and carwax not saving if you had ExtraDamages disabled
+    - Had a request to open `jim-mechanic:server:updateCar` - `encfunctionserver.lua` / `functionserver.lua`
+
+## 3.0.6
+    - UPDATED: Yet again.. updated the `GetVehicleProperties` and `SetVehicleProperties` functions - `install.md`
+        - This should hopefully fix issues with liveries and extras disappearing
+    - UPDATED: Car Wax features - `extras.lua` / `functionsserver.lua`
+        - Now persistant on owned vehicles for days (saves to database)
+        - The default times for each option are 1, 2 and 3 days.
+        - This removes the `WaxActivator` server loop and greatly reduces server stress
+    - Change carlifts to only sync the ones you are in the polyzone of - `shared.lua` / `locfunctions.lua`
+    - Fix extras removing doors - `functions.lua`
+    - Preview menu doesn't allow extras changes if vehicle is damaged - `preview.lua`
+    - Fix the possibility of new targets being made every time you enter a polyzone - `locfunctions.lua`
+    - Adjust ox_inv item image rerouting to fix a mispelling - `shared.lua`
+    - Attempt to fix issues with toggleItem() not removing or throwing errors on use
+        - `cosmetics.lua` / `extras.lua` / `nos.lua` / `paint.lua` / `performance.lua` / `rims.lua` / `xenons.lua`
+    - Attempt to reduce server traffic for pop servers
+        - Reduce amount of times events are called
+        - Made events not send to all players as much to lessen the load
+        - `emergency.lua` / `damages.lua` / `performance.lua` / `manualrepair.lua` /
+        - `repair.lua` / `extras.lua` / `functionserver.lua`
+    - Added server side checks for nos effects for nearby players - `functionserver.lua`
+        - This SHOULD reduce strain on high pop servers sending info to all players too often
+    - Nos Boost now only updates client info, then updates server when leaving the drivers seat - `nos.lua` / `extras.lua`
+        - This will greatly reduce the amount of server calls when boosting
+    - Added a config toggle for AntiLag explosions - `coinfig.lua` / `extras.lua`
+        - NO THERE ISNT A WAY TO TURN IT DOWN THE SOUND
+        - If its too loud turn down game audio or disable this for now until i find an alternative.
+    - Fix starting preview with harness attached would beak the previews - `extras.lua`
+    - Fix qb-target only changing the front rims on bikes - `rims.lua`
+    - Attempt to fix formatting of emails - `previews.lua`
+    - Attempt to fix line 460 table nil for some users - `functionserver.lua`
+
+## 3.0.5
+    - Better mechboard item support for "ox_inv", now shows vehicle in its dscription - `previews.lua`
+    - Added `previewJobChecks()` to keep the preview system separate from normal job restrcitions - `previews.lua` / `function.lua`
+    - Remove check for stashes needing `ItemRequiresJob` to be true to show up - `locfunctions.lua`
+    - Continue upgrading polzyone and job logic - `functions.lua`
+    - Reformat of manual repair menu - now slightly pretier for both qb and ox - `manualrepair.lua`
+    - Missspelling making `ManualRepairBased` not do anything at all - `manualrepair.lua`
+    - Fix `repairEngine = false` not working correctly and allowing engine to repair - `manualrepair.lua`
+    - Added the ability to completely disable NOS in the script to allow use other scripts for nos usage
+        - `nos.lua` / `check_tunes.lua` / `locfunctions.lua` / `extras.lua` / `encfunctionserver.lua`
+    - Change how colour is detected for the paintcan and change animation if vehicle is lifted - `paint.lua`
+    - Fix duplicate/broken "extras" button in cosmetics menu - `cosmetics.lua`
+    - Fix incorrect extras being applied - `cosmetics.lua`
+    - Attempt to improve extras `doCarDamage` effect
+        - `functions.lua` / `emergency.lua` / `cosmetics.lua` / `preview.lua`
+    - Made new events due to QBCore:Client:EnteredVehicle not working - `encfunctionserver.lua` / `extras.lua`
+        - This will fix missing with Odometer + Seatbelt control, Extra Damages and Antilag not working
+
+## 3.0.4
+    - FIX CHAMELEON PAINTS - `fxmanifest.lua`
+    - Update ox items rerouting to take into account missing set item images - `shared.lua`
+    - Add workaround for `mechboard` item created with ox exports - `functionserver.lua`/`previews.lua`
+    - Change how location is detected for checking resrtictions - `locfunctions.lua`
+        - This fixes trying to edit vehicles error "unsupported operation"
+    - Re-write of the polyzone creation to help define each section - `locfunctions.lua`
+    - Fix incorrect variable allowing bypass of `ItemRequiresJob` items - `functions.lua`
+    - Rewrite of a couple check functions, should now be more logical - `functions.lua`
+    - Fix some progressbars not stopping animations - `functions.lua`
+    - Add Interior and Dashboard paints to emergency bench - `emergency.lua`
+    - Fix for cars with only one livery - `emergency.lua`
+    - Fixed `fr.lua` causing errors in repair.lua
+        - ANY HELP WITH LOCALES IS GREATLY APPRECIATED
+
+## 3.0.3
+    - Added info to `install.md` on how to make harness state show up in `qb-hud`
+    - Fix "qs" not saving to stash - `functionsserver.lua`
+    - Fix incorrect locale for suspension - `performance.lua`
+    - Made the extra damage related items unusable if Config.Repairs.ExtraDamages is false
+        - Sorry for the confusion
+    - Fix cosmetics not showing on items if there was only 1 available - `cosmetics.lua`
+    - Updated `nl.lua`
+    - If you use `ox_inv`, the script now reroutes to use `exports.ox_inventory:Items()`
+    - Added Harness section to Config - `config.lua` / `check_tunes.lua` / `extras.lua` / `functionserver.lua`
+        - HarnessControl variable move to `Config.Harness` to keep it grouped together
+        - This controls:
+            - Leaving vehicle without removing harness or seatbelt
+            - Wether a progressbar will show when removing the harness
+    - Fix harness and antiLag saving/loading - `functionserver.lua`
+    - Fix harness progressbar animations - `extras.lua`
+        - Fixes rare crash if restarting the script
+    - Fix passengers not being affected by crashing - `extras.lua`
+    - Added check to detect wether player is loaded in before loading zones - `locfunctions.lua`
+    - Fix mispellings making emergency bench paints not work for qb-target - `emergency.lua`
+    - Fix for `Config.Emergency.requireDutyCheck` - `emergency.lua`
+    - Fix emergency bench suspension trying to change spoilers - `emergency.lua`
+    - Fix nosrefill vec4 error with ox_target - `locfunctions.lua`
+    - Added check to previews.lua for if you have a phone or not when using `PreviewPhone = true` - `previews.lua`
+    - Added check for if a location has a blip or not - `previews.lua`
+
+## 3.0.2
+    - Add extra check for "null" results in database to stop errors - `functionserver.lua`
+    - Fix `qb-target` not being able to open `ox_inv` shops - `locfunctions.lua`
+    - Fix performance parts not installing/uninstalling correctly - `performance.lua`
+        - It should no longer complain about missing items when sucessfully installing
+        - Antilag isntall now waits for info instead of throwing an error
+        - this should stop the nil `level` error too
+    - Fix extradamage upgrades not installing/uninstalling correctly - `damages.lua`+ `main.lua`
+    - Shut up the `Shut` error in nos.lua
+    - `HasHarness` nil error should no longer show up if jim-mechanic doesn't control harnesses
+    - Added `exports["jim-mechanic"]:updateVehicle(vehicle)` - `shared.lua`
+        - This can be added to a garage script to save all the jim-mech damages
+    - Updated saveStatus server event to save engine and body damage to stop possibility of setting to "null" - `extras.lua` + `functionserver.lua` + `functions.lua`
+    - Added `RFC LS CUSTOMS`, `RFC Redline`, `Rising Sun` and `flyWheels` locations - `locations.lua` + `config.lua`
+    - Update Ducttape repair event to new format - `extras.lua`
+
 ## 3.0.1
     - Fix fueltanks kicking players/not installing
     - Repair clipboards remove after 4 seconds
@@ -642,495 +863,4 @@ end
         - Support for RoadPhone `/preview` mail messages
         - Fixes to preview printouts, some item names were wrong
 
-## 2.9.8SpamFix
-    - Fix for nosRefill not sending money ot society - locations.lua
-    - Better checks to redude the console spam brought on by fivem update - extras.lua, xenons.lua, nos.lua
-    - Added workarounds to repairs.lua to reduce errors when qb-mechanicjob fucks up
-        - Repairs will now try to reset to 90% if nil found, hopefully when "repaired" will create and load the values correctly
-
-## 2.9.8ColdFix
-    - Adjust the polyzone location logic, as it was messing with `/preview` and not allowing it to be used by anyone in some setups - locations.lua
-    - Fix bossrole detection math - locations.lua
-    - Manual repair bench doesn't throw error on successful repair now - manualrepairs.lua
-    - Fix Bennys location using "inside" for clockout events when it should be "enter" - locations.lua
-    - Changed a couple functions to try check if the vehicle entity is findable before editing and spamming F8 Console - functions.lua
-    - Some SQL events now use `scalar.await` instead of `fetchAll` to help optimize grabbing results - functionserver.lua
-
-## 2.9.8Hotfix
-    - Now properly detects if you are in or out of a zone if you have auto clockout disabled - locations.lua
-    - Added toggle for `RenewedBanking` for use with manual repair bench payments - config.lua/functionserver.lua
-
-## 2.9.8
-    - Complete refactor of `locations.lua` (sorry)
-        - Moved Config.Locations to the bottom of the file (to help with debugging the target code easier) - locations.lua
-        - Add automatic clock in and out toggles for locations - locations.lua
-        - Add `StashShow` to enable showing of mechanic job stashes with or without `StashRepair` or `StashCraft` - config.lua/locations.lua
-        - Choose if props are needed or not for specific locations with new toggle in each table location `prop = true` - locations.lua
-            - If `prop = false` or not added it won't show a prop
-        - Converted the locations that need headings for each building to vec4's - locations.lua
-            - This is to tidy up and use less variables
-        - Moved manualrepair.lua's locations to locations.lua. making them owned by the businesses that they are placed in. - functionserver.lua/manualrepair.lua/locations.lua
-            - This allows the money from repairs to go into their society accounts (with a certain percent removed for...economy reasons)
-    - New event added to `check_tunes.lua` to help non-mechanics view a vehicles current performance mods - check_tunes.lua
-    - New command added to `functionserver.lua` to make use of the check vehicle event `/checkveh` - functionserver.lua
-    - Fix `/checkdamage` command, non-mechanics can now check their vehicle damage details again - functionserver.lua/repair.lua
-
-## 2.9.7HotFix
-    - Fix xenons being reset when other users weren't near by - xenons.lua
-        - Also helps optimize, with less server calls
-        - Make sure your qb-core functions are updated from the install.md
-
-## 2.9.7
-    - Removed messed up if statement left in brakes repair causing kicking - repair.lua
-    - Fixed typo for Body item variable - repair.lua
-    - Fixed calling `TriggerClientEvent` in client making the script break - repair.lua
-    - Removed vehicle keys event from ending preview as this was being exploited - preview.lua
-    - Rewrote Xenon Colours syncing code to help resetting after applying - xenons.lua
-    - Improved the HasItem events for client and server to correctly detect and count items - server/main.lua + functions.lua
-    - Added the ability to remove unique(unstackable) items from the players inventory in stacks -  server/main.lua
-    - Fix only one of an item being taken when it should be more. - server/main.lua
-        - This fixes sparetires not being removed.
-    - Added `lockedCar` check to livery.lua
-    - Attempt to fix toolbox animation cancelling others - checktunes.lua
-
-## 2.9.6:
-    - Initial support for qs-smartphone with preview emails - preview.lua
-        - In config.lua, change `PhoneMail` to "qs"
-    - Fix `Config.FreeRepair` triggering HasItem in the mechanic_tools menu and locking buttons - repair.lua
-    - Fix Wheels + free repair issues, can now use freerepair with tyres correctly - repair.lua
-    - Fix `Config.StashCraft` showing checkmarks in the menu - locations.lua
-    - Potential fix for saved RGB xenons not loading when pulling from garage - functionserver.lua + xenons.lua
-        - It may have been cancelling out if you didn't have `qb-mechanicjob` enabled (now fixed)
-        - This REQUIRES updating the core functions from the install.md again
-        - Better checks and cleanup for if the vehicle exists or not
-
-## 2.9.5:
-    - Fixes for repair.lua
-        - Body and Engine repair costs were reversed causing item duping code to kick in
-        - Fix when StashRepair was enabled, checking players inventories and stopping allowing repairs
-
-## 2.9.4:
-    - Changes to `functions.lua`
-        - Changed the auto-save of vehicle mods to rely on plate instead of entity number
-        - This will help the people who park modify their cars and park them 2 seconds later
-        - This should also help with players speeding away from mechanics before their clients have saved the mods
-    - Changes to `repair.lua`
-        - Item checks (when StashRepair is false) are now client side
-        - This allows better control of qb-menu, stopping you from trying to repair with no items
-        - This also allows server side item checks and removal
-        - This also includes removal of a couple events from - `main.lua`
-    - Added debugging info `HasItem` event in `functions.lua`
-    - Added TopSpeed modifier info to debug odometer - `extras.lua`
-        - This is to help eventually debug the issues a minority of people have where speed is being lowered all the time
-
-## 2.9.3Hotfix:
-    - Fix Client sided `HasItem` event not checking players items correctly - functions.lua
-    - Fixed repair calling for the wrong items and causing more issues with item duping - repair.lua / main.lua
-    - Renabled drop player event - main.lua
-    - Disabled Testing event from manual repair bench - manualrepair.lua
-
-## 2.9.3:
-    - Fix qs-inventory stashes not saving after crafting/repairing - functionserver.lua
-    - Moved UpdateDelay timer to the config - functions.lua / config.lua
-    - Remove a check from the vehicle update event as it was causing some massive issues for people - functions.lua
-        - I think this is linked to being too far from the vehicle when its updating
-    - Xenons now sync on an interval, this keeps them from getting desyncing due to being too far away - xenons.lua
-        - Improved detection of if the entity exists
-    - Fix item removal being all kinds of broken when repairing from the player inventory - main.lua
-    - Fix tire item removal being all kinds of broken - repair.lua
-    - Fix animations not working if you weren't repairing from stash - repair.lua
-    - Server Side + Client Side QBCore HasItem functions are now built into the script
-        - This will help to recduce the kicks and errors people are getting - functions.lua / main.lua
-        - This also requires update to performance.lua
-
-## 2.9.2Hotfix:
-    - Fix issue that was causing KuzQuality's Realistic Wheels to remove wheels when doing anything in the script
-        - This also fixes an issue that was causing some players to notice "Lowered rear suspension"
-        - repair.lua / qb-core client functions
-    - Fix line 88 error in check_tunes.lua related to new rgb xenons
-f
-## 2.9.2:
-    - Fix broken item dupe - functions.lua
-    - Fix /cleanvehicle command triggering the item duping protection - functionserver.lua / extras.lua
-    - Fix rims qblog event breaking the script - rims.lua
-    - Fix performance items not being able to be installed on poorly made import vehicles with missing "bones" - performance.lua
-    - Added check to see if vehicle needs to have its properties force changed for other players when updating - functions.lua
-    - StashTidy() now allows stacking of unstackable items (too big for pockets, not too big for a stash) - craftingserver.lua
-    - Lowered the odometer math back down by x10 due to yet more complaints - extras.lua
-    - Reduced /preview check loop time to help reduce exploits
-    - Overhauled the Neon/Xenon colours menus
-        - Added support for RGB Xenon headlights
-        - This needs to be synced to all players manually so added server side events - functionserver.lua
-        - Which then calls to new events in xenons - xenons.lua
-        - This also **REQUIRES** you to replace the QBCore.Functions from the install.md
-        - Locales updated because they now use Neon RGB id's
-
-## 2.9.1Hotfix + Bonus
-    - SUPPORT FOR QS-INVENTORY - config.lua / craftingserver.lua
-        - Change `qsinventory = false` to true to enable stash support for crafting and repairing
-    - Fix typo in `bumpers.lua` stopping the bumper item from being removed
-    - Added item duping checks to the `toggleItem` event - functionserver.lua / main.lua
-
-## 2.9.1:
-    - Chameleon Paint mod now included in stream folder with FULL CREDIT to `@wildbrick142` <3
-    - Removed apostrophes in preview.lua prints as it was affecting some users SQL - preview.lua
-    - `/Preview` now locks the vehicle in place instead of making it "undriveable" - preview.lua
-    - Fix `autoClockout` check being in completely the wrong place - locations.lua
-    - Fix `ManualRepairCostBased` doing nothing in the config - manualrepair.lua
-    - Fix Repair confirmation calling to cancel dpemotes animation - repair.lua
-    - Fix native okok notification showing without any `style` - functions.lua
-    - Fix nos database Now updates when you are no longer in the vehicle - extras.lua
-    - Fix `Black Steel` paint ID - all locale files
-    - Added item checks to the dupewarn events - performance.lua
-    - Nitrous will now show in toolbox (when in the vehicle) if the vehicle isn't owned - check_tunes.lua
-
-## 2.9Hotfix:
-    - Fixed wrongly named items in images folders
-    - Remove auto installing items as they just cause issues - server/main.lua
-        - Left in by mistake
-    - Commented out line 445 and 446 in nos.lua
-        - These were left in for testing, on script restart, the car a player was in got full nos
-
-## Update v2.9:
-    - **HIGHLY RECOMMENDED REINSTALL OF THE SCRIPT FOR THIS VERSION ALOT OF FILES HAVE MOVED**
-        - Compacted `armour.lua`, `brakes.lua`, `engine.lua`, `suspension.lua`, `transmission.lua` and `turbo.lua`
-            - Now all in the file `performance.lua`
-        - Removed `paintRBG.lua` and moved contents to `paint.lua`
-        - `rimnames.lua` moved to the bottom of `rims.lua`
-        - `quickrepair.lua` moved to `extras.lua`
-        - Added `shared` folder and moved `recipes.lua` and `functions.lua` so they are not hidden away
-        - Refactor of `server/main.lua` to be alot more optimized and just generally look better
-            - This involved changes to all files that add or remove items
-    - General Fixes
-        - Changed `updateCar()` timer to 20 seconds from 60 as people were parking their cars too fast.
-        - Script no longer removes ALL attached props(guns on back) from the player, only ones made by the script
-    - General Changes
-        - Improved the `GetVehicleProperties` and `SetVehicleProperties `functions to detect wheel damage better
-        - Several new inventory images included
-        - `CleanVehicle` event upgrades
-            - Car wax, the cleaning kit now gives the vehicle "wax" options too
-            - This is a simple system, parking your car will clear the timer.
-        - Added support for Chameleon Paint Mod - installation instructions are on mechanicguide github
-        - New items: `Transmission Level 4` and `Suspension Level 5` and `Engine Level 5`
-            - These only can be added to vehicles that actually support them
-        - New Odometer features:
-            - Shows warning lights if certain parts are too damaged
-            - NOS "modes" now show on odometer at all times
-        - Made alot of parts require being near specific places on a car
-            - Rims near wheels, engines near engine, suspension near wheels etc.
-            - Some were left as certain locations aren't marked correctly on a lot of vehicles
-        - `Dirft Tires` and `BulletProof tires` now are hidden from the toolbox menu if not installed
-        - Toolbox menu now shows the current level and MAX level of each compatible item (to help pick which part should be bought/crafted)
-        - New Event `triggerNotify` and replaced every notification in the script
-            - This allows different notification systems to be used with by changing a config option
-            - Currently supported: - "qb", "okok", "tnotify", "infinity", "rr"
-        - Paint can effects changed and optimized by using a loop
-        - Paint spray effects changed
-    - Repair changes
-        - "mechanic_tools" menu now remembers the last vehicle checked and skips progressbars
-        - Reworked some of the animations
-        - New Repair Items: `Oil`, `SparkPlugs`, `Car Battery`, `Axleparts`, `Spare Tire`
-            - This changes up the mechanicjob repairs and adds new crafting recipes/shop items
-    - NOS fixes
-        - NOS Purge Size now synced between players
-        - Optimize Loading of particle effects
-            - If already loaded it won't create a loop trying to load it again
-        - Completely remade `nos.lua` to support FiveM Key Mapping.
-            - This appears to provide better client optimization while in a vehicle
-        - And many other fixes and changes I forgot to write down
-
-## Update v2.8.6:
-    - Added missing `updateCar` event to extras in externals - exterior.lua
-    - Fix exploit where boost speed was staying applied for other players, which would then apply back to the driver - extras.lua
-    - Fix database not updating the NOS when driving around
-        - Now saves to database when you stop boosting
-    - Reduced car modification database saving timer to 20 seconds from 60.
-
-## Update v2.8.5:
-    - Added bossmenu (qb-managment) to clock in locations - locations.lua
-    - Fix NOS boost sound for people who were in different cars - nos.lua
-    - Fix muscle cars being able to do wheelies when boosting - nos.lua
-    - Fix NOS overheat explosion not working - nos.lua
-    - Add distance check on nos effects so only nearby people can see them - nos.lua
-    - Fix brakes level 1 causing the script to break - brakes.lua
-
-## Update v2.8.4:
-    - Fix Interior Painting not working at all - paint.lua
-    - Fix error and possible script break after installing rims - rims.lua
-    - Fix Server load issue with vehicle being checked for ownership too much - extras.lua
-        - Now saves current vehicle so it doesn't need to check over and over
-    - Change updateCar() to work on a delay - functions.lua
-        - This reduces server database load and only updates the changes to the vehicle when the player hasn't made modifications for 60 seconds
-    - Fix underglow changes not saving - xenons.lua
-
-## Update v2.8.3:
-    - Fix NOS Warnings audio playing from the player, not the vehicle - nos.lua
-    - Fix Extra Damage repairs not sticking - functions.lua
-        - It was loading the values before saving them and resetting them instantly
-    - Fix incorrect variable in forceproperties - functions.lua
-    - Fix missing customisable variable registering when nos wasn't pressed anymore - nos.lua
-
-## Update v2.8.2:
-    - Fix Item Duping detection
-        - Added "SetVehicleModKit(vehicle, 0)" when every performance related upgrade gives items
-    - Fix new /preview exploit protection - functions.lua
-    - Fix "Boost Mode" popup not leaving when "exiting" the vehicle - extras.lua
-    - Fix Debug Mode Odometer showing incorrect upgrade levels of the vehicle - extras.lua
-    - Added /preview "menu pause"? - preview.lua
-        - Press the header (top of the menu) to grant 3 seconds to manually adjust the camera
-    - Fixed Nos warning sounds so they actually stop - nos.lua
-    - Moved Nos Control bindings to the config.lua
-    - Fixed transmission qb-log breaking the scrpt when being removed from vehicle - transmission.lua
-    - Fixed self inflicted brake duping - brakes.lua
-    - Fixed xenons taking 70 seconds to remove - xenons.lua
-
-## Update v2.8.1:
-    - Fix Preview not finding plate after finishing preview - preview.lua
-    - Fix NOS related sounds still playing after leaving/falling out of vehicle - nos.lua
-    - Fix NOS Damage warning sound not playing - nos.lua
-    - Fix NOS Purge spray not stopping when leaving the vehicle - nos.lua
-    - Added DLC 2699 Vehicle Purge locations - nos.lua
-    - Added "NosBoostPower" table to config.lua, these values are the accelleration power of the boost levels - config.lua/nos.lua
-    - Added Vehicle Extras to externals item menu - exterior.lua
-    - Added basic qb-log features to each file that changes vehicle mods - functions.lua
-
-## Update v2.8:
-    - UPDATED GUIDE: https://github.com/jimathy/jim-mechanicguide
-    - Fix for job/grade locked crafting items not working correctly
-    - Fix for extras.lua error when parking a vehicle
-    - Fix DPI scaling of built-in drawtext popups
-    - Fix exploit of saving previewed vehicles
-    - Change to progressbar times for removing performance items, now maht.randoms to help enforce exploit protection
-    - Added "discordimg" to locations in Locations.lua - Completely forgot that people would disable the payment systems making the image not work
-    - New vehaddon.sql file
-        - You should be able to use this file to add the new "noscolour" column when updating even if it gives an error
-        - Now adds the columns at the end of the file, not after a specified column
-    - FunctionServer.lua rearrange and fixes
-        - Fix for nil/errornous "extras damage" data values found in the database - setting them all to "100" instead
-        - Most database check/update events have been changed how they check the database to (hopefully) be more optimized
-    - PaintRBG.lua changes
-        - rgbToHex() and HexTorgb() moved from paintrgb.lua to functions.lua
-        - Redo of RGB/HEX paint menus
-        - You can now enter shorter hex and RGB codes and it will auto fill them
-    - ManualRepair.lua changes
-        - Rearranged so it does server checks if you're in a vehicle
-        - Workaround for incorrect health values
-        - If "repairAnimate" is false it will now show a Progressbar
-        - New config option "ManualRepairCostBased"
-            - When true, this makes manual repair prices set by "ManualRepairCost" always be this amount
-            - When false, the price will be based on damage, with "ManualRepairCost" being the max amount
-    - NOS Changes/Optimizations - nos.lua / nosserver.lua
-        - Config options are now in the config.lua
-        - File rewrite, less "while" loops on client side
-        - Effects, when disabled are now disabled BEFORE trying to sync with players
-        - NOS Purge Sounds added
-        - NOS Cooldown Complete sound added (and config option to toggle)
-        - Optimized NOS Database updates from two update events into one (should help decrease lag)
-        - Config options added for "Explode vehicle on fail NOS Skill check"
-            - Toggle to allow Mechanic Immunity from causing explosions.
-            - 1 in 10 chance for it to explode
-            - Shouldn't cause any major damage to car or player
-    - NOS Purge Colour item
-        - Use near vehicle with NOS to choose the colour of your Purge Spray
-
-## Update v2.7.3:
-    - NEW GUIDE LOCATION: https://github.com/jimathy/jim-mechanicguide
-    - Rewrote the install.md
-        - Changelog at the bottom now, so install instructions come first
-    - Updated the GetVehicleProperties function to try and fix liveries
-    - Attempted to add workaround for when there was an incorrect value for extra damages in the database - functionserver.lua
-    - Small changes to try and fix server target issues related to manualrepair.lua
-        - Repair Check added to stop players spamming events
-    - nosBar() changes - functions.lua
-        - Config.nosBarColour adds the ability to toggle colours on the generated bars
-        - Config.nosBarFull is the symbol used to indicate a full segment - default: "▓"
-        - Config.nosBarEmpty is the symbol used to indicate a empty segment - default: "░"
-    - Added nosBar() features to mechanic_tools repair menu - repair.lua
-    - Added nosBar() features to manualrepair.lua
-
-## Update v2.7.2:
-    - Fix for Config.DiscordDefault not doing anything - preview.lua
-    - Fixed a script breaking unfinished callback for NON stash repairs - repairs.lua
-    - Fix job and location checks for /preview - Config.lua/functions.lua/Preview.lua
-        - Added new option check in config called PreviewLocation
-    - Add Nos Refill stations - locations.lua
-        - Change cost amount in config
-        - Example can be seen in gabz tuners location in location.lua - "nosrefill"
-    - Fix for classes being retrieved wrong - functions.lua
-    - Improved logic if statement for Stash Repair - locations.lua
-        - Enabling Config.FreeRepairs doesn't hide the stash target if Config.StashCraft is enabled
-
-## Update v2.7.1:
-    - Hot fix for repair.lua
-        - Left a check the wrong way round when testing, extra damages were being forced to 100% every single time you opened repair menu
-
-## Update v2.7:
-	- Preview.lua upgrade
-	    - Added discord channel support for Preview Receipts
-		- Adds new config.lua options + possible options for each location in location.lua
-        - Set default channel in config.lua
-        - OR set location specific channels in locations.lua
-	- Extras.lua fixes
-		- Reduces lag for high population servers by reducing the amount of checks
-		- Changed the values of the odometer values because people thought it was broken
-        - Slight change to toggle sound command, optimised + removed need to add "on" or "off" to the command
-    - Function.lua fixes
-        - pushVehicle() now has an extra check in which will attempt to skip it if its not needed
-        - searchDist() values reduced because people thought it was broken
-    - Changes to Check_Tunes.lua
-        - Attempt at optimising and tidying the code up as much as possible
-        - Toolbox prop should now automatically clear after 15 seconds instead of getting stuck if player ESC's out of menu
-        - This may cause some seemingly random return to idle pose, but its better than it being stuck in your hand
-    - Nos.lua
-        - Added qb-lock toggle for easy switching
-    - Changes to all files
-        - Attempt to reduce delay when using items caused by requiring to turn to the vehicle
-        - Overhaul of menu's to use new(ish) icon system
-        - Adjusted and improved the debug prints
-    - Repair.lua
-        - Attempt at a work around for previous nil value error from qb-mechanicjob
-        - It should now forcibly set all values to 100% if it finds a nil value
-
-## Update v2.6.1:
-	- Remove fixFailure() event as it didn't do anything apparently
-	- Changed the jim-mechanic:server:loadStatus to do a vehicle damage setup event to help fix nil values.
-		- Replace repair.lua, function.lua and functionserver.lua
-	- Installation instructions changed to fit new updated qb-vehiclefailure
-	- Turned odometer into a vehicle debug screen if the debug mode is enabled
-
-## Update v2.6:
-	- Change the Config.UseMechJob toggle into a function that detects if "qb-mechanicjob" is started
-		- This helps avoid confusion after updates/errors
-		- This brings small changes to repair.lua, extras.lua, police.lua functions.lua, functionserver.lua, server/main.lua
-	- Added game build detection for drifttyres - check_tunes.lua + tires.lua
-		- They were introduced in `lstuners` and to use them/not get errors you need to have gamebuild `2372` or higher
-	- New file - manualrepair.lua
-		- Ability for non-mechanics repair at certain locations
-		- Configurable automatic repair systems - check the config.lua for the new settings
-		- This required ned functions in functionserver and function.lua
-	- Removed print left over from testing in functions, showing all the vehicle mods on a car when updating it
-	- Removed police bench default location "Bennys next to PDM" to make it a bench for manual repairs
-	- Fixed a few missing locale'd strings in police.lua
-
-## Update v2.5.2:
-	- Updated default recipes to have the "rollcage" item - recipes.lua
-	- Removed Color1 print message from the "GetVehicleProperties" left in after testing - install.md/qb-core
-	- Added fixFailure() event to attempt to reset "nil" values when trying to get/repair extra vehicle damages - repair.lua/functions.lua
-	- Enhanced updateCar() function to share the data between everyone
-		- Adds new functions to function.lua and functionserver.lua
-		- This shares the updated vehicle info with all players and forces it onto the cars for them
-	- Fixed encryption on html folder
-	- Removed unfinished and broken file as it was breaking police repairs.
-
-## Update v2.5.1:
-	- Added config options
-		- "ShowOdo" wether the odometer is on by default
-		- "OdoLocation" where the odometer shows on screen
-	- Fixed Odometer breaking the script if the car wasn't owned
-	- Moved drawtext files from qb-core over into this script
-		- This allows for customied Odometer popups and locations
-		- Changed popup text to be more like an actual odometer
-		- You can now change the location of it to: "left", "right", "top", "top-right", "top-left", "bottom", "bottom-left", "bottom-right"
-	- Slowed down the Odometer update speed incase of lag
-	- Uncommented out the police bench locations (forgot to do this earlier while testing)
-
-## Update v2.5:
-	- New Item - Roll Cage
-		- This is (obivously) the Roll Cage that is in the "externals" menu but independant
-	- Added checks to all items wether vehicle is locked or not
-		- `if lockedCar(vehicle) then return end`
-		- This line has been added to all items and events, can't do any work on a vehicle until is unlocked
-	- Added support for toggling between gks-phone and qb-phone for the preview emails in the config
-	- Repairs now uses custom stash event, not requiring qb-inventory default events anymore.
-		- This hopefully fixes a couple issues with certain different inventories
-	- Add new strings to locales, don't forget to update these and make a github pull request
-	- Added support for ps-progressbar
-	- Fixed NOS "Old Flame" not syncing between players
-	- Added toggles for disabling NOS Trails and NOS Screen Effects
-	- Fixed RBG Paint issues not loading in the functions (mainly paint finishes but hopefully other issues)
-		- Update with the the functions below
-	- Added ability to show Mi/Km using qb-cores new built in "DrawText" export
-		- This shows while driving and updates and hides when leaving the car
-		- This can be disabled by typing "/showodo"
-
-## Update v2.4:
-	- Enhance the Locations script - locations.lua
-		- Added support for job grades in crafting
-		- Add support for Multiple locations for all execpt payments.
-		- Add Job Garage locations support to pull out Job Vehicles (not personal vehicles)
-		- Added Livery choice on spawning of vehicles, this required editing - preview.lua
-	- Fixed issue with cars not showing lists of mods until one was forcibly applied - functions.lua
-	- Fixed unessessary database checks being used by the odometer functions which were causing lag for some - extras.lua
-	- Added saving extra vehicle damages through restarts - extras.lua + functionserver.lua
-		- If "UseMechJob" is true it will attempt to save the damages the same time as the odometer and car customisations
-		- This requires updating the qb-core SetVehicleProperties function with the event: `TriggerServerEvent('jim-mechanic:server:loadStatus', props.plate)` (check the qb-core functions below)
-	- Updates are needed to locale files for garages
-
-## Update v2.3.3:
-	- Made /preview's rim's alphabetical - preview.lua
-	- Removed F8 print spam from null named wheels - preview.lua
-	- Further support for qb-menu edit
-		- Mechanic_Tools menu support - repair.lua
-		- Better ToolBox Support - check_tunes.lua
-	- Fix spelling mistake in config
-
-## Update v2.3.2:
-	- Crafting Fixes
-		- Job requirement for crafting now actually works - locations.lua
-		- Fix for being able to craft from stash even if you didn't have items - craftingserver.lua
-		- Small change that makes StashTidy only happen once in crafting, rather than twice to reduce server strain - craftingserver.lua
-	- QB-Menu edit support added in Crafting menus and better support for toolbox menus - location.lua/check_tunes.lua
-	- Caved in and added the ability to remove cosmetic items on use, enable the CosmeticRemoval in the config.lua
-		- This adds an extra event to all files that deal with cosmetic items, replace the files to make use of this
-	- Rims are now alphabetical again! - rims.lua
-
-## Update v2.3.1:
-	- Fixed Stash crafting breaking when consumimg a stack of items, or a single unique item. - repair.lua
-	- Fixed F8 Console Spam when viewing "NULL" named rims - rims.lua
-	- Fix not being able to cancel crafting progress bars - locations.lua
-	- Added Custom "SaveStash" database event in an attempt to fix issues some where having with crafting/repairs - functionserver.lua + repair.lua + craftingserver.lua
-	- Removed paymentserver.lua and thus the /charge command in favor of jim-payments (I forgot there was even a /charge command built in)
-	- Added new rimNames.lua which adds the ability to give names to custom rims named "NULL"
-		- Info here: https://github.com/jimathy/RimNames
-	- Started adding support for a qb-menu edit that supports icon images on its own - check_tunes.lua
-		- Currently only in the toolbox menu
-
-## Update v2.3:
-	- NOS Fixes (nos.lua + nosserver.lua)
-		- Changes to how NOS is detected on server start, now gives correct numbers
-		- Changes to how levels are saved during use, now updates the database on leaving vehicle
-		- Added Boost Cooldown timer variable to top of nos.lua
-	- Fixed typo in tires.lua that kicked people who didn't do anything wrong
-	- Fixed typo in preview.lua that made Config.PreviewPhone do the complete opposite
-	- Added Missing LS Customs on Popular Street locations
-
-	- File Layout changes
-		- Config.Lua has had a revamp
-		- Crafting Receipes and Store Layouts are now in Config.lua
-		- Crafting + Stores + Payments + Stash section of Repairs.lua are now all in Locations.lua
-		- This brings changes to polyzone locations and how locations.lua is handled bringing all the locations into one file.
-		- All this helps a new Item Check that is now in server/main.lua. This helps debug missing items
-		- Plus I was getting sick of telling people which file does what. This cuts it back into one file
-
-	- Changes to show NULL wheel ID's in previews/emails/mechboards and in rim modification menu
-
-	- Locations.lua
-		- Layout is very different and you should take a look at it and if you have any custom locations, adapt yours to work with it
-	- Clock in is now a target location, in and out of building duty is removed.
-
-	- Fixes for stash crafting items with custom multiple ingedient recipes
-		- This works with a new feature "StashTidy" which orgainises your stash into 1 slot per item
-	- Support in Crafting Recipes for locking Specified items behind Specified job roles
-
-	- Separated jobChecks() to make locationChecks()
-		- Every item/file has this extra line to check if you're in a work location if need
-
-	- Rewrote the odometer fuctions to be ALOT more optimsed and accurate
-
-	- To sum up the file changes
-		- CHANGED: nos.lua, nosserver.lua, check_tunes.lua, functions.lua, locations.lua, preview.lua, tires.lua, main.lua, repair.lua, rims.lua
-		- REMOVED: crafting.lua, stores.lua, payments.lua
-
-	- Removed features from the GetVehicleProperties and SetVehicleProperties at the bottom of this file.
-		- Got sick of people asking how to change it back.
 ---

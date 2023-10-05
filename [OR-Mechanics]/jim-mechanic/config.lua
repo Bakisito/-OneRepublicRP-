@@ -15,8 +15,6 @@ Config = {
 		distkph = true, 			-- Set to false to read distance travelled in Miles.
 
 		RenewedBanking = false, 	-- This is used for manualrepair benches, enable to use
-
-		--Fuel = "LegacyFuel",		-- Name of your fuel script, "LegacyFuel" is default
 	},
 	Main = { -- Main variables
 		isVehicleOwned = false, 	-- Keep this true if you only want changes to be made to owned vehicles
@@ -39,11 +37,25 @@ Config = {
 
 		DoorAnimations = true,		-- Enable door openning animations when repairing/fixing
 
-		HarnessControl = true,		-- Enable harness features of the script, requires edits to smallresources and hud scripts
+		disableNos = false,			-- Disable nos if you wish to use a separate script
 
+		showItemBox = true,			-- toggle itemBox for adding/removing items, helpful if using custom item change events
+
+		disablePreviewPlate = false,-- enable this to disable temporary plate while previewing
+
+		modCam = true,				-- Set to false to stop custom cameras angles when editing vehicles
+	},
+	Harness = {
+		JobOnly = false,			-- Only allow job roles to add a Harness to vehicle
+		HarnessControl = true,		-- Enable harness AND seatbelt features of the script, requires edits to smallresources and hud scripts
+		seatbeltEasyLeave = true,	-- if true players can exit vehicled before removing seatbelt
+		harnessEasyLeave = true,	-- if true players can exit vehicled before removing harness
+		progOff = true,				-- if true add a progressBar to unbuckle harness
+
+		seatbeltNotify = true,		-- if true, show a notification when seatbelt is put on or off
 	},
 	CarLifts = {
-		Enable = true,					-- Disable this if using a different carlift script
+		Enable = false,					-- Disable this if using a different carlift script
 		Sound = true,					-- Enable/Disable carlift movement noises
 		CarLiftModelReplace = {			-- if Enable is true, this table will be used to replace revious models that are in the way of set locations
 			`tr_prop_tr_car_lift_01a`,
@@ -64,6 +76,11 @@ Config = {
 				lift = `gabz_bennys_prop_carlift_01`,
 				offset = vec3(-1.5, -2.8, 1.4)
 			},
+			-- RFC LS CUSTOMS
+			[1802445854] = {
+				lift = -1174339517,
+				offset = vec3(-3.0, -2.0, 1.4)
+			}
 		},
 	},
 	Repairs = {	--Repair Related
@@ -85,6 +102,9 @@ Config = {
 		},
 	},
 	Previews = {
+
+		hardCam = true,				-- Enable this to make preview make hard camera locations for previewing
+
 		PreviewPhone = false, 		-- Enable this is preview menu generates an email, False if you want to give an item
 		PreviewJob = true, 		-- Enable this if you want /preview to require a Job Role
 		PreviewLocation = true, 	-- Enable this if you want to lock /preview to a job location (ignored if LocationRequired is false)
@@ -93,6 +113,18 @@ Config = {
 									-- "gks" = use gks-phone for emails
 									-- "qs" = use qs-smartphone for emails
 									-- "roadphone" = use roadphone for emails
+		PhoneItems = {				-- list of phones/items that are needed to get emails. IF you don't have any you will get a clipboard with the list on instead
+			"phone",
+			"classic_phone",
+			"black_phone",
+			"blue_phone",
+			"gold_phone",
+			"red_phone",
+			"green_phone",
+			"greenlight_phone",
+			"pink_phone",
+			"white_phone"
+		}
 	},
 	StoreCraft = {
 		Crafting = false, 			-- Set true to turn on crafting features
@@ -105,7 +137,7 @@ Config = {
 	},
 	Odometer = {
 		ShowOdo = true, 			-- Wether the distance is showed in car by default
-		OdoLocation  = "top-left", 	-- Where the Odometer will show,
+		OdoLocation  = "top-right", 	-- Where the Odometer will show,
 										-- "left", "right", "top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right"
 		OdoShowIcons = true, 		-- Enable this to allow the use of the warning icons on the odometer
 		OdoAlwaysShowIcons = true, 	-- Enable this to show the icons even when not damaged
@@ -119,6 +151,7 @@ Config = {
 			["battery"] = true,
 			["wheel"] = true,
 			["headlight"] = true,
+			["harness"] = true,
 		},
 	},
 	Emergency = {
@@ -205,13 +238,19 @@ Config = {
 		repairAnimate = true,		-- Better than staring at a progress bar, "damaged" parts will be removed and replaced. Making it look more authentic
 		repairSpeed = 1500, 		-- The time between each task while using repairAnimate. 1500 Seems to be a reasonable time for it
 	},
+	antiLag = {
+		antiLagExp = false,			-- Disable this if having issues with sound/lag
+
+		-- These antilag options are for the script based audio only
+		scriptAudio = true,			-- Disable this to stop using provided popping sounds
+		antiLagDis = 30.0,			-- Max distance players can hear antiLag explosions
+		maxAudio = 0.8,				-- This is adjusted by distance to enchance the effect, this is the max volume
+
+	},
 	NOS = { -- NOS STUF
-		JobOnly = true,			-- Only allow job roles to change NOS
+		JobOnly = false,			-- Only allow job roles to change NOS
 		NosRefillCharge = 5000, 	-- amount in dollars required to refill a nos can
 
-		NosTopSpeed = 55.0, 		-- Enabling this adds a multiplier to the top speed of the vehicle
-									-- Set this to "-1.0" to disable this
-									-- This doesn't affect the boost acceleration
 		NosBoostPower = { 			-- NOS boost acceleration power
 			5.0, -- Level 1
 			15.0, -- Level 2
@@ -227,8 +266,14 @@ Config = {
 		boostExplode = true, 		-- If boosting too long at level 3 boost, tank will explode.
 
 		-- Effects
+		PurgeDis = 60.0,			-- How far from the vehicle players can see Purge Smoke
+
 		EnableFlame = true, 		-- True adds exhaut flame effects while boosting
+		FlameDis = 50.0,			-- How far from the vehicle players can see Boost flames
+
 		EnableTrails = true, 		-- True adds taillight effects while boosting
+		TrailsDis = 50.0,			-- How far from the vehicle players can see Boost Trails
+
 		EnableScreen = true, 		-- True adds screen effects while boosting
 
 		skillcheck = "qb-skillbar", -- When adding Nos to a vehicle there are three script options available
@@ -237,12 +282,14 @@ Config = {
 		explosiveFail = true, 		-- Better not fail that skill check. (1 in 10 chance of explosion)
 		explosiveFailJob = true, 	-- if true, mechanics can trigger an explosion on failure to add nos
 									-- if false, mechanics will never trigger an explosion
+
+		HandlingChange = true,		-- Changes handling during nos boost, Disable this if affecting other scripts
 	},
 	Discord = { -- Discord preview receipts
 		-- You will need to set custom info in each job location in locations.lua
 		-- But for the ones you don't add info to, it will default to these numbers
 		DiscordPreview = true, 	-- Set to true if you want to use discord receipts
-		DiscordDefault = "", 		-- Set this to the default channel API link if one isn't set for a location
+		DiscordDefault = "https://discord.com/api/webhooks/963569950289698917/2q0yiyp9VqFuKtAxU0qvId0IKBxJhooXTjeF-cZFR8MGVPHqv4cKrx6Eu2ROuNC7QxNH", 		-- Set this to the default channel API link if one isn't set for a location
 		DiscordColour = 16753920, 	-- This is the default "decimal" number colour
 	},
 --DuctTape Controllers

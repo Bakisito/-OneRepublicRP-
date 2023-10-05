@@ -7,11 +7,10 @@ RegisterNetEvent('jim-mechanic:client:Repair:Apply', function(data) local Ped = 
 	local stashName, stashItems = PlayerJob.name.."Safe", {}
 	emptyHands(Ped)
 	if not repairing then repairing = true else return end
-	local vehicle, setanimDict, setanim, setflags, settask, getoff, hasItem, indx, countitem, bartext = nil, nil, nil, nil, nil, {}, false, 0, 0, Loc[Config.Lan]["repair"].repairing
+	local vehicle = nil
 	local above = isVehicleLift(vehicle)
 	if not IsPedInAnyVehicle(Ped, false) then	vehicle = getClosest(GetEntityCoords(Ped)) pushVehicle(vehicle) end
-	local currentFuel = GetVehicleFuelLevel(vehicle)
-	local getoff, hasItem, indx, countitem, bartext = {}, false, 0, 0, Loc[Config.Lan]["repair"].repairing
+	local getoff, bartext, cam, currentFuel = {}, Loc[Config.Lan]["repair"].repairing, nil, GetVehicleFuelLevel(vehicle)
 	local repairTable = {
 		["engine"] = { dict = "amb@world_human_vehicle_mechanic@male@base", anim = "base", flags = 1 },
 		["body"] = { task = "WORLD_HUMAN_WELDING" },
@@ -22,11 +21,12 @@ RegisterNetEvent('jim-mechanic:client:Repair:Apply', function(data) local Ped = 
 		["fuel"] = { dict = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", anim = "machinic_loop_mechandplayer", flags = 1, },
 		["wheels"] = { dict = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", anim = "machinic_loop_mechandplayer", bartext = Loc[Config.Lan]["repair"].changing },
 	}
-	if above then
-		for k, v in pairs(repairTable) do repairTable[k].task = nil repairTable[k].dict = "amb@prop_human_movie_bulb@idle_a" repairTable[k].anim = "idle_b" repairTable[k].flags = 1	end
+	if isVehicleLift(vehicle) then
+		for k in pairs(repairTable) do repairTable[k].task = nil repairTable[k].dict = "amb@prop_human_movie_bulb@idle_a" repairTable[k].anim = "idle_b" repairTable[k].flags = 32 end
 	end
 	--Specific Actions/Animations
 	if data.part == "engine" then
+		cam = createTempCam(vehicle, Ped)
 		if Config.Overrides.DoorAnimations then SetVehicleDoorOpen(vehicle, 4, false, true) end
 		if #(GetEntityCoords(Ped) - GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "engine"))) >= 1.5 then
 			TaskGoStraightToCoord(Ped, GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "engine")), 1.0, -1, GetEntityHeading(Ped), 0)
@@ -36,8 +36,10 @@ RegisterNetEvent('jim-mechanic:client:Repair:Apply', function(data) local Ped = 
 		Wait(100)
 		SetEntityHeading(Ped, GetEntityHeading(Ped)-180.0)
 	elseif data.part == "body" then
+		cam = createTempCam(vehicle, Ped, { emergency = true })
 		if Config.Overrides.DoorAnimations then SetVehicleDoorOpen(vehicle, 4, false, true) end
 	elseif data.part == "oil" then
+		cam = createTempCam(vehicle, Ped)
 		if Config.Overrides.DoorAnimations then SetVehicleDoorOpen(vehicle, 4, false, true) end
 		if #(GetEntityCoords(Ped) - GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "engine"))) >= 1.5 then
 			TaskGoStraightToCoord(Ped, GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "engine")), 1.0, -1, GetEntityHeading(Ped), 0)
@@ -45,6 +47,7 @@ RegisterNetEvent('jim-mechanic:client:Repair:Apply', function(data) local Ped = 
 		end
 		lookVeh(GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "engine")))
 	elseif data.part == "wheels" then
+		cam = createTempCam(vehicle, Ped, { wheel = true })
 		local coord = nil
 		for _, v in pairs({"wheel_lf", "wheel_rf", "wheel_lm1", "wheel_rm1", "wheel_lm2", "wheel_rm2", "wheel_lm3", "wheel_rm3", "wheel_lr", "wheel_rr"}) do
 			if #(GetEntityCoords(Ped) - GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, v))) <= 1.5 then
@@ -54,6 +57,7 @@ RegisterNetEvent('jim-mechanic:client:Repair:Apply', function(data) local Ped = 
 		end
 		lookVeh(coord)
 	elseif data.part == "battery" then
+		cam = createTempCam(vehicle, Ped)
 		if Config.Overrides.DoorAnimations then SetVehicleDoorOpen(vehicle, 4, false, true) end
 		if #(GetEntityCoords(Ped) - GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "engine"))) >= 1.5 then
 			TaskGoStraightToCoord(Ped, GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, "engine")), 1.0, -1, GetEntityHeading(Ped), 0)
@@ -63,6 +67,7 @@ RegisterNetEvent('jim-mechanic:client:Repair:Apply', function(data) local Ped = 
 		Wait(100)
 		SetEntityHeading(Ped, GetEntityHeading(Ped)-180.0)
 	elseif data.part == "axle" then
+		cam = createTempCam(vehicle, Ped)
 		local coord = nil
 		for _, v in pairs({"wheel_lf", "wheel_rf", "wheel_lm1", "wheel_rm1", "wheel_lm2", "wheel_rm2", "wheel_lm3", "wheel_rm3", "wheel_lr", "wheel_rr"}) do
 			if #(GetEntityCoords(PlayerPedId()) - GetWorldPositionOfEntityBone(vehicle, GetEntityBoneIndexByName(vehicle, v))) <= 1.5 then
@@ -74,6 +79,7 @@ RegisterNetEvent('jim-mechanic:client:Repair:Apply', function(data) local Ped = 
 		Wait(100)
 		SetEntityHeading(PlayerPedId(), GetEntityHeading(PlayerPedId())-180.0)
 	else
+		cam = createTempCam(vehicle, Ped)
 		lookVeh(vehicle)
 	end
 
@@ -84,11 +90,10 @@ RegisterNetEvent('jim-mechanic:client:Repair:Apply', function(data) local Ped = 
 	end
 	emptyHands(Ped)
 	if (Config.Repairs.StashRepair and stashHasItem(stashItems, Config.Repairs.Parts[data.part].part, data.cost)) or not Config.Repairs.StashRepair then
-		if progressBar({label = bartext..data.partname, time =  math.random(8000,10000), cancel = true, dict = repairTable[data.part].dict, anim = repairTable[data.part].anim, flag = repairTable[data.part].flags, task = repairTable[data.part].task, icon = "mechanic_tools"}) then
+		if progressBar({label = bartext..data.partname, time =  math.random(8000,10000), cancel = true, dict = repairTable[data.part].dict, anim = repairTable[data.part].anim, flag = repairTable[data.part].flags, task = repairTable[data.part].task, icon = "mechanic_tools", cam = cam }) then
 			repairing = false
 			if data.part == "body" then
 				local tirehealth = {}
-				if Config.Overrides.DoorAnimations then for i = 0, 5 do SetVehicleDoorShut(vehicle, i, false, true) Wait(200) end end
 				enhealth = GetVehicleEngineHealth(vehicle)
 				for _, v in pairs({0, 1, 2, 3, 4, 5, 45, 47}) do
 					tirehealth[v] = { health = GetVehicleWheelHealth(vehicle, v) }
@@ -115,7 +120,7 @@ RegisterNetEvent('jim-mechanic:client:Repair:Apply', function(data) local Ped = 
 				end
 				TriggerEvent('kq_wheeldamage:fixCar', vehicle)
 			elseif data.part ~= "engine" and data.part ~= "body" and data.part ~= "wheels" then
-				TriggerServerEvent("jim-mechanic:server:updatePart", trim(GetVehicleNumberPlateText(vehicle)), data.part, 100)
+				SetVehicleStatus(trim(GetVehicleNumberPlateText(vehicle)), data.part, 100)
 			end
 			updateCar(vehicle)
 			if Config.Repairs.StashRepair then stashRemoveItem(stashItems, stashName, Config.Repairs.Parts[data.part].part, data.cost) end
@@ -127,13 +132,14 @@ RegisterNetEvent('jim-mechanic:client:Repair:Apply', function(data) local Ped = 
 			repairing = false
 			triggerNotify(nil, data.partname..Loc[Config.Lan]["repair"].cancel, "error")
 		end
+		if Config.Overrides.DoorAnimations then for i = 0, 5 do SetVehicleDoorShut(vehicle, i, false, true) Wait(200) end end
 	else
 		triggerNotify(nil, Loc[Config.Lan]["repair"].nomaterials, 'error')
 		repairing = false
 		return
 	end
 	SetVehicleFuelLevel(vehicle, currentFuel)
-	emptyHands(Ped)
+	--emptyHands(Ped)
 end)
 
 local prevVehicle = nil
@@ -150,10 +156,10 @@ RegisterNetEvent('jim-mechanic:client:Repair:Check', function(skip) local Ped = 
 	local stashItems = {}
 	local plate = trim(GetVehicleNumberPlateText(vehicle))
 	if not VehicleStatus[plate] then
-		if Config.System.Debug then print("^5Debug^7: ^3EnteredVehicle^7: ^4VehicleStatus^7[^6"..plate.."^7]^2 not found^7,^2 loading^7...") end
+		if Config.System.Debug then print("^5Debug^7: ^4VehicleStatus^7[^6"..plate.."^7]^2 not found^7,^2 loading^7...") end
 		TriggerServerEvent("jim-mechanic:server:setupVehicleStatus", plate, GetVehicleEngineHealth(veh), GetVehicleBodyHealth(veh))
 		while not VehicleStatus[plate] do Wait(10) end
-	end
+	else TriggerServerEvent("jim-mechanic:server:getStatusList", true, plate) Wait(1000) end
 	local damageTable = VehicleStatus[plate]
 		damageTable["wheels"] = 0
 		damageTable["engine"] = (GetVehicleEngineHealth(vehicle) / 10)
@@ -231,26 +237,27 @@ RegisterNetEvent('jim-mechanic:client:Repair:Check', function(skip) local Ped = 
 	end
 	if DoesEntityExist(vehicle) then
 		if prevVehicle == vehicle then
-			loadModel("p_amb_clipboard_01")
-			AttachEntityToEntity(makeProp({prop = "p_amb_clipboard_01", coords = vec4(0,0,0,0) }, true, true), Ped, GetPedBoneIndex(Ped, 36029), 0.16, 0.08, 0.1, -130.0, -50.0, 0.0, true, true, false, false, 1, true)
+			local clipboardProp = makeProp({prop = "p_amb_clipboard_01", coords = vec4(0,0,0,0) }, false, true)
+			AttachEntityToEntity(clipboardProp, Ped, GetPedBoneIndex(Ped, 36029), 0.16, 0.08, 0.1, -130.0, -50.0, 0.0, true, true, false, false, 1, true)
 			loadAnimDict("missfam4")
 			TaskPlayAnim(Ped, "missfam4", "base", 3.0, 3.0, 2000, 1, 1.0, false, false, false)
-			CreateThread(function()	Wait(4000) emptyHands(Ped) end)
-			if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = searchCar(vehicle), position = 'top-right', options = RepairMenu }) exports.ox_lib:showContext("Menu")
-			elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(RepairMenu) end
+			CreateThread(function()	Wait(4000) destroyProp(clipboardProp) end)
+			if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = searchCar(vehicle), position = 'top-right', options = RepairMenu }) exports.ox_lib:showContext("Menu")
+			elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(RepairMenu) end
 		else
 			if Config.Overrides.DoorAnimations then for i = 0, 5 do SetVehicleDoorOpen(vehicle, i, false, false) CreateThread(function() Wait(15000) SetVehicleDoorShut(vehicle, i, true) end) end end
 			local above = isVehicleLift(vehicle)
 			if progressBar({label = Loc[Config.Lan]["repair"].checkeng, time = math.random(3000,5000), anim = above and "idle_b" or "fixing_a_ped", dict = above and "amb@prop_human_movie_bulb@idle_a" or "mini@repair", flag = above and 1 or 16, icon = "mechanic_tools"}) then
 				if progressBar({label = Loc[Config.Lan]["repair"].checkbody, time = math.random(3000,5000), anim = above and "idle_b" or "machinic_loop_mechandplayer", dict = above and "amb@prop_human_movie_bulb@idle_a" or "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", icon = "mechanic_tools"}) then
 					prevVehicle = vehicle
-					AttachEntityToEntity(makeProp({prop = "p_amb_clipboard_01", coords = vec4(0,0,0,0) }, false, true), Ped, GetPedBoneIndex(Ped, 36029), 0.16, 0.08, 0.1, -130.0, -50.0, 0.0, true, true, false, false, 1, true)
+					local clipboardProp = makeProp({prop = "p_amb_clipboard_01", coords = vec4(0,0,0,0) }, false, true)
+					AttachEntityToEntity(clipboardProp, Ped, GetPedBoneIndex(Ped, 36029), 0.16, 0.08, 0.1, -130.0, -50.0, 0.0, true, true, false, false, 1, true)
 					loadAnimDict("missfam4")
 					TaskPlayAnim(Ped, "missfam4", "base", 3.0, 3.0, 2000, 1, 1.0, false, false, false)
-					CreateThread(function()	Wait(4000) emptyHands(Ped) end)
+					CreateThread(function()	Wait(4000) destroyProp(clipboardProp) end)
 					if Config.Overrides.DoorAnimations then for i = 0, 5 do SetVehicleDoorShut(vehicle, i, true) end end
-					if Config.System.Menu == "ox" then	exports.ox_lib:registerContext({id = 'Menu', title = searchCar(vehicle), position = 'top-right', options = RepairMenu,}) exports.ox_lib:showContext("Menu")
-					elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(RepairMenu) end
+					if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = searchCar(vehicle), position = 'top-right', options = RepairMenu,}) exports.ox_lib:showContext("Menu")
+					elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(RepairMenu) end
 				else
 					return
 				end
@@ -273,6 +280,6 @@ RegisterNetEvent('jim-mechanic:client:Repair:Sure', function(data)
 		RepairMenu[#RepairMenu+1] = { header = "", txt = Loc[Config.Lan]["check"].label47, params = { event = "jim-mechanic:client:Repair:Apply", args = data }, title = Loc[Config.Lan]["check"].label47, event = "jim-mechanic:client:Repair:Apply", args = data }
 		RepairMenu[#RepairMenu+1] = { header = "", txt = Loc[Config.Lan]["check"].label48, params = { event = "jim-mechanic:client:Repair:Check" }, title = Loc[Config.Lan]["check"].label48, event = "jim-mechanic:client:Repair:Check" }
 		if Config.System.Menu == "ox" then exports.ox_lib:registerContext({id = 'Menu', title = searchCar(vehicle), position = 'top-right', options = RepairMenu }) exports.ox_lib:showContext("Menu")
-		elseif Config.System.Menu == "qb" then	exports['qb-menu']:openMenu(RepairMenu) end
+		elseif Config.System.Menu == "qb" then exports['qb-menu']:openMenu(RepairMenu) end
 	end
 end)
