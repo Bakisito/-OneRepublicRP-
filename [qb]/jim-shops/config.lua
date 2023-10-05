@@ -149,6 +149,10 @@ Config = {
 			{ name = "diving_gear", price = 2500, amount = 10, },
 			{ name = "weapon_flashlight", price = 50, amount = 10, },
 			{ name = "boombox", price = 50, amount = 10, },
+			{ name = "rope", price = 100, amount = 5, },
+			{ name = "drill", price = 600, amount = 5, },
+
+
 
 		},
 		["weedshop"] = {

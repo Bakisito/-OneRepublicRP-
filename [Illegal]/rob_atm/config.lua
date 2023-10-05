@@ -23,6 +23,6 @@ language = {
 config = {
     drillTime = 30, -- 15 seconds to finish drilling the atm.
     interactKey = 47, -- https://docs.fivem.net/docs/game-references/controls/
-    copCheck = 0, -- there has to be 3 or more cops online.
-    globalCooldown = 20, -- Global cooldown between each robbery (minutes). If a atm has been robbed no one can rob another one until 10 minutes.
+    copCheck = 2, -- there has to be 3 or more cops online.
+    globalCooldown = 10, -- Global cooldown between each robbery (minutes). If a atm has been robbed no one can rob another one until 10 minutes.
 }
