@@ -67,56 +67,56 @@ Config.Blips = { -- Here you can configure Company blip.
 Config.BlipsStyles = {
     ["treeBlip"] = {
         color = 25, 
-        label = "[LUMBERJACK] Tree to cut down",
+        label = "[LUMBERJACK] Arbol para cortar",
         sprite = 153,
         scale = 0.6
     },
 
     ["withdrawTruck"] = {
         color = 25, 
-        label = "~g~[LUMBERJACK]~s~ Rent a truck",
+        label = "~g~[LUMBERJACK]~s~ Rentar un camion",
         sprite = 477,
         scale = 0.7
     },
  
     ["sellLogs"] = {
         color = 1, 
-        label = "~g~[LUMBERJACK]~s~ Sell raw logs",
+        label = "~g~[LUMBERJACK]~s~ Vender troncos sin procesar",
         sprite = 272,
         scale = 1.0
     },
 
     ["processLogs"] = {
         color = 25, 
-        label = "~g~[LUMBERJACK]~s~ Process logs to planks",
+        label = "~g~[LUMBERJACK]~s~ Convertir troncos en tablones",
         sprite = 365,
         scale = 0.8
     },
     
     ["processToChips"] = {
         color = 25, 
-        label = "~g~[LUMBERJACK]~s~ Process logs to wooden chips",
+        label = "~g~[LUMBERJACK]~s~ Convertir troncos en astillas de madera",
         sprite = 365,
         scale = 0.8
     },
 
     ["rentForklift"] = {
         color = 25, 
-        label = "~g~[LUMBERJACK]~s~ Rent a forklift to load planks",
+        label = "~g~[LUMBERJACK]~s~ Rentar una carretilla elevadora para cargar tablones",
         sprite = 88,
         scale = 0.6,
     },
 
     ["sellPlanks"] = {
         color = 2, 
-        label = "~g~[LUMBERJACK]~s~ Sell processed planks",
+        label = "~g~[LUMBERJACK]~s~ Vender tablones procesados",
         sprite = 272,
         scale = 1.0,
     },
 
     ["sellChips"] = {
         color = 5, 
-        label = "~g~[LUMBERJACK]~s~ Sell Wooden Chips",
+        label = "~g~[LUMBERJACK]~s~ Vender astillas de madera",
         sprite = 272,
         scale = 1.0,
     }
