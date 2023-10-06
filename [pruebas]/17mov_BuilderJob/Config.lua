@@ -108,17 +108,17 @@ Config.Clothes = {
 
     male = {
         ["mask"] = {clotheId = 0, variation = 0},
-        ["arms"] = {clotheId = 0, variation = 0},
-        ["pants"] = {clotheId = 9, variation = 4},
+        ["arms"] = {clotheId = 75, variation = 0},
+        ["pants"] = {clotheId = 77, variation = 3},
         ["bag"] = {clotheId = 0, variation = 0},
-        ["shoes"] = {clotheId = 25, variation = 0},
-        ["t-shirt"] = {clotheId = 59, variation = 1},
-        ["torso"] = {clotheId = 226, variation = 0},
+        ["shoes"] = {clotheId = 205, variation = 0},
+        ["t-shirt"] = {clotheId = 122, variation = 0},
+        ["torso"] = {clotheId = 348, variation = 9},
         ["decals"] = {clotheId = 0, variation = 0},
         ["kevlar"] = {clotheId = 0, variation = 0},
     },
 
-    maleHelmet = { clotheId = 145, variation = 1},
+    maleHelmet = { clotheId = 126, variation = 8},
     
     female = {
         ["mask"] = {clotheId = 0, variation = 0},

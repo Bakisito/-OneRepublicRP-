@@ -4,7 +4,7 @@ for k, v in pairs({
 	["turbo"] = "jim-mechanic:client:applyTurbo",
 	["headlights"] = "jim-mechanic:client:applyXenons",
 	["underglow_controller"] = 'jim-mechanic:client:neonMenu',
-	["mechanic_tools"] = 'jim-mechanic:client:Repair:Check',
+	["mechanic_toolsa"] = 'jim-mechanic:client:Repair:Check',
 	["rims"] = 'jim-mechanic:client:Rims:Check',
 	["paintcan"] = 'jim-mechanic:client:Paints:Check',
 	["tires"] = 'jim-mechanic:client:Tires:Check',
@@ -25,7 +25,7 @@ end
 
 QBCore.Functions.CreateUseableItem("cleaningkit", function(source, item) TriggerClientEvent('jim-mechanic:client:cleanVehicle', source, true) end)
 
-QBCore.Functions.CreateUseableItem("toolbox", function(source, item) TriggerClientEvent('jim-mechanic:client:Menu', source, true) end)
+QBCore.Functions.CreateUseableItem("toolboxa", function(source, item) TriggerClientEvent('jim-mechanic:client:Menu', source, true) end)
 
 for i = 1, 5 do
 	QBCore.Functions.CreateUseableItem("suspension"..i, function(source, item) TriggerClientEvent("jim-mechanic:client:applySuspension", source, i-1) end)

@@ -102,7 +102,6 @@ Stores = {
 	RepairItems = {
 		label = Loc[Config.Lan]["stores"].repairs,
 		items = {
-			{ name = "mechanic_tools", price = 10, amount = 10, info = {}, type = "item", },
 			{ name = "weapon_wrench", price = 10, amount = 150, info = {}, type = "item", },
 			--{ name = "sparetire", price = 0, amount = 100, info = {}, type = "item", },
 			{ name = "axleparts", price = 75, amount = 10, info = {}, type = "item", },

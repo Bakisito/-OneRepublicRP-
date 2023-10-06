@@ -651,7 +651,7 @@ QBShared.Vehicles = {
         ['category'] = 'Honda',
         ['categoryLabel'] = 'Honda',
         ['hash'] = `fk8`,
-        ['shop'] = 'pdm',
+        ['shop'] = 'vip',
     },
     ['isuzu19'] = {
         ['name'] = 'D-Max',
@@ -1034,7 +1034,7 @@ QBShared.Vehicles = {
         ['shop'] = 'pdm',
     },
     ['asea'] = {
-        ['name'] = 'Corolla XLI `95',
+        ['name'] = 'Corolla XLI 95',
         ['brand'] = 'Toyota',
         ['model'] = 'asea',
         ['price'] = 9250,
