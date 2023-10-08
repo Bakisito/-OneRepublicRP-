@@ -64,8 +64,8 @@ Config.Shops = {
             },
             [3] = {
                 coords =vector4(-36.72, -1093.18, 26.3, 95.08),
-                defaultVehicle = 'fk8',
-                chosenVehicle = 'fk8'
+                defaultVehicle = 'asea',
+                chosenVehicle = 'asea'
             },
             [4] = {
                 coords = vector4(-49.84, -1083.58, 26.3, 177.37),

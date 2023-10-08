@@ -15,7 +15,7 @@ Config.VehicleBackBone = "handle_dside_r"                           -- Only used
 Config.VehicleBootOffset = 5                                        -- Means 5 meters back from basic vehicle coords. Used when trying to take parcel out of the vehicle.
 Config.VehicleSearchingScenario = "prop_human_parking_meter"        -- Scenario used while "searcing" inside vehicle.
 Config.VehicleDeposit = 1500                                        -- Deposit for the car collected at the time of pulling out, and refunded when returning the car
-Config.Price = 85                                                  -- 100$ per one delivery
+Config.Price = 90                                                  -- 100$ per one delivery
 Config.BlockHostFromWorking = true                                  -- Means that if players are working in group, then the host only can drive veh, parntner needs to deliver. Set to false if you want also host to be able to deliver
 Config.EnableVehicleTeleporting = true                              -- If its true, then the script will teleport the host to the company vehicle. If its false, then the company vehicle will apeear, but the whole squad need to go enter the car manually
 Config.enableSpawningPedsInDoors = true                             -- Set to false if you don't want to use peds in doors. 
@@ -96,12 +96,12 @@ Config.EnableCloakroom = true                                 -- Set to false if
 Config.Clothes = {
     male = {
         ["mask"] = {clotheId = 0, variation = 0},
-        ["arms"] = {clotheId = 11, variation = 0},
-        ["pants"] = {clotheId = 10, variation = 2},
+        ["arms"] = {clotheId = 0, variation = 0},
+        ["pants"] = {clotheId = 13, variation = 0},
         ["bag"] = {clotheId = 0, variation = 0},
-        ["shoes"] = {clotheId = 54, variation = 0},
-        ["t-shirt"] = {clotheId = 57, variation = 0},
-        ["torso"] = {clotheId = 13, variation = 0},
+        ["shoes"] = {clotheId = 10, variation = 0},
+        ["t-shirt"] = {clotheId = 15, variation = 0},
+        ["torso"] = {clotheId = 403, variation = 0},
         ["decals"] = {clotheId = 0, variation = 0},
         ["kevlar"] = {clotheId = 0, variation = 0},
     },

@@ -1,24 +1,24 @@
 {
     "1": {
-        "reason": "Cheat Detected (AI) (1)",
+        "steam": "steam:1100001517ab70a",
+        "name": "Forever Smoke",
+        "discord": "1000243202193895504",
+        "license": "license:16de2cd76982cff353b58dccdffccf0f6589b298",
         "ip": "90.77.232.125",
-        "xbl": "xbl:2535463042757024",
         "live": "live:844426259117232",
+        "reason": "Cheat Detected (AI) (1)",
+        "xbl": "xbl:2535463042757024",
         "fg_ts": {
-            "t3": "sKI4B0WYFwiAdBFxFEJC0Zfj6haot8hK",
             "t1": "d02dd350396c096f7b44e28d5989d5f073d07f2f02cdec2a9e426f4809c8760b",
+            "t3": "sKI4B0WYFwiAdBFxFEJC0Zfj6haot8hK",
             "t2": "166c09f8:85097b77:94432025:e97b5bb8:e6d53dfd:31e9146b:9bfa0866:c2682cdb:5aaecda6"
         },
-        "manual": false,
-        "license": "license:16de2cd76982cff353b58dccdffccf0f6589b298",
-        "steam": "steam:1100001517ab70a",
-        "discord": "1000243202193895504",
-        "name": "Forever Smoke",
         "tokens": [
             "2:057dd2247f73b45c725522a43210f48ec1d38de33f9ccd610d7ab8163ff92627",
             "4:00b161746649d86cf25c247265618df601f69bdea78f0e39b4b2dff524f7d62d",
             "4:da7b38f52de101bc5337daa3888c6ea3152d05fd3405771b39b8cf556ad02031",
             "4:834eb4c64f754d3540e8ef89622ba8261e2664248a84ada7122bfd2b02d8444f"
-        ]
+        ],
+        "manual": false
     }
 }

@@ -3281,16 +3281,6 @@ QBShared.Vehicles = {
         ['shop'] = 'vanilla',
     },
     --- Sedans
-    ['asea'] = {
-        ['name'] = 'Asea',
-        ['brand'] = 'Declasse',
-        ['model'] = 'asea',
-        ['price'] = 2500,
-        ['category'] = 'sedans',
-        ['categoryLabel'] = 'Sedans',
-        ['hash'] = `asea`,
-        ['shop'] = 'vanilla',
-    },
     ['asterope'] = {
         ['name'] = 'Asterope',
         ['brand'] = 'Karin',

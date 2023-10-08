@@ -35,18 +35,18 @@ AddEventHandler("okokDelVehicles:delete", function()
 	local minutesLeft = Config.DeleteVehicleTimer
 
 
-	exports['okokNotify']:Alert("DV", "All vehicles outside a safezone or without driver will be deleted in "..minutesLeft.." minutes!", 10000, 'warning')
+	exports['okokNotify']:Alert("La Grua", "Todos los vehículos fuera de una zona segura o sin conductor serán eliminados en "..minutesLeft.." ¡Minutos!", 10000, 'warning')
 
 	while minutesPassed < Config.DeleteVehicleTimer do
 		Citizen.Wait(1*minuteCalculation)
 		minutesPassed = minutesPassed + 1
 		minutesLeft = minutesLeft - 1
 		if minutesLeft == 0 then
-			exports['okokNotify']:Alert("DV", "All vehicles have been deleted!", 10000, 'info')
+			exports['okokNotify']:Alert("La Grua", "All vehicles have been deleted!", 10000, 'info')
 		elseif minutesLeft == 1 then
-			exports['okokNotify']:Alert("DV", "All vehicles outside a safezone or without driver will be deleted in "..minutesLeft.." minute!", 10000, 'warning')
+			exports['okokNotify']:Alert("La Grua", "Todos los vehículos fuera de una zona segura o sin conductor serán eliminados en "..minutesLeft.." minuto!", 10000, 'warning')
 		else
-			exports['okokNotify']:Alert("DV", "All vehicles outside a safezone or without driver will be deleted in "..minutesLeft.." minutes!", 10000, 'warning')
+			exports['okokNotify']:Alert("La Grua", "Todos los vehículos fuera de una zona segura o sin conductor serán eliminados en "..minutesLeft.." ¡Minutos!", 10000, 'warning')
 		end
 	end
 	for vehicle in EnumerateVehicles() do
@@ -129,5 +129,5 @@ local function EnumerateEntities(initFunc, moveFunc, disposeFunc)
 end
 
 function EnumerateVehicles()
-	return EnumerateEntities(FindFirstVehicle, FindNextVehicle, EndFindVehicle)
+	return EnumerateEntities(FindFirstVehicle, FindNextVehicle, EndFinLa Gruaehicle)
 end

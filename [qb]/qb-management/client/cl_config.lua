@@ -26,7 +26,7 @@ Config.BossMenus = {
 
 Config.BossMenuZones = {
     ['police'] = {
-        { coords = vector3(469.23, -976.51, 36.68), length = 0.35, width = 0.45, heading = 351.0, minZ = 30.58, maxZ = 30.68 },
+        { coords = vector3(469.23, -976.51, 36.68), length = 0.35, width = 0.45, heading = 351.0, minZ = 30.58, maxZ = 38.68 },
     },
     ['ambulance'] = {
         { coords = vector3(335.46, -594.52, 43.28), length = 1.2, width = 0.6, heading = 341.0, minZ = 43.13, maxZ = 43.73 },

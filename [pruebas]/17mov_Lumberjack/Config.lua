@@ -190,7 +190,7 @@ Config.DeliveryLocations = {
             coords = vector4(1162.71, 2119.91, 57.08, 181.97),
             rotation = vec3(0, 0.0, 90.0),
             targetHeading = 181.97,
-            pricePerPercent = math.random(20, 25),
+            pricePerPercent = math.random(30, 31),
             itemRewards = {
                 -- {
                 --     item_name = "water_bottle",
@@ -210,7 +210,7 @@ Config.DeliveryLocations = {
             coords = vector4(2408.8, 4985.74, 47.67, 130.56),
             rotation = vec3(0, 0, -135.0),
             targetHeading = 137.34,
-            pricePerPercent = math.random(22, 25),
+            pricePerPercent = math.random(30, 31),
             itemRewards = {
                 -- {
                 --     item_name = "water_bottle",
@@ -232,7 +232,7 @@ Config.DeliveryLocations = {
             coords = vector4(1246.87, -3155.74, 7.0, 270.07),
             rotation = vec3(0, -3.0, 0.0),
             targetHeading = 270,
-            pricePerLog = math.random(88, 92),
+            pricePerLog = math.random(116, 125),
             itemRewards = {
                 -- {
                 --     item_name = "water_bottle",
@@ -252,7 +252,7 @@ Config.DeliveryLocations = {
             coords = vector4(165.57, -3151.59, 7.0, 272.06),
             rotation = vec3(0, 0, 0.0),
             targetHeading = 272.06,
-            pricePerLog = math.random(88, 92),
+            pricePerLog = math.random(116, 125),
             itemRewards = {
                 -- {
                 --     item_name = "water_bottle",
@@ -274,7 +274,7 @@ Config.DeliveryLocations = {
             coords = vector4(119.48, -445.33, 42.33, 339.04),
             rotation = vec3(0, 0, 70.0),
             targetHeading = 339.04,
-            pricePerPallete = math.random(900, 970),
+            pricePerPallete = math.random(1200, 1375),
             itemRewards = {
                 -- {
                 --     item_name = "water_bottle",
@@ -294,7 +294,7 @@ Config.DeliveryLocations = {
             coords = vector4(-1095.58, -1638.03, 5.5, 35.11),
             rotation = vec3(0, 0, 125.0),
             targetHeading = 35.11,
-            pricePerPallete = math.random(900, 970),
+            pricePerPallete = math.random(1200, 1375),
             itemRewards = {
                 -- {
                 --     item_name = "water_bottle",

@@ -23,9 +23,12 @@ Config.DeleteVehicleTimer = 5 -- Time (in minutes) that it will take to delete v
 Config.DeleteVehiclesIfInSafeZone = false -- If true it'll delete vehicles inside safezones
 
 Config.DeleteVehiclesAt = { -- Delete vehicles automatically at this time every day (h = hour m = minutes)
-	{['h'] = 19, ['m'] = 10},
-	{['h'] = 19, ['m'] = 20},
-	{['h'] = 19, ['m'] = 30},
+	{['h'] = 20, ['m'] = 30},
+	{['h'] = 22, ['m'] = 00},
+	{['h'] = 10, ['m'] = 30},
+	{['h'] = 12, ['m'] = 30},
+	{['h'] = 14, ['m'] = 30},
+	{['h'] = 16, ['m'] = 30},
 }
 
 -- Set safezones

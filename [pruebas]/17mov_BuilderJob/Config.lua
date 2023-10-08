@@ -7,7 +7,7 @@ Config.UseBuiltInNotifications = false   -- Set to false if you want to use ur f
 Config.RequiredJob = "none"             -- Set to "none" if you dont want using jobs. If you are using target, you have to set "job" parameter inside every export in target.lua
 Config.RequireJobAlsoForFriends = true          -- If it's false, then only host needs to have the job, if it's true then everybody from group needs to have the Config.RequiredJob
 Config.RequireOneFriendMinimum = false  -- Set to true if you want to force players to create teams
-Config.OnePercentWorth = 40            -- Means that 1% progress will reward players with $100
+Config.OnePercentWorth = 50            -- Means that 1% progress will reward players with $100
 
 Config.letBossSplitReward = true                    -- If it's true, then boss can manage whole party rewards percent in menu. If you'll set it to false, then everybody will get same amount. Avalible only in modern UI
 Config.multiplyRewardWhileWorkingInGroup = true     -- If it's false, then reward will stay by default. For example $1000 for completing whole job. If you'll set it to true, then the payout will depend on how many players is there in the group. For example, if for full job there's $1000, then if player will work in 4 member group, the reward will be $4000. (baseReward * partyCount)
@@ -24,7 +24,7 @@ Config.WallBuildingTime = 15000
 Config.WeldingTime = 12500
 Config.wearingAnimation = { dict = "anim@heists@box_carry@", name = "idle"}
 Config.installingBlockToFrameScenario = "WORLD_HUMAN_HAMMERING"
-Config.JobCooldown = 10 * 60 -- 10 * 60            -- 0 minutes cooldown between making jobs (in brackets there's example for 10 minutes)
+Config.JobCooldown = 5 * 60 -- 10 * 60            -- 0 minutes cooldown between making jobs (in brackets there's example for 10 minutes)
 Config.GiveKeysToAllLobby = true                    -- Set to false if you want to give keys only for group creator while starting job
 Config.EnableWaypoint = false                       -- Set to true if you want to enable the waypoint for ur current job location
 

@@ -41,7 +41,7 @@ Config = {
 
 		showItemBox = true,			-- toggle itemBox for adding/removing items, helpful if using custom item change events
 
-		disablePreviewPlate = false,-- enable this to disable temporary plate while previewing
+		disablePreviewPlate = true,-- enable this to disable temporary plate while previewing
 
 		modCam = true,				-- Set to false to stop custom cameras angles when editing vehicles
 	},
