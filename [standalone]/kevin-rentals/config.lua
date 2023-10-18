@@ -32,7 +32,7 @@ Config.Locations = {
             },
             [4] = {
                 vehicleimage = 'https://cdn.discordapp.com/attachments/1106092937948962817/1106294577800945694/image.png',
-                vehiclehash = 'sanchez', icon = 'fas fa-car', gas = math.random(30, 70), price = 800,
+                vehiclehash = 'bf400', icon = 'fas fa-car', gas = math.random(20, 40), price = 800,
             },
         },
         spawnpoints = {

@@ -5,16 +5,10 @@ local doingAnim = false
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     PlayerJob = QBCore.Functions.GetPlayerData().job
-    onDuty = true
-end)
-
-RegisterNetEvent('QBCore:Client:SetDuty', function(duty)
-    onDuty = duty
 end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
     PlayerJob = JobInfo
-    onDuty = true
 end)
 
 RegisterNetEvent('police:SetCopCount', function(amount)
@@ -103,10 +97,17 @@ RegisterNetEvent('kevin-storerobbery:showstores', function ()
         local street = GetStreetNameAtCoord(data.target.coords.x, data.target.coords.y, data.target.coords.z)
         local streetName = GetStreetNameFromHashKey(street)
         options[#options+1] = {
-            title = 'Store Location : '..streetName.. ' Id : '..id,
+            title = 'Store Location : '..streetName,
             icon ='fas fa-store',
             description = 'Click to go to store',
+            arrow = true,
             event = 'kevin-storerobbery:teleporttostore',
+            metadata = {
+                {label = 'Id', value = id},
+                {label = 'Camera Id', value = data.camid},
+                {label = 'Type', value = data.type},
+                {label = 'Item Needed', value = data.target.neededitem},
+            },
             args = {
                 coords = data.target.coords,
                 heading = data.target.heading
@@ -166,31 +167,33 @@ function AttemptStore(id, data)
     local item = QBCore.Functions.HasItem(data.target.neededitem)
     local miniGameData = nil
     if item then
-        if CurrentCops >= Config.Police.copsneeded then
-            if not data.opended then
-                local wearingGloves = IsWearingGloves()
-                if not wearingGloves then
-                    TriggerServerEvent('evidence:server:CreateFingerDrop', playerCoords)
-                end
-                Alert(id)
-                DoAnimation()
-                TaskTurnPedToFaceCoord(player, data.target.coords.x, data.target.coords.y, data.target.coords.z, -1)
-                TriggerServerEvent('kevin-storerobbery:setstate', id, data.busy, 'blocktarget')
-                if data.type == 'safe' then
-                    miniGameData = Config.SafeData.minigame
-                    Minigame(miniGameData, id, data)
+        lib.callback('kevin-storerobbery:checkpolice', false, function(canDo)
+            if canDo then
+                if not data.opended then
+                    local wearingGloves = IsWearingGloves()
+                    if not wearingGloves then
+                        TriggerServerEvent('evidence:server:CreateFingerDrop', playerCoords)
+                    end
+                    Alert(data.camid)
+                    DoAnimation()
+                    TaskTurnPedToFaceCoord(player, data.target.coords.x, data.target.coords.y, data.target.coords.z, -1)
+                    TriggerServerEvent('kevin-storerobbery:setstate', id, data.busy, 'blocktarget')
+                    if data.type == 'safe' then
+                        miniGameData = Config.SafeData.minigame
+                        Minigame(miniGameData, id, data)
+                    else
+                        miniGameData = Config.RegisterData.minigame
+                        Minigame(miniGameData, id, data)
+                    end
                 else
-                    miniGameData = Config.RegisterData.minigame
-                    Minigame(miniGameData, id, data)
+                    QBCore.Functions.Notify('Already opended..', 'error', 8000)
                 end
             else
-                QBCore.Functions.Notify('Ya se ha abierto...', 'error', 8000)
+                QBCore.Functions.Notify('Try again later..', 'error', 8000)
             end
-        else
-            QBCore.Functions.Notify('Inténtalo más tarde..', 'error', 8000)
-        end
+        end)
     else
-        QBCore.Functions.Notify('No tienes las herramientas para el trabajo...', 'error', 8000)
+        QBCore.Functions.Notify('You don\'t have the tools for the job..', 'error', 8000)
     end
 end
 
@@ -225,9 +228,10 @@ function FailMiniGame(id, data)
     doingAnim = false
     TriggerServerEvent('kevin-storerobbery:setstate', id, data.busy, 'blocktarget')
     local chance = math.random(1, 100)
-    if chance < Config.FailedAlertChance then
+    if chance < Config.Police.failedalertchance then
         Alert(id)
     end
+    QBCore.Functions.Notify('Failed to bypass..', 'error', 8000)
 end
 
 function PassMiniGame(id, data)
@@ -296,6 +300,7 @@ function StartTimer(id, data)
     CreateThread(function ()
         QBCore.Functions.Notify('Espere '..waitTime..' minutos hasta que se abra....', 'info', 8000)
         TriggerServerEvent('kevin-storerobbery:sendlog', id, data, streetName, waitTime)
+        TriggerServerEvent('kevin-storerobbery:removeitem', data.target.neededitem)
         Wait(waitTime * 60000)
         -- Wait(2000)
         QBCore.Functions.Notify('Coge el botín!....', 'success', 8000)
@@ -309,7 +314,7 @@ function DoAnimation()
     local player = PlayerPedId()
     local animDict = 'veh@break_in@0h@p_m_one@'
     local animName = 'low_force_entry_ds'
-    loadAnimDict(animDict)
+    lib.requestAnimDict(animDict)
     TaskPlayAnim(player, animDict, animName, 8.0, 8.0, -1, 49, 0.0, false, false, false)
     CreateThread(function ()
         while doingAnim do
@@ -320,6 +325,7 @@ function DoAnimation()
         end
     end)
 end
+
 RegisterNetEvent('kevin-storerobbery:updatestate', function(id, state, type)
     if type == 'openregister' then
         Config.StoreData[id].opended = state
@@ -340,9 +346,3 @@ function IsWearingGloves()
         return not (Config.FemaleNoGloves[armIndex] == true)
     end
 end
-
-function loadAnimDict(dict)
-    RequestAnimDict(dict)
-    while (not HasAnimDictLoaded(dict)) do Wait(5) end
-end
-

@@ -2,7 +2,7 @@ shared_script '@Five/ai_module_fg-obfuscated.lua'
 game("gta5")
 fx_version("cerulean")
 
-version("2.0.4")
+version("2.0.5")
 author("Zerio#0880")
 description("Beautiful and easy to use radio")
 
@@ -17,7 +17,7 @@ escrow_ignore({
 -- MAIN
 shared_scripts({
 	-- UNCOMMENT THIS LINE IF YOU HAVE ESX LEGACY 1.8.5+
-	"@es_extended/imports.lua",
+	-- "@es_extended/imports.lua",
 
 	"shared/main.lua",
 	"shared/channels.lua",

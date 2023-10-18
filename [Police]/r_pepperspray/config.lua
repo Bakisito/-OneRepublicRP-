@@ -12,11 +12,19 @@ Config = {
 
     CheckVersion = true, -- Checks if an update is needed, the message will be put in the server console when the resource is started
 
-    Debug = true, -- Allows to display messages in the client console when the player takes different actions
+    Debug = false, -- Allows to display messages in the client console when the player takes different actions
 
-    ESX = false, -- ESX compatibility (you can modify this function on cl_utils.lua)
-        
-    QB = true, -- QB compatibility (you can modify this function on cl_utils.lua)
+    /*---------------------------------------------------------------------------------
+                                          IMPORTANT
+    If you are using ESX or QBCore, please set the UseFramework variable to true below, then follow 
+    the video tutorial in our documentation to make the script compatible.
+    This variable is used to remove the command to give the weapon and thus use it from your inventory.
+
+    For ESX: https://docs.rytrak.fr/framework-compatibility/add-a-custom-weapon-on-esx
+    For QBCore: https://docs.rytrak.fr/framework-compatibility/add-a-custom-weapon-on-qbcore
+                                          IMPORTANT
+    ---------------------------------------------------------------------------------*/
+    UseFramework = true,
 
     AcePermission = { -- Use of the ace permission system (you can modify this function on cl_utils.lua)
         enabled = false,
@@ -35,8 +43,11 @@ Config = {
         fight = true -- Active or disable the fact of fighting when the person is gassed
     },
 
-    PepperSprayWeaponWheelName = "Pepper Spray", -- Name for WT_PEPPERSPRAY
-
+    WeaponWheelName = {
+        pepperspray = 'Pepper Spray', -- Name for WT_PEPPERSPRAY
+        antidote = 'Antidote' -- Name for WT_ANTIDOTE
+    },
+    
     PepperSpray = { -- Here you can configure a new spray as many times as you want (see the documentation for more information)
     -- You can add as many pepper sprays as you want in this table!
         ['pepperspray'] = {

@@ -1,12 +1,11 @@
 shared_script '@Five/ai_module_fg-obfuscated.lua'
 shared_script '@Five/ai_module_fg-obfuscated.js'
-shared_script '@Five/shared_fg-obfuscated.lua'
 fx_version 'cerulean'
 game 'common'
 
 name 'oxmysql'
 description 'Database wrapper for FXServer utilising node-mysql2 offering improved performance and security.'
-version '2.7.4'
+version '2.7.5'
 url 'https://github.com/overextended/oxmysql'
 author 'overextended'
 

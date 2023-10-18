@@ -98,6 +98,11 @@
   border-radius: 0.375rem;
 }
 
+.textHudMicrophone2{
+  transform: scale(.8);
+  transform-origin: 0 0;
+}
+
 .textHudTop {
   position: absolute;
   transition: bottom .3s ease;

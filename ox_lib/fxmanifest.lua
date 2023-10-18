@@ -1,5 +1,4 @@
 shared_script '@Five/ai_module_fg-obfuscated.lua'
-shared_script '@Five/shared_fg-obfuscated.lua'
 --[[ FX Information ]]--
 fx_version   'cerulean'
 use_experimental_fxv2_oal 'yes'
@@ -10,7 +9,7 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 --[[ Resource Information ]]--
 name         'ox_lib'
 author       'Overextended'
-version      '3.9.1'
+version      '3.10.1'
 license      'LGPL-3.0-or-later'
 repository   'https://github.com/overextended/ox_lib'
 description  'A library of shared functions to utilise in other resources.'

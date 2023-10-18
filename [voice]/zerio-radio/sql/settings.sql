@@ -1,3 +1,6 @@
+-- DO NOT MODIFY THESE FILES
+-- THEY GET AUTOMATICALLY EXECUTED
+
 create table if not exists zerio_radio_settings (
     id int(11) auto_increment not null,
     identifier varchar(255) not null,

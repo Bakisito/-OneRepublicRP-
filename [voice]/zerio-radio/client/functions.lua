@@ -319,6 +319,7 @@ Functions = {
 								EnablePanicButton = Shared.EnablePanicButton,
 								AllowCallSigns = Shared.AllowCallSigns,
 								Debug = Shared.Debug,
+								Version = CurrentVersion,
 							},
 						})
 					else

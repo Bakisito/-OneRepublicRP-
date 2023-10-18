@@ -32,7 +32,6 @@ Config = {
         "Fire_Service",
         -- ESX or QB Job examples
         "police",
-        "ambulance",
         "fire",
         -- Ace Permissions examples
         "Administrator",
@@ -49,7 +48,7 @@ Config = {
 
     --====================== Hotkeys ======================--
     HotKeys = {
-        OpenARSMenu = 121,                       -- INSERT by Default [https://docs.fivem.net/docs/game-references/controls/]
+        OpenARSMenu = 315,                       -- INSERT by Default [https://docs.fivem.net/docs/game-references/controls/]
     },
 
     --====================== Sound Settings ======================--

@@ -19,7 +19,8 @@ Config = {
     AllowPunching = true,
     -- Set this if you really wanna disable emotes in cars, as of 1.7.2 they only play the upper body part if in vehicle
     AllowedInCars = true,
-    -- You can disable the menu here / change the keybind. It is currently set to F5
+    -- You can disable the menu here / change the keybind. It is currently set to F4
+    -- The keybind you set here will be server sided for new players. existing players can set their own in the ESC menu keybind settings
     MenuKeybindEnabled = true,
     MenuKeybind = 'f3', -- Get the button string here https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard/
     -- You can disable the Favorite emote keybinding here.
@@ -37,7 +38,7 @@ Config = {
     MenuPosition = "left", -- (left, right)
     -- You can enable or disable the Ragdoll keybinding here.
     RagdollEnabled = true,
-    RagdollKeybind = 'u', -- Get the button string here https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard/
+    RagdollKeybind = '.', -- Get the button string here https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard/
     -- You can enable or disable Ragdoll as Toggle here. Only works if RagdollEnabled is set to true.
     RagdollAsToggle = true,
     -- You can disable the Facial Expressions menu here.
@@ -72,6 +73,7 @@ Config = {
     PointingEnabled = true,
     PointingKeybindEnabled = true,
     PointingKeybind = 'B', -- Get the button string here https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard/
+    PointingKeybindInCarEnabled = false,
     PersistentEmoteAfterPointing = true, -- If true, you will play the emote you were playing previously after you stop pointing.
     -- If crouching should be enabled.
     CrouchEnabled = true,

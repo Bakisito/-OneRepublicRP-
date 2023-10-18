@@ -1,5 +1,4 @@
 shared_script '@Five/ai_module_fg-obfuscated.lua'
-shared_script '@Five/shared_fg-obfuscated.lua'
 --- RPEmotes by TayMcKenzieNZ, Mathu_lmn and MadsL, maintained by TayMcKenzieNZ ---
 --- Download OFFICIAL version and updates ONLY at https://github.com/TayMcKenzieNZ/rpemotes ---
 --- RPEmotes is FREE and ALWAYS will be. STOP PAYING SCAMMY FUCKERS FOR SOMEONE ELSE'S WORK!!! ---
@@ -7,12 +6,12 @@ shared_script '@Five/shared_fg-obfuscated.lua'
 fx_version 'cerulean'
 game 'gta5'
 authors { 'TayMcKenzieNZ', 'MadsL', 'Mathu_lmn', 'Community' }
-description 'RPEmotes V1.2.8'
-version '1.2.8'
+description 'RPEmotes V1.3.6'
+version '1.3.6'
 lua54 'yes'
 
 dependencies {
-    '/server:5848',
+    '/server:6683',
     '/onesync',
 }
 
@@ -24,6 +23,14 @@ dependencies {
 -- server_script '@oxmysql/lib/MySQL.lua'
 
 --#endregion oxmysql
+
+files {
+    'propsets.meta',
+    'conditionalanims.meta',
+}
+
+data_file 'AMBIENT_PROP_MODEL_SET_FILE' 'propsets.meta'
+data_file 'CONDITIONAL_ANIMS_FILE' 'conditionalanims.meta'
 
 shared_scripts {
     'config.lua',
@@ -67,6 +74,8 @@ data_file 'DLC_ITYP_REQUEST' 'stream/taymckenzienz_rpemotes.ytyp'
 data_file 'DLC_ITYP_REQUEST' 'stream/brummie_props.ytyp'
 
 data_file 'DLC_ITYP_REQUEST' 'stream/bzzz_props.ytyp'
+
+data_file 'DLC_ITYP_REQUEST' 'bzzz_camp_props.ytyp'
 
 data_file 'DLC_ITYP_REQUEST' 'stream/apple_1.ytyp'
 

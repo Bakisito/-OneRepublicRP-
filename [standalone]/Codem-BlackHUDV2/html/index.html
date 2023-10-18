@@ -993,7 +993,7 @@
 
                     <div class="radialHudDrag">
                         <div :style="positionsData['radial-microphone'] || ''" data-type="radial-microphone"
-                            class="textHudMicrophone">
+                            class="textHudMicrophone textHudMicrophone2">
 
                             <span v-html="GetSvg('mic-muted')"
                                 v-if="isMuted && (!editModeActive && !editAllModeActive)">
@@ -1408,6 +1408,8 @@
     </div>
     <audio id="buckle" src="buckle.ogg" preload></audio>
     <audio id="unbuckle" src="unbuckle.ogg" preload></audio>
+    <audio id="seatbeltbeep" src="seatbeltbeep.ogg" preload></audio>
+
     <script src="./script/coloris.min.js"></script>
     <script src="./lib/progressbar.js"></script>
     <script src="./script/svgProvider.js"></script>

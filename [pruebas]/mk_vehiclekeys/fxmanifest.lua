@@ -1,11 +1,10 @@
 shared_script '@Five/ai_module_fg-obfuscated.lua'
-shared_script '@Five/shared_fg-obfuscated.lua'
 fx_version 'cerulean'
 games {'gta5'}
 
 author 'ManKind - [https://discord.gg/39fNFepADG]'
 description 'Vehicle Keys System'
-version '1.2.7'
+version '1.2.8'
 
 lua54 'yes'
 

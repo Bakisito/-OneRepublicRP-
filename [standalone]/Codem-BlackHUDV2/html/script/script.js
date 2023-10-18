@@ -9,6 +9,8 @@ const app = new Vue({
         bossMoney: 0,
         cash: 0,
         joblabel: '',
+        seatbeltaudio: false,
+
         grade_label: '',
         isMuted: false,
         svg: [],
@@ -1900,6 +1902,9 @@ window.addEventListener("message", function (event) {
         case "hide_speedometer":
 
             app.SetSpeedometerVisibility(false, item.displayOnWalk)
+            if (this.seatbeltaudio) {
+                this.seatbeltaudio.pause();
+            }
             break
         case "set_status":
 
@@ -1965,6 +1970,11 @@ window.addEventListener("message", function (event) {
             break
         case "update_seatbelt":
             app.UpdateSeatbelt(item.toggle)
+            if (item.toggle) {
+                if (this.seatbeltaudio) {
+                    this.seatbeltaudio.pause();
+                }
+            }
             break
         case "unbuckle":
             const unbuckle = document.querySelector('#unbuckle')
@@ -2099,6 +2109,17 @@ window.addEventListener("message", function (event) {
             break
         case "SetFramework":
             app.SetFramework(item.value)
+            break
+        case "PLAY_SEATBELT_SOUND":
+            if (this.seatbeltaudio) {
+                this.seatbeltaudio.setAttribute('src', 'seatbeltbeep.ogg'); //change the source
+                this.seatbeltaudio.load(); 
+                this.seatbeltaudio.play(); 
+            }
+            this.seatbeltaudio = document.querySelector('#seatbeltbeep')
+            this.seatbeltaudio.play();
+            this.seatbeltaudio.volume = 0.1;
+
             break
         default:
             break

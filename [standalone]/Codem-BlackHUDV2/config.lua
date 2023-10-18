@@ -31,6 +31,8 @@ Config.EnableSpeedometer = true
 Config.EnableToggleMapButton = true -- true | enables the toggle minimap button from the hud settings menu | -- false | disables the toggle minimap button from the hud settings menu
 Config.LocationUpdateTime = 2000 -- if you reduce wait time resmon could increase
 Config.SeatBeltFlySpeed = 15 -- Determines at what speed player will be ejected from vehicle when he/she doesn't have seatbelt on
+Config.SeatbeltSound = true
+Config.SeatbeltSoundSpeedLimit = 30
 
 -- 1 means smallest and 4 biggest size
 Config.AccountSize = {
@@ -154,7 +156,7 @@ Config.Text2Style = {
 
 -------------------------------------------- Keys --------------------------------------------
 Config.DefaultCruiseControlKey = "y" -- Default control key for cruise. Players can change the key according to their desire
-Config.DefaultSeatbeltControlKey = "b" -- Default control key for seatbelt. Players can change the key according to their desire
+Config.DefaultSeatbeltControlKey = "v" -- Default control key for seatbelt. Players can change the key according to their desire
 Config.VehicleEngineToggleKey = "G" -- Default control key for toggle engine. Players can change the key according to their desire
 Config.NitroKey = "" -- Default control key for use nitro. Players can change the key according to their desire
 
@@ -250,11 +252,27 @@ Config.SettingsLocale = { -- Settings texts
 }
 
 -------------------------------------------- Fuel --------------------------------------------
-Config.UseLegacyFuel = true --Enable this if you use legacy fuel
+-------------------------------------------- Fuel --------------------------------------------
+Config.EnableFuel = true -- Do NOT Touch if you have any fuel system
+Config.FuelSystem = 'LegacyFuel' -- LegacyFuel / ox-fuel / nd-fuel / frfuel / cdn-fuel
 
-Config.GetVehicleFuel = function(vehicle) -- you can change LegacyFuel export if you use another fuel system
-    if Config.UseLegacyFuel then
-        return exports["LegacyFuel"]:GetFuel(vehicle)
+Config.GetVehicleFuel = function(vehicle)
+    if Config.EnableFuel then
+        if DoesEntityExist(vehicle) then
+            if Config.FuelSystem == 'LegacyFuel' then
+                return exports["LegacyFuel"]:GetFuel(vehicle)
+            elseif Config.FuelSystem == 'ox-fuel' then
+                return GetVehicleFuelLevel(vehicle)
+            elseif Config.FuelSystem == 'nd-fuel' then
+                return exports["nd-fuel"]:GetFuel(vehicle)
+            elseif Config.FuelSystem == 'frfuel' then
+                return exports.frfuel:getCurrentFuelLevel(vehicle)
+            elseif Config.FuelSystem == 'cdn-fuel' then
+                return exports['cdn-fuel']:GetFuel(vehicle)
+            else
+                -- You can added export if you want it
+            end
+        end
     else
         return GetVehicleFuelLevel(vehicle)
     end

@@ -1,6 +1,34 @@
 
 seatbeltOn = false
 if Config.EnableSeatbelt then
+    function CheckVehicleHasSeatbelt(vehicle)
+        if DoesEntityExist(vehicle) then
+            local class = GetVehicleClass(vehicle)
+            if class == 0 or class == 1 or class == 2  or class == 3 or class == 4 or class == 5 or class == 6 or class == 7 or class == 9 or class == 12 or class == 22 or class == 20 or class == 18 or class == 17   then
+                return true 
+            end
+        end
+        return false
+    end
+    if Config.SeatbeltSound then
+        CreateThread(function()
+            while true do
+                local ped = playerPed
+                local car = GetVehiclePedIsIn(ped)
+                if DoesEntityExist(car) and CheckVehicleHasSeatbelt(car) then
+                    if not seatbeltOn then
+                        local speed = GetEntitySpeed(car) * 3.6
+                        if speed > Config.SeatbeltSoundSpeedLimit then
+                            SendNUIMessage({
+                                type="PLAY_SEATBELT_SOUND",
+                            })
+                        end
+                    end
+                end
+                Wait(2800)
+            end
+        end)
+    end
     local seatbeltSpam = 0
     function playSound(action)
         local ped = playerPed

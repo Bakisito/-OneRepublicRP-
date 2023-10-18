@@ -94,8 +94,6 @@ RegisterNetEvent("qb-clothes:client:CreateFirstCharacter", function()
         PlayerData = pd
         setClientParams()
         InitializeCharacter(Framework.GetGender(true))
-        Wait(1200)
-        TriggerEvent('ps-brand:client:open')
     end)
 end)
 

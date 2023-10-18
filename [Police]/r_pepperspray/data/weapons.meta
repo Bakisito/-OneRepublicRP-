@@ -449,7 +449,7 @@
           <FirstPersonReticuleStyleHash />
           <PickupHash />
           <MPPickupHash />
-          <HumanNameHash>WT_FIRE</HumanNameHash>
+          <HumanNameHash>WT_ANTIDOTE</HumanNameHash>
           <MovementModeConditionalIdle />
           <StatName>EXTINGUISHER</StatName>
           <KnockdownCount value="-1" />

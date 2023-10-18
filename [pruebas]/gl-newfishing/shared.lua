@@ -10,7 +10,7 @@ Config.IllegalSellSpot = vector3(-1014.22, -1366.48, 5.55)
 
 Config.MinFishingTime = 5000
 Config.MaxFishingTime = 50000
-Config.MIBChance = 50
+Config.MIBChance = 10
 
 Config.FishAnywhere = true -- This allows you to fish anywhere
 Config.MinNorth = 7700 -- Min distance to fish (This is a players POSITIVE Y Value)
@@ -108,7 +108,7 @@ Config.MIB = {
     [1] = {
         coords = vector3(579.22,4166.1,37.9),
         message = 'Si estás recibiendo este mensaje, he estado perdido en el mar durante meses. Antes de partir, dejé un alijo lleno de golosinas en este lugar. Como estoy perdido en el mar, ya no lo necesito y no quiero que se desperdicie.',
-        item1 = 'weapon_m1911',
+        item1 = 'headbag',
         item1Amount = 1,
         item2 = 'cash',
         item2Amount = 600
@@ -150,8 +150,8 @@ Config.MIB = {
         coords = vector3(-3173.92, 1336.94, 6.23),
         message = 'Si encontraste esto, mi esposa probablemente me asesinó en el mar. Antes de irnos, escondí algunas cosas debajo de nuestra casa. Son tuyos ahora.',
         item1 = 'cash',
-        item1Amount = 650,
+        item1Amount = 1200,
         item2 = 'ds_diamond',
-        item2Amount = 5
+        item2Amount = 1
     },
 }

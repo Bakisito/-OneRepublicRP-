@@ -52,7 +52,7 @@ Config = {
 		harnessEasyLeave = true,	-- if true players can exit vehicled before removing harness
 		progOff = true,				-- if true add a progressBar to unbuckle harness
 
-		seatbeltNotify = true,		-- if true, show a notification when seatbelt is put on or off
+		seatbeltNotify = false,		-- if true, show a notification when seatbelt is put on or off
 	},
 	CarLifts = {
 		Enable = false,					-- Disable this if using a different carlift script
@@ -137,7 +137,7 @@ Config = {
 	},
 	Odometer = {
 		ShowOdo = true, 			-- Wether the distance is showed in car by default
-		OdoLocation  = "top-right", 	-- Where the Odometer will show,
+		OdoLocation  = "top-left", 	-- Where the Odometer will show,
 										-- "left", "right", "top", "top-left", "top-right", "bottom", "bottom-left", "bottom-right"
 		OdoShowIcons = true, 		-- Enable this to allow the use of the warning icons on the odometer
 		OdoAlwaysShowIcons = true, 	-- Enable this to show the icons even when not damaged

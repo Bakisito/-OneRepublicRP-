@@ -4,7 +4,7 @@ Config.Target = 'qb' -- qb / ox
 Config.Inventory = 'qb' -- qb / lj / ps / ox
 Config.AdminCommand = 'showstores' -- command used to show stores an be able to teleport to each
 Config.Police = {
-    copsneeded = 0, -- amount of cops needed to rob stores
+    copsneeded = 2, -- amount of cops needed to rob stores
     dispatch = 'cd', -- ps = ps-dispatch / cd = cd_dispatch
     failedalertchance = 100,-- 30% chance an alert is triggered if minigame fails
     jobnames = { -- names of all police jobs
@@ -28,7 +28,12 @@ Config.SafeData = {
          [7] = { name = 'weapon_m1911', amount = 1, },
 
     },
-    min = 1500, max = 4000, -- min/max amount of cash that will be given
+    min = 1500, max = 5000, -- min/max amount of cash that will be given
+    dirtymoney = {
+        use = true, -- if to use it will give dirty money if set to false it will give cash
+        item = 'black', -- needs to be whatever item you use in your server for dirty money
+        amount = {min = 1500, max = 5000} -- min and max amount that is given of the dirtymoney
+    }
 }
 Config.RegisterData = {
     minigame = 'ps-circle', -- ps-ui minigames = (ps-circle,ps-maze,ps-var,ps-thermite,ps-scrambler) / memorygame
@@ -49,8 +54,18 @@ Config.MiniGameData = { --  https://github.com/Project-Sloth/ps-ui
     memorygame = { correctblocks = 10, incorrectblocks = 3, timetoshow = 4, timetolose = 10, }
 }
 
+Config.ItemRemoval = {
+    ['lockpick'] = { -- item name
+        chance = 70, -- chance for the item removal
+    },
+    ['advancedlockpick'] = {
+        chance = 30,
+    },
+}
+
 Config.StoreData = {
     [1] = {-- store type id
+        camid = 8,
         type = 'register', -- either safe or register
         target = { -- below is of the boxzone created using the command pzcreate with polyzone
             coords = vector3(25.5, -1345.72, 29.5),
@@ -63,6 +78,7 @@ Config.StoreData = {
         opended = false, busy = false -- DO NOT CHANGE
     },
     [2] = {
+        camid = 8,
         type = 'register',
         target = {
             coords = vector3(25.5, -1347.87, 29.5),
@@ -75,6 +91,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [3] = {
+        camid = 4,
         type = 'register',
         target = {
             coords = vector3(-48.6, -1759.15, 29.42),
@@ -87,6 +104,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [4] = {
+        camid = 4,
         type = 'register',
         target = {
             coords = vector3(-47.19, -1757.59, 29.42),
@@ -99,6 +117,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [5] = {
+        camid = 7,
         type = 'register',
         target = {
             coords = vector3(-706.73, -915.74, 19.22),
@@ -111,6 +130,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [6] = {
+        camid = 7,
         type = 'register',
         target = {
             coords = vector3(-706.73, -913.69, 19.22),
@@ -123,6 +143,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [7] = {
+        camid = 6,
         type = 'register',
         target = {
             coords = vector3(-1222.36, -907.77, 12.33),
@@ -135,6 +156,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [8] = {
+        camid = 5,
         type = 'register',
         target = {
             coords = vector3(-1486.74, -378.51, 40.16),
@@ -147,6 +169,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [9] = {
+        camid = 11,
         type = 'register',
         target = {
             coords = vector3(373.45, 325.61, 103.57),
@@ -159,6 +182,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [10] = {
+        camid = 11,
         type = 'register',
         target = {
             coords = vector3(374.0, 327.70, 103.57),
@@ -171,6 +195,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [11] = {
+        camid = 10,
         type = 'register',
         target = {
             coords = vector3(1164.1, -322.91, 69.21),
@@ -183,6 +208,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [12] = {
+        camid = 10,
         type = 'register',
         target = {
             coords = vector3(1164.45, -324.91, 69.21),
@@ -195,6 +221,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [13] = {
+        camid = 18,
         type = 'register',
         target = {
             coords = vector3(2557.81, 381.85, 108.62),
@@ -207,6 +234,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [14] = {
+        camid = 18,
         type = 'register',
         target = {
             coords = vector3(2555.65, 381.94, 108.62),
@@ -219,6 +247,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [15] = {
+        camid = 13,
         type = 'register',
         target = {
             coords = vector3(-2967.06, 390.91, 15.04),
@@ -231,6 +260,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [16] = {
+        camid = 14,
         type = 'register',
         target = {
             coords = vector3(-3038.75, 585.72, 7.91),
@@ -243,6 +273,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [17] = {
+        camid = 14,
         type = 'register',
         target = {
             coords = vector3(-3040.80, 585.05, 7.91),
@@ -255,6 +286,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [18] = {
+        camid = 15,
         type = 'register',
         target = {
             coords = vector3(-3241.65, 1000.90, 12.83),
@@ -267,6 +299,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [19] = {
+        camid = 15,
         type = 'register',
         target = {
             coords = vector3(-3243.76, 1001.1, 12.83),
@@ -279,6 +312,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [20] = {
+        camid = 12,
         type = 'register',
         target = {
             coords = vector3(-1820.57, 793.73, 138.14),
@@ -291,6 +325,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [21] = {
+        camid = 12,
         type = 'register',
         target = {
             coords = vector3(-1819.19, 792.22, 138.11),
@@ -303,6 +338,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [22] = {
+        camid = 16,
         type = 'register',
         target = {
             coords = vector3(548.00, 2671.75, 42.16),
@@ -315,6 +351,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [23] = {
+        camid = 16,
         type = 'register',
         target = {
             coords = vector3(548.3, 2669.65, 42.16),
@@ -327,6 +364,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [24] = {
+        camid = 19,
         type = 'register',
         target = {
             coords = vector3(1961.3, 3740.0, 32.34),
@@ -339,6 +377,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [25] = {
+        camid = 19,
         type = 'register',
         target = {
             coords = vector3(1960.15, 3741.90, 32.34),
@@ -351,6 +390,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [26] = {
+        camid = 20,
         type = 'register',
         target = {
             coords = vector3(1698.37, 4923.44, 42.06),
@@ -363,6 +403,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [27] = {
+        camid = 1,
         type = 'register',
         target = {
             coords = vector3(1696.66, 4924.59, 42.06),
@@ -375,6 +416,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [28] = {
+        camid = 18,
         type = 'register',
         target = {
             coords = vector3(2679.0, 3279.99, 55.24),
@@ -387,6 +429,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [29] = {
+        camid = 18,
         type = 'register',
         target = {
             coords = vector3(2677.18, 3281.10, 55.24),
@@ -399,6 +442,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [30] = {
+        camid = 20,
         type = 'register',
         target = {
             coords = vector3(1728.5, 6414.25, 36.3),
@@ -411,6 +455,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [31] = {
+        camid = 20,
         type = 'register',
         target = {
             coords = vector3(1729.50, 6416.30, 36.55),
@@ -423,6 +468,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     -- [32] = {
+    --     camid = 35,
     --     type = 'register',
     --     target = {
     --         coords = vector3(-330.7, 6079.69, 31.45),
@@ -435,6 +481,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [33] = {
+    --     camid = 35,
     --     type = 'register',
     --     target = {
     --         coords = vector3(-330.22, 6085.46, 31.45),
@@ -447,6 +494,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [34] = {
+    --     camid = 36,
     --     type = 'register',
     --     target = {
     --         coords = vector3(1693.36, 3755.72, 34.71),
@@ -459,6 +507,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [35] = {
+    --     camid = 36,
     --     type = 'register',
     --     target = {
     --         coords = vector3(1693.62, 3761.58, 34.71),
@@ -471,6 +520,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [36] = {
+    --     camid = 37,
     --     type = 'register',
     --     target = {
     --         coords = vector3(-1118.38, 2694.44, 18.55),
@@ -483,6 +533,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [37] = {
+    --     camid = 37,
     --     type = 'register',
     --     target = {
     --         coords = vector3(-1117.56, 2700.23, 18.55),
@@ -495,9 +546,10 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [38] = {
+    --     camid = 38,
     --     type = 'register',
     --     target = {
-    --         coords = vector3(w),
+    --         coords = vector3(-1307.6, -390.59, 36.7),
     --         length = 0.4, width = 0.6, heading = 76, minZ = 36.7, maxZ = 37.1,
     --         label = 'Abrir caja registradora',
     --         neededitem = 'lockpick'
@@ -507,6 +559,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [39] = {
+    --     camid = 38,
     --     type = 'register',
     --     target = {
     --         coords = vector3(-1305.04, -395.79, 36.7),
@@ -519,6 +572,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [40] = {
+    --     camid = 39,
     --     type = 'register',
     --     target = {
     --         coords = vector3(-665.38, -937.93, 21.83),
@@ -531,6 +585,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [41] = {
+    --     camid = 39,
     --     type = 'register',
     --     target = {
     --         coords = vector3(-660.94, -934.15, 21.83),
@@ -543,6 +598,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [42] = {
+    --     camid = 40,
     --     type = 'register',
     --     target = {
     --         coords = vector3(23.67, -1106.5, 29.8),
@@ -555,6 +611,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [43] = {
+    --     camid = 41,
     --     type = 'register',
     --     target = {
     --         coords = vector3(813.28, -2154.67, 29.62),
@@ -567,6 +624,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [44] = {
+    --     camid = 41,
     --     type = 'register',
     --     target = {
     --         coords = vector3(808.87, -2158.43, 29.62),
@@ -579,6 +637,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [45] = {
+    --     camid = 42,
     --     type = 'register',
     --     target = {
     --         coords = vector3(845.56, -1030.93, 28.19),
@@ -591,6 +650,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     -- [46] = {
+    --     camid = 42,
     --     type = 'register',
     --     target = {
     --         coords = vector3(841.07, -1034.7, 28.19),
@@ -603,6 +663,7 @@ Config.StoreData = {
     --     opended = false, busy = false
     -- },
     [47] = {
+        camid = 8,
         type = 'safe',
         target = {
             coords = vector3(31.60, -1339.3, 30.5),
@@ -615,6 +676,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [48] = {
+        camid = 4,
         type = 'safe',
         target = {
             coords = vector3(-43.94, -1747.98, 29.42),
@@ -627,6 +689,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [49] = {
+        camid = 7,
         type = 'safe',
         target = {
             coords = vector3(-710.4, -904.15, 19.22),
@@ -639,6 +702,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [50] = {
+        camid = 6,
         type = 'safe',
         target = {
             coords = vector3(-1221.34, -916.35, 11.33),
@@ -651,6 +715,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [51] = {
+        camid = 5,
         type = 'safe',
         target = {
             coords = vector3(-1478.47, -375.87, 39.16),
@@ -663,6 +728,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [52] = {
+        camid = 11,
         type = 'safe',
         target = {
             coords = vector3(381.5, 332.43, 104.37),
@@ -675,6 +741,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [53] = {
+        camid = 10,
         type = 'safe',
         target = {
             coords = vector3(1158.83, -314.14, 69.21),
@@ -687,6 +754,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [54] = {
+        camid = 18,
         type = 'safe',
         target = {
             coords = vector3(2549.51, 388.5, 108.62), 
@@ -699,6 +767,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [55] = {
+        camid = 14,
         type = 'safe',
         target = {
             coords = vector3(-3048.88, 589.1, 8.8),
@@ -711,6 +780,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [56] = {
+        camid = 15,
         type = 'safe',
         target = {
             coords = vector3(-3249.58, 1007.80, 13.60),
@@ -722,7 +792,8 @@ Config.StoreData = {
         timer = { min = 1, max = 5 },
         opended = false, busy = false
     },
-    [57] = { 
+    [57] = {
+        camid = 12,
         type = 'safe',
         target = {
             coords = vector3(-1829.67, 798.31, 138.17),
@@ -735,6 +806,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [58] = {
+        camid = 16,
         type = 'safe',
         target = {
             coords = vector3(543.27, 2662.47, 42.80),
@@ -747,6 +819,7 @@ Config.StoreData = {
         opended = false, busy = false
     },
     [59] = {
+        camid = 19,
         type = 'safe',
         target = {
             coords = vector3(1962.04, 3750.39, 32.80),
@@ -758,19 +831,8 @@ Config.StoreData = {
         timer = { min = 1, max = 5 },
         opended = false, busy = false
     },
-    -- [60] = {
-    --     type = 'safe',
-    --     target = {
-    --         coords = vector3(2672.2, 3286.94, 55.24),
-    --         length = 0.8, width = 0.8, heading = 61, minZ = 54.04, maxZ = 55.14,
-    --         label = 'Abrir caja fuerte',
-    --         neededitem = 'advancedlockpick'
-    --     },
-    --     canloot = false,
-    --     timer = { min = 1, max = 5 },
-    --     opended = false, busy = false
-    -- },
-    [61] = {
+    [60] = {
+        camid = 18,
         type = 'safe',
         target = {
             coords = vector3(2674.33, 3289.27, 55.54),
@@ -782,7 +844,8 @@ Config.StoreData = {
         timer = { min = 1, max = 5 },
         opended = false, busy = false
     },
-    [62] = {
+    [61] = {
+        camid = 20,
         type = 'safe',
         target = {
             coords = vector3(1708.23, 4920.93, 42.06),
@@ -794,7 +857,8 @@ Config.StoreData = {
         timer = { min = 1, max = 5 },
         opended = false, busy = false
     },
-    [63] = {
+    [62] = {
+        camid = 20,
         type = 'safe',
         target = {
             coords = vector3(1737.66, 6419.32, 35.50),

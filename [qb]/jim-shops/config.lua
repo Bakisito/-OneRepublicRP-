@@ -64,16 +64,16 @@ Config = {
 		},
 
 		["emsshops"] = {
-			{ name = "bandage", price = 200, amount = 50, },
+			{ name = "bandage", price = 50, amount = 50, },
 			{ name = "painkillers", price = 100, amount = 50, },
-			{ name = "medikit", price = 650, amount = 50, },
+			{ name = "medikit", price = 200, amount = 50, },
 			{ name = "medbag", price = 300, amount = 50, },
 			{ name = "walkstick", price = 1200, amount = 50, },
-			{ name = "bodybag", price = 50, amount = 50, },
+			{ name = "bodybag", price = 25, amount = 50, },
 			{ name = "wheelchair", price = 2500, amount = 50, },
-			{ name = "coughmedicine", price = 200, amount = 50, },
-			{ name = "nasuamedicine", price = 200, amount = 50, },
-			{ name = "gingermedicine", price = 200, amount = 50, },
+			{ name = "coughmedicine", price = 100, amount = 50, },
+			{ name = "nasuamedicine", price = 100, amount = 50, },
+			{ name = "gingermedicine", price = 100, amount = 50, },
 		},
 
 		["normal"] = {
