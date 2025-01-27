@@ -11,9 +11,9 @@
 const LanguageLocaleCode = "es";
 
 // PUBLIC VALUES
-const FiveMServerName = "One Republic";
-const DiscordInviteLink = "https://discord.gg/yjCmVvC5tE";
-const FiveMServerIP = "https://cfx.re/join/vbl3rk";
+const FiveMServerName = "";
+const DiscordInviteLink = "";
+const FiveMServerIP = "";
 
 // This spams the console, only enable for testing if needed
 const DebugLogs = false;
@@ -26,8 +26,8 @@ const DebugLogs = false;
 const EnableDiscordBot = true;
 
 // DISCORD BOT
-const DiscordBotToken = "MTE0NDA3NjQ0ODYzMDU4MzQwNw.GNUD2k.eaM_2bxZfBz5uAKJcG7egzqPGypaP1tKxO5qic";
-const DiscordGuildId = "950612169400152076";
+const DiscordBotToken = "";
+const DiscordGuildId = "";
 
 // STAFF CHAT
 const EnableStaffChatForwarding = false;
@@ -38,7 +38,7 @@ const AdditionalStaffChatRoleIds = [
 
 // WHITELISTING / ALLOWLISTING
 const EnableWhitelistChecking = false;
-const DiscordWhitelistRoleIds = "1037775707440435260, 000000000000000000";
+const DiscordWhitelistRoleIds = ", 000000000000000000";
 
 // SLASH COMMANDS / DISCORD PERMISSIONS
 const EnableDiscordSlashCommands = true;
